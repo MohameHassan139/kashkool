@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ليك عند الناس"
+            android:text="@string/widget_receivables_title"
             android:textColor="@color/widget_text_subtitle"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="كشكول 📒"
+            android:text="@string/widget_app_tag"
             android:textColor="@color/widget_text_subtitle"
             android:textSize="11sp" />
     </LinearLayout>
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="0 ج.م"
+        android:text="@string/widget_zero_amount"
         android:textColor="@color/widget_text_title"
         android:textSize="20sp"
         android:textStyle="bold"

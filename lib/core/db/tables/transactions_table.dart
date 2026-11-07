@@ -10,6 +10,7 @@ enum TransactionType { debt, payment }
 enum PaymentMethod { cash, instapay, wallet, other }
 
 /// Table storing all debts and payments for both customers and suppliers.
+/// Financial records are immutable & append-only.
 class Transactions extends Table with BaseTable {
   /// Whether this transaction is for a customer or a supplier
   TextColumn get partyType => textEnum<PartyType>()();
@@ -34,4 +35,7 @@ class Transactions extends Table with BaseTable {
 
   /// Date and time when the transaction actually took place
   DateTimeColumn get occurredAt => dateTime().withDefault(currentDateAndTime)();
+
+  /// Reference to replacement transaction if this row was soft-edited (append-only)
+  TextColumn get supersededById => text().nullable()();
 }

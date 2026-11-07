@@ -1,4 +1,4 @@
-package com.example.kashkool
+package app.kashkool
 
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -17,13 +17,22 @@ class KashkoolMediumWidgetProvider : HomeWidgetProvider() {
     ) {
         appWidgetIds.forEach { widgetId ->
             val views = RemoteViews(context.packageName, R.layout.kashkool_medium_widget).apply {
-                val totalReceivables = widgetData.getString("total_receivables", "0 ج.م") ?: "0 ج.م"
-                val collectedToday = widgetData.getString("collected_today", "0 ج.م") ?: "0 ج.م"
-                val dueCount = widgetData.getString("due_count", "0 عملاء") ?: "0 عملاء"
-
-                setTextViewText(R.id.widget_total_receivables, totalReceivables)
-                setTextViewText(R.id.widget_collected_today, collectedToday)
-                setTextViewText(R.id.widget_due_count, dueCount)
+                setTextViewText(
+                    R.id.widget_total_receivables,
+                    KashkoolWidgetData.totalReceivables(context, widgetData)
+                )
+                setTextViewText(
+                    R.id.widget_collected_today,
+                    KashkoolWidgetData.collectedToday(context, widgetData)
+                )
+                setTextViewText(
+                    R.id.widget_due_count,
+                    KashkoolWidgetData.dueCount(context, widgetData)
+                )
+                setTextViewText(
+                    R.id.widget_last_updated,
+                    KashkoolWidgetData.lastUpdated(context, widgetData)
+                )
 
                 // Open App Home
                 val homeIntent = HomeWidgetLaunchIntent.getActivity(

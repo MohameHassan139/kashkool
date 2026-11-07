@@ -7,6 +7,9 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../installments/presentation/add_installment_plan_screen.dart';
+import '../../installments/presentation/installment_plan_details_screen.dart';
+import '../../installments/presentation/installments_providers.dart';
 import '../../statement/presentation/statement_preview_screen.dart';
 import '../../transactions/presentation/add_transaction_bottom_sheet.dart';
 import '../../transactions/presentation/transaction_details_bottom_sheet.dart';
@@ -24,9 +27,9 @@ class CustomerDetailsScreen extends ConsumerWidget {
 
   Future<void> _callPhone(String phone) async {
     final uri = Uri.parse('tel:$phone');
-    if (await canLaunchUrl(uri)) {
+    try {
       await launchUrl(uri);
-    }
+    } catch (_) {}
   }
 
   Future<void> _confirmDelete(BuildContext context, WidgetRef ref, Customer customer, int balance) async {
@@ -371,7 +374,68 @@ class CustomerDetailsScreen extends ConsumerWidget {
                 ),
               ),
 
-              const SizedBox(height: 16),
+              // Customer Installments Card
+              ref.watch(customerInstallmentPlansStreamProvider(customer.id)).when(
+                    loading: () => const SizedBox.shrink(),
+                    error: (_, _) => const SizedBox.shrink(),
+                    data: (plans) {
+                      final activePlans = plans.where((p) => p.plan.status == PlanStatus.active).toList();
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+                        child: Card(
+                          elevation: 0,
+                          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.receipt_long_rounded, color: AppColors.primaryGreen),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    activePlans.isNotEmpty
+                                        ? 'أقساط نشطة (${activePlans.length}) • باقي: ${MoneyUtils.formatMoney(activePlans.fold<int>(0, (s, p) => s + p.remainingPiasters))}'
+                                        : 'بيع بالتقسيط للعميل',
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                                  ),
+                                ),
+                                if (activePlans.isNotEmpty)
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (ctx) => InstallmentPlanDetailsScreen(planId: activePlans.first.plan.id),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('عرض'),
+                                  ),
+                                IconButton(
+                                  icon: const Icon(Icons.add_circle_outline, color: AppColors.primaryGreen),
+                                  tooltip: 'إضافة قسط جديد',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (ctx) => AddInstallmentPlanScreen(initialCustomerId: customer.id),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+              const SizedBox(height: 8),
               const Divider(height: 1),
 
               // Transaction History List

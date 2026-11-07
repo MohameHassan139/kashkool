@@ -361,5 +361,16 @@
   },
   "readOnlyDayNotice": "هذا اليوم مقفول. لإجراء تعديلات اضغط على إعادة فتح اليوم.",
   "privacyModeTitle": "وضع الخصوصية",
-  "privacyModeSubtitle": "إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)"
+  "privacyModeSubtitle": "إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)",
+  "shareAppTitle": "شارك التطبيق",
+  "shareAppSubtitle": "ابعت كشكول لصحابك أصحاب المحلات",
+  "shopCodeLabel": "كود المحل: {code}",
+  "@shopCodeLabel": {
+    "placeholders": {
+      "code": { "type": "String" }
+    }
+  },
+  "growthFooterToggleTitle": "إخفاء توقيع كشكول من الرسائل",
+  "growthFooterToggleSubtitle": "متاح في الباقة المدفوعة 🔒",
+  "codeCopied": "تم نسخ الكود"
 }

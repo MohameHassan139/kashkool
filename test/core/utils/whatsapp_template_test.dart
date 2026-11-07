@@ -7,6 +7,9 @@ void main() {
     test('renders friendly template with placeholders and growth footer', () {
       final tx = Transaction(
         id: 'tx-1',
+        shopId: 'shop-1',
+        deviceId: 'dev-1',
+        createdBy: 'user-1',
         partyType: PartyType.customer,
         partyId: 'c-1',
         type: TransactionType.debt,
@@ -22,6 +25,7 @@ void main() {
         balancePiasters: 75000, // 750 EGP
         lastTransaction: tx,
         paymentInfo: 'إنستاباي على 01012345678',
+        shopCode: 'K7X9W2',
       );
 
       expect(rendered, contains('محمود عبد العزيز'));
@@ -30,7 +34,8 @@ void main() {
       expect(rendered, contains('2026/11/01'));
       expect(rendered, contains('150 جنيه'));
       expect(rendered, contains('إنستاباي على 01012345678'));
-      expect(rendered, contains('تم الإرسال عبر تطبيق كشكول 📒'));
+      expect(rendered, contains('اتعمل بكشكول 📒 جرّبه ببلاش:'));
+      expect(rendered, contains('referrer=ref%3DK7X9W2'));
     });
 
     test('renders formal template correctly', () {

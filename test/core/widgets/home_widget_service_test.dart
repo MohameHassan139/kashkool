@@ -68,6 +68,50 @@ void main() {
       expect(savedData[HomeWidgetService.keyTotalReceivables], equals('••••••'));
       expect(savedData[HomeWidgetService.keyCollectedToday], equals('••••••'));
       expect(savedData[HomeWidgetService.keyDueCount], equals('7 عملاء'));
+      expect(savedData[HomeWidgetService.keyPrivacyMode], equals('true'));
+    });
+
+    test('saves last-update date and time for the native widget', () async {
+      await service.updateWidgetData(
+        totalReceivablesPiasters: 0,
+        collectedTodayPiasters: 0,
+        dueCount: 0,
+        now: DateTime(2026, 3, 5, 9, 7),
+      );
+
+      expect(savedData[HomeWidgetService.keyUpdatedDate], equals('2026-03-05'));
+      expect(savedData[HomeWidgetService.keyUpdatedTime], equals('09:07'));
+      expect(savedData[HomeWidgetService.keyPrivacyMode], equals('false'));
+      expect(savedData[HomeWidgetService.keyDueCount], equals('مفيش'));
+    });
+
+    test('saves the on/off flag so the native widget can show "متوقفة"', () async {
+      await service.updateWidgetData(
+        totalReceivablesPiasters: 1000,
+        collectedTodayPiasters: 0,
+        dueCount: 1,
+        enabled: false,
+      );
+      expect(savedData[HomeWidgetService.keyWidgetEnabled], equals('false'));
+
+      await service.updateWidgetData(
+        totalReceivablesPiasters: 1000,
+        collectedTodayPiasters: 0,
+        dueCount: 1,
+      );
+      expect(savedData[HomeWidgetService.keyWidgetEnabled], equals('true'));
+    });
+  });
+
+  group('formatCustomerCount', () {
+    test('uses correct Egyptian Arabic grammar', () {
+      expect(HomeWidgetService.formatCustomerCount(0), 'مفيش');
+      expect(HomeWidgetService.formatCustomerCount(1), 'عميل واحد');
+      expect(HomeWidgetService.formatCustomerCount(2), 'عميلين');
+      expect(HomeWidgetService.formatCustomerCount(3), '3 عملاء');
+      expect(HomeWidgetService.formatCustomerCount(10), '10 عملاء');
+      expect(HomeWidgetService.formatCustomerCount(11), '11 عميل');
+      expect(HomeWidgetService.formatCustomerCount(150), '150 عميل');
     });
   });
 }

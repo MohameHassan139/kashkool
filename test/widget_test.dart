@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,8 +6,40 @@ import 'package:kashkool/core/db/app_database.dart';
 import 'package:kashkool/main.dart';
 
 void main() {
-  testWidgets('App renders Arabic navigation bar and launches without error', (WidgetTester tester) async {
+  testWidgets('Fresh app launches directly into onboarding wizard', (WidgetTester tester) async {
     final testDb = AppDatabase(NativeDatabase.memory());
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          databaseProvider.overrideWithValue(testDb),
+        ],
+        child: const KashkoolApp(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Verify Onboarding Wizard is displayed
+    expect(find.text('تهيئة كشكول لأول مرة'), findsOneWidget);
+    expect(find.text('أهلاً بك في كشكول! 👋'), findsOneWidget);
+    expect(find.text('متابعة نوع النشاط'), findsOneWidget);
+
+    await testDb.close();
+  });
+
+  testWidgets('App renders Arabic navigation bar when onboarding is completed', (WidgetTester tester) async {
+    final testDb = AppDatabase(NativeDatabase.memory());
+    final now = DateTime.now();
+
+    await testDb.into(testDb.appSettings).insert(
+      AppSettingsCompanion(
+        id: const Value('setting-onboarding_completed'),
+        key: const Value('onboarding_completed'),
+        value: const Value('true'),
+        createdAt: Value(now),
+        updatedAt: Value(now),
+      ),
+    );
 
     await tester.pumpWidget(
       ProviderScope(

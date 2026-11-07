@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../features/cash_drawer/data/cash_drawer_repository.dart';
 import '../../features/collection/data/collection_repository.dart';
@@ -20,9 +21,25 @@ class HomeWidgetSyncCoordinator {
   final Ref _ref;
   bool _isDisposed = false;
 
+  AppLifecycleListener? _lifecycleListener;
+
   HomeWidgetSyncCoordinator(this._ref) {
-    _ref.onDispose(() => _isDisposed = true);
+    _ref.onDispose(() {
+      _isDisposed = true;
+      _lifecycleListener?.dispose();
+    });
     _initListeners();
+    _listenToAppResume();
+  }
+
+  /// Re-syncs whenever the app returns to the foreground, so the widget picks up
+  /// a new day (collected today = 0, fresh due list) as soon as the owner opens the app.
+  void _listenToAppResume() {
+    try {
+      _lifecycleListener = AppLifecycleListener(onResume: _sync);
+    } catch (_) {
+      // No WidgetsBinding (e.g. pure Dart tests) — resume sync is not needed there.
+    }
   }
 
   void _initListeners() {
@@ -30,6 +47,7 @@ class HomeWidgetSyncCoordinator {
     _ref.listen(todayDrawerSummaryProvider, (_, _) => _sync());
     _ref.listen(dueSummaryProvider, (_, _) => _sync());
     _ref.listen(privacyModeProvider, (_, _) => _sync());
+    _ref.listen(homeWidgetEnabledProvider, (_, _) => _sync());
   }
 
   Future<void> _sync() async {
@@ -53,6 +71,9 @@ class HomeWidgetSyncCoordinator {
       final privacyMode = await settingsRepo.getPrivacyMode();
       if (_isDisposed) return;
 
+      final widgetEnabled = await settingsRepo.getHomeWidgetEnabled();
+      if (_isDisposed) return;
+
       final collectedToday = drawerSummary.customerCashPaymentsPiasters +
           drawerSummary.customerDigitalPaymentsPiasters;
       final dueCount = dueSummary.count;
@@ -62,6 +83,7 @@ class HomeWidgetSyncCoordinator {
         collectedTodayPiasters: collectedToday,
         dueCount: dueCount,
         privacyMode: privacyMode,
+        enabled: widgetEnabled,
       );
     } catch (_) {
       // Disposed container or uninitialized test channel

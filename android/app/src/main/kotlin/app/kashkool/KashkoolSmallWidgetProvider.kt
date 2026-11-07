@@ -1,4 +1,4 @@
-package com.example.kashkool
+package app.kashkool
 
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -17,8 +17,10 @@ class KashkoolSmallWidgetProvider : HomeWidgetProvider() {
     ) {
         appWidgetIds.forEach { widgetId ->
             val views = RemoteViews(context.packageName, R.layout.kashkool_small_widget).apply {
-                val totalReceivables = widgetData.getString("total_receivables", "0 ج.م") ?: "0 ج.م"
-                setTextViewText(R.id.widget_total_receivables, totalReceivables)
+                setTextViewText(
+                    R.id.widget_total_receivables,
+                    KashkoolWidgetData.totalReceivables(context, widgetData)
+                )
 
                 val pendingIntent = HomeWidgetLaunchIntent.getActivity(
                     context,

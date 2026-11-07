@@ -21,9 +21,9 @@ class SupplierDetailsScreen extends ConsumerWidget {
 
   Future<void> _callPhone(String phone) async {
     final uri = Uri.parse('tel:$phone');
-    if (await canLaunchUrl(uri)) {
+    try {
       await launchUrl(uri);
-    }
+    } catch (_) {}
   }
 
   Future<void> _confirmDelete(

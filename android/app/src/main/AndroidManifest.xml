@@ -1,8 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
     <application
-        android:label="kashkool"
+        android:label="كشكول"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -36,6 +40,7 @@
         <!-- Small Widget (2x1) -->
         <receiver
             android:name=".KashkoolSmallWidgetProvider"
+            android:label="@string/widget_small_label"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -48,6 +53,7 @@
         <!-- Medium Widget (4x2) -->
         <receiver
             android:name=".KashkoolMediumWidgetProvider"
+            android:label="@string/widget_medium_label"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -790,4 +790,24 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get privacyModeSubtitle =>
       'Hide financial amounts in home & widgets (••••••)';
+
+  @override
+  String get shareAppTitle => 'Share the App';
+
+  @override
+  String get shareAppSubtitle => 'Send Kashkool to fellow shop owners';
+
+  @override
+  String shopCodeLabel(String code) {
+    return 'Shop code: $code';
+  }
+
+  @override
+  String get growthFooterToggleTitle => 'Hide Kashkool signature from messages';
+
+  @override
+  String get growthFooterToggleSubtitle => 'Available in the paid plan 🔒';
+
+  @override
+  String get codeCopied => 'Code copied';
 }

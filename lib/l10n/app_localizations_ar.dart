@@ -786,4 +786,24 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get privacyModeSubtitle =>
       'إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)';
+
+  @override
+  String get shareAppTitle => 'شارك التطبيق';
+
+  @override
+  String get shareAppSubtitle => 'ابعت كشكول لصحابك أصحاب المحلات';
+
+  @override
+  String shopCodeLabel(String code) {
+    return 'كود المحل: $code';
+  }
+
+  @override
+  String get growthFooterToggleTitle => 'إخفاء توقيع كشكول من الرسائل';
+
+  @override
+  String get growthFooterToggleSubtitle => 'متاح في الباقة المدفوعة 🔒';
+
+  @override
+  String get codeCopied => 'تم نسخ الكود';
 }

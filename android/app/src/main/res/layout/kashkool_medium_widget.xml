@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ليك عند الناس (كشكول 📒)"
+                android:text="@string/widget_receivables_title"
                 android:textColor="@color/widget_text_subtitle"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="0 ج.م"
+                android:text="@string/widget_zero_amount"
                 android:textColor="@color/widget_text_title"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -51,14 +51,15 @@
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="تحصيل 🔔"
+            android:text="@string/widget_collect_button"
             android:textColor="@color/widget_btn_text"
             android:textSize="14sp"
             android:textStyle="bold"
             android:gravity="center" />
     </LinearLayout>
 
-    <View
+    <!-- Divider: FrameLayout because plain <View> is not allowed inside app widgets -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -84,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="محصل اليوم"
+                android:text="@string/widget_collected_today_title"
                 android:textColor="@color/widget_text_subtitle"
                 android:textSize="11sp" />
 
@@ -93,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="0 ج.م"
+                android:text="@string/widget_zero_amount"
                 android:textColor="@color/widget_green"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -113,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="مستحق للتحصيل"
+                android:text="@string/widget_due_title"
                 android:textColor="@color/widget_text_subtitle"
                 android:textSize="11sp" />
 
@@ -122,11 +123,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="0 عملاء"
+                android:text="@string/widget_no_customers"
                 android:textColor="@color/widget_amber"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:maxLines="1" />
         </LinearLayout>
     </LinearLayout>
+
+    <!-- Last update time (or a hint to open the app when the data is from a previous day) -->
+    <TextView
+        android:id="@+id/widget_last_updated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="start"
+        android:text="@string/widget_open_to_update"
+        android:textColor="@color/widget_text_subtitle"
+        android:textSize="10sp"
+        android:maxLines="1" />
 </LinearLayout>

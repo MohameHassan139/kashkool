@@ -6,6 +6,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/whatsapp_template.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../customers/presentation/customer_details_screen.dart';
+import '../../installments/presentation/installments_providers.dart';
 import '../../settings/data/settings_repository.dart';
 import '../../transactions/presentation/add_transaction_bottom_sheet.dart';
 import '../data/collection_repository.dart';
@@ -13,6 +14,7 @@ import '../domain/due_customer.dart';
 import 'collection_providers.dart';
 import 'widgets/collection_header_card.dart';
 import 'widgets/collection_list_item.dart';
+import 'widgets/due_installments_tab.dart';
 
 /// Screen for daily collection reminders, listing customers due for payment with one-tap WhatsApp.
 class CollectionScreen extends ConsumerStatefulWidget {
@@ -23,17 +25,20 @@ class CollectionScreen extends ConsumerStatefulWidget {
 }
 
 class _CollectionScreenState extends ConsumerState<CollectionScreen>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   bool _isPrompting = false;
+  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -99,8 +104,10 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
     final template = await settings.getMessageTemplate();
     final shopName = await settings.getShopName();
     final paymentInfo = await settings.getPaymentInfo();
+    final shopCode = await settings.getOrCreateShopCode();
 
     final message = WhatsAppTemplateUtils.render(
+      shopCode: shopCode,
       template: template,
       customerName: item.customer.name,
       shopName: shopName,
@@ -151,8 +158,10 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
     final template = await settings.getMessageTemplate();
     final shopName = await settings.getShopName();
     final paymentInfo = await settings.getPaymentInfo();
+    final shopCode = await settings.getOrCreateShopCode();
 
     final message = WhatsAppTemplateUtils.render(
+      shopCode: shopCode,
       template: template,
       customerName: item.customer.name,
       shopName: shopName,
@@ -169,9 +178,9 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
 
   Future<void> _callCustomer(String phone) async {
     final uri = Uri.parse('tel:$phone');
-    if (await canLaunchUrl(uri)) {
+    try {
       await launchUrl(uri);
-    }
+    } catch (_) {}
   }
 
   Future<void> _handleMenuAction(String action, DueCustomer item) async {
@@ -230,98 +239,137 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
 
     final dueListAsync = ref.watch(dueCustomersStreamProvider);
     final summaryAsync = ref.watch(dueSummaryStreamProvider);
+    final dueInstallmentsAsync = ref.watch(dueInstallmentsStreamProvider);
+    final dueInstallmentsCount = dueInstallmentsAsync.value?.length ?? 0;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.navCollection),
-      ),
-      body: dueListAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text(err.toString())),
-        data: (dueList) {
-          if (dueList.isEmpty) {
-            return Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(32.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: l10n.navCollection),
+            Tab(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('أقساط مستحقة'),
+                  if (dueInstallmentsCount > 0) ...[
+                    const SizedBox(width: 6),
                     Container(
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: AppColors.paymentGreen.withValues(alpha: 0.12),
-                        shape: BoxShape.circle,
+                        color: AppColors.debtRed,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Icon(
-                        Icons.celebration_rounded,
-                        size: 64,
-                        color: AppColors.paymentGreen,
+                      child: Text(
+                        '$dueInstallmentsCount',
+                        style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      l10n.noDueCustomersTitle,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.noDueCustomersSubtitle,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.disabledColor,
-                      ),
-                      textAlign: TextAlign.center,
                     ),
                   ],
-                ),
+                ],
               ),
-            );
-          }
-
-          return Column(
-            children: [
-              // Summary Header Card
-              summaryAsync.when(
-                data: (summary) => CollectionHeaderCard(
-                  count: summary.count,
-                  totalPiasters: summary.totalPiasters,
-                ),
-                loading: () => const SizedBox.shrink(),
-                error: (e, s) => const SizedBox.shrink(),
-              ),
-
-              // Due Customers List
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.only(top: 4, bottom: 88),
-                  itemCount: dueList.length,
-                  itemBuilder: (ctx, idx) {
-                    final item = dueList[idx];
-                    return CollectionListItem(
-                      item: item,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => CustomerDetailsScreen(
-                              customerId: item.customer.id,
+            ),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+            // Tab 1: Customers Ledger Debts
+            dueListAsync.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (err, stack) => Center(child: Text(err.toString())),
+              data: (dueList) {
+                if (dueList.isEmpty) {
+                  return Center(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(24),
+                            decoration: BoxDecoration(
+                              color: AppColors.paymentGreen.withValues(alpha: 0.12),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.celebration_rounded,
+                              size: 64,
+                              color: AppColors.paymentGreen,
                             ),
                           ),
-                        );
-                      },
-                      onWhatsApp: () => _launchWhatsApp(item),
-                      onSms: () => _launchSms(item),
-                      onCall: () => _callCustomer(item.customer.phone!),
-                      onActionSelected: (action) => _handleMenuAction(action, item),
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
+                          const SizedBox(height: 20),
+                          Text(
+                            l10n.noDueCustomersTitle,
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            l10n.noDueCustomersSubtitle,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.disabledColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                return Column(
+                  children: [
+                    // Summary Header Card
+                    summaryAsync.when(
+                      data: (summary) => CollectionHeaderCard(
+                        count: summary.count,
+                        totalPiasters: summary.totalPiasters,
+                      ),
+                      loading: () => const SizedBox.shrink(),
+                      error: (e, s) => const SizedBox.shrink(),
+                    ),
+
+                    // Due Customers List
+                    Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.only(top: 4, bottom: 88),
+                        itemCount: dueList.length,
+                        itemBuilder: (ctx, idx) {
+                          final item = dueList[idx];
+                          return CollectionListItem(
+                            item: item,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => CustomerDetailsScreen(
+                                    customerId: item.customer.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            onWhatsApp: () => _launchWhatsApp(item),
+                            onSms: () => _launchSms(item),
+                            onCall: () => _callCustomer(item.customer.phone!),
+                            onActionSelected: (action) => _handleMenuAction(action, item),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+
+            // Tab 2: Due Installments
+            const DueInstallmentsTab(),
+          ],
+        ),
+      );
   }
 }

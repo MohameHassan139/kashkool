@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 abstract final class AppColors {
   // Primary brand colors
   static const Color primaryBlue = Color(0xFF1E3A8A);
+  static const Color primaryNavy = primaryBlue;
   static const Color primaryBlueLight = Color(0xFF2563EB);
 
   // Semantic financial colors (Egypt shop colloquial semantics)
@@ -15,6 +16,7 @@ abstract final class AppColors {
   /// "دفع" (payment / shop received money) - Green
   static const Color paymentGreen = Color(0xFF16A34A);
   static const Color paymentGreenLight = Color(0xFFDCFCE7);
+  static const Color primaryGreen = paymentGreen;
 
   /// Warning / Credit limit / Due soon - Amber
   static const Color warningAmber = Color(0xFFD97706);
@@ -24,6 +26,9 @@ abstract final class AppColors {
   static const Color neutralGrey = Color(0xFF6B7280);
   static const Color neutralGreyLight = Color(0xFFF3F4F6);
   static const Color neutralGreyDark = Color(0xFF374151);
+
+  /// High contrast dark text
+  static const Color textDark = Color(0xFF1F2937);
 
   // Surface & backgrounds
   static const Color lightBg = Color(0xFFF9FAFB);

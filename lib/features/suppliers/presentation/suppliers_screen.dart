@@ -38,9 +38,9 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
 
   Future<void> _callPhone(String phone) async {
     final uri = Uri.parse('tel:$phone');
-    if (await canLaunchUrl(uri)) {
+    try {
       await launchUrl(uri);
-    }
+    } catch (_) {}
   }
 
   @override

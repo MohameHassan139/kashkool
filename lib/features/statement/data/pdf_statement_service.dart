@@ -7,6 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../core/db/app_database.dart';
+import '../../../core/growth/growth_footer.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../domain/statement_filter.dart';
@@ -44,6 +45,8 @@ class PdfStatementService {
     String? shopPhone,
     String? paymentInfo,
     StatementPageFormat pageFormat = StatementPageFormat.a4,
+    String? shopCode,
+    bool includeGrowthFooter = true,
   }) async {
     final font = await _loadFont();
     final pdf = pw.Document();
@@ -328,13 +331,27 @@ class PdfStatementService {
 
             pw.SizedBox(height: 16),
 
-            // Footer
-            pw.Center(
-              child: pw.Text(
-                'تم استخراج هذا الكشف عبر تطبيق كشكول 📒',
-                style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey600),
+            // Growth footer (Feature 11) — emoji omitted because Cairo has no emoji glyphs.
+            if (includeGrowthFooter)
+              pw.Center(
+                child: pw.Column(
+                  children: [
+                    pw.Text(
+                      'اتعمل بكشكول — جرّبه ببلاش:',
+                      style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
+                    ),
+                    pw.SizedBox(height: 2),
+                    pw.UrlLink(
+                      destination: GrowthFooter.buildLink(shopCode),
+                      child: pw.Text(
+                        GrowthFooter.buildLink(shopCode),
+                        textDirection: pw.TextDirection.ltr,
+                        style: const pw.TextStyle(fontSize: 7, color: PdfColors.blue800),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ];
         },
       ),

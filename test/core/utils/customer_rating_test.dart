@@ -13,6 +13,9 @@ void main() {
   }) {
     return Transaction(
       id: id,
+      shopId: 'shop-1',
+      deviceId: 'dev-1',
+      createdBy: 'user-1',
       partyType: PartyType.customer,
       partyId: 'cust-1',
       type: type,

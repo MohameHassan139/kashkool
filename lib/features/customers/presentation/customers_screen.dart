@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../onboarding/data/shop_repository.dart';
+import '../../settings/data/settings_repository.dart';
 import '../../suppliers/presentation/suppliers_providers.dart';
 import '../domain/customer_filter_sort.dart';
 import 'add_edit_customer_screen.dart';
@@ -46,11 +49,33 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
     final netPositionAsync = ref.watch(netMarketPositionStreamProvider);
     final activeFilter = ref.watch(customerFilterProvider);
     final activeSort = ref.watch(customerSortProvider);
+    final privacyMode = ref.watch(privacyModeProvider).valueOrNull ?? false;
+    final installmentsEnabled = ref.watch(installmentsEnabledProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.navCustomers),
         actions: [
+          // Installments Quick Entry (visible when enabled for shop)
+          if (installmentsEnabled)
+            IconButton(
+              icon: const Icon(Icons.receipt_long_rounded),
+              tooltip: 'نظام الأقساط',
+              onPressed: () {
+                context.push('/installments');
+              },
+            ),
+          // Quick Privacy Mode Toggle
+          IconButton(
+            icon: Icon(
+              privacyMode ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+              color: privacyMode ? AppColors.warningAmber : null,
+            ),
+            tooltip: 'وضع الخصوصية',
+            onPressed: () async {
+              await ref.read(settingsRepositoryProvider).setPrivacyMode(!privacyMode);
+            },
+          ),
           // Sort Options Menu
           PopupMenuButton<CustomerSort>(
             icon: const Icon(Icons.sort_rounded),

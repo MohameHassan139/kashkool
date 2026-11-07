@@ -361,5 +361,16 @@
   },
   "readOnlyDayNotice": "This day is closed. To make changes, tap Reopen Day.",
   "privacyModeTitle": "Privacy Mode",
-  "privacyModeSubtitle": "Hide financial amounts in home & widgets (••••••)"
+  "privacyModeSubtitle": "Hide financial amounts in home & widgets (••••••)",
+  "shareAppTitle": "Share the App",
+  "shareAppSubtitle": "Send Kashkool to fellow shop owners",
+  "shopCodeLabel": "Shop code: {code}",
+  "@shopCodeLabel": {
+    "placeholders": {
+      "code": { "type": "String" }
+    }
+  },
+  "growthFooterToggleTitle": "Hide Kashkool signature from messages",
+  "growthFooterToggleSubtitle": "Available in the paid plan 🔒",
+  "codeCopied": "Code copied"
 }

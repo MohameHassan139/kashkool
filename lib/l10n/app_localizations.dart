@@ -1539,6 +1539,42 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)'**
   String get privacyModeSubtitle;
+
+  /// No description provided for @shareAppTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'شارك التطبيق'**
+  String get shareAppTitle;
+
+  /// No description provided for @shareAppSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابعت كشكول لصحابك أصحاب المحلات'**
+  String get shareAppSubtitle;
+
+  /// No description provided for @shopCodeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'كود المحل: {code}'**
+  String shopCodeLabel(String code);
+
+  /// No description provided for @growthFooterToggleTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'إخفاء توقيع كشكول من الرسائل'**
+  String get growthFooterToggleTitle;
+
+  /// No description provided for @growthFooterToggleSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'متاح في الباقة المدفوعة 🔒'**
+  String get growthFooterToggleSubtitle;
+
+  /// No description provided for @codeCopied.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم نسخ الكود'**
+  String get codeCopied;
 }
 
 class _AppLocalizationsDelegate

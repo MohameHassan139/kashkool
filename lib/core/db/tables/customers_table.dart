@@ -9,6 +9,9 @@ class Customers extends Table with BaseTable {
   /// Normalized Egyptian mobile phone (optional, e.g. "01012345678")
   TextColumn get phone => text().nullable()();
 
+  /// Optional National ID (Egypt Law 151/2020)
+  TextColumn get nationalId => text().nullable()();
+
   /// Optional notes (e.g. "جار الدور التاني", "شغال في الورشة")
   TextColumn get notes => text().nullable()();
 

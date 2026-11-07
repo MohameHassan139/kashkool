@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../db/app_database.dart';
+import '../growth/growth_footer.dart';
 import 'money.dart';
 import 'phone.dart';
 
@@ -21,7 +22,19 @@ abstract final class WhatsAppTemplateUtils {
       'طرق السداد المتاحة: {payment_info}\n'
       'مع خالص الشكر والتقدير.';
 
-  static const String growthFooter = '\nتم الإرسال عبر تطبيق كشكول 📒';
+  static const String defaultInstallmentTemplate =
+      'السلام عليكم أ/ {customer_name} 👋\n'
+      'معاك {shop_name}.\n'
+      'بنفكرك بميعاد استحقاق قسط ({item}) - القسط رقم {installment_number} من {installment_count}:\n'
+      'المبلغ المستحق: {amount}\n'
+      'تاريخ الاستحقاق: {due_date}\n'
+      'إجمالي المتبقي من الأقساط: {remaining_total}\n'
+      'طرق السداد المتاحة: {payment_info}\n'
+      'شكراً لالتزامك معانا 🙏';
+
+  /// Builds the growth footer (with referral link) appended to messages.
+  static String growthFooter([String? shopCode]) =>
+      '\n\n${GrowthFooter.footerText(shopCode)}';
 
   /// Renders template string with dynamic values and appends Kashkool growth footer.
   static String render({
@@ -32,6 +45,7 @@ abstract final class WhatsAppTemplateUtils {
     Transaction? lastTransaction,
     String? paymentInfo,
     bool includeGrowthFooter = true,
+    String? shopCode,
   }) {
     final balanceStr = MoneyUtils.formatMoney(balancePiasters);
     final dateFmt = DateFormat('yyyy/MM/dd');
@@ -57,7 +71,48 @@ abstract final class WhatsAppTemplateUtils {
         .replaceAll('{payment_info}', payInfoStr);
 
     if (includeGrowthFooter) {
-      result += growthFooter;
+      result += growthFooter(shopCode);
+    }
+
+    return result;
+  }
+
+  /// Renders installment reminder template string with dynamic values.
+  static String renderInstallmentReminder({
+    String template = defaultInstallmentTemplate,
+    required String customerName,
+    String shopName = 'كشكول',
+    required String itemDescription,
+    required int installmentNumber,
+    required int installmentCount,
+    required int amountPiasters,
+    required DateTime dueDate,
+    required int remainingTotalPiasters,
+    String? paymentInfo,
+    bool includeGrowthFooter = true,
+    String? shopCode,
+  }) {
+    final dateFmt = DateFormat('yyyy/MM/dd');
+    final amountStr = MoneyUtils.formatMoney(amountPiasters);
+    final remainingStr = MoneyUtils.formatMoney(remainingTotalPiasters);
+    final dueDateStr = dateFmt.format(dueDate);
+    final payInfoStr = (paymentInfo != null && paymentInfo.trim().isNotEmpty)
+        ? paymentInfo.trim()
+        : 'كاش في المحل أو التحويل المتاح';
+
+    var result = template
+        .replaceAll('{customer_name}', customerName)
+        .replaceAll('{shop_name}', shopName.trim().isEmpty ? 'كشكول' : shopName.trim())
+        .replaceAll('{item}', itemDescription)
+        .replaceAll('{installment_number}', installmentNumber.toString())
+        .replaceAll('{installment_count}', installmentCount.toString())
+        .replaceAll('{amount}', amountStr)
+        .replaceAll('{due_date}', dueDateStr)
+        .replaceAll('{remaining_total}', remainingStr)
+        .replaceAll('{payment_info}', payInfoStr);
+
+    if (includeGrowthFooter) {
+      result += growthFooter(shopCode);
     }
 
     return result;
@@ -101,10 +156,9 @@ abstract final class WhatsAppTemplateUtils {
 
     final uri = Uri.parse(urlStr);
     try {
-      if (await canLaunchUrl(uri)) {
-        return await launchUrl(uri, mode: LaunchMode.externalApplication);
-      }
-      return false;
+      final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (launched) return true;
+      return await launchUrl(uri);
     } catch (_) {
       return false;
     }
@@ -117,10 +171,9 @@ abstract final class WhatsAppTemplateUtils {
   }) async {
     final uri = buildSmsUri(phone: phone, message: message);
     try {
-      if (await canLaunchUrl(uri)) {
-        return await launchUrl(uri, mode: LaunchMode.externalApplication);
-      }
-      return false;
+      final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (launched) return true;
+      return await launchUrl(uri);
     } catch (_) {
       return false;
     }

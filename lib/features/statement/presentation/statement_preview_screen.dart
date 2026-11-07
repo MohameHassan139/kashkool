@@ -47,6 +47,7 @@ class _StatementPreviewScreenState extends ConsumerState<StatementPreviewScreen>
     final settings = ref.read(settingsRepositoryProvider);
     final shopName = await settings.getShopName();
     final paymentInfo = await settings.getPaymentInfo();
+    final shopCode = await settings.getOrCreateShopCode();
 
     final statement = StatementCalculator.compute(
       allTransactions: widget.transactions,
@@ -61,6 +62,7 @@ class _StatementPreviewScreenState extends ConsumerState<StatementPreviewScreen>
       shopName: shopName,
       paymentInfo: paymentInfo,
       pageFormat: _selectedFormat,
+      shopCode: shopCode,
     );
 
     if (mounted) {
