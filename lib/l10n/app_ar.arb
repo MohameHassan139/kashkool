@@ -1,0 +1,365 @@
+{
+  "@@locale": "ar",
+  "appTitle": "كشكول",
+  "navCustomers": "العملاء",
+  "navCollection": "التحصيل",
+  "navSuppliers": "الموردين",
+  "navCashDrawer": "الدرج",
+  "navSettings": "الإعدادات",
+  "debt": "عليه",
+  "payment": "دفع",
+  "settled": "خالصين",
+  "currency": "جنيه",
+  "piaster": "قرش",
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "search": "بحث...",
+  "placeholderScreen": "شاشة {screenName}",
+  "comingSoon": "هتتوفر في الخطوة القادمة إن شاء الله",
+
+  "totalReceivablesTitle": "ليك عند الناس",
+  "searchCustomersHint": "ابحث بالاسم أو رقم التليفون...",
+  "filterAll": "الكل",
+  "filterHasDebt": "عليهم فلوس",
+  "filterSettled": "خالصين",
+  "filterLate": "متأخرين",
+  "sortHighestDebt": "أعلى دين",
+  "sortName": "الاسم",
+  "sortLastActivity": "آخر نشاط",
+  "addNewCustomer": "عميل جديد",
+  "addCustomer": "إضافة عميل",
+  "editCustomer": "تعديل العميل",
+  "customerName": "اسم العميل",
+  "customerNameHint": "مثلاً: عم محمد البقال",
+  "customerNameRequired": "اسم العميل مطلوب",
+  "customerNameTooShort": "الاسم يجب ألا يقل عن حرفين",
+  "customerPhone": "رقم الموبايل",
+  "customerPhoneHint": "010xxxxxxxx",
+  "customerPhoneInvalid": "رقم الموبايل غير صحيح (010, 011, 012, 015)",
+  "customerNotes": "ملاحظات",
+  "customerNotesHint": "مثلاً: جار الدور التاني",
+  "creditLimit": "حد الدين (اختياري)",
+  "creditLimitHint": "مثلاً: 1000",
+  "noCustomersTitle": "دفترك فاضي!",
+  "noCustomersSubtitle": "اضغط على الزرار تحت وضيف أول عميل عشان تبدأ تتابع حساباته بسهولة",
+  "noSearchResults": "مفيش عملاء بالاسم أو الرقم ده",
+  "duplicateCustomerWarning": "تنبيه: يوجد عميل مسجل بالفعل بنفس الاسم أو رقم التليفون",
+  "customerDetails": "بيانات العميل",
+  "callCustomer": "اتصال",
+  "deleteCustomer": "حذف العميل",
+  "deleteCustomerConfirm": "تأكيد حذف العميل",
+  "deleteCustomerWarningDebt": "انتبه! العميل ده لسه عليه حساب قدره {amount}. متأكد إنك عاوز تحذفه؟",
+  "@deleteCustomerWarningDebt": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "deleteCustomerSafeConfirm": "هل أنت متأكد من حذف العميل {name}؟",
+  "@deleteCustomerSafeConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "customerDeleted": "تم حذف العميل بنجاح",
+  "customerSaved": "تم حفظ بيانات العميل بنجاح",
+  "lastActivityNever": "مفيش حركات سابقة",
+  "lastActivityDate": "آخر حركة: {date}",
+  "@lastActivityDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "creditLimitLabel": "حد الدين: {amount}",
+  "@creditLimitLabel": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "creditLimitExceeded": "تعدى حد الدين!",
+  "heOwes": "عليه",
+  "hePaid": "له (دافع زيادة)",
+  "currentBalance": "الرصيد الحالي",
+  "noTransactionsYet": "لا توجد معاملات مسجلة حتى الآن",
+
+  "addDebtTitle": "تسجيل دين جديد (عليه)",
+  "addPaymentTitle": "تسجيل سداد (دفع)",
+  "amountLabel": "المبلغ",
+  "amountRequired": "يرجى إدخال مبلغ صحيح أكبر من صفر",
+  "today": "النهارده",
+  "yesterday": "إمبارح",
+  "date": "التاريخ",
+  "pickDate": "تحديد التاريخ",
+  "paymentMethod": "طريقة الدفع",
+  "methodCash": "كاش",
+  "methodInstapay": "إنستاباي",
+  "methodWallet": "محفظة",
+  "methodOther": "أخرى",
+  "noteOptional": "ملاحظة (اختياري: سكر، زيت، شحن...)",
+  "voiceDictation": "إملاء صوتي",
+  "listening": "جاري الاستماع... تكلّم الآن",
+  "speechNotAvailable": "الإملاء الصوتي غير متاح في هذا الجهاز",
+  "attachPhoto": "إرفاق صورة",
+  "camera": "الكاميرا",
+  "gallery": "المعرض",
+  "removePhoto": "حذف الصورة",
+  "overpaymentTitle": "المبلغ أكبر من اللي عليه!",
+  "overpaymentMessage": "المبلغ المدفوع ({paidAmount}) أكبر من اللي عليه ({dueAmount}). هل تسجل الزيادة ({creditAmount}) كرصيد له في حسابه؟",
+  "@overpaymentMessage": {
+    "placeholders": {
+      "paidAmount": { "type": "String" },
+      "dueAmount": { "type": "String" },
+      "creditAmount": { "type": "String" }
+    }
+  },
+  "overpaymentConfirm": "نعم، سجّل رصيد له",
+  "transactionSaved": "تم تسجيل الحركة بنجاح",
+  "undo": "تراجع",
+  "transactionUndone": "تم التراجع عن تسجيل الحركة",
+  "transactionDetails": "تفاصيل المعاملة",
+  "editTransaction": "تعديل المعاملة",
+  "deleteTransaction": "حذف المعاملة",
+  "deleteTransactionConfirm": "هل أنت متأكد من حذف هذه المعاملة؟",
+  "transactionDeleted": "تم حذف المعاملة بنجاح",
+  "viewPhoto": "عرض الصورة",
+
+  "creditLimitWarningTitle": "تنبيه حد الدين",
+  "creditLimitExceededDialog": "{customerName} كده هيبقى عليه {newTotal} — مع إن الحد بتاعه {limit}",
+  "@creditLimitExceededDialog": {
+    "placeholders": {
+      "customerName": { "type": "String" },
+      "newTotal": { "type": "String" },
+      "limit": { "type": "String" }
+    }
+  },
+  "saveAnyway": "سجّل برضه",
+  "changeLimit": "غيّر الحد",
+  "newCreditLimit": "حد الدين الجديد",
+  "limitUpdated": "تم تعديل حد الدين بنجاح",
+
+  "totalPayablesTitle": "عليك للموردين",
+  "netMarketPosition": "صافي الموقف المالي",
+  "netReceivables": "صافي ليك في السوق: {amount}",
+  "@netReceivables": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "netPayables": "عليك عجز إجمالي: {amount}",
+  "@netPayables": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "netSettled": "الحسابات متوازنة (0 جنيه)",
+  "addNewSupplier": "مورد جديد",
+  "addSupplier": "إضافة مورد",
+  "editSupplier": "تعديل المورد",
+  "supplierName": "اسم المندوب / المورد",
+  "supplierNameHint": "مثلاً: عماد مندوب جهينة",
+  "supplierNameRequired": "اسم المورد مطلوب",
+  "company": "اسم الشركة / التوكيل",
+  "companyHint": "مثلاً: جهينة، شيبسي، الأهرام",
+  "visitDay": "يوم الزيارة الأسبوعي",
+  "noSpecificDay": "بدون يوم محدد",
+  "supplierNotes": "ملاحظات",
+  "supplierNotesHint": "مثلاً: بيعدي الساعة 10 الصبح",
+  "noSuppliersTitle": "دفتر الموردين فاضي!",
+  "noSuppliersSubtitle": "اضغط على الزرار تحت وضيف أول مورد أو شركة بتتعامل معاها",
+  "noSupplierSearchResults": "مفيش موردين بالاسم أو الشركة دي",
+  "searchSuppliersHint": "ابحث باسم المندوب أو الشركة أو الرقم...",
+  "supplierDetails": "بيانات المورد",
+  "iOweHim": "عليّا",
+  "iPaidHim": "دفعتله",
+  "deleteSupplier": "حذف المورد",
+  "deleteSupplierConfirm": "تأكيد حذف المورد",
+  "deleteSupplierWarningDebt": "انتبه! المورد ده لسه ليه حساب عندك قدره {amount}. متأكد إنك عاوز تحذفه؟",
+  "@deleteSupplierWarningDebt": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "deleteSupplierSafeConfirm": "هل أنت متأكد من حذف المورد {name}؟",
+  "@deleteSupplierSafeConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "supplierDeleted": "تم حذف المورد بنجاح",
+  "supplierSaved": "تم حفظ بيانات المورد بنجاح",
+  "visitDayPrefix": "يوم الزيارة: {day}",
+  "@visitDayPrefix": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "sortCompany": "الشركة",
+  "sortVisitDay": "يوم الزيارة",
+
+  "dueCustomersTitle": "عملاء مستحقين تحصيل",
+  "totalDueTitle": "إجمالي المستحق",
+  "dueCustomersCount": "{count} عميل",
+  "@dueCustomersCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dueHeaderSummary": "عندك {count} عملاء عليهم {amount}",
+  "@dueHeaderSummary": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "amount": { "type": "String" }
+    }
+  },
+  "oldestDebtDays": "أقدم دين من {days} يوم",
+  "@oldestDebtDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "oldestDebtToday": "الدين مسجل اليوم",
+  "lastReminderDays": "آخر تذكير: من {days} يوم",
+  "@lastReminderDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "lastReminderToday": "آخر تذكير: اليوم",
+  "neverReminded": "لم يتم التذكير بعد",
+  "snoozedUntilDate": "مؤجل حتى {date}",
+  "@snoozedUntilDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "sendWhatsApp": "واتساب",
+  "sendSms": "رسالة SMS",
+  "callCustomer": "اتصال",
+  "moreActions": "المزيد",
+  "snooze3Days": "تأجيل 3 أيام",
+  "snooze7Days": "تأجيل أسبوع",
+  "cancelSnooze": "إلغاء التأجيل",
+  "recordCollectionPayment": "تسجيل سداد",
+  "didSendMessage": "هل اتبعتت الرسالة؟",
+  "didSendMessageDesc": "هل قمت بإرسال رسالة التذكير للعميل {name} عبر واتساب؟",
+  "@didSendMessageDesc": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "yesSent": "أيوة اتبعتت",
+  "notSent": "لأ، متبعتتش",
+  "reminderMarkedSent": "تم تسجيل التذكير بنجاح",
+  "snoozedSuccess": "تم تأجيل التذكير",
+  "noDueCustomersTitle": "مفيش تحصيلات مستحقة النهاردة 🎉",
+  "noDueCustomersSubtitle": "كل الزباين حساباتهم مظبوطة أو تم تذكيرهم قريباً.",
+  "whatsAppNotInstalled": "تطبيق واتساب غير مثبت. هل تريد إرسال رسالة SMS بدلاً منه؟",
+  "openSms": "إرسال SMS",
+  "growthFooter": "\nتم الإرسال عبر تطبيق كشكول 📒",
+
+  "statementTitle": "كشف حساب",
+  "generateStatement": "استخراج كشف حساب",
+  "statementAllTime": "كل المعاملات",
+  "statementThisMonth": "هذا الشهر",
+  "statementCustomRange": "فترة مخصصة",
+  "statementFormatA4": "ورقة A4",
+  "statementFormatReceipt": "إيصال حراري (80mm)",
+  "dateCol": "التاريخ",
+  "descriptionCol": "البيان",
+  "debtCol": "عليه",
+  "paymentCol": "دفع",
+  "balanceCol": "الرصيد",
+  "startingBalance": "رصيد ما قبل الفترة",
+  "finalBalance": "الرصيد النهائي",
+  "periodLabel": "الفترة: {period}",
+  "@periodLabel": {
+    "placeholders": {
+      "period": { "type": "String" }
+    }
+  },
+  "statementGeneratedAt": "تاريخ الاستخراج: {date}",
+  "@statementGeneratedAt": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "shareStatement": "مشاركة كشف الحساب",
+  "printStatement": "طباعة",
+  "statementShareSubject": "كشف حساب - {name}",
+  "@statementShareSubject": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "totalDebits": "إجمالي المشتريات / السلف",
+  "totalCredits": "إجمالي المسدد",
+
+  "drawerTitle": "تقفيل الدرج والخزينة",
+  "todayDrawer": "درج اليوم",
+  "expectedInDrawer": "المفروض في الدرج",
+  "openingCash": "رصيد الافتتاح",
+  "openingCashHint": "المبلغ اللي بدأت بيه اليوم",
+  "editOpeningCash": "تعديل رصيد الافتتاح",
+  "cashSales": "مبيعات كاش",
+  "addCashSales": "تسجيل مبيعات كاش",
+  "cashIn": "داخل الدرج (كاش)",
+  "digitalIn": "داخل إلكتروني",
+  "cashOut": "خارج من الدرج (كاش)",
+  "customerPaymentsCash": "تحصيلات عملاء (كاش)",
+  "customerPaymentsDigital": "تحصيلات عملاء (إلكتروني)",
+  "supplierPaymentsCash": "دفعات موردين (كاش)",
+  "expensesCash": "مصاريف المحل (كاش)",
+  "addExpense": "تسجيل مصروف",
+  "editExpense": "تعديل المصروف",
+  "deleteExpense": "حذف المصروف",
+  "deleteExpenseConfirm": "هل أنت متأكد من حذف هذا المصروف؟",
+  "expenseCategory": "بند المصروف",
+  "catRent": "إيجار",
+  "catElectricity": "كهرباء ومرافق",
+  "catSalary": "يوميات ومرتبات",
+  "catSupplies": "بضاعة ومستلزمات",
+  "catSupplierPayment": "دفعة مورد",
+  "catOther": "أخرى",
+  "closeDay": "قفّل اليوم",
+  "reopenDay": "إعادة فتح اليوم",
+  "reopenDayConfirm": "هل تريد إعادة فتح هذا اليوم للتعديل عليه؟",
+  "dayClosedSuccess": "تم تقفيل اليوم بنجاح",
+  "dayReopenedSuccess": "تم إعادة فتح اليوم بنجاح",
+  "dayIsClosed": "اليوم مقفول",
+  "dayIsOpen": "اليوم مفتوح",
+  "actualCountLabel": "المبلغ الفعلي في الدرج",
+  "actualCountHint": "اكتب المبلغ اللي عديته في الدرج",
+  "drawerBalanced": "الدرج مظبوط تمام 🎉",
+  "drawerShortage": "عجز في الدرج",
+  "drawerSurplus": "زيادة في الدرج",
+  "differenceAmount": "الفرق: {amount}",
+  "@differenceAmount": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "closeDaySummary": "ملخص تقفيل اليوم",
+  "confirmCloseDay": "تأكيد التقفيل",
+  "historyTab": "سجل الأيام",
+  "todayTab": "الدرج اليوم",
+  "monthlyTotals": "إجمالي الشهر",
+  "monthlySales": "مبيعات كاش",
+  "monthlyExpenses": "مصاريف كاش",
+  "monthlyNet": "صافي الدرج",
+  "drawerNotes": "ملاحظات التقفيل (اختياري)",
+  "noExpensesYet": "مفيش مصاريف متسجلة النهاردة",
+  "noHistoryYet": "مفيش أيام سابقة مسجلة",
+  "expenseAddedSuccess": "تم تسجيل المصروف بنجاح",
+  "cashSalesAddedSuccess": "تم تسجيل المبيعات الكاش بنجاح",
+  "openingCashUpdatedSuccess": "تم تعديل رصيد الافتتاح بنجاح",
+  "dayDetails": "تفاصيل اليوم",
+  "closedAtTime": "تم التقفيل في: {time}",
+  "@closedAtTime": {
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+  "readOnlyDayNotice": "هذا اليوم مقفول. لإجراء تعديلات اضغط على إعادة فتح اليوم.",
+  "privacyModeTitle": "وضع الخصوصية",
+  "privacyModeSubtitle": "إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)"
+}

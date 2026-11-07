@@ -1,0 +1,365 @@
+{
+  "@@locale": "en",
+  "appTitle": "Kashkool",
+  "navCustomers": "Customers",
+  "navCollection": "Collection",
+  "navSuppliers": "Suppliers",
+  "navCashDrawer": "Cash Drawer",
+  "navSettings": "Settings",
+  "debt": "Debt",
+  "payment": "Payment",
+  "settled": "Settled",
+  "currency": "EGP",
+  "piaster": "Pt",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "search": "Search...",
+  "placeholderScreen": "{screenName} Screen",
+  "comingSoon": "Coming soon in the next step",
+
+  "totalReceivablesTitle": "Total Receivables",
+  "searchCustomersHint": "Search name or phone...",
+  "filterAll": "All",
+  "filterHasDebt": "Has Debt",
+  "filterSettled": "Settled",
+  "filterLate": "Late",
+  "sortHighestDebt": "Highest Debt",
+  "sortName": "Name",
+  "sortLastActivity": "Last Activity",
+  "addNewCustomer": "New Customer",
+  "addCustomer": "Add Customer",
+  "editCustomer": "Edit Customer",
+  "customerName": "Customer Name",
+  "customerNameHint": "e.g. Mohamed Hassan",
+  "customerNameRequired": "Customer name is required",
+  "customerNameTooShort": "Name must be at least 2 characters",
+  "customerPhone": "Mobile Number",
+  "customerPhoneHint": "010xxxxxxxx",
+  "customerPhoneInvalid": "Invalid mobile number (010, 011, 012, 015)",
+  "customerNotes": "Notes",
+  "customerNotesHint": "e.g. Neighbor 2nd floor",
+  "creditLimit": "Credit Limit (Optional)",
+  "creditLimitHint": "e.g. 1000",
+  "noCustomersTitle": "Your ledger is empty!",
+  "noCustomersSubtitle": "Tap the button below to add your first customer and start tracking effortlessly",
+  "noSearchResults": "No customers found matching your search",
+  "duplicateCustomerWarning": "Warning: A customer with the same name or phone already exists",
+  "customerDetails": "Customer Details",
+  "callCustomer": "Call",
+  "deleteCustomer": "Delete Customer",
+  "deleteCustomerConfirm": "Confirm Customer Deletion",
+  "deleteCustomerWarningDebt": "Warning! This customer has an outstanding balance of {amount}. Are you sure you want to delete?",
+  "@deleteCustomerWarningDebt": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "deleteCustomerSafeConfirm": "Are you sure you want to delete customer {name}?",
+  "@deleteCustomerSafeConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "customerDeleted": "Customer deleted successfully",
+  "customerSaved": "Customer saved successfully",
+  "lastActivityNever": "No previous transactions",
+  "lastActivityDate": "Last activity: {date}",
+  "@lastActivityDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "creditLimitLabel": "Credit Limit: {amount}",
+  "@creditLimitLabel": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "creditLimitExceeded": "Credit limit exceeded!",
+  "heOwes": "Owes",
+  "hePaid": "Credit balance",
+  "currentBalance": "Current Balance",
+  "noTransactionsYet": "No transactions recorded yet",
+
+  "addDebtTitle": "Record Debt (عليه)",
+  "addPaymentTitle": "Record Payment (دفع)",
+  "amountLabel": "Amount",
+  "amountRequired": "Please enter a valid amount greater than 0",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "date": "Date",
+  "pickDate": "Pick Date",
+  "paymentMethod": "Payment Method",
+  "methodCash": "Cash",
+  "methodInstapay": "InstaPay",
+  "methodWallet": "Mobile Wallet",
+  "methodOther": "Other",
+  "noteOptional": "Note (optional: sugar, oil, card...)",
+  "voiceDictation": "Voice Dictation",
+  "listening": "Listening... Speak now",
+  "speechNotAvailable": "Speech-to-text not available on this device",
+  "attachPhoto": "Attach Photo",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "removePhoto": "Remove Photo",
+  "overpaymentTitle": "Amount exceeds debt!",
+  "overpaymentMessage": "Paid amount ({paidAmount}) is greater than current debt ({dueAmount}). Do you want to record the difference ({creditAmount}) as customer credit?",
+  "@overpaymentMessage": {
+    "placeholders": {
+      "paidAmount": { "type": "String" },
+      "dueAmount": { "type": "String" },
+      "creditAmount": { "type": "String" }
+    }
+  },
+  "overpaymentConfirm": "Yes, record credit",
+  "transactionSaved": "Transaction recorded successfully",
+  "undo": "Undo",
+  "transactionUndone": "Transaction recording undone",
+  "transactionDetails": "Transaction Details",
+  "editTransaction": "Edit Transaction",
+  "deleteTransaction": "Delete Transaction",
+  "deleteTransactionConfirm": "Are you sure you want to delete this transaction?",
+  "transactionDeleted": "Transaction deleted successfully",
+  "viewPhoto": "View Photo",
+
+  "creditLimitWarningTitle": "Credit Limit Warning",
+  "creditLimitExceededDialog": "{customerName} balance will become {newTotal} — while their limit is {limit}",
+  "@creditLimitExceededDialog": {
+    "placeholders": {
+      "customerName": { "type": "String" },
+      "newTotal": { "type": "String" },
+      "limit": { "type": "String" }
+    }
+  },
+  "saveAnyway": "Save Anyway",
+  "changeLimit": "Change Limit",
+  "newCreditLimit": "New Credit Limit",
+  "limitUpdated": "Credit limit updated successfully",
+
+  "totalPayablesTitle": "Total Payables",
+  "netMarketPosition": "Net Market Position",
+  "netReceivables": "Net Receivables: {amount}",
+  "@netReceivables": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "netPayables": "Net Payables: {amount}",
+  "@netPayables": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "netSettled": "Balanced (0 EGP)",
+  "addNewSupplier": "New Supplier",
+  "addSupplier": "Add Supplier",
+  "editSupplier": "Edit Supplier",
+  "supplierName": "Supplier / Rep Name",
+  "supplierNameHint": "e.g. Emad Juhayna Rep",
+  "supplierNameRequired": "Supplier name is required",
+  "company": "Company Name",
+  "companyHint": "e.g. Juhayna, Chipsy",
+  "visitDay": "Weekly Visit Day",
+  "noSpecificDay": "No specific day",
+  "supplierNotes": "Notes",
+  "supplierNotesHint": "e.g. Visits around 10 AM",
+  "noSuppliersTitle": "Suppliers ledger is empty!",
+  "noSuppliersSubtitle": "Tap the button below to add your first supplier or company",
+  "noSupplierSearchResults": "No suppliers found",
+  "searchSuppliersHint": "Search by rep name, company, or phone...",
+  "supplierDetails": "Supplier Details",
+  "iOweHim": "I Owe (عليّا)",
+  "iPaidHim": "I Paid (دفعتله)",
+  "deleteSupplier": "Delete Supplier",
+  "deleteSupplierConfirm": "Confirm Supplier Deletion",
+  "deleteSupplierWarningDebt": "Warning! You still owe this supplier {amount}. Are you sure you want to delete?",
+  "@deleteSupplierWarningDebt": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "deleteSupplierSafeConfirm": "Are you sure you want to delete supplier {name}?",
+  "@deleteSupplierSafeConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "supplierDeleted": "Supplier deleted successfully",
+  "supplierSaved": "Supplier saved successfully",
+  "visitDayPrefix": "Visit Day: {day}",
+  "@visitDayPrefix": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "sortCompany": "Company",
+  "sortVisitDay": "Visit Day",
+
+  "dueCustomersTitle": "Due Collections",
+  "totalDueTitle": "Total Due",
+  "dueCustomersCount": "{count} customers",
+  "@dueCustomersCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "dueHeaderSummary": "You have {count} customers due for {amount}",
+  "@dueHeaderSummary": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "amount": { "type": "String" }
+    }
+  },
+  "oldestDebtDays": "Oldest debt from {days} days ago",
+  "@oldestDebtDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "oldestDebtToday": "Debt recorded today",
+  "lastReminderDays": "Last reminded: {days} days ago",
+  "@lastReminderDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "lastReminderToday": "Last reminded: Today",
+  "neverReminded": "Never reminded yet",
+  "snoozedUntilDate": "Snoozed until {date}",
+  "@snoozedUntilDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "sendWhatsApp": "WhatsApp",
+  "sendSms": "SMS Message",
+  "callCustomer": "Call",
+  "moreActions": "More",
+  "snooze3Days": "Snooze 3 days",
+  "snooze7Days": "Snooze 1 week",
+  "cancelSnooze": "Cancel snooze",
+  "recordCollectionPayment": "Record payment",
+  "didSendMessage": "Did you send the message?",
+  "didSendMessageDesc": "Did you send the reminder to {name} via WhatsApp?",
+  "@didSendMessageDesc": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "yesSent": "Yes, sent",
+  "notSent": "No, not sent",
+  "reminderMarkedSent": "Reminder recorded successfully",
+  "snoozedSuccess": "Reminder snoozed",
+  "noDueCustomersTitle": "No collections due today 🎉",
+  "noDueCustomersSubtitle": "All customers are settled or were reminded recently.",
+  "whatsAppNotInstalled": "WhatsApp is not installed. Would you like to send an SMS instead?",
+  "openSms": "Send SMS",
+  "growthFooter": "\nSent via Kashkool App 📒",
+
+  "statementTitle": "Statement",
+  "generateStatement": "Generate Statement",
+  "statementAllTime": "All Time",
+  "statementThisMonth": "This Month",
+  "statementCustomRange": "Custom Range",
+  "statementFormatA4": "A4 Paper",
+  "statementFormatReceipt": "Thermal Receipt (80mm)",
+  "dateCol": "Date",
+  "descriptionCol": "Description",
+  "debtCol": "Debt",
+  "paymentCol": "Payment",
+  "balanceCol": "Balance",
+  "startingBalance": "Opening Balance",
+  "finalBalance": "Final Balance",
+  "periodLabel": "Period: {period}",
+  "@periodLabel": {
+    "placeholders": {
+      "period": { "type": "String" }
+    }
+  },
+  "statementGeneratedAt": "Generated: {date}",
+  "@statementGeneratedAt": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "shareStatement": "Share Statement",
+  "printStatement": "Print",
+  "statementShareSubject": "Account Statement - {name}",
+  "@statementShareSubject": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "totalDebits": "Total Debts",
+  "totalCredits": "Total Payments",
+
+  "drawerTitle": "Cash Drawer Closing",
+  "todayDrawer": "Today's Drawer",
+  "expectedInDrawer": "Expected in Drawer",
+  "openingCash": "Opening Cash",
+  "openingCashHint": "Cash in drawer at start of day",
+  "editOpeningCash": "Edit Opening Cash",
+  "cashSales": "Cash Sales",
+  "addCashSales": "Record Cash Sales",
+  "cashIn": "Cash In",
+  "digitalIn": "Digital In",
+  "cashOut": "Cash Out",
+  "customerPaymentsCash": "Customer Payments (Cash)",
+  "customerPaymentsDigital": "Customer Payments (Digital)",
+  "supplierPaymentsCash": "Supplier Payments (Cash)",
+  "expensesCash": "Shop Expenses (Cash)",
+  "addExpense": "Record Expense",
+  "editExpense": "Edit Expense",
+  "deleteExpense": "Delete Expense",
+  "deleteExpenseConfirm": "Are you sure you want to delete this expense?",
+  "expenseCategory": "Expense Category",
+  "catRent": "Rent",
+  "catElectricity": "Electricity & Utilities",
+  "catSalary": "Salaries & Wages",
+  "catSupplies": "Supplies & Inventory",
+  "catSupplierPayment": "Supplier Payment",
+  "catOther": "Other",
+  "closeDay": "Close Day",
+  "reopenDay": "Reopen Day",
+  "reopenDayConfirm": "Are you sure you want to reopen this day for editing?",
+  "dayClosedSuccess": "Day closed successfully",
+  "dayReopenedSuccess": "Day reopened successfully",
+  "dayIsClosed": "Day is Closed",
+  "dayIsOpen": "Day is Open",
+  "actualCountLabel": "Counted Cash in Drawer",
+  "actualCountHint": "Count physical cash and enter amount here",
+  "drawerBalanced": "Drawer is perfectly balanced 🎉",
+  "drawerShortage": "Drawer Shortage",
+  "drawerSurplus": "Drawer Surplus",
+  "differenceAmount": "Difference: {amount}",
+  "@differenceAmount": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "closeDaySummary": "Day Closing Summary",
+  "confirmCloseDay": "Confirm Closing",
+  "historyTab": "History",
+  "todayTab": "Today's Drawer",
+  "monthlyTotals": "Monthly Totals",
+  "monthlySales": "Cash Sales",
+  "monthlyExpenses": "Cash Expenses",
+  "monthlyNet": "Net Drawer Cash",
+  "drawerNotes": "Closing Notes (Optional)",
+  "noExpensesYet": "No expenses recorded today",
+  "noHistoryYet": "No previous days recorded",
+  "expenseAddedSuccess": "Expense saved successfully",
+  "cashSalesAddedSuccess": "Cash sales recorded successfully",
+  "openingCashUpdatedSuccess": "Opening cash updated successfully",
+  "dayDetails": "Day Details",
+  "closedAtTime": "Closed at: {time}",
+  "@closedAtTime": {
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+  "readOnlyDayNotice": "This day is closed. To make changes, tap Reopen Day.",
+  "privacyModeTitle": "Privacy Mode",
+  "privacyModeSubtitle": "Hide financial amounts in home & widgets (••••••)"
+}

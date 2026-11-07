@@ -1,0 +1,277 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:kashkool/core/constants/app_colors.dart';
+import 'package:kashkool/core/utils/money.dart';
+import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
+import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
+import 'package:kashkool/l10n/app_localizations.dart';
+import 'close_day_bottom_sheet.dart';
+import 'edit_opening_cash_dialog.dart';
+
+/// Top card in the Cash Drawer screen displaying real-time expected balance,
+/// opening cash, closing status, and the primary action button.
+class DrawerLiveCard extends ConsumerWidget {
+  final DrawerDaySummary summary;
+
+  const DrawerLiveCard({
+    super.key,
+    required this.summary,
+  });
+
+  Future<void> _confirmReopen(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.reopenDay),
+        content: Text(l10n.reopenDayConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: FilledButton.styleFrom(backgroundColor: AppColors.debtRed),
+            child: Text(l10n.reopenDay),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && context.mounted) {
+      await ref.read(cashDrawerRepositoryProvider).reopenDay(summary.date);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.dayReopenedSuccess)),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final isClosed = summary.isClosed;
+
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Top row: Label & Status badge
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.point_of_sale_rounded, color: AppColors.primaryBlue, size: 28),
+                    const SizedBox(width: 8),
+                    Text(
+                      l10n.expectedInDrawer,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.neutralGreyDark,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isClosed ? Colors.grey.shade200 : AppColors.paymentGreenLight,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        isClosed ? Icons.lock_outline_rounded : Icons.lock_open_rounded,
+                        size: 14,
+                        color: isClosed ? Colors.grey.shade700 : AppColors.paymentGreen,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        isClosed ? l10n.dayIsClosed : l10n.dayIsOpen,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: isClosed ? Colors.grey.shade800 : AppColors.paymentGreen,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+
+            // Big Expected Amount
+            Text(
+              MoneyUtils.formatMoney(summary.expectedDrawerPiasters),
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w900,
+                color: AppColors.primaryBlue,
+                letterSpacing: -0.5,
+              ),
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(height: 16),
+
+            const Divider(height: 1),
+            const SizedBox(height: 12),
+
+            // Opening Cash row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.openingCash,
+                  style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      MoneyUtils.formatMoney(summary.openingCashPiasters),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    if (!isClosed) ...[
+                      const SizedBox(width: 4),
+                      IconButton(
+                        icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.primaryBlue),
+                        onPressed: () => EditOpeningCashDialog.show(
+                          context,
+                          date: summary.date,
+                          currentOpeningPiasters: summary.openingCashPiasters,
+                        ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        tooltip: l10n.editOpeningCash,
+                      ),
+                    ],
+                  ],
+                ),
+              ],
+            ),
+
+            // If closed: show actual count, difference, and closing time
+            if (isClosed && summary.actualCountPiasters != null) ...[
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.actualCountLabel,
+                    style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
+                  ),
+                  Text(
+                    MoneyUtils.formatMoney(summary.actualCountPiasters!),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    summary.differenceStatus == DrawerDifferenceStatus.balanced
+                        ? l10n.drawerBalanced
+                        : summary.differenceStatus == DrawerDifferenceStatus.shortage
+                            ? l10n.drawerShortage
+                            : l10n.drawerSurplus,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: summary.differenceStatus == DrawerDifferenceStatus.balanced
+                          ? AppColors.paymentGreen
+                          : summary.differenceStatus == DrawerDifferenceStatus.shortage
+                              ? AppColors.debtRed
+                              : AppColors.warningAmber,
+                    ),
+                  ),
+                  if (summary.differencePiasters != null && summary.differencePiasters != 0)
+                    Text(
+                      MoneyUtils.formatMoney(summary.differencePiasters!),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: summary.differencePiasters! < 0
+                            ? AppColors.debtRed
+                            : AppColors.warningAmber,
+                      ),
+                    ),
+                ],
+              ),
+              if (summary.closedAt != null) ...[
+                const SizedBox(height: 6),
+                Text(
+                  l10n.closedAtTime(DateFormat('hh:mm a').format(summary.closedAt!)),
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                ),
+              ],
+              if (summary.notes != null && summary.notes!.isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Text(
+                  'ملاحظة: ${summary.notes!}',
+                  style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey.shade700),
+                ),
+              ],
+            ],
+
+            const SizedBox(height: 16),
+
+            // Action button: Close day OR Reopen day
+            SizedBox(
+              height: 52,
+              child: isClosed
+                  ? OutlinedButton.icon(
+                      onPressed: () => _confirmReopen(context, ref),
+                      icon: const Icon(Icons.lock_open_rounded, size: 22, color: AppColors.debtRed),
+                      label: Text(
+                        l10n.reopenDay,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.debtRed,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.debtRed, width: 1.5),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
+                    )
+                  : FilledButton.icon(
+                      onPressed: () => CloseDayBottomSheet.show(context, summary: summary),
+                      icon: const Icon(Icons.lock_rounded, size: 22),
+                      label: Text(
+                        l10n.closeDay,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppColors.primaryBlue,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
