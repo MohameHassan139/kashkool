@@ -119,9 +119,34 @@ A new device starts with `since=0`. Upsert by `id` (the server version wins for 
 **Suggested app loop:** on app start, after each local write (debounced ~30 s), and from a
 "زامن دلوقتي" button: push all unsynced rows → pull until `hasMore=false`.
 
+## Admin dashboard (`/admin`)
+A private web page for the app owner: shops, activity, subscriptions, referrals, remote config,
+and an audit log of admin actions. Admins see **metadata only** (counts, dates, tiers) —
+never customers' names, phones or amounts.
+
+Setup:
+1. Vercel env var `ADMIN_EMAILS=you@gmail.com` (comma-separated for more admins), then redeploy.
+2. Google Cloud → Google Auth Platform → Clients → the **Web** client → **Authorized JavaScript origins** →
+   add `https://<your-app>.vercel.app` (and `http://localhost:3000` for local testing) → Save.
+3. Open `https://<your-app>.vercel.app/admin` and sign in with Google.
+
+Security: Google sign-in + allowlist checked on every request, 8-hour HttpOnly/SameSite=Strict cookie
+scoped to `/admin`, CSRF header on changes, strict Content-Security-Policy, `noindex`.
+Locally, `ALLOW_DEV_LOGIN=true` shows an email-only login (never on Vercel).
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/admin` | Dashboard page |
+| POST | `/admin/api/login` | Google ID token → admin session |
+| GET | `/admin/api/overview` | KPIs + 30-day charts |
+| GET | `/admin/api/shops?q=&sort=&page=` | Shop list (search by name, owner email, referral code) |
+| GET | `/admin/api/shops/:id` | Shop details (record counts, members, devices, subscriptions) |
+| POST | `/admin/api/shops/:id/grant` | `{ days, reason }` free Pro days (audited) |
+| GET | `/admin/api/subscriptions`, `/admin/api/referrals`, `/admin/api/audit` | Lists |
+| GET/PUT | `/admin/api/config` | Remote config served to the app at `/v1/config` |
+
 ## Not included yet
 - **Photo upload** (Vercel has no disk; add Vercel Blob or S3 later — rows keep `photoPath` locally).
-- **Admin dashboard** (spec 22): for now edit data in MongoDB Atlas. `app_config` → `{ _id: "global", minSupportedVersion, flags, announcement }`.
 - **Notebook import with AI** (spec 17).
 
 ## Security notes

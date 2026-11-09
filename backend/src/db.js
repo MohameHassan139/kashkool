@@ -84,6 +84,9 @@ export async function ensureIndexes(db) {
     db.collection('referrals').createIndex({ status: 1 }),
     db.collection('subscriptions').createIndex({ purchaseTokenHash: 1 }, { unique: true }),
     db.collection('subscriptions').createIndex({ shopId: 1 }),
+    db.collection('shop_activity').createIndex({ shopId: 1, day: 1 }, { unique: true }),
+    db.collection('shop_activity').createIndex({ day: 1 }),
+    db.collection('admin_audit').createIndex({ createdAt: -1 }),
   ];
   for (const name of SYNC_COLLECTION_NAMES) {
     tasks.push(db.collection(name).createIndex({ shopId: 1, id: 1 }, { unique: true }));

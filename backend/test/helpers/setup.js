@@ -4,6 +4,7 @@ process.env.MONGODB_URI ||= 'mongodb://unused-in-tests';
 process.env.ALLOW_DEV_LOGIN = 'true';
 process.env.PUBLIC_BASE_URL = 'https://kashkool.test';
 process.env.CRON_SECRET = 'cron_test_secret';
+process.env.ADMIN_EMAILS = 'boss@test.com';
 delete process.env.VERCEL;
 
 const { MongoClient } = await import('mongodb');

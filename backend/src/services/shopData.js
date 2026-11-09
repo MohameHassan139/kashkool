@@ -8,6 +8,7 @@ export async function deleteShopData(db, shopId) {
     db.collection('invites').deleteMany({ shopId }),
     db.collection('statement_links').deleteMany({ shopId }),
     db.collection('subscriptions').deleteMany({ shopId }),
+    db.collection('shop_activity').deleteMany({ shopId }),
     db.collection('referrals').deleteMany({ $or: [{ referredShopId: shopId }, { referrerShopId: shopId }] }),
   ]);
   await db.collection('shops').deleteOne({ id: shopId });

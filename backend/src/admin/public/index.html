@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>كشكول — لوحة التحكم</title>
+  <link rel="stylesheet" href="/admin/style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/admin/app.js" defer></script>
+</head>
+<body>
+  <!-- Sign-in -->
+  <section id="login" class="login" hidden>
+    <div class="login-card">
+      <div class="brand big">📒 كشكول</div>
+      <h1>لوحة تحكم المسؤول</h1>
+      <p class="muted">سجّل دخول بحساب جوجل المسموح له في ADMIN_EMAILS.</p>
+      <div id="google-button"></div>
+      <form id="dev-login" hidden>
+        <p class="muted small">تسجيل دخول للتطوير المحلي فقط</p>
+        <input type="email" id="dev-email" placeholder="email@example.com" required>
+        <button type="submit" class="btn">دخول</button>
+      </form>
+      <p id="login-error" class="error" role="alert"></p>
+    </div>
+  </section>
+
+  <!-- App -->
+  <div id="app" class="app" hidden>
+    <aside class="sidebar">
+      <div class="brand">📒 كشكول <span class="badge">Admin</span></div>
+      <nav id="nav">
+        <a href="#overview" data-route="overview">نظرة عامة</a>
+        <a href="#shops" data-route="shops">المحلات</a>
+        <a href="#subscriptions" data-route="subscriptions">الاشتراكات</a>
+        <a href="#referrals" data-route="referrals">الترشيحات</a>
+        <a href="#config" data-route="config">إعدادات التطبيق</a>
+        <a href="#audit" data-route="audit">سجل العمليات</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div id="admin-email" class="muted small"></div>
+        <button id="logout" class="btn ghost small">تسجيل خروج</button>
+      </div>
+    </aside>
+    <main id="main" class="main" tabindex="-1"></main>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

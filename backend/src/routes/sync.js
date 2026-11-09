@@ -142,7 +142,14 @@ syncRouter.post(
     }
 
     const db = await getDb();
-    const shop = await db.collection('shops').findOne({ id: shopId }, { projection: { seq: 1 } });
+    const shop = await db
+      .collection('shops')
+      .findOneAndUpdate({ id: shopId }, { $set: { lastSyncAt: new Date() } }, { returnDocument: 'after', projection: { seq: 1 } });
+    // One row per shop per day the shop synced (daily active shops in the admin dashboard).
+    const day = new Date().toISOString().slice(0, 10);
+    await db
+      .collection('shop_activity')
+      .updateOne({ shopId, day }, { $setOnInsert: { shopId, day, createdAt: new Date() } }, { upsert: true });
     res.json({ results, serverSeq: shop?.seq ?? 0, serverTime: new Date().toISOString() });
   }),
 );

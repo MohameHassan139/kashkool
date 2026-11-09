@@ -50,6 +50,13 @@ export const config = {
     productTiers: parseJson(process.env.PLAY_PRODUCT_TIERS, DEFAULT_PRODUCT_TIERS),
   },
 
+  /** Google emails allowed into the admin dashboard (/admin), comma-separated. */
+  adminEmails: list(process.env.ADMIN_EMAILS).map((e) => e.toLowerCase()),
+  adminSessionHours: 8,
+
+  /** Monthly prices (EGP) used to estimate revenue in the admin dashboard. */
+  tierPrices: parseJson(process.env.TIER_PRICES_EGP, { pro: 79, installments_pro: 149 }),
+
   trialDays: 14,
   referrerRewardDays: 30,
   referredRewardDays: 14,

@@ -33,7 +33,8 @@ miscRouter.get(
   asyncHandler(async (req, res) => {
     const db = await getDb();
     const doc = await db.collection('app_config').findOne({ _id: 'global' });
-    const { _id, ...rest } = doc || {};
+    // Never expose who edited it or when.
+    const { _id, updatedBy, updatedAt, ...rest } = doc || {};
     res.set('Cache-Control', 'public, max-age=300');
     res.json({ ...DEFAULT_APP_CONFIG, ...rest, subscriptionRequired: config.requireSubscription });
   }),

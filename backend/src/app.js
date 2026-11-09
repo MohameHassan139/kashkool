@@ -1,5 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
+import { adminRouter } from './routes/admin.js';
 import { authRouter } from './routes/auth.js';
 import { miscRouter } from './routes/misc.js';
 import { shopsRouter } from './routes/shops.js';
@@ -21,6 +22,7 @@ export function createApp() {
   app.use(syncRouter);
   app.use(statementLinksRouter);
   app.use(subscriptionsRouter);
+  app.use(adminRouter);
 
   app.use((req, res) => res.status(404).json({ error: 'not_found', message: 'Route not found' }));
 
