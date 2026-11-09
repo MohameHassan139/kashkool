@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/growth/growth_footer.dart';
 import '../../../core/utils/whatsapp_template.dart';
+import '../../../l10n/l10n.dart';
 
 /// Repository managing application settings and defaults stored locally in Drift SQLite.
 class SettingsRepository {
@@ -38,6 +39,7 @@ class SettingsRepository {
 
   // General
   static const String keyThemeMode = 'general_theme_mode';
+  static const String keyLanguage = 'general_language';
 
   SettingsRepository(this._db);
 
@@ -131,7 +133,7 @@ class SettingsRepository {
   /// Shop name for reminder message header (default: 'كشكول').
   Future<String> getShopName() async {
     final val = await getString(keyShopName);
-    return (val != null && val.trim().isNotEmpty) ? val.trim() : 'كشكول';
+    return (val != null && val.trim().isNotEmpty) ? val.trim() : L10n.t.main1;
   }
 
   Future<void> setShopName(String name) async {
@@ -140,7 +142,7 @@ class SettingsRepository {
 
   Stream<String> watchShopName() {
     return watchString(keyShopName)
-        .map((val) => (val != null && val.trim().isNotEmpty) ? val.trim() : 'كشكول');
+        .map((val) => (val != null && val.trim().isNotEmpty) ? val.trim() : L10n.t.main1);
   }
 
   /// Payment info details (Vodafone Cash, InstaPay, etc.).
@@ -404,6 +406,15 @@ class SettingsRepository {
     await setString(keyThemeMode, mode.name);
   }
 
+  // --- App language ---
+
+  /// `system` (follow the phone) or a code from `L10n.languages` (`ar_EG`, `ar`, `en`, …).
+  Future<String?> getLanguageCode() => getString(keyLanguage);
+
+  Future<void> setLanguageCode(String code) => setString(keyLanguage, code);
+
+  Stream<String?> watchLanguageCode() => watchString(keyLanguage);
+
   Stream<ThemeMode> watchThemeMode() {
     return watchString(keyThemeMode).map((val) {
       switch (val) {
@@ -446,6 +457,11 @@ final homeWidgetEnabledProvider = StreamProvider<bool>((ref) {
 /// Provider for the stable shop referral code (generated on first access).
 final shopCodeProvider = FutureProvider<String>((ref) {
   return ref.watch(settingsRepositoryProvider).getOrCreateShopCode();
+});
+
+/// Saved app language code (`system`, `ar_EG`, `en`, …). Null until the first value is read.
+final languageCodeProvider = StreamProvider<String?>((ref) {
+  return ref.watch(settingsRepositoryProvider).watchLanguageCode();
 });
 
 /// Stream provider for ThemeMode

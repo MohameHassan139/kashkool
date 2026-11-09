@@ -1,6 +1,7 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'cloud_api.dart';
 import 'cloud_config.dart';
+import '../../l10n/l10n.dart';
 
 /// Gets a Google ID token for the Kashkool backend (google_sign_in v7).
 class GoogleAuthService {
@@ -15,21 +16,21 @@ class GoogleAuthService {
   /// Shows the Google account picker and returns an ID token.
   Future<String> getIdToken() async {
     if (!CloudConfig.isConfigured) {
-      throw const CloudApiException('not_configured', 'النسخ على السحابة مش متظبط في النسخة دي من التطبيق');
+      throw CloudApiException('not_configured', L10n.t.googleAuthService1);
     }
     await _ensureInitialized();
     try {
       final account = await GoogleSignIn.instance.authenticate(scopeHint: const ['email']);
       final idToken = account.authentication.idToken;
       if (idToken == null || idToken.isEmpty) {
-        throw const CloudApiException('google_no_token', 'جوجل مارجعش بيانات الدخول، جرّب تاني');
+        throw CloudApiException('google_no_token', L10n.t.googleAuthService2);
       }
       return idToken;
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
-        throw const CloudApiException('canceled', 'تم إلغاء تسجيل الدخول');
+        throw CloudApiException('canceled', L10n.t.googleAuthService3);
       }
-      throw CloudApiException('google_error', 'مقدرناش نسجّل دخول بجوجل (${e.code.name})');
+      throw CloudApiException('google_error', L10n.t.googleAuthService4(e.code.name));
     }
   }
 

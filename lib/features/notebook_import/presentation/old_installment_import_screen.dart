@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../../core/utils/arabic_search.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
@@ -12,6 +13,7 @@ import '../../customers/data/customer_photo_repository.dart';
 import '../../customers/data/customer_repository.dart';
 import '../../customers/presentation/widgets/photo_strip.dart';
 import '../data/notebook_import_service.dart';
+import '../../../l10n/l10n.dart';
 
 /// "قسط قديم": an installment plan that started before the app.
 /// The owner types the total price, what was already paid, how many installments are left,
@@ -88,7 +90,7 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
       initialDate: _nextDue,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      helpText: 'ميعاد القسط الجاي',
+      helpText: L10n.t.oldInstallmentImportScreen1,
     );
     if (picked != null) setState(() => _nextDue = picked);
   }
@@ -124,13 +126,13 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
         context: context,
         barrierDismissible: false,
         builder: (ctx) => AlertDialog(
-          title: const Text('اتحفظ القسط ✓'),
+          title: Text(L10n.t.oldInstallmentImportScreen2),
           content: Text(
-            'فاضل ${MoneyUtils.formatMoney(_remaining)} على $_countValue قسط، أولهم يوم ${DateFormat('yyyy/MM/dd').format(_nextDue)}.',
+            L10n.t.oldInstallmentImportScreen3(MoneyUtils.formatMoney(_remaining), _countValue, DateFormat('yyyy/MM/dd').format(_nextDue)),
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('خلصت')),
-            ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('قسط تاني')),
+            TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.oldInstallmentImportScreen4)),
+            ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: Text(L10n.t.oldInstallmentImportScreen5)),
           ],
         ),
       );
@@ -153,7 +155,7 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
     } on ArgumentError catch (e) {
       _snack('${e.message}');
     } catch (_) {
-      _snack('حصلت مشكلة في الحفظ، مفيش حاجة اتحفظت');
+      _snack(L10n.t.oldInstallmentImportScreen6);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -161,7 +163,7 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
 
   void _snack(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: AppColors.debtRed));
+    AppGlassToast.showError(context, message);
   }
 
   @override
@@ -170,25 +172,22 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
     final remaining = _remaining;
     final count = _countValue;
     final preview = (_totalPiasters > 0 && remaining > 0 && count > 0)
-        ? 'فاضل ${MoneyUtils.formatMoney(remaining)} — $count قسط × حوالي '
-            '${MoneyUtils.formatMoney(NotebookImportService.perInstallment(remaining, count))}'
-            '${_frequency == InstallmentFrequency.monthly ? ' شهرياً' : ' أسبوعياً'}'
+        ? L10n.t.oldInstallmentImportScreen9(MoneyUtils.formatMoney(remaining), count, MoneyUtils.formatMoney(NotebookImportService.perInstallment(remaining, count)), _frequency == InstallmentFrequency.monthly ? L10n.t.oldInstallmentImportScreen7 : L10n.t.oldInstallmentImportScreen8)
         : null;
 
     return Scaffold(
-      appBar: AppBar(title: Text(_savedCount == 0 ? 'قسط قديم من الكشكول' : 'قسط قديم (${_savedCount + 1})')),
+      appBar: AppBar(title: Text(_savedCount == 0 ? L10n.t.oldInstallmentImportScreen10 : L10n.t.oldInstallmentImportScreen11(_savedCount + 1))),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
           children: [
-            const Text(
-              'للأقساط اللي بدأت قبل التطبيق: اكتب السعر، واللي اتدفع لحد دلوقتي، وعدد الأقساط الباقية. '
-              'التطبيق هيعمل جدول الباقي بس، ومش هيحسب المدفوع قبل كده في درج النهارده.',
+            Text(
+              L10n.t.oldInstallmentImportScreen12,
               style: TextStyle(fontSize: 13, color: AppColors.neutralGrey, height: 1.5),
             ),
             const SizedBox(height: 16),
-            _section('العميل'),
+            _section(L10n.t.oldInstallmentImportScreen13),
             Autocomplete<Customer>(
               key: ValueKey(_formGeneration),
               displayStringForOption: (c) => c.name,
@@ -207,15 +206,15 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                   focusNode: focusNode,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
-                    labelText: 'اسم العميل',
-                    hintText: 'اكتب اسم عميل موجود أو جديد',
+                    labelText: L10n.t.oldInstallmentImportScreen14,
+                    hintText: L10n.t.oldInstallmentImportScreen15,
                     suffixIcon: _selected != null ? const Icon(Icons.check_circle_rounded, color: AppColors.paymentGreen) : null,
                   ),
                   onChanged: (v) {
                     _customerName.text = v;
                     if (_selected != null && v != _selected!.name) setState(() => _selected = null);
                   },
-                  validator: (v) => (v == null || v.trim().length < 2) ? 'اكتب اسم العميل' : null,
+                  validator: (v) => (v == null || v.trim().length < 2) ? L10n.t.oldInstallmentImportScreen16 : null,
                 );
               },
               optionsViewBuilder: (context, onSelected, options) => Align(
@@ -247,17 +246,17 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                 controller: _phone,
                 keyboardType: TextInputType.phone,
                 textDirection: TextDirection.ltr,
-                decoration: const InputDecoration(labelText: 'موبايل العميل (لو جديد — اختياري)'),
-                validator: (v) => (v != null && v.trim().isNotEmpty && !PhoneUtils.isValidEgyptianMobile(v)) ? 'رقم الموبايل غلط' : null,
+                decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen17),
+                validator: (v) => (v != null && v.trim().isNotEmpty && !PhoneUtils.isValidEgyptianMobile(v)) ? L10n.t.oldInstallmentImportScreen18 : null,
               ),
             ],
             const SizedBox(height: 20),
-            _section('القسط'),
+            _section(L10n.t.oldInstallmentImportScreen19),
             TextFormField(
               controller: _item,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'السلعة', hintText: 'مثلاً: تلاجة توشيبا'),
-              validator: (v) => (v == null || v.trim().length < 2) ? 'اكتب اسم السلعة' : null,
+              decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen20, hintText: L10n.t.oldInstallmentImportScreen21),
+              validator: (v) => (v == null || v.trim().length < 2) ? L10n.t.oldInstallmentImportScreen22 : null,
             ),
             const SizedBox(height: 10),
             Row(
@@ -268,9 +267,9 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [money],
                     textDirection: TextDirection.ltr,
-                    decoration: const InputDecoration(labelText: 'السعر الإجمالي', suffixText: 'ج'),
+                    decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen23, suffixText: L10n.t.oldInstallmentImportScreen24),
                     onChanged: (_) => setState(() {}),
-                    validator: (v) => _required(v, 'مطلوب') ?? (_totalPiasters <= 0 ? 'غلط' : null),
+                    validator: (v) => _required(v, L10n.t.oldInstallmentImportScreen25) ?? (_totalPiasters <= 0 ? L10n.t.oldInstallmentImportScreen26 : null),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -280,9 +279,9 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [money],
                     textDirection: TextDirection.ltr,
-                    decoration: const InputDecoration(labelText: 'اتدفع لحد دلوقتي', suffixText: 'ج'),
+                    decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen27, suffixText: L10n.t.oldInstallmentImportScreen24),
                     onChanged: (_) => setState(() {}),
-                    validator: (_) => _remaining <= 0 ? 'لازم يكون أقل من السعر' : null,
+                    validator: (_) => _remaining <= 0 ? L10n.t.oldInstallmentImportScreen28 : null,
                   ),
                 ),
               ],
@@ -296,9 +295,9 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩]'))],
                     textDirection: TextDirection.ltr,
-                    decoration: const InputDecoration(labelText: 'عدد الأقساط الباقية'),
+                    decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen29),
                     onChanged: (_) => setState(() {}),
-                    validator: (_) => (_countValue < 1 || _countValue > 120) ? 'من 1 لـ 120' : null,
+                    validator: (_) => (_countValue < 1 || _countValue > 120) ? L10n.t.oldInstallmentImportScreen30 : null,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -307,16 +306,16 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                     onPressed: _pickDate,
                     style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
                     icon: const Icon(Icons.event_rounded),
-                    label: Text('الجاي: ${DateFormat('yyyy/MM/dd').format(_nextDue)}'),
+                    label: Text(L10n.t.oldInstallmentImportScreen31(DateFormat('yyyy/MM/dd').format(_nextDue))),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
             SegmentedButton<InstallmentFrequency>(
-              segments: const [
-                ButtonSegment(value: InstallmentFrequency.monthly, label: Text('شهري')),
-                ButtonSegment(value: InstallmentFrequency.weekly, label: Text('أسبوعي')),
+              segments: [
+                ButtonSegment(value: InstallmentFrequency.monthly, label: Text(L10n.t.oldInstallmentImportScreen32)),
+                ButtonSegment(value: InstallmentFrequency.weekly, label: Text(L10n.t.oldInstallmentImportScreen33)),
               ],
               selected: {_frequency},
               onSelectionChanged: (s) => setState(() => _frequency = s.first),
@@ -335,24 +334,24 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
             TextButton.icon(
               onPressed: () => setState(() => _showGuarantor = !_showGuarantor),
               icon: Icon(_showGuarantor ? Icons.expand_less_rounded : Icons.expand_more_rounded),
-              label: const Text('الضامن (اختياري)'),
+              label: Text(L10n.t.oldInstallmentImportScreen34),
             ),
             if (_showGuarantor) ...[
-              TextFormField(controller: _guarantorName, decoration: const InputDecoration(labelText: 'اسم الضامن')),
+              TextFormField(controller: _guarantorName, decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen35)),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _guarantorPhone,
                 keyboardType: TextInputType.phone,
                 textDirection: TextDirection.ltr,
-                decoration: const InputDecoration(labelText: 'موبايل الضامن'),
+                decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen36),
               ),
             ],
             const SizedBox(height: 12),
-            _section('صور من الكشكول أو العقد (اختياري — بتفضل على الموبايل)'),
+            _section(L10n.t.oldInstallmentImportScreen37),
             Text(
               _photos.isEmpty
-                  ? 'تقدر تضيف كذا صورة: صفحات الكشكول، العقد، بطاقة الضامن…'
-                  : '${_photos.length} صورة — هتتحفظ في صور العميل',
+                  ? L10n.t.oldInstallmentImportScreen38
+                  : L10n.t.oldInstallmentImportScreen39(_photos.length),
               style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
             ),
             PhotoStrip(paths: _photos, size: 72, onAdd: _addPhotos, onRemove: (i) => setState(() => _photos.removeAt(i))),
@@ -368,7 +367,7 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
             icon: _saving
                 ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                 : const Icon(Icons.save_rounded),
-            label: Text(_saving ? 'بيحفظ…' : 'احفظ القسط'),
+            label: Text(_saving ? L10n.t.oldInstallmentImportScreen40 : L10n.t.oldInstallmentImportScreen41),
           ),
         ),
       ),

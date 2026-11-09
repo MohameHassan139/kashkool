@@ -9,6 +9,8 @@ import '../../../../core/cloud/cloud_config.dart';
 import '../../../../core/cloud/cloud_providers.dart';
 import '../../../../core/cloud/cloud_session_store.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../shared/widgets/glass_toast.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Settings section: sign in with Google, back up to the cloud, restore on this phone.
 class CloudBackupCard extends ConsumerStatefulWidget {
@@ -25,14 +27,18 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
 
   void _snack(String message, {Color? color}) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: color));
+    if (color == AppColors.debtRed) {
+      AppGlassToast.showError(context, message);
+    } else {
+      AppGlassToast.showSuccess(context, message);
+    }
   }
 
   /// Runs [task] with a blocking progress dialog and shows errors as snackbars.
   Future<T?> _run<T>(Future<T> Function(CloudProgress onProgress) task) async {
     if (_busy) return null;
     setState(() => _busy = true);
-    final progress = ValueNotifier<String>('لحظة…');
+    final progress = ValueNotifier<String>(L10n.t.cloudBackupCard1);
     showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -60,7 +66,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       if (e.code != 'canceled') _snack(e.message, color: AppColors.debtRed);
       return null;
     } catch (_) {
-      _snack('حصلت مشكلة غير متوقعة، جرّب تاني', color: AppColors.debtRed);
+      _snack(L10n.t.cloudBackupCard2, color: AppColors.debtRed);
       return null;
     } finally {
       if (mounted) Navigator.of(context, rootNavigator: true).pop();
@@ -72,11 +78,11 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
 
   Future<void> _signIn() async {
     final session = await _run((p) {
-      p('بنفتح حسابات جوجل…', null);
+      p(L10n.t.cloudBackupCard3, null);
       return _service.signIn();
     });
     if (session == null || !mounted) return;
-    _snack('اتسجّل الدخول بـ ${session.email} ✓', color: AppColors.paymentGreen);
+    _snack(L10n.t.cloudBackupCard4(session.email), color: AppColors.paymentGreen);
     await _backup();
   }
 
@@ -87,16 +93,16 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       await showDialog<void>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('النسخة اترفعت مع ملاحظات ⚠️'),
+          title: Text(L10n.t.cloudBackupCard5),
           content: Text(
-            'اترفع ${result.uploaded} سجل، و ${result.rejected} سجل اترفض:\n\n${result.rejectReasons.join('\n')}',
+            L10n.t.cloudBackupCard6(result.uploaded, result.rejected, result.rejectReasons.join('\n')),
           ),
-          actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('حسناً'))],
+          actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.settingsScreen53))],
         ),
       );
     } else {
       _snack(
-        result.uploaded == 0 ? 'كل بياناتك متخزنة على السحابة بالفعل ✓' : 'اترفع ${result.uploaded} سجل على السحابة ✓',
+        result.uploaded == 0 ? L10n.t.cloudBackupCard7 : L10n.t.cloudBackupCard8(result.uploaded),
         color: AppColors.paymentGreen,
       );
     }
@@ -104,12 +110,12 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
 
   Future<void> _restore() async {
     final shops = await _run((p) {
-      p('بنجيب المحلات اللي على حسابك…', null);
+      p(L10n.t.cloudBackupCard9, null);
       return _service.listCloudShops();
     });
     if (shops == null || !mounted) return;
     if (shops.isEmpty) {
-      _snack('مفيش نسخة على السحابة للحساب ده لسه');
+      _snack(L10n.t.cloudBackupCard10);
       return;
     }
 
@@ -118,12 +124,12 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       shop = await showDialog<Map<String, dynamic>>(
         context: context,
         builder: (ctx) => SimpleDialog(
-          title: const Text('اختار المحل'),
+          title: Text(L10n.t.cloudBackupCard11),
           children: [
             for (final s in shops)
               SimpleDialogOption(
                 onPressed: () => Navigator.pop(ctx, s),
-                child: Text('${s['name']}${s['role'] == 'employee' ? ' (عامل)' : ''}'),
+                child: Text('${s['name']}${s['role'] == 'employee' ? L10n.t.cloudBackupCard12 : ''}'),
               ),
           ],
         ),
@@ -134,16 +140,15 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('استرجاع من السحابة؟'),
+        title: Text(L10n.t.cloudBackupCard13),
         content: Text(
-          'هننزّل نسخة "${shop!['name']}" اللي على السحابة ونضيفها على الموبايل ده.\n\n'
-          'مش هنمسح أي حاجة: البيانات اللي على الموبايل بس هتفضل، ولو حاجة اتعدلت على الموبايل بعد آخر نسخة هنسيبها زي ما هي.',
+          '${L10n.t.cloudBackupCard14(shop!['name'])}${L10n.t.cloudBackupCard15}',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('إلغاء')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
           ElevatedButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('أيوه، استرجع'),
+            child: Text(L10n.t.cloudBackupCard16),
           ),
         ],
       ),
@@ -156,11 +161,9 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        title: const Text('تم الاسترجاع 🎉'),
+        title: Text(L10n.t.cloudBackupCard17),
         content: Text(
-          'اترجع ${result.records} سجل'
-          '${result.keptLocal > 0 ? '، واتساب ${result.keptLocal} سجل زي ما هو لأن نسخة الموبايل أحدث' : ''}.'
-          ' اقفل التطبيق وافتحه تاني عشان كل الشاشات تتحدث.',
+          '${L10n.t.cloudBackupCard19(result.records, result.keptLocal > 0 ? L10n.t.cloudBackupCard18(result.keptLocal) : '')}\n\n${L10n.t.cloudBackupCard20}',
         ),
         actions: [
           ElevatedButton(
@@ -168,7 +171,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
               Navigator.pop(ctx);
               SystemNavigator.pop();
             },
-            child: const Text('اقفل التطبيق'),
+            child: Text(L10n.t.cloudBackupCard21),
           ),
         ],
       ),
@@ -179,11 +182,11 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('تسجيل خروج؟'),
-        content: const Text('بياناتك هتفضل على الموبايل وعلى السحابة. بس النسخ هيقف لحد ما تسجّل دخول تاني.'),
+        title: Text(L10n.t.cloudBackupCard22),
+        content: Text(L10n.t.cloudBackupCard23),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('إلغاء')),
-          TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('خروج')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text(L10n.t.cloudBackupCard24)),
         ],
       ),
     );
@@ -203,11 +206,11 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
         child: Column(
           children: CloudConfig.isConfigured
               ? (session == null ? _signedOutTiles() : _signedInTiles(session))
-              : const [
+              : [
                   ListTile(
                     leading: Icon(Icons.cloud_off_rounded, color: AppColors.neutralGrey),
-                    title: Text('النسخ على السحابة', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                    subtitle: Text('مش متاح في النسخة دي من التطبيق', style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+                    title: Text(L10n.t.cloudAccountButton2, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                    subtitle: Text(L10n.t.cloudBackupCard25, style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
                   ),
                 ],
         ),
@@ -221,9 +224,9 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
             backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.12),
             child: const Icon(Icons.cloud_upload_rounded, color: AppColors.primaryBlue),
           ),
-          title: const Text('النسخ الاحتياطي على السحابة', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          subtitle: const Text(
-            'سجّل بحساب جوجل وبياناتك تتحفظ أونلاين. لو الموبايل ضاع، ترجّعها على أي موبايل تاني.',
+          title: Text(L10n.t.cloudBackupCard26, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          subtitle: Text(
+            L10n.t.cloudBackupCard27,
             style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
           ),
         ),
@@ -234,7 +237,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
             child: OutlinedButton.icon(
               onPressed: _busy ? null : _signIn,
               icon: const Icon(Icons.account_circle_rounded),
-              label: const Text('سجّل دخول بحساب جوجل', style: TextStyle(fontWeight: FontWeight.bold)),
+              label: Text(L10n.t.cloudAccountButton3, style: TextStyle(fontWeight: FontWeight.bold)),
               style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(52)),
             ),
           ),
@@ -243,14 +246,14 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
 
   List<Widget> _signedInTiles(CloudSession session) {
     final last = session.lastBackupAt;
-    final lastText = last == null ? 'لسه مفيش نسخة' : 'آخر نسخة: ${DateFormat('yyyy/MM/dd - hh:mm a').format(last)}';
+    final lastText = last == null ? L10n.t.cloudBackupCard28 : L10n.t.cloudBackupCard29(DateFormat('yyyy/MM/dd - hh:mm a').format(last));
     final auto = ref.watch(autoBackupStatusProvider);
     final (autoText, autoColor) = switch (auto.state) {
-      AutoBackupState.uploading => ('بيرفع دلوقتي…', AppColors.primaryBlue),
-      AutoBackupState.waitingForInternet => ('مستني النت — هيرفع لوحده أول ما يرجع', AppColors.warningAmber),
-      AutoBackupState.failed => (auto.message ?? 'الرفع وقف، هنحاول تاني بعد شوية', AppColors.debtRed),
-      AutoBackupState.upToDate => (auto.message ?? 'كله مرفوع ✓', AppColors.paymentGreen),
-      AutoBackupState.idle => ('الرفع تلقائي لما النت يكون شغال', AppColors.neutralGrey),
+      AutoBackupState.uploading => (L10n.t.cloudBackupCard30, AppColors.primaryBlue),
+      AutoBackupState.waitingForInternet => (L10n.t.cloudBackupCard31, AppColors.warningAmber),
+      AutoBackupState.failed => (auto.message ?? L10n.t.cloudBackupCard32, AppColors.debtRed),
+      AutoBackupState.upToDate => (auto.message ?? L10n.t.cloudBackupCard33, AppColors.paymentGreen),
+      AutoBackupState.idle => (L10n.t.cloudBackupCard34, AppColors.neutralGrey),
     };
     return [
       ListTile(
@@ -272,7 +275,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       ListTile(
         enabled: !_busy,
         leading: const Icon(Icons.cloud_upload_rounded, color: AppColors.primaryBlue),
-        title: const Text('ارفع نسخة احتياطية دلوقتي', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        title: Text(L10n.t.cloudBackupCard35, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         trailing: const Icon(Icons.chevron_left_rounded),
         onTap: _backup,
       ),
@@ -280,8 +283,8 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       ListTile(
         enabled: !_busy,
         leading: const Icon(Icons.cloud_download_rounded, color: AppColors.warningAmber),
-        title: const Text('استرجع بياناتك على الموبايل ده', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-        subtitle: const Text('لموبايل جديد أو بعد مسح التطبيق — مش بيمسح حاجة', style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+        title: Text(L10n.t.cloudBackupCard36, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        subtitle: Text(L10n.t.cloudBackupCard37, style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
         trailing: const Icon(Icons.chevron_left_rounded),
         onTap: _restore,
       ),
@@ -289,7 +292,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       ListTile(
         enabled: !_busy,
         leading: const Icon(Icons.logout_rounded, color: AppColors.neutralGrey),
-        title: const Text('تسجيل خروج', style: TextStyle(fontSize: 14)),
+        title: Text(L10n.t.cloudBackupCard38, style: TextStyle(fontSize: 14)),
         onTap: _signOut,
       ),
     ];

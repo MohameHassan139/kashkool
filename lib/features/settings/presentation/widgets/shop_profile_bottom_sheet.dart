@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../core/constants/app_colors.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../../onboarding/data/shop_repository.dart';
 import '../../data/settings_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Modal bottom sheet allowing the shopkeeper to edit their shop name, address, phone, logo, and payment info.
 class ShopProfileBottomSheet extends ConsumerStatefulWidget {
@@ -114,21 +115,16 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
     // Also compose payment info string
     final parts = <String>[];
     if (_walletController.text.trim().isNotEmpty) {
-      parts.add('محفظة كاش: ${_walletController.text.trim()}');
+      parts.add(L10n.t.shopProfileBottomSheet1(_walletController.text.trim()));
     }
     if (_instaPayController.text.trim().isNotEmpty) {
-      parts.add('إنستاباي: ${_instaPayController.text.trim()}');
+      parts.add(L10n.t.installmentPlanDetailsScreen1(_instaPayController.text.trim()));
     }
     await repo.setPaymentInfo(parts.join(' | '));
 
     if (mounted) {
       Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تم حفظ بيانات المحل بنجاح 👍'),
-          backgroundColor: AppColors.paymentGreen,
-        ),
-      );
+      AppGlassToast.showSuccess(context, L10n.t.shopProfileBottomSheet2);
     }
   }
 
@@ -169,7 +165,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               ),
 
               Text(
-                'بيانات المحل 🏪',
+                L10n.t.settingsScreen1,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -215,14 +211,14 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               // Shop Name
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'اسم المحل *',
-                  hintText: 'مثلاً: بقالة الأمانة',
+                decoration: InputDecoration(
+                  labelText: L10n.t.shopProfileBottomSheet3,
+                  hintText: L10n.t.shopProfileBottomSheet4,
                   prefixIcon: Icon(Icons.storefront_outlined),
                 ),
                 validator: (val) {
                   if (val == null || val.trim().isEmpty) {
-                    return 'يرجى إدخال اسم المحل';
+                    return L10n.t.shopProfileBottomSheet5;
                   }
                   return null;
                 },
@@ -233,9 +229,9 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  labelText: 'رقم هاتف المحل',
-                  hintText: 'مثلاً: 010xxxxxxxx',
+                decoration: InputDecoration(
+                  labelText: L10n.t.shopProfileBottomSheet6,
+                  hintText: L10n.t.shopProfileBottomSheet7,
                   prefixIcon: Icon(Icons.phone_outlined),
                 ),
               ),
@@ -244,9 +240,9 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               // Shop Address
               TextFormField(
                 controller: _addressController,
-                decoration: const InputDecoration(
-                  labelText: 'عنوان المحل',
-                  hintText: 'مثلاً: شارع السوق، بجوار المسجد الكبير',
+                decoration: InputDecoration(
+                  labelText: L10n.t.shopProfileBottomSheet8,
+                  hintText: L10n.t.shopProfileBottomSheet9,
                   prefixIcon: Icon(Icons.location_on_outlined),
                 ),
               ),
@@ -255,9 +251,9 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               // InstaPay Handle
               TextFormField(
                 controller: _instaPayController,
-                decoration: const InputDecoration(
-                  labelText: 'حساب إنستاباي (InstaPay)',
-                  hintText: 'مثلاً: name@instapay',
+                decoration: InputDecoration(
+                  labelText: L10n.t.shopProfileBottomSheet10,
+                  hintText: L10n.t.shopProfileBottomSheet11,
                   prefixIcon: Icon(Icons.payment_outlined),
                 ),
               ),
@@ -267,25 +263,25 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               TextFormField(
                 controller: _walletController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  labelText: 'رقم فودافون كاش / المحفظة الذكية',
-                  hintText: 'مثلاً: 010xxxxxxxx',
+                decoration: InputDecoration(
+                  labelText: L10n.t.shopProfileBottomSheet12,
+                  hintText: L10n.t.shopProfileBottomSheet7,
                   prefixIcon: Icon(Icons.account_balance_wallet_outlined),
                 ),
               ),
               // Trade Type
               DropdownButtonFormField<String>(
                 initialValue: _tradeType,
-                decoration: const InputDecoration(
-                  labelText: 'نوع النشاط التجاري',
+                decoration: InputDecoration(
+                  labelText: L10n.t.shopProfileBottomSheet13,
                   prefixIcon: Icon(Icons.category_outlined),
                 ),
-                items: const [
-                  DropdownMenuItem(value: 'grocery', child: Text('بقالة وسوبرماركت 🛒')),
-                  DropdownMenuItem(value: 'mobile', child: Text('موبايلات وإكسسوارات 📱')),
-                  DropdownMenuItem(value: 'electronics', child: Text('أجهزة كهربائية ومنزلية ⚡')),
-                  DropdownMenuItem(value: 'pharmacy', child: Text('صيدلية ومستحضرات 💊')),
-                  DropdownMenuItem(value: 'other', child: Text('نشاط وتجارة أخرى 🏪')),
+                items: [
+                  DropdownMenuItem(value: 'grocery', child: Text(L10n.t.settingsScreen11)),
+                  DropdownMenuItem(value: 'mobile', child: Text(L10n.t.settingsScreen12)),
+                  DropdownMenuItem(value: 'electronics', child: Text(L10n.t.settingsScreen13)),
+                  DropdownMenuItem(value: 'pharmacy', child: Text(L10n.t.settingsScreen14)),
+                  DropdownMenuItem(value: 'other', child: Text(L10n.t.shopProfileBottomSheet14)),
                 ],
                 onChanged: (val) {
                   if (val != null) {
@@ -303,8 +299,8 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               // Installments Toggle
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('تفعيل نظام الأقساط', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                subtitle: const Text('إظهار زر الأقساط وجداول السداد في التطبيق', style: TextStyle(fontSize: 12)),
+                title: Text(L10n.t.shopProfileBottomSheet15, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                subtitle: Text(L10n.t.shopProfileBottomSheet16, style: TextStyle(fontSize: 12)),
                 value: _enableInstallments,
                 onChanged: (val) => setState(() => _enableInstallments = val),
               ),
@@ -317,7 +313,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                   minimumSize: const Size.fromHeight(52),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: const Text('حفظ التعديلات', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(L10n.t.shopProfileBottomSheet17, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
             ],
           ),

@@ -7,6 +7,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../installments/presentation/add_installment_plan_screen.dart';
 import '../../installments/presentation/installment_plan_details_screen.dart';
 import '../../installments/presentation/installments_providers.dart';
@@ -20,6 +21,7 @@ import 'customer_photos_screen.dart';
 import 'customers_providers.dart';
 import 'widgets/credit_limit_progress_bar.dart';
 import 'widgets/rating_badge.dart';
+import '../../../l10n/l10n.dart';
 
 /// Full details screen for a single customer.
 class CustomerDetailsScreen extends ConsumerWidget {
@@ -72,12 +74,7 @@ class CustomerDetailsScreen extends ConsumerWidget {
     if (confirmed == true && context.mounted) {
       await repo.deleteCustomer(customer.id);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.customerDeleted),
-            backgroundColor: AppColors.debtRed,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.customerDeleted);
         Navigator.of(context).pop();
       }
     }
@@ -401,8 +398,8 @@ class CustomerDetailsScreen extends ConsumerWidget {
                                 Expanded(
                                   child: Text(
                                     activePlans.isNotEmpty
-                                        ? 'أقساط نشطة (${activePlans.length}) • باقي: ${MoneyUtils.formatMoney(activePlans.fold<int>(0, (s, p) => s + p.remainingPiasters))}'
-                                        : 'بيع بالتقسيط للعميل',
+                                        ? L10n.t.customerDetailsScreen1(activePlans.length, MoneyUtils.formatMoney(activePlans.fold<int>(0, (s, p) => s + p.remainingPiasters)))
+                                        : L10n.t.customerDetailsScreen2,
                                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                                   ),
                                 ),
@@ -416,11 +413,11 @@ class CustomerDetailsScreen extends ConsumerWidget {
                                         ),
                                       );
                                     },
-                                    child: const Text('عرض'),
+                                    child: Text(L10n.t.customerDetailsScreen3),
                                   ),
                                 IconButton(
                                   icon: const Icon(Icons.add_circle_outline, color: AppColors.primaryGreen),
-                                  tooltip: 'إضافة قسط جديد',
+                                  tooltip: L10n.t.customerDetailsScreen4,
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -541,7 +538,7 @@ class _PhotosButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(customerPhotosProvider(customerId)).valueOrNull?.length ?? 0;
     return IconButton(
-      tooltip: 'صور العميل',
+      tooltip: L10n.t.customerDetailsScreen5,
       onPressed: () => CustomerPhotosScreen.open(context, customerId: customerId, customerName: customerName),
       icon: Badge(
         isLabelVisible: count > 0,

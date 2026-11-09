@@ -4,33 +4,18 @@ import '../db/app_database.dart';
 import '../growth/growth_footer.dart';
 import 'money.dart';
 import 'phone.dart';
+import '../../l10n/l10n.dart';
 
 /// Utilities for rendering and launching WhatsApp and SMS reminder templates.
 abstract final class WhatsAppTemplateUtils {
-  static const String defaultFriendlyTemplate =
-      'السلام عليكم أ/ {customer_name} 👋\n'
-      'معاك {shop_name}.\n'
-      'رصيدك الحالي: {balance}\n'
-      'آخر عملية: {last_transaction_date} - {last_transaction_amount}\n'
-      'للدفع: {payment_info}\n'
-      'شكراً لتعاملك معانا 🙏';
+  static String get defaultFriendlyTemplate =>
+      L10n.t.whatsappTemplate1;
 
-  static const String defaultFormalTemplate =
-      'تحية طيبة أ/ {customer_name}\n'
-      'نود تذكيركم بأن الحساب الحالي لدى {shop_name} يبلغ {balance}.\n'
-      'آخر عملية مسجلة: {last_transaction_date} ({last_transaction_amount})\n'
-      'طرق السداد المتاحة: {payment_info}\n'
-      'مع خالص الشكر والتقدير.';
+  static String get defaultFormalTemplate =>
+      L10n.t.whatsappTemplate2;
 
-  static const String defaultInstallmentTemplate =
-      'السلام عليكم أ/ {customer_name} 👋\n'
-      'معاك {shop_name}.\n'
-      'بنفكرك بميعاد استحقاق قسط ({item}) - القسط رقم {installment_number} من {installment_count}:\n'
-      'المبلغ المستحق: {amount}\n'
-      'تاريخ الاستحقاق: {due_date}\n'
-      'إجمالي المتبقي من الأقساط: {remaining_total}\n'
-      'طرق السداد المتاحة: {payment_info}\n'
-      'شكراً لالتزامك معانا 🙏';
+  static String get defaultInstallmentTemplate =>
+      L10n.t.whatsappTemplate3;
 
   /// Builds the growth footer (with referral link) appended to messages.
   static String growthFooter([String? shopCode]) =>
@@ -38,15 +23,17 @@ abstract final class WhatsAppTemplateUtils {
 
   /// Renders template string with dynamic values and appends Kashkool growth footer.
   static String render({
-    String template = defaultFriendlyTemplate,
+    String? template,
     required String customerName,
-    String shopName = 'كشكول',
+    String? shopName,
     required int balancePiasters,
     Transaction? lastTransaction,
     String? paymentInfo,
     bool includeGrowthFooter = true,
     String? shopCode,
   }) {
+    template ??= defaultFriendlyTemplate;
+    shopName ??= L10n.t.main1;
     final balanceStr = MoneyUtils.formatMoney(balancePiasters);
     final dateFmt = DateFormat('yyyy/MM/dd');
 
@@ -60,11 +47,11 @@ abstract final class WhatsAppTemplateUtils {
 
     final payInfoStr = (paymentInfo != null && paymentInfo.trim().isNotEmpty)
         ? paymentInfo.trim()
-        : 'كاش في المحل أو التحويل المتاح';
+        : L10n.t.whatsappTemplate4;
 
     var result = template
         .replaceAll('{customer_name}', customerName)
-        .replaceAll('{shop_name}', shopName.trim().isEmpty ? 'كشكول' : shopName.trim())
+        .replaceAll('{shop_name}', shopName.trim().isEmpty ? L10n.t.main1 : shopName.trim())
         .replaceAll('{balance}', balanceStr)
         .replaceAll('{last_transaction_date}', lastDateStr)
         .replaceAll('{last_transaction_amount}', lastAmountStr)
@@ -79,9 +66,9 @@ abstract final class WhatsAppTemplateUtils {
 
   /// Renders installment reminder template string with dynamic values.
   static String renderInstallmentReminder({
-    String template = defaultInstallmentTemplate,
+    String? template,
     required String customerName,
-    String shopName = 'كشكول',
+    String? shopName,
     required String itemDescription,
     required int installmentNumber,
     required int installmentCount,
@@ -92,17 +79,19 @@ abstract final class WhatsAppTemplateUtils {
     bool includeGrowthFooter = true,
     String? shopCode,
   }) {
+    template ??= defaultInstallmentTemplate;
+    shopName ??= L10n.t.main1;
     final dateFmt = DateFormat('yyyy/MM/dd');
     final amountStr = MoneyUtils.formatMoney(amountPiasters);
     final remainingStr = MoneyUtils.formatMoney(remainingTotalPiasters);
     final dueDateStr = dateFmt.format(dueDate);
     final payInfoStr = (paymentInfo != null && paymentInfo.trim().isNotEmpty)
         ? paymentInfo.trim()
-        : 'كاش في المحل أو التحويل المتاح';
+        : L10n.t.whatsappTemplate4;
 
     var result = template
         .replaceAll('{customer_name}', customerName)
-        .replaceAll('{shop_name}', shopName.trim().isEmpty ? 'كشكول' : shopName.trim())
+        .replaceAll('{shop_name}', shopName.trim().isEmpty ? L10n.t.main1 : shopName.trim())
         .replaceAll('{item}', itemDescription)
         .replaceAll('{installment_number}', installmentNumber.toString())
         .replaceAll('{installment_count}', installmentCount.toString())

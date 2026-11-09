@@ -7,6 +7,7 @@ import 'widgets/drawer_flow_card.dart';
 import 'widgets/drawer_history_tab.dart';
 import 'widgets/drawer_live_card.dart';
 import 'widgets/expenses_list_card.dart';
+import '../../../l10n/l10n.dart';
 
 /// Primary Screen for Cash Drawer Closing and Expense Management.
 class CashDrawerScreen extends ConsumerStatefulWidget {
@@ -93,7 +94,7 @@ class _CashDrawerScreenState extends ConsumerState<CashDrawerScreen> with Single
             error: (err, stack) => Center(
               child: Padding(
                 padding: const EdgeInsets.all(24),
-                child: Text('حدث خطأ في تحميل بيانات الدرج: $err'),
+                child: Text(L10n.t.cashDrawerScreen1(err)),
               ),
             ),
           ),

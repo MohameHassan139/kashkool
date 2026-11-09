@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 import '../../features/settings/data/settings_repository.dart';
+import '../../l10n/l10n.dart';
 
 /// Service managing PIN hashing, biometric checks, and authentication.
 class SecurityService {
@@ -77,7 +78,8 @@ class SecurityService {
   }
 
   /// Prompts the user with biometric authentication (Fingerprint / Face ID).
-  Future<bool> authenticateWithBiometrics({String reason = 'تأكيد الهوية لفتح كشكول'}) async {
+  Future<bool> authenticateWithBiometrics({String? reason}) async {
+    reason ??= L10n.t.securityService1;
     if (isAuthenticatingBiometrics) return false;
     try {
       final isAvailable = await isBiometricsAvailable();

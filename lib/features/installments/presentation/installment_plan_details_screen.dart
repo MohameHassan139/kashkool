@@ -7,6 +7,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/whatsapp_template.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../settings/data/settings_repository.dart';
 import '../data/installment_repository.dart';
 import '../domain/installment_calculator.dart';
@@ -14,6 +15,7 @@ import 'installments_providers.dart';
 import 'widgets/early_settlement_dialog.dart';
 import 'widgets/installment_progress_bar.dart';
 import 'widgets/pay_installment_dialog.dart';
+import '../../../l10n/l10n.dart';
 
 /// Comprehensive Details Screen for an Installment Plan.
 class InstallmentPlanDetailsScreen extends ConsumerWidget {
@@ -48,9 +50,9 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     final wallet = await settingsRepo.getShopWallet();
 
     final List<String> paymentParts = [];
-    if (instapay.isNotEmpty) paymentParts.add('إنستاباي: $instapay');
-    if (wallet.isNotEmpty) paymentParts.add('محفظة/فودافون كاش: $wallet');
-    if (phoneNum.isNotEmpty) paymentParts.add('تليفون: $phoneNum');
+    if (instapay.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen1(instapay));
+    if (wallet.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen2(wallet));
+    if (phoneNum.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen3(phoneNum));
 
     final message = WhatsAppTemplateUtils.renderInstallmentReminder(
       customerName: customerName,
@@ -80,14 +82,14 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('إلغاء خطة القسط'),
-        content: const Text('هل أنت متأكد من رغبتك في إلغاء هذه الخطة؟ سيتم إيقاف التنبيهات مع الاحتفاظ بسجل المدفوعات.'),
+        title: Text(L10n.t.installmentPlanDetailsScreen4),
+        content: Text(L10n.t.installmentPlanDetailsScreen5),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('رجوع')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen6)),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed, foregroundColor: Colors.white),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('إلغاء الخطة'),
+            child: Text(L10n.t.installmentPlanDetailsScreen7),
           ),
         ],
       ),
@@ -96,7 +98,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     if (confirmed == true && context.mounted) {
       await ref.read(installmentRepositoryProvider).cancelPlan(planId);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('تم إلغاء خطة القسط')));
+        AppGlassToast.showSuccess(context, L10n.t.installmentPlanDetailsScreen8);
       }
     }
   }
@@ -105,14 +107,14 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('حذف خطة القسط'),
-        content: const Text('هل أنت متأكد من حذف خطة القسط نهائياً؟'),
+        title: Text(L10n.t.installmentPlanDetailsScreen9),
+        content: Text(L10n.t.installmentPlanDetailsScreen10),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('إلغاء')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed, foregroundColor: Colors.white),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('حذف نهائي'),
+            child: Text(L10n.t.installmentPlanDetailsScreen12),
           ),
         ],
       ),
@@ -122,7 +124,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
       await ref.read(installmentRepositoryProvider).deletePlan(planId);
       if (context.mounted) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('تم حذف خطة القسط')));
+        AppGlassToast.showSuccess(context, L10n.t.installmentPlanDetailsScreen13);
       }
     }
   }
@@ -136,14 +138,14 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     return planAsync.when(
       loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(
-        appBar: AppBar(title: const Text('تفاصيل القسط')),
-        body: Center(child: Text('خطأ: $e')),
+        appBar: AppBar(title: Text(L10n.t.installmentPlanDetailsScreen14)),
+        body: Center(child: Text(L10n.t.installmentPlanDetailsScreen15(e))),
       ),
       data: (item) {
         if (item == null) {
           return Scaffold(
-            appBar: AppBar(title: const Text('تفاصيل القسط')),
-            body: const Center(child: Text('خطة القسط غير موجودة أو تم حذفها')),
+            appBar: AppBar(title: Text(L10n.t.installmentPlanDetailsScreen14)),
+            body: Center(child: Text(L10n.t.installmentPlanDetailsScreen16)),
           );
         }
 
@@ -163,10 +165,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                 },
                 itemBuilder: (ctx) => [
                   if (!isCompleted && !isCancelled)
-                    const PopupMenuItem(value: 'cancel', child: Text('إلغاء الخطة')),
-                  const PopupMenuItem(
+                    PopupMenuItem(value: 'cancel', child: Text(L10n.t.installmentPlanDetailsScreen7)),
+                  PopupMenuItem(
                     value: 'delete',
-                    child: Text('حذف الخطة', style: TextStyle(color: AppColors.debtRed)),
+                    child: Text(L10n.t.installmentPlanDetailsScreen17, style: TextStyle(color: AppColors.debtRed)),
                   ),
                 ],
               ),
@@ -225,7 +227,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       // Financial Breakdown Table
                       Row(
                         children: [
-                          const Expanded(child: Text('السعر الإجمالي:')),
+                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen18)),
                           Text(MoneyUtils.formatMoney(plan.totalPricePiasters),
                               style: const TextStyle(fontWeight: FontWeight.bold)),
                         ],
@@ -233,7 +235,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          const Expanded(child: Text('المقدم:')),
+                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen19)),
                           Text(MoneyUtils.formatMoney(plan.downPaymentPiasters),
                               style: const TextStyle(fontWeight: FontWeight.w600)),
                         ],
@@ -241,7 +243,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          const Expanded(child: Text('إجمالي المدفوع:')),
+                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen20)),
                           Text(
                             MoneyUtils.formatMoney(item.totalPaidWithDownPaymentPiasters),
                             style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryGreen),
@@ -251,7 +253,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          const Expanded(child: Text('المتبقي:')),
+                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen21)),
                           Text(
                             MoneyUtils.formatMoney(item.remainingPiasters),
                             style: TextStyle(
@@ -283,8 +285,8 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                             minimumSize: const Size.fromHeight(48),
                           ),
                           icon: const Icon(Icons.verified_rounded),
-                          label: const Text(
-                            'سداد مبكر وتصفية بالكامل',
+                          label: Text(
+                            L10n.t.installmentPlanDetailsScreen22,
                             style: TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -329,7 +331,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('الضامن: ${plan.guarantorName!}',
+                              Text(L10n.t.installmentPlanDetailsScreen23(plan.guarantorName!),
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
                               if (plan.guarantorPhone != null && plan.guarantorPhone!.isNotEmpty)
                                 Text(plan.guarantorPhone!, style: theme.textTheme.bodySmall),
@@ -354,8 +356,8 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.photo_library_outlined, color: AppColors.primaryGreen),
-                  title: const Text('صورة العقد / إيصال الأمانة'),
-                  subtitle: const Text('اضغط لعرض المستند بالحجم الكامل'),
+                  title: Text(L10n.t.installmentPlanDetailsScreen24),
+                  subtitle: Text(L10n.t.installmentPlanDetailsScreen25),
                   trailing: const Icon(Icons.chevron_left_rounded),
                   onTap: () {
                     showDialog(
@@ -365,7 +367,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             AppBar(
-                              title: const Text('مستند القسط'),
+                              title: Text(L10n.t.installmentPlanDetailsScreen26),
                               leading: IconButton(
                                 icon: const Icon(Icons.close),
                                 onPressed: () => Navigator.pop(ctx),
@@ -392,7 +394,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'جدول الأقساط (${item.installments.length})',
+                      L10n.t.installmentPlanDetailsScreen27(item.installments.length),
                       style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -400,7 +402,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                   if (!isCompleted && !isCancelled)
                     TextButton.icon(
                       icon: const Icon(Icons.add_card_rounded, size: 18),
-                      label: const Text('سداد دفعة حرة'),
+                      label: Text(L10n.t.installmentPlanDetailsScreen28),
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -475,28 +477,28 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'القسط رقم ${inst.installmentIndex} • ${dateFmt.format(inst.dueDate)}',
+                                    L10n.t.installmentPlanDetailsScreen29(inst.installmentIndex, dateFmt.format(inst.dueDate)),
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 2),
                                   if (isPaid)
                                     Text(
-                                      'تم السداد بالكامل ✓ (${MoneyUtils.formatMoney(inst.paidPiasters)})',
+                                      L10n.t.installmentPlanDetailsScreen30(MoneyUtils.formatMoney(inst.paidPiasters)),
                                       style: const TextStyle(color: AppColors.primaryGreen, fontSize: 12),
                                     )
                                   else if (isPartial)
                                     Text(
-                                      'مدفوع ${MoneyUtils.formatMoney(inst.paidPiasters)} من ${MoneyUtils.formatMoney(inst.amountPiasters)}',
+                                      L10n.t.installmentPlanDetailsScreen31(MoneyUtils.formatMoney(inst.paidPiasters), MoneyUtils.formatMoney(inst.amountPiasters)),
                                       style: const TextStyle(color: AppColors.warningAmber, fontSize: 12),
                                     )
                                   else if (isOverdue)
-                                    const Text('متأخر عن ميعاده ⚠️',
+                                    Text(L10n.t.installmentPlanDetailsScreen32,
                                         style: TextStyle(color: AppColors.debtRed, fontSize: 12, fontWeight: FontWeight.bold))
                                   else if (isDueToday)
-                                    const Text('مستحق السداد اليوم 🔔',
+                                    Text(L10n.t.installmentPlanDetailsScreen33,
                                         style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold))
                                   else
-                                    Text('قادم • ${MoneyUtils.formatMoney(inst.amountPiasters)}',
+                                    Text(L10n.t.installmentPlanDetailsScreen34(MoneyUtils.formatMoney(inst.amountPiasters)),
                                         style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 12)),
                                 ],
                               ),
@@ -527,7 +529,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                               if (customer.phone != null && customer.phone!.isNotEmpty)
                                 TextButton.icon(
                                   icon: const Icon(Icons.chat_outlined, size: 16, color: AppColors.primaryGreen),
-                                  label: const Text('تذكير واتساب', style: TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
+                                  label: Text(L10n.t.installmentPlanDetailsScreen35, style: TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
                                   onPressed: () {
                                     _sendWhatsAppReminder(
                                       context: context,
@@ -553,7 +555,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 12),
                                 ),
                                 icon: const Icon(Icons.payment_rounded, size: 16),
-                                label: const Text('سداد', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                                label: Text(L10n.t.installmentPlanDetailsScreen36, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   showDialog(
                                     context: context,

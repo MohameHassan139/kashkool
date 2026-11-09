@@ -7,6 +7,7 @@ import '../db/app_database.dart';
 import 'cloud_api.dart';
 import 'cloud_config.dart';
 import 'cloud_providers.dart';
+import '../../l10n/l10n.dart';
 
 enum AutoBackupState { idle, waitingForInternet, uploading, upToDate, failed }
 
@@ -113,7 +114,7 @@ class AutoBackupCoordinator {
       final result = await _ref.read(cloudBackupServiceProvider).backupNow();
       _setStatus(AutoBackupStatus(
         AutoBackupState.upToDate,
-        result.rejected > 0 ? '${result.rejected} سجل مترفعش' : null,
+        result.rejected > 0 ? L10n.t.autoBackupCoordinator1(result.rejected) : null,
       ));
       _ref.invalidate(cloudSessionProvider);
     } on CloudApiException catch (e) {
@@ -126,7 +127,7 @@ class AutoBackupCoordinator {
       }
     } catch (e) {
       debugPrint('AutoBackup failed: $e');
-      _setStatus(const AutoBackupStatus(AutoBackupState.failed, 'حصلت مشكلة، هنحاول تاني بعد شوية'));
+      _setStatus(AutoBackupStatus(AutoBackupState.failed, L10n.t.autoBackupCoordinator2));
       schedule(_retryAfterFailure);
     } finally {
       _running = false;

@@ -5,6 +5,7 @@ import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/glass_toast.dart';
 
 /// Modal bottom sheet for performing end-of-day drawer closing and counting.
 class CloseDayBottomSheet extends ConsumerStatefulWidget {
@@ -78,12 +79,7 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.dayClosedSuccess),
-            backgroundColor: AppColors.paymentGreen,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.dayClosedSuccess);
         Navigator.pop(context);
       }
     } finally {

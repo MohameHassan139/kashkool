@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/db/app_database.dart';
+import '../../../l10n/l10n.dart';
 
 enum TrashKind { customer, supplier, transaction, expense, installmentPlan }
 
@@ -28,13 +29,14 @@ class TrashRepository {
   final AppDatabase _db;
   TrashRepository(this._db);
 
-  static const _expenseLabels = {
-    ExpenseCategory.rent: 'إيجار',
-    ExpenseCategory.electricity: 'كهربا',
-    ExpenseCategory.salary: 'مرتبات',
-    ExpenseCategory.supplies: 'مستلزمات',
-    ExpenseCategory.supplierPayment: 'دفع لمورد',
-    ExpenseCategory.other: 'مصروف',
+  // A getter (not const) so the labels follow the current app language.
+  static Map<ExpenseCategory, String> get _expenseLabels => {
+    ExpenseCategory.rent: L10n.t.trashRepository1,
+    ExpenseCategory.electricity: L10n.t.trashRepository2,
+    ExpenseCategory.salary: L10n.t.trashRepository3,
+    ExpenseCategory.supplies: L10n.t.trashRepository4,
+    ExpenseCategory.supplierPayment: L10n.t.trashRepository5,
+    ExpenseCategory.other: L10n.t.trashRepository6,
   };
 
   /// Everything currently in the trash, newest first.
@@ -59,13 +61,13 @@ class TrashRepository {
       final party = t.partyType == PartyType.customer ? customerNames[t.partyId] : supplierNames[t.partyId];
       final isCustomer = t.partyType == PartyType.customer;
       final label = switch (t.type) {
-        TransactionType.debt => isCustomer ? 'عليه' : 'عليّا',
-        TransactionType.payment => isCustomer ? 'دفع' : 'دفعتله',
+        TransactionType.debt => isCustomer ? L10n.t.notebookImportScreen32 : L10n.t.trashRepository7,
+        TransactionType.payment => isCustomer ? L10n.t.trashRepository8 : L10n.t.trashRepository9,
       };
       items.add(TrashItem(
         kind: TrashKind.transaction,
         id: t.id,
-        title: '$label — ${party ?? 'غير معروف'}',
+        title: '$label — ${party ?? L10n.t.trashRepository10}',
         subtitle: t.note,
         amountPiasters: t.amountPiasters,
         deletedAt: t.deletedAt!,
@@ -77,7 +79,7 @@ class TrashRepository {
       items.add(TrashItem(
         kind: TrashKind.expense,
         id: e.id,
-        title: _expenseLabels[e.category] ?? 'مصروف',
+        title: _expenseLabels[e.category] ?? L10n.t.trashRepository6,
         subtitle: e.note,
         amountPiasters: e.amountPiasters,
         deletedAt: e.deletedAt!,
@@ -89,7 +91,7 @@ class TrashRepository {
       items.add(TrashItem(
         kind: TrashKind.installmentPlan,
         id: p.id,
-        title: 'تقسيط: ${p.itemDescription}',
+        title: L10n.t.trashRepository11(p.itemDescription),
         subtitle: customerNames[p.customerId],
         amountPiasters: p.totalPricePiasters,
         deletedAt: p.deletedAt!,

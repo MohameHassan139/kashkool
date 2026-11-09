@@ -6,8 +6,10 @@ import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/glass_toast.dart';
 import 'close_day_bottom_sheet.dart';
 import 'edit_opening_cash_dialog.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Top card in the Cash Drawer screen displaying real-time expected balance,
 /// opening cash, closing status, and the primary action button.
@@ -43,9 +45,7 @@ class DrawerLiveCard extends ConsumerWidget {
     if (confirmed == true && context.mounted) {
       await ref.read(cashDrawerRepositoryProvider).reopenDay(summary.date);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.dayReopenedSuccess)),
-        );
+        AppGlassToast.showSuccess(context, l10n.dayReopenedSuccess);
       }
     }
   }
@@ -249,7 +249,7 @@ class DrawerLiveCard extends ConsumerWidget {
               if (summary.notes != null && summary.notes!.isNotEmpty) ...[
                 const SizedBox(height: 6),
                 Text(
-                  'ملاحظة: ${summary.notes!}',
+                  L10n.t.drawerLiveCard1(summary.notes!),
                   style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: Colors.grey.shade700),
                 ),
               ],

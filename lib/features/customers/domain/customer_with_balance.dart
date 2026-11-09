@@ -1,5 +1,6 @@
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/customer_rating.dart';
+import '../../../l10n/l10n.dart';
 
 /// Presentation/Domain model combining customer entity with real-time computed financial balance and rating.
 class CustomerWithBalance {
@@ -18,18 +19,18 @@ class CustomerWithBalance {
   final int transactionCount;
 
   /// Real-time computed customer rating badge and explanation
-  final CustomerRatingResult rating;
+  final CustomerRatingResult? _rating;
+
+  CustomerRatingResult get rating =>
+      _rating ?? CustomerRatingResult(badge: RatingBadge.newCustomer, explanation: L10n.t.customerWithBalance1);
 
   const CustomerWithBalance({
     required this.customer,
     required this.balancePiasters,
     this.lastTransactionAt,
     this.transactionCount = 0,
-    this.rating = const CustomerRatingResult(
-      badge: RatingBadge.newCustomer,
-      explanation: 'عميل جديد',
-    ),
-  });
+    CustomerRatingResult? rating,
+  }) : _rating = rating;
 
   bool get hasDebt => balancePiasters > 0;
   bool get isSettled => balancePiasters == 0;

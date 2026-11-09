@@ -7,7 +7,9 @@ import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/glass_toast.dart';
 import 'close_day_bottom_sheet.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Tab displaying monthly totals and historical cash drawer days.
 class DrawerHistoryTab extends ConsumerWidget {
@@ -204,7 +206,7 @@ class _HistoryDayCard extends ConsumerWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'مبيعات كاش: ${MoneyUtils.formatMoney(day.cashSalesPiasters)} · افتتاح: ${MoneyUtils.formatMoney(day.openingCashPiasters)}',
+                      L10n.t.drawerHistoryTab1(MoneyUtils.formatMoney(day.cashSalesPiasters), MoneyUtils.formatMoney(day.openingCashPiasters)),
                       style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
                     ),
                   ],
@@ -275,7 +277,7 @@ class _HistoryDayCard extends ConsumerWidget {
                 ),
               ),
               Text(
-                'تفاصيل يوم ${DateFormat('yyyy/MM/dd').format(summary.date)}',
+                L10n.t.drawerHistoryTab2(DateFormat('yyyy/MM/dd').format(summary.date)),
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -294,7 +296,7 @@ class _HistoryDayCard extends ConsumerWidget {
                 if (summary.differencePiasters != null)
                   _detailRow(
                     context,
-                    'الفرق',
+                    L10n.t.drawerHistoryTab3,
                     summary.differencePiasters!,
                     isDiff: true,
                     isBold: true,
@@ -307,9 +309,7 @@ class _HistoryDayCard extends ConsumerWidget {
                     Navigator.pop(ctx);
                     await ref.read(cashDrawerRepositoryProvider).reopenDay(summary.date);
                     if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.dayReopenedSuccess)),
-                      );
+                      AppGlassToast.showSuccess(context, l10n.dayReopenedSuccess);
                     }
                   },
                   icon: const Icon(Icons.lock_open_rounded, color: AppColors.debtRed),

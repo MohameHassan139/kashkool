@@ -13,6 +13,7 @@ import '../../../../core/security/pin_lock_screen.dart';
 import '../../../../core/security/security_service.dart';
 import '../../../../core/utils/money.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../onboarding/data/shop_repository.dart';
 import '../data/settings_repository.dart';
 import 'widgets/backup_reminder_banner.dart';
@@ -22,6 +23,7 @@ import 'widgets/cloud_backup_card.dart';
 import 'widgets/home_widget_settings_card.dart';
 import 'widgets/message_template_editor_bottom_sheet.dart';
 import 'widgets/shop_profile_bottom_sheet.dart';
+import '../../../l10n/l10n.dart';
 
 /// Full Settings screen managing shop profile, security (PIN/biometrics),
 /// data backup/restore, reminder templates, theme, and growth sharing.
@@ -50,11 +52,11 @@ class SettingsScreen extends ConsumerWidget {
           const BackupReminderBanner(),
 
           // 1. بيانات المحل (Shop Info)
-          _buildSectionHeader(context, 'بيانات المحل 🏪'),
+          _buildSectionHeader(context, L10n.t.settingsScreen1),
           _buildShopInfoCard(context, ref),
 
           // 2. الحماية والخصوصية (Security & Privacy)
-          _buildSectionHeader(context, 'الحماية والخصوصية 🔒'),
+          _buildSectionHeader(context, L10n.t.settingsScreen2),
           _buildSecurityCard(
             context,
             ref,
@@ -64,25 +66,25 @@ class SettingsScreen extends ConsumerWidget {
           ),
 
           // 2b. ويدجت الشاشة الرئيسية (Home Screen Widget)
-          _buildSectionHeader(context, 'ويدجت الشاشة الرئيسية 📱'),
+          _buildSectionHeader(context, L10n.t.settingsScreen3),
           const HomeWidgetSettingsCard(),
 
           // 3. التذكيرات ورسائل الواتساب (Reminders)
-          _buildSectionHeader(context, 'رسائل التذكير والتحصيل 💬'),
+          _buildSectionHeader(context, L10n.t.settingsScreen4),
           _buildRemindersCard(context, ref),
 
           // 4. النسخ الاحتياطي والبيانات (Backup & Data)
-          _buildSectionHeader(context, 'النسخ الاحتياطي والبيانات 💾'),
+          _buildSectionHeader(context, L10n.t.settingsScreen5),
           _buildBackupCard(context, ref, lastBackupAsync.valueOrNull),
           const CloudBackupCard(),
           const TrashEntryTile(),
 
           // 5. مشاركة التطبيق (Growth)
-          _buildSectionHeader(context, 'مشاركة التطبيق 🚀'),
+          _buildSectionHeader(context, L10n.t.settingsScreen6),
           _buildShareCard(context, ref, l10n, shopCodeAsync.valueOrNull),
 
           // 6. عام والمظهر (General)
-          _buildSectionHeader(context, 'عام ⚙️'),
+          _buildSectionHeader(context, L10n.t.settingsScreen7),
           _buildGeneralCard(context, ref, themeModeAsync.valueOrNull ?? ThemeMode.system),
 
           const SizedBox(height: 16),
@@ -93,7 +95,7 @@ class SettingsScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   Text(
-                    'كشكول 📒',
+                    L10n.t.settingsScreen8,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -102,7 +104,7 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'دفتر حسابات المحل بدون نت (Offline-First)\nالإصدار 1.0.0',
+                    L10n.t.settingsScreen9,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12,
@@ -142,28 +144,28 @@ class SettingsScreen extends ConsumerWidget {
     final activeShopAsync = ref.watch(activeShopStreamProvider);
     final shop = activeShopAsync.value;
 
-    String tradeName = 'متجر عام';
+    String tradeName = L10n.t.settingsScreen10;
     if (shop != null) {
       switch (shop.shopType) {
         case 'grocery':
-          tradeName = 'بقالة وسوبرماركت 🛒';
+          tradeName = L10n.t.settingsScreen11;
           break;
         case 'mobile':
-          tradeName = 'موبايلات وإكسسوارات 📱';
+          tradeName = L10n.t.settingsScreen12;
           break;
         case 'electronics':
-          tradeName = 'أجهزة كهربائية ومنزلية ⚡';
+          tradeName = L10n.t.settingsScreen13;
           break;
         case 'pharmacy':
-          tradeName = 'صيدلية ومستحضرات 💊';
+          tradeName = L10n.t.settingsScreen14;
           break;
         default:
-          tradeName = 'أنشطة وتجارة حرة 🏪';
+          tradeName = L10n.t.settingsScreen15;
           break;
       }
     }
 
-    final shopName = shop?.name.isNotEmpty == true ? shop!.name : 'كشكول';
+    final shopName = shop?.name.isNotEmpty == true ? shop!.name : L10n.t.main1;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -180,7 +182,7 @@ class SettingsScreen extends ConsumerWidget {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           subtitle: Text(
-            '$tradeName • تعديل النشاط وبيانات الدفع',
+            L10n.t.settingsScreen16(tradeName),
             style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
           ),
           trailing: const Icon(Icons.chevron_left_rounded),
@@ -214,12 +216,12 @@ class SettingsScreen extends ConsumerWidget {
                 backgroundColor: AppColors.warningAmber.withValues(alpha: 0.15),
                 child: const Icon(Icons.visibility_off_rounded, color: AppColors.warningAmber),
               ),
-              title: const Text(
-                'وضع الخصوصية',
+              title: Text(
+                L10n.t.customersScreen2,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)',
+              subtitle: Text(
+                L10n.t.settingsScreen17,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               value: isPrivacy,
@@ -242,12 +244,12 @@ class SettingsScreen extends ConsumerWidget {
                       : AppColors.secondaryText(Theme.of(context).brightness == Brightness.dark),
                 ),
               ),
-              title: const Text(
-                'قفل التطبيق برمز PIN (4 أرقام)',
+              title: Text(
+                L10n.t.settingsScreen18,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
-                hasPin ? 'مفعّل ومحمي (اضغط للإلغاء)' : 'غير مفعّل (اضغط للتعيين)',
+                hasPin ? L10n.t.settingsScreen19 : L10n.t.settingsScreen20,
                 style: TextStyle(
                   fontSize: 12,
                   color: hasPin ? AppColors.paymentGreen : AppColors.neutralGrey,
@@ -257,7 +259,7 @@ class SettingsScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    hasPin ? 'مفعّل 🔒' : 'إعداد',
+                    hasPin ? L10n.t.settingsScreen21 : L10n.t.settingsScreen22,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
@@ -279,9 +281,7 @@ class SettingsScreen extends ConsumerWidget {
                           Navigator.of(context).pop();
                           await securityService.removePin();
                           if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('تم إلغاء قفل التطبيق بنجاح')),
-                            );
+                            AppGlassToast.showSuccess(context, L10n.t.settingsScreen23);
                           }
                         },
                         onCancel: () => Navigator.of(context).pop(),
@@ -296,12 +296,7 @@ class SettingsScreen extends ConsumerWidget {
                         mode: PinLockMode.setup,
                         onSuccess: () {
                           Navigator.of(context).pop();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('تم تعيين رمز الدخول بنجاح 🔒'),
-                              backgroundColor: AppColors.paymentGreen,
-                            ),
-                          );
+                          AppGlassToast.showSuccess(context, L10n.t.settingsScreen24);
                         },
                         onCancel: () => Navigator.of(context).pop(),
                       ),
@@ -319,12 +314,12 @@ class SettingsScreen extends ConsumerWidget {
                   backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                   child: Icon(Icons.fingerprint_rounded, color: Theme.of(context).colorScheme.primary),
                 ),
-                title: const Text(
-                  'فتح بالبصمة / Face ID',
+                title: Text(
+                  L10n.t.settingsScreen25,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                subtitle: const Text(
-                  'استخدام البصمة بدلاً من كتابة الرمز كل مرة',
+                subtitle: Text(
+                  L10n.t.settingsScreen26,
                   style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
                 ),
                 value: isBioEnabled,
@@ -333,9 +328,7 @@ class SettingsScreen extends ConsumerWidget {
                     final canBio = await securityService.isBiometricsAvailable();
                     if (!canBio) {
                       if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('جهازك لا يدعم التحقق بالبصمة حالياً')),
-                        );
+                        AppGlassToast.showInfo(context, L10n.t.settingsScreen27);
                       }
                       return;
                     }
@@ -350,22 +343,22 @@ class SettingsScreen extends ConsumerWidget {
                 builder: (context, snapshot) {
                   final timeout = snapshot.data ?? 0;
                   final timeoutLabel = switch (timeout) {
-                    1 => 'دقيقة واحدة',
-                    5 => '5 دقائق',
-                    15 => '15 دقيقة',
-                    _ => 'فوراً',
+                    1 => L10n.t.settingsScreen28,
+                    5 => L10n.t.settingsScreen29,
+                    15 => L10n.t.settingsScreen30,
+                    _ => L10n.t.settingsScreen31,
                   };
                   return ListTile(
                     leading: const CircleAvatar(
                       backgroundColor: Colors.grey,
                       child: Icon(Icons.timer_outlined, color: Colors.white),
                     ),
-                    title: const Text(
-                      'مدة القفل التلقائي',
+                    title: Text(
+                      L10n.t.settingsScreen32,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     subtitle: Text(
-                      timeout == 0 ? 'فور الخروج من التطبيق' : 'بعد $timeout دقيقة من الخروج',
+                      timeout == 0 ? L10n.t.settingsScreen33 : L10n.t.settingsScreen34(timeout),
                       style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
                     ),
                     trailing: Row(
@@ -393,13 +386,13 @@ class SettingsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: const Text('مدة القفل التلقائي', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.settingsScreen32, style: TextStyle(fontWeight: FontWeight.bold)),
         children: [
           for (final option in [
-            (0, 'فوراً عند الخروج'),
-            (1, 'بعد دقيقة واحدة'),
-            (5, 'بعد 5 دقائق'),
-            (15, 'بعد 15 دقيقة'),
+            (0, L10n.t.settingsScreen35),
+            (1, L10n.t.settingsScreen36),
+            (5, L10n.t.settingsScreen37),
+            (15, L10n.t.settingsScreen38),
           ])
             ListTile(
               leading: Icon(
@@ -431,12 +424,12 @@ class SettingsScreen extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                 child: Icon(Icons.edit_note_rounded, color: Theme.of(context).colorScheme.primary),
               ),
-              title: const Text(
-                'صيغة رسالة التذكير',
+              title: Text(
+                L10n.t.settingsScreen39,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'تعديل نص الرسالة التلقائية للعملاء والمعاينة الحية',
+              subtitle: Text(
+                L10n.t.settingsScreen40,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
@@ -452,12 +445,12 @@ class SettingsScreen extends ConsumerWidget {
                 ),
                 child: const Icon(Icons.battery_alert_rounded, color: Colors.indigo, size: 22),
               ),
-              title: const Text(
-                'حماية التنبيهات من الإغلاق في الخلفية',
+              title: Text(
+                L10n.t.settingsScreen41,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'دليل عملي لضمان وصول التذكيرات لأجهزة شاومي، ريلمي، وإنفينيكس',
+              subtitle: Text(
+                L10n.t.settingsScreen42,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
@@ -473,7 +466,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget _buildBackupCard(BuildContext context, WidgetRef ref, DateTime? lastBackup) {
     final dateStr = lastBackup != null
         ? DateFormat('yyyy/MM/dd - hh:mm a').format(lastBackup)
-        : 'لم يتم تصدير نسخة حتى الآن';
+        : L10n.t.settingsScreen43;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -493,8 +486,8 @@ class SettingsScreen extends ConsumerWidget {
                   color: lastBackup != null ? AppColors.paymentGreen : AppColors.warningAmber,
                 ),
               ),
-              title: const Text(
-                'آخر نسخة احتياطية',
+              title: Text(
+                L10n.t.settingsScreen44,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
@@ -510,12 +503,12 @@ class SettingsScreen extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                 child: Icon(Icons.upload_file_rounded, color: Theme.of(context).colorScheme.primary),
               ),
-              title: const Text(
-                'تصدير نسخة احتياطية (.kashkool)',
+              title: Text(
+                L10n.t.settingsScreen45,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'حفظ نسخة من الدفتر والصور وإرسالها على الواتساب أو درايف',
+              subtitle: Text(
+                L10n.t.settingsScreen46,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.share_rounded),
@@ -524,18 +517,11 @@ class SettingsScreen extends ConsumerWidget {
                   final backupService = ref.read(backupServiceProvider);
                   await backupService.shareBackup();
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('تم تصدير النسخة بنجاح 👍'),
-                        backgroundColor: AppColors.paymentGreen,
-                      ),
-                    );
+                    AppGlassToast.showSuccess(context, L10n.t.settingsScreen47);
                   }
                 } catch (e) {
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('فشل التصدير: $e'), backgroundColor: AppColors.debtRed),
-                    );
+                    AppGlassToast.showError(context, L10n.t.settingsScreen48(e));
                   }
                 }
               },
@@ -548,12 +534,12 @@ class SettingsScreen extends ConsumerWidget {
                 backgroundColor: AppColors.warningAmber.withValues(alpha: 0.15),
                 child: const Icon(Icons.download_rounded, color: AppColors.warningAmber),
               ),
-              title: const Text(
-                'استعادة نسخة احتياطية',
+              title: Text(
+                L10n.t.settingsScreen49,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'استرجاع الحسابات والصور من ملف .kashkool تم حفظه مسبقاً',
+              subtitle: Text(
+                L10n.t.settingsScreen50,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.folder_open_rounded),
@@ -582,10 +568,10 @@ class SettingsScreen extends ConsumerWidget {
           await showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
-              title: const Text('الملف غير صالح ❌'),
-              content: Text(validation.errorMessage ?? 'الملف المحدد ليس نسخة صالحة لتطبيق كشكول.'),
+              title: Text(L10n.t.settingsScreen51),
+              content: Text(validation.errorMessage ?? L10n.t.settingsScreen52),
               actions: [
-                TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('حسناً')),
+                TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.settingsScreen53)),
               ],
             ),
           );
@@ -598,13 +584,13 @@ class SettingsScreen extends ConsumerWidget {
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Row(
+            title: Row(
               children: [
                 Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'تأكيد استعادة النسخة',
+                    L10n.t.settingsScreen54,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -614,23 +600,23 @@ class SettingsScreen extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'انتبه: الاستعادة ستستبدل كل البيانات الحالية المسجلة في التطبيق بالبيانات الموجودة في الملف.',
+                Text(
+                  L10n.t.settingsScreen55,
                   style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.debtRed),
                 ),
                 const SizedBox(height: 12),
                 if (validation.exportedAt != null)
-                  Text('تاريخ النسخة: ${DateFormat('yyyy/MM/dd hh:mm a').format(validation.exportedAt!)}'),
-                Text('عدد الصور المرفقة: ${validation.photosCount}'),
-                Text('حجم الملف: ${(validation.fileSizeBytes / 1024).toStringAsFixed(1)} ك.ب'),
+                  Text(L10n.t.settingsScreen56(DateFormat('yyyy/MM/dd hh:mm a').format(validation.exportedAt!))),
+                Text(L10n.t.settingsScreen57(validation.photosCount)),
+                Text(L10n.t.settingsScreen58((validation.fileSizeBytes / 1024).toStringAsFixed(1))),
               ],
             ),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('إلغاء')),
+              TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed),
                 onPressed: () => Navigator.pop(ctx, true),
-                child: const Text('نعم، استبدل واسترجع البيانات'),
+                child: Text(L10n.t.settingsScreen59),
               ),
             ],
           ),
@@ -643,9 +629,9 @@ class SettingsScreen extends ConsumerWidget {
               context: context,
               barrierDismissible: false,
               builder: (ctx) => AlertDialog(
-                title: const Text('تمت الاستعادة بنجاح 🎉'),
-                content: const Text(
-                  'تم استرجاع جميع الحسابات والمعاملات والصور بنجاح. يرجى إعادة تشغيل التطبيق لتحديث كل الشاشات.',
+                title: Text(L10n.t.settingsScreen60),
+                content: Text(
+                  L10n.t.settingsScreen61,
                 ),
                 actions: [
                   ElevatedButton(
@@ -653,7 +639,7 @@ class SettingsScreen extends ConsumerWidget {
                       Navigator.pop(ctx);
                       SystemNavigator.pop();
                     },
-                    child: const Text('إعادة التشغيل الآن'),
+                    child: Text(L10n.t.settingsScreen62),
                   ),
                 ],
               ),
@@ -663,9 +649,7 @@ class SettingsScreen extends ConsumerWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('خطأ في الاستعادة: $e'), backgroundColor: AppColors.debtRed),
-        );
+        AppGlassToast.showError(context, L10n.t.settingsScreen63(e));
       }
     }
   }
@@ -711,9 +695,7 @@ class SettingsScreen extends ConsumerWidget {
                 if (shopCode == null) return;
                 await Clipboard.setData(ClipboardData(text: shopCode));
                 if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l10n.codeCopied)),
-                  );
+                  AppGlassToast.showSuccess(context, l10n.codeCopied);
                 }
               },
             ),
@@ -747,9 +729,9 @@ class SettingsScreen extends ConsumerWidget {
   // --- 6. General Card ---
   Widget _buildGeneralCard(BuildContext context, WidgetRef ref, ThemeMode currentTheme) {
     final themeLabel = switch (currentTheme) {
-      ThemeMode.dark => 'داكن 🌙',
-      ThemeMode.light => 'فاتح ☀️',
-      _ => 'تلقائي',
+      ThemeMode.dark => L10n.t.settingsScreen64,
+      ThemeMode.light => L10n.t.settingsScreen65,
+      _ => L10n.t.settingsScreen66,
     };
 
     return Padding(
@@ -765,14 +747,14 @@ class SettingsScreen extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                 child: Icon(Icons.palette_outlined, color: Theme.of(context).colorScheme.primary),
               ),
-              title: const Text(
-                'مظهر التطبيق',
+              title: Text(
+                L10n.t.settingsScreen67,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 currentTheme == ThemeMode.system
-                    ? 'تلقائي (حسب نظام الجهاز)'
-                    : (currentTheme == ThemeMode.dark ? 'داكن 🌙' : 'فاتح ☀️'),
+                    ? L10n.t.settingsScreen68
+                    : (currentTheme == ThemeMode.dark ? L10n.t.settingsScreen64 : L10n.t.settingsScreen65),
                 style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: Row(
@@ -787,6 +769,31 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const Divider(height: 1),
 
+            // App language
+            Consumer(
+              builder: (context, ref, _) {
+                final code = ref.watch(languageCodeProvider).valueOrNull ?? L10n.systemCode;
+                final current = L10n.languages.where((l) => l.code == code).firstOrNull;
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                    child: Icon(Icons.translate_rounded, color: Theme.of(context).colorScheme.primary),
+                  ),
+                  title: Text(
+                    L10n.t.settingsLanguageTitle,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  subtitle: Text(
+                    current?.nativeName ?? L10n.t.settingsLanguageSystem,
+                    style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                  ),
+                  trailing: const Icon(Icons.chevron_left_rounded),
+                  onTap: () => _showLanguageDialog(context, ref, code),
+                );
+              },
+            ),
+            const Divider(height: 1),
+
             // Default credit limit
             Consumer(
               builder: (context, ref, _) {
@@ -795,7 +802,7 @@ class SettingsScreen extends ConsumerWidget {
                   future: settingsRepo.getDefaultCreditLimitPiasters(),
                   builder: (context, snapshot) {
                     final limitPiasters = snapshot.data;
-                    final limitStr = limitPiasters != null ? MoneyUtils.formatMoney(limitPiasters) : 'غير محدد';
+                    final limitStr = limitPiasters != null ? MoneyUtils.formatMoney(limitPiasters) : L10n.t.settingsScreen69;
                     return ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -804,8 +811,8 @@ class SettingsScreen extends ConsumerWidget {
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
-                      title: const Text(
-                        'حد الدين الافتراضي للعميل الجديد',
+                      title: Text(
+                        L10n.t.settingsScreen70,
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       subtitle: Text(
@@ -827,17 +834,17 @@ class SettingsScreen extends ConsumerWidget {
                 backgroundColor: AppColors.paymentGreen.withValues(alpha: 0.15),
                 child: const Icon(Icons.chat_bubble_outline_rounded, color: AppColors.paymentGreen),
               ),
-              title: const Text(
-                'تواصل معنا عبر واتساب',
+              title: Text(
+                L10n.t.settingsScreen71,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'للاقتراحات والمساعدة الفنية المباشرة',
+              subtitle: Text(
+                L10n.t.settingsScreen72,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.open_in_new_rounded),
               onTap: () async {
-                final uri = Uri.parse('https://wa.me/201000000000?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول');
+                final uri = Uri.parse(L10n.t.settingsScreen73);
                 try {
                   await launchUrl(uri, mode: LaunchMode.externalApplication);
                 } catch (_) {}
@@ -854,30 +861,27 @@ class SettingsScreen extends ConsumerWidget {
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              title: const Text(
-                'سياسة الخصوصية وشروط الاستخدام',
+              title: Text(
+                L10n.t.settingsScreen74,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: const Text(
-                'بياناتك ملكك بالكامل ومتخزنة على تليفونك فقط بدون إنترنت',
+              subtitle: Text(
+                L10n.t.settingsScreen75,
                 style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               onTap: () {
                 showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
-                    title: const Text('سياسة الخصوصية في كشكول 🔒'),
-                    content: const SingleChildScrollView(
+                    title: Text(L10n.t.settingsScreen76),
+                    content: SingleChildScrollView(
                       child: Text(
-                        '1. تطبيق كشكول هو تطبيق يعمل بالكامل بدون اتصال بالإنترنت (Offline-First).\n\n'
-                        '2. جميع الحسابات والأسماء وأرقام الهواتف وصور الفواتير والمعاملات مخزنة محلياً على جهازك فقط، ولا يتم إرسال أي بيانات لأي خادم خارجي.\n\n'
-                        '3. أنت المسؤول الأول عن عمل نسخة احتياطية بشكل دوري عبر خيار (تصدير نسخة احتياطية) لحفظ بياناتك في حال تغيير أو فقدان الهاتف.\n\n'
-                        '4. كشكول صُمم لخدمة أصحاب المحلات والتجار لحفظ حقوقهم وتسهيل متابعة ديونهم بكل أمان.',
+                        L10n.t.settingsScreen77,
                         style: TextStyle(height: 1.5),
                       ),
                     ),
                     actions: [
-                      TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('فهمت')),
+                      TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.ratingExplanationBottomSheet12)),
                     ],
                   ),
                 );
@@ -889,18 +893,47 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+  void _showLanguageDialog(BuildContext context, WidgetRef ref, String currentCode) {
+    final settingsRepo = ref.read(settingsRepositoryProvider);
+    final theme = Theme.of(context);
+    final options = <(String, String)>[
+      (L10n.systemCode, L10n.t.settingsLanguageSystem),
+      for (final l in L10n.languages) (l.code, l.nativeName),
+    ];
+    showDialog(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: Text(L10n.t.settingsLanguageTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
+        children: [
+          for (final option in options)
+            ListTile(
+              leading: Icon(
+                currentCode == option.$1 ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+                color: currentCode == option.$1 ? theme.colorScheme.primary : null,
+              ),
+              title: Text(option.$2),
+              onTap: () async {
+                await settingsRepo.setLanguageCode(option.$1);
+                if (ctx.mounted) Navigator.pop(ctx);
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
   void _showThemeDialog(BuildContext context, WidgetRef ref, ThemeMode currentTheme) {
     final settingsRepo = ref.read(settingsRepositoryProvider);
     final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: const Text('مظهر التطبيق', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.settingsScreen67, style: TextStyle(fontWeight: FontWeight.bold)),
         children: [
           for (final option in [
-            (ThemeMode.system, 'نظام الجهاز (تلقائي)'),
-            (ThemeMode.light, 'فاتح ☀️'),
-            (ThemeMode.dark, 'داكن 🌙'),
+            (ThemeMode.system, L10n.t.settingsScreen78),
+            (ThemeMode.light, L10n.t.settingsScreen65),
+            (ThemeMode.dark, L10n.t.settingsScreen64),
           ])
             ListTile(
               leading: Icon(
@@ -926,17 +959,17 @@ class SettingsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('حد الدين الافتراضي (جنيه)'),
+        title: Text(L10n.t.settingsScreen79),
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: 'المبلغ بالجنيه',
-            hintText: 'اتركه فارغاً لجعله غير محدد',
+          decoration: InputDecoration(
+            labelText: L10n.t.settingsScreen80,
+            hintText: L10n.t.settingsScreen81,
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('إلغاء')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.installmentPlanDetailsScreen11)),
           ElevatedButton(
             onPressed: () async {
               final text = controller.text.trim();
@@ -946,7 +979,7 @@ class SettingsScreen extends ConsumerWidget {
               await repo.setDefaultCreditLimitPiasters(piasters);
               if (ctx.mounted) Navigator.pop(ctx);
             },
-            child: const Text('حفظ'),
+            child: Text(L10n.t.settingsScreen82),
           ),
         ],
       ),

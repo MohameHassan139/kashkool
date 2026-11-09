@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">کشکول - طلب شما</string>
+    <string name="widget_medium_label">کشکول - خلاصه امروز</string>
+    <string name="widget_small_description">مجموع طلب شما از مشتریان</string>
+    <string name="widget_medium_description">طلب، وصولی امروز و مشتریان سررسید</string>
+    <string name="widget_receivables_title">طلب شما</string>
+    <string name="widget_app_tag">کشکول 📒</string>
+    <string name="widget_collect_button">وصول 🔔</string>
+    <string name="widget_collected_today_title">وصول امروز</string>
+    <string name="widget_due_title">سررسید</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">هیچ</string>
+    <string name="widget_updated_today">به‌روزرسانی: %1$s</string>
+    <string name="widget_open_to_update">برای به‌روزرسانی کشکول را باز کنید</string>
+    <string name="widget_disabled">متوقف ⏸</string>
+    <string name="widget_disabled_hint">از تنظیمات کشکول فعالش کنید</string>
+</resources>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/utils/battery_optimization_helper.dart';
+import '../../../../l10n/l10n.dart';
 
 class BatteryGuideBottomSheet extends StatefulWidget {
   const BatteryGuideBottomSheet({super.key});
@@ -85,8 +86,8 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
                     children: [
                       Text(
                         guide != null
-                            ? 'دليل حماية الإشعارات (${guide.brandName})'
-                            : 'دليل حماية التنبيهات من الإغلاق',
+                            ? L10n.t.batteryGuideBottomSheet1(guide.brandName)
+                            : L10n.t.batteryGuideBottomSheet2,
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       if (guide != null)
@@ -105,7 +106,7 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
             ),
             const Divider(height: 24),
             Text(
-              'تقوم بعض الهواتف (مثل شاومي، ريلمي، إنفينيكس، وهواوي) بإيقاف التطبيقات في الخلفية لتوفير البطارية. لضمان وصول تذكير التحصيل اليومي ومواعيد الأقساط بدقة، يُرجى تطبيق الخطوات التالية:',
+              L10n.t.batteryGuideBottomSheet3,
               style: TextStyle(
                 fontSize: 13,
                 color: isDark ? const Color(0xFF9CA3AF) : Colors.grey[700],
@@ -162,7 +163,7 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
             ElevatedButton.icon(
               onPressed: () => BatteryOptimizationHelper.openBatterySettings(),
               icon: const Icon(Icons.tune_rounded, size: 18),
-              label: const Text('فتح إعدادات بطارية الهاتف الآن'),
+              label: Text(L10n.t.batteryGuideBottomSheet4),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,

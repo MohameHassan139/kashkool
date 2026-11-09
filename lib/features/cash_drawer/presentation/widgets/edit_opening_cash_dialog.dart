@@ -4,6 +4,7 @@ import 'package:kashkool/core/constants/app_colors.dart';
 import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/glass_toast.dart';
 
 /// Dialog allowing manual adjustment of the day's opening cash balance.
 class EditOpeningCashDialog extends ConsumerStatefulWidget {
@@ -63,9 +64,7 @@ class _EditOpeningCashDialogState extends ConsumerState<EditOpeningCashDialog> {
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.openingCashUpdatedSuccess)),
-        );
+        AppGlassToast.showSuccess(context, l10n.openingCashUpdatedSuccess);
         Navigator.pop(context);
       }
     } finally {

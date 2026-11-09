@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/money.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Visual progress indicator for installment repayment.
 class InstallmentProgressBar extends StatelessWidget {
@@ -31,7 +32,7 @@ class InstallmentProgressBar extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'سداد $paidCount من $totalCount قسط ($percentInt%)',
+                L10n.t.installmentProgressBar1(paidCount, totalCount, percentInt),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: theme.colorScheme.onSurfaceVariant,
@@ -46,8 +47,8 @@ class InstallmentProgressBar extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   remainingPiasters > 0
-                      ? 'باقي: ${MoneyUtils.formatMoney(remainingPiasters)}'
-                      : 'خالص بالكامل ✓',
+                      ? L10n.t.installmentProgressBar2(MoneyUtils.formatMoney(remainingPiasters))
+                      : L10n.t.installmentProgressBar3,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: remainingPiasters > 0

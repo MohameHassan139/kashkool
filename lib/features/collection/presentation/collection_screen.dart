@@ -5,6 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/whatsapp_template.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../customers/presentation/customer_details_screen.dart';
 import '../../installments/presentation/installments_providers.dart';
 import '../../settings/data/settings_repository.dart';
@@ -15,6 +16,7 @@ import 'collection_providers.dart';
 import 'widgets/collection_header_card.dart';
 import 'widgets/collection_list_item.dart';
 import 'widgets/due_installments_tab.dart';
+import '../../../l10n/l10n.dart';
 
 /// Screen for daily collection reminders, listing customers due for payment with one-tap WhatsApp.
 class CollectionScreen extends ConsumerStatefulWidget {
@@ -84,12 +86,7 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
     if (sent == true && mounted) {
       await repo.markReminderSent(pending.customer.id);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.reminderMarkedSent),
-            backgroundColor: AppColors.paymentGreen,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.reminderMarkedSent);
       }
     }
 
@@ -191,24 +188,14 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
       case 'snooze_3':
         await repo.snoozeCustomer(item.customer.id, const Duration(days: 3));
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(l10n.snoozedSuccess),
-              backgroundColor: AppColors.warningAmber,
-            ),
-          );
+          AppGlassToast.showInfo(context, l10n.snoozedSuccess);
         }
         break;
 
       case 'snooze_7':
         await repo.snoozeCustomer(item.customer.id, const Duration(days: 7));
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(l10n.snoozedSuccess),
-              backgroundColor: AppColors.warningAmber,
-            ),
-          );
+          AppGlassToast.showInfo(context, l10n.snoozedSuccess);
         }
         break;
 
@@ -253,7 +240,7 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('أقساط مستحقة'),
+                  Text(L10n.t.collectionScreen1),
                   if (dueInstallmentsCount > 0) ...[
                     const SizedBox(width: 6),
                     Container(

@@ -12,6 +12,7 @@ import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../domain/statement_filter.dart';
 import 'statement_calculator.dart';
+import '../../../l10n/l10n.dart';
 
 /// Service responsible for generating, printing, and sharing Arabic customer statement PDFs.
 class PdfStatementService {
@@ -34,20 +35,21 @@ class PdfStatementService {
         .replaceAll(RegExp(r'[^\w\u0600-\u06FF]+'), '_')
         .replaceAll(RegExp(r'_+'), '_')
         .replaceAll(RegExp(r'^_+|_+$'), '');
-    return 'كشف_حساب_${sanitizedName}_$dateStr.pdf';
+    return L10n.pdf.pdfStatementService1(sanitizedName, dateStr);
   }
 
   /// Generates the raw PDF bytes for a customer statement.
   Future<Uint8List> generatePdf({
     required Customer customer,
     required StatementResult statement,
-    String shopName = 'كشكول',
+    String? shopName,
     String? shopPhone,
     String? paymentInfo,
     StatementPageFormat pageFormat = StatementPageFormat.a4,
     String? shopCode,
     bool includeGrowthFooter = true,
   }) async {
+    shopName ??= L10n.pdf.main1;
     final font = await _loadFont();
     final pdf = pw.Document();
 
@@ -67,7 +69,7 @@ class PdfStatementService {
     pdf.addPage(
       pw.MultiPage(
         pageFormat: pdfFormat,
-        textDirection: pw.TextDirection.rtl,
+        textDirection: L10n.pdfIsRtl ? pw.TextDirection.rtl : pw.TextDirection.ltr,
         theme: pw.ThemeData.withFont(base: font, bold: font),
         margin: isA4
             ? const pw.EdgeInsets.all(32)
@@ -92,7 +94,7 @@ class PdfStatementService {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Text(
-                            shopName,
+                            shopName ?? '',
                             style: pw.TextStyle(
                               fontSize: isA4 ? 20 : 16,
                               fontWeight: pw.FontWeight.bold,
@@ -113,7 +115,7 @@ class PdfStatementService {
                         crossAxisAlignment: pw.CrossAxisAlignment.end,
                         children: [
                           pw.Text(
-                            'كشف حساب عميل',
+                            L10n.pdf.pdfStatementService2,
                             style: pw.TextStyle(
                               fontSize: isA4 ? 18 : 14,
                               fontWeight: pw.FontWeight.bold,
@@ -143,7 +145,7 @@ class PdfStatementService {
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: [
                         pw.Text(
-                          'العميل: ${customer.name}',
+                          L10n.pdf.pdfStatementService3(customer.name),
                           style: pw.TextStyle(
                             fontSize: isA4 ? 13 : 11,
                             fontWeight: pw.FontWeight.bold,
@@ -151,11 +153,11 @@ class PdfStatementService {
                         ),
                         if (customer.phone != null)
                           pw.Text(
-                            'التليفون: ${PhoneUtils.formatDisplay(customer.phone)}',
+                            L10n.pdf.pdfStatementService4(PhoneUtils.formatDisplay(customer.phone)),
                             style: const pw.TextStyle(fontSize: 11),
                           ),
                         pw.Text(
-                          'الفترة: ${statement.periodDescription}',
+                          L10n.pdf.pdfStatementService5(statement.periodDescription),
                           style: const pw.TextStyle(fontSize: 11, color: PdfColors.grey800),
                         ),
                       ],
@@ -180,7 +182,7 @@ class PdfStatementService {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
                     pw.Text(
-                      'رصيد ما قبل هذه الفترة:',
+                      L10n.pdf.pdfStatementService6,
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 11),
                     ),
                     pw.Text(
@@ -221,11 +223,11 @@ class PdfStatementService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.blue50),
                   children: [
-                    _cell('التاريخ', isHeader: true, fontSize: isA4 ? 11 : 9),
-                    _cell('البيان', isHeader: true, fontSize: isA4 ? 11 : 9),
-                    _cell('عليه', isHeader: true, color: PdfColors.red800, fontSize: isA4 ? 11 : 9),
-                    _cell('دفع', isHeader: true, color: PdfColors.green800, fontSize: isA4 ? 11 : 9),
-                    _cell('الرصيد', isHeader: true, fontSize: isA4 ? 11 : 9),
+                    _cell(L10n.pdf.pdfStatementService7, isHeader: true, fontSize: isA4 ? 11 : 9),
+                    _cell(L10n.pdf.pdfStatementService8, isHeader: true, fontSize: isA4 ? 11 : 9),
+                    _cell(L10n.pdf.notebookImportScreen32, isHeader: true, color: PdfColors.red800, fontSize: isA4 ? 11 : 9),
+                    _cell(L10n.pdf.trashRepository8, isHeader: true, color: PdfColors.green800, fontSize: isA4 ? 11 : 9),
+                    _cell(L10n.pdf.pdfStatementService9, isHeader: true, fontSize: isA4 ? 11 : 9),
                   ],
                 ),
 
@@ -277,11 +279,11 @@ class PdfStatementService {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       pw.Text(
-                        'إجمالي المشتريات / السلف: ${MoneyUtils.formatMoney(statement.periodDebitsPiasters)}',
+                        L10n.pdf.pdfStatementService10(MoneyUtils.formatMoney(statement.periodDebitsPiasters)),
                         style: const pw.TextStyle(fontSize: 11, color: PdfColors.red900),
                       ),
                       pw.Text(
-                        'إجمالي المسدد: ${MoneyUtils.formatMoney(statement.periodCreditsPiasters)}',
+                        L10n.pdf.pdfStatementService11(MoneyUtils.formatMoney(statement.periodCreditsPiasters)),
                         style: const pw.TextStyle(fontSize: 11, color: PdfColors.green900),
                       ),
                     ],
@@ -291,7 +293,7 @@ class PdfStatementService {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       pw.Text(
-                        'الرصيد النهائي المطلوب:',
+                        L10n.pdf.pdfStatementService12,
                         style: pw.TextStyle(
                           fontSize: isA4 ? 14 : 12,
                           fontWeight: pw.FontWeight.bold,
@@ -323,7 +325,7 @@ class PdfStatementService {
                   borderRadius: pw.BorderRadius.circular(6),
                 ),
                 child: pw.Text(
-                  'طرق الدفع المتاحة: ${paymentInfo.trim()}',
+                  L10n.pdf.pdfStatementService13(paymentInfo.trim()),
                   style: const pw.TextStyle(fontSize: 10, color: PdfColors.blue900),
                 ),
               ),
@@ -337,7 +339,7 @@ class PdfStatementService {
                 child: pw.Column(
                   children: [
                     pw.Text(
-                      'اتعمل بكشكول — جرّبه ببلاش:',
+                      L10n.pdf.pdfStatementService14,
                       style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
                     ),
                     pw.SizedBox(height: 2),

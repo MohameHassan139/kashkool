@@ -3,6 +3,7 @@ import '../db/app_database.dart';
 import 'cloud_api.dart';
 import 'cloud_session_store.dart';
 import 'google_auth_service.dart';
+import '../../l10n/l10n.dart';
 
 typedef CloudProgress = void Function(String message, double? fraction);
 
@@ -49,7 +50,7 @@ class CloudBackupService {
 
   Future<CloudSession> signIn() async {
     final google = _google;
-    if (google == null) throw const CloudApiException('not_configured', 'تسجيل الدخول بجوجل مش متاح');
+    if (google == null) throw CloudApiException('not_configured', L10n.t.cloudBackupService1);
     final idToken = await google.getIdToken();
     return _api.loginWithGoogle(idToken, deviceLabel: 'android');
   }
@@ -68,7 +69,7 @@ class CloudBackupService {
       if (shop != null) return shop;
     }
     final first = await (_db.select(_db.shops)..where((s) => s.deletedAt.isNull())..limit(1)).getSingleOrNull();
-    if (first == null) throw const CloudApiException('no_shop', 'كمّل بيانات المحل الأول من الإعدادات');
+    if (first == null) throw CloudApiException('no_shop', L10n.t.cloudBackupService2);
     return first;
   }
 
@@ -111,9 +112,9 @@ class CloudBackupService {
   /// Uploads everything that changed since the last backup (the first backup uploads everything).
   Future<BackupResult> backupNow({CloudProgress? onProgress, bool full = false}) async {
     final session = await _store.read();
-    if (session == null) throw const CloudApiException('signed_out', 'سجّل دخول بحساب جوجل الأول', statusCode: 401);
+    if (session == null) throw CloudApiException('signed_out', L10n.t.cloudApi2, statusCode: 401);
 
-    onProgress?.call('بنجهّز بيانات المحل…', null);
+    onProgress?.call(L10n.t.cloudBackupService3, null);
     final shop = await _activeShop();
     await _api.registerShop(
       id: shop.id,
@@ -134,7 +135,7 @@ class CloudBackupService {
     final reasons = <String>[];
     for (var i = 0; i < changes.length; i += _pushBatchSize) {
       final batch = changes.sublist(i, i + _pushBatchSize > changes.length ? changes.length : i + _pushBatchSize);
-      onProgress?.call('بنرفع ${i + batch.length} من ${changes.length}…', changes.isEmpty ? null : (i + batch.length) / changes.length);
+      onProgress?.call(L10n.t.cloudBackupService4(i + batch.length, changes.length), changes.isEmpty ? null : (i + batch.length) / changes.length);
       final results = await _api.push(shop.id, shop.deviceId, batch);
       for (final r in results) {
         switch (r['status']) {
@@ -152,7 +153,7 @@ class CloudBackupService {
 
     final latest = await _store.read() ?? session;
     await _store.write(latest.copyWith(linkedShopId: shop.id, lastBackupAt: DateTime.now(), lastBackupStartedAt: startedAt));
-    onProgress?.call('خلصنا ✓', 1);
+    onProgress?.call(L10n.t.cloudBackupService5, 1);
     return BackupResult(uploaded, unchanged, rejected, reasons);
   }
 
@@ -169,14 +170,14 @@ class CloudBackupService {
     final changes = <Map<String, dynamic>>[];
     var cursor = 0;
     while (true) {
-      onProgress?.call('بننزّل البيانات… (${changes.length})', null);
+      onProgress?.call(L10n.t.cloudBackupService6(changes.length), null);
       final page = await _api.pull(shopId, since: cursor, limit: 1000);
       changes.addAll(page.changes);
       cursor = page.cursor;
       if (!page.hasMore) break;
     }
 
-    onProgress?.call('بنحفظ ${changes.length} سجل على الموبايل…', null);
+    onProgress?.call(L10n.t.cloudBackupService7(changes.length), null);
     final now = DateTime.now();
     final currentShop = await (_db.select(_db.shops)..where((s) => s.deletedAt.isNull())..limit(1)).getSingleOrNull();
     var written = 0, keptLocal = 0;
@@ -204,7 +205,7 @@ class CloudBackupService {
         final type = (shop['type'] as String?) ?? 'other';
         await _db.into(_db.shops).insert(ShopsCompanion.insert(
               id: shopId,
-              name: (shop['name'] as String?) ?? 'المحل',
+              name: (shop['name'] as String?) ?? L10n.t.cloudBackupService8,
               shopId: Value(shopId),
               deviceId: Value(currentShop?.deviceId ?? 'local_device'),
               shopType: Value(type),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/home_widget_service.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../data/settings_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Settings section for the home screen widget (Feature 10):
 /// an on/off switch plus buttons that add the small or medium widget to the home screen.
@@ -26,14 +28,14 @@ class HomeWidgetSettingsCard extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                 child: Icon(Icons.widgets_rounded, color: Theme.of(context).colorScheme.primary),
               ),
-              title: const Text(
-                'عرض حساباتك على الشاشة الرئيسية',
+              title: Text(
+                L10n.t.homeWidgetSettingsCard1,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 enabled
-                    ? 'الويدجت بتعرض ليك عند الناس والمحصّل النهارده من غير ما تفتح التطبيق'
-                    : 'الويدجت متوقفة ومش بتعرض أي أرقام',
+                    ? L10n.t.homeWidgetSettingsCard2
+                    : L10n.t.homeWidgetSettingsCard3,
                 style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               value: enabled,
@@ -44,16 +46,16 @@ class HomeWidgetSettingsCard extends ConsumerWidget {
               enabled: enabled,
               medium: false,
               icon: Icons.crop_7_5_rounded,
-              title: 'ضيف الويدجت الصغيرة',
-              subtitle: 'ليك عند الناس بس',
+              title: L10n.t.homeWidgetSettingsCard4,
+              subtitle: L10n.t.homeWidgetSettingsCard5,
             ),
             const Divider(height: 1),
             _AddWidgetTile(
               enabled: enabled,
               medium: true,
               icon: Icons.dashboard_rounded,
-              title: 'ضيف ويدجت ملخص اليوم',
-              subtitle: 'ليك عند الناس + المحصّل النهارده + المستحقين + زرار تحصيل',
+              title: L10n.t.homeWidgetSettingsCard6,
+              subtitle: L10n.t.homeWidgetSettingsCard7,
             ),
           ],
         ),
@@ -94,15 +96,17 @@ class _AddWidgetTile extends ConsumerWidget {
 
   Future<void> _addWidget(BuildContext context, WidgetRef ref) async {
     final service = ref.read(homeWidgetServiceProvider);
-    final messenger = ScaffoldMessenger.of(context);
 
     final supported = await service.isPinSupported();
     final requested = supported && await service.requestPinWidget(medium: medium);
 
     if (requested) {
-      messenger.showSnackBar(
-        const SnackBar(content: Text('وافق على الرسالة اللي ظهرت عشان الويدجت تتضاف للشاشة 👍')),
-      );
+      if (context.mounted) {
+        AppGlassToast.showSuccess(
+          context,
+          L10n.t.homeWidgetSettingsCard8,
+        );
+      }
       return;
     }
 
@@ -110,16 +114,13 @@ class _AddWidgetTile extends ConsumerWidget {
     await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('ضيف الويدجت بإيدك 📱'),
-        content: const Text(
-          'موبايلك مش بيسمح للتطبيق يضيفها لوحده. اعمل كده:\n\n'
-          '1. اضغط ضغطة طويلة على مكان فاضي في الشاشة الرئيسية\n'
-          '2. اختار "الأدوات" أو "Widgets"\n'
-          '3. دوّر على "كشكول" واسحب الويدجت للشاشة',
+        title: Text(L10n.t.homeWidgetSettingsCard9),
+        content: Text(
+          L10n.t.homeWidgetSettingsCard10,
           style: TextStyle(height: 1.5),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('فهمت')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.ratingExplanationBottomSheet12)),
         ],
       ),
     );

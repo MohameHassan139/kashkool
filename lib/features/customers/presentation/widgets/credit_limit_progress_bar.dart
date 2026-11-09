@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/utils/credit_limit.dart';
 import '../../../../core/utils/money.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Progress bar visualizing a customer's balance against their credit limit.
 /// Color transitions:
@@ -49,7 +50,7 @@ class CreditLimitProgressBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'حد الدين: ${MoneyUtils.formatMoney(limitPiasters!)}',
+                L10n.t.creditLimitProgressBar1(MoneyUtils.formatMoney(limitPiasters!)),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
                   fontWeight: FontWeight.w600,

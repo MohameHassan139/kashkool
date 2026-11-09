@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">Kashkool - Piutang</string>
+    <string name="widget_medium_label">Kashkool - Hari ini</string>
+    <string name="widget_small_description">Total piutang dari pelanggan</string>
+    <string name="widget_medium_description">Piutang, tagihan hari ini, dan yang jatuh tempo</string>
+    <string name="widget_receivables_title">Piutang</string>
+    <string name="widget_app_tag">Kashkool 📒</string>
+    <string name="widget_collect_button">Tagih 🔔</string>
+    <string name="widget_collected_today_title">Tertagih hari ini</string>
+    <string name="widget_due_title">Jatuh tempo</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">Tidak ada</string>
+    <string name="widget_updated_today">Diperbarui: %1$s</string>
+    <string name="widget_open_to_update">Buka Kashkool untuk memperbarui</string>
+    <string name="widget_disabled">Dijeda ⏸</string>
+    <string name="widget_disabled_hint">Aktifkan di pengaturan Kashkool</string>
+</resources>

@@ -7,6 +7,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../transactions/presentation/add_transaction_bottom_sheet.dart';
 import '../../transactions/presentation/transaction_details_bottom_sheet.dart';
 import '../data/supplier_repository.dart';
@@ -69,12 +70,7 @@ class SupplierDetailsScreen extends ConsumerWidget {
     if (confirmed == true && context.mounted) {
       await repo.deleteSupplier(supplier.id);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.supplierDeleted),
-            backgroundColor: AppColors.debtRed,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.supplierDeleted);
         Navigator.of(context).pop();
       }
     }

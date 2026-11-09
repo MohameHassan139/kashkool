@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/app_colors.dart';
+import '../../shared/widgets/glass_toast.dart';
 import 'security_service.dart';
+import '../../l10n/l10n.dart';
 
 enum PinLockMode {
   unlock,
@@ -105,7 +107,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
         setState(() {
           _isChecking = false;
           _currentInput = '';
-          _errorMessage = 'رمز الدخول غير صحيح، حاول تاني';
+          _errorMessage = L10n.t.pinLockScreen1;
         });
       }
     } else {
@@ -130,7 +132,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
           setState(() {
             _firstPin = null;
             _currentInput = '';
-            _errorMessage = 'الرمزان غير متطابقين، حاول من جديد';
+            _errorMessage = L10n.t.pinLockScreen2;
           });
         }
       }
@@ -143,11 +145,9 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
     final isAvailable = await securityService.isBiometricsAvailable();
     if (!isAvailable) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('البصمة غير متاحة أو غير مفعّلة في إعدادات جهازك'),
-            duration: Duration(seconds: 2),
-          ),
+        AppGlassToast.showInfo(
+          context,
+          L10n.t.pinLockScreen3,
         );
       }
       return;
@@ -169,22 +169,22 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
 
   String get _titleText {
     if (widget.mode == PinLockMode.unlock) {
-      return 'أهلاً بيك في كشكول 📒';
+      return L10n.t.pinLockScreen4;
     }
     if (_firstPin == null) {
-      return 'تعيين رمز دخول جديد';
+      return L10n.t.pinLockScreen5;
     }
-    return 'أعد كتابة الرمز للتأكيد';
+    return L10n.t.pinLockScreen6;
   }
 
   String get _subtitleText {
     if (widget.mode == PinLockMode.unlock) {
-      return 'أدخل رمز الدخول المكون من 4 أرقام';
+      return L10n.t.pinLockScreen7;
     }
     if (_firstPin == null) {
-      return 'اكتب 4 أرقام تفتكرهم عشان تقفل بيهم التطبيق';
+      return L10n.t.pinLockScreen8;
     }
-    return 'اكتب نفس الأرقام مرة تانية';
+    return L10n.t.pinLockScreen9;
   }
 
   @override
@@ -331,7 +331,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
                 ? _buildKeypadAction(
                     icon: Icons.fingerprint_rounded,
                     onTap: _onBiometricPressed,
-                    tooltip: 'بصمة الإصبع',
+                    tooltip: L10n.t.pinLockScreen10,
                   )
                 : const SizedBox(width: 72, height: 72),
             // Middle: 0
@@ -340,7 +340,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
             _buildKeypadAction(
               icon: Icons.backspace_outlined,
               onTap: _onBackspacePressed,
-              tooltip: 'مسح',
+              tooltip: L10n.t.pinLockScreen11,
             ),
           ],
         ),

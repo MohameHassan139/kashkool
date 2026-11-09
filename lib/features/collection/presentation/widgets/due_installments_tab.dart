@@ -4,11 +4,13 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/money.dart';
 import '../../../../core/utils/whatsapp_template.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../../installments/domain/due_installment_item.dart';
 import '../../../installments/presentation/installment_plan_details_screen.dart';
 import '../../../installments/presentation/installments_providers.dart';
 import '../../../installments/presentation/widgets/pay_installment_dialog.dart';
 import '../../../settings/data/settings_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Tab displaying installments due today or overdue for quick collection.
 class DueInstallmentsTab extends ConsumerWidget {
@@ -27,9 +29,7 @@ class DueInstallmentsTab extends ConsumerWidget {
     required DueInstallmentItem item,
   }) async {
     if (item.customer.phone == null || item.customer.phone!.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('العميل ليس لديه رقم تليفون مسجل')),
-      );
+      AppGlassToast.showInfo(context, L10n.t.dueInstallmentsTab1);
       return;
     }
 
@@ -41,9 +41,9 @@ class DueInstallmentsTab extends ConsumerWidget {
     final wallet = await settingsRepo.getShopWallet();
 
     final List<String> paymentParts = [];
-    if (instapay.isNotEmpty) paymentParts.add('إنستاباي: $instapay');
-    if (wallet.isNotEmpty) paymentParts.add('محفظة/فودافون كاش: $wallet');
-    if (phoneNum.isNotEmpty) paymentParts.add('تليفون: $phoneNum');
+    if (instapay.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen1(instapay));
+    if (wallet.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen2(wallet));
+    if (phoneNum.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen3(phoneNum));
 
     final message = WhatsAppTemplateUtils.renderInstallmentReminder(
       customerName: item.customer.name,
@@ -75,7 +75,7 @@ class DueInstallmentsTab extends ConsumerWidget {
 
     return dueAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('خطأ: $e')),
+      error: (e, _) => Center(child: Text(L10n.t.installmentPlanDetailsScreen15(e))),
       data: (dueList) {
         if (dueList.isEmpty) {
           return Center(
@@ -94,13 +94,13 @@ class DueInstallmentsTab extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'مفيش أقساط مستحقة أو متأخرة اليوم 🎉',
+                    L10n.t.dueInstallmentsTab2,
                     style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'كل عملاء الأقساط منتظمين في السداد حتى الآن.',
+                    L10n.t.dueInstallmentsTab3,
                     style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                     textAlign: TextAlign.center,
                   ),
@@ -132,7 +132,7 @@ class DueInstallmentsTab extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'مطلوب تحصيل (${dueList.length}) قسط:',
+                        L10n.t.dueInstallmentsTab4(dueList.length),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -204,7 +204,7 @@ class DueInstallmentsTab extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    '${item.plan.itemDescription} • القسط (${item.installment.installmentIndex} من ${item.plan.installmentCount})',
+                                    L10n.t.dueInstallmentsTab5(item.plan.itemDescription, item.installment.installmentIndex, item.plan.installmentCount),
                                     style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                                   ),
                                 ],
@@ -224,12 +224,12 @@ class DueInstallmentsTab extends ConsumerWidget {
                                 const SizedBox(height: 2),
                                 if (isOverdue)
                                   Text(
-                                    'متأخر ${item.daysOverdue} يوم',
+                                    L10n.t.dueInstallmentsTab6(item.daysOverdue),
                                     style: const TextStyle(color: AppColors.debtRed, fontSize: 11, fontWeight: FontWeight.bold),
                                   )
                                 else if (isDueToday)
-                                  const Text(
-                                    'مستحق اليوم 🔔',
+                                  Text(
+                                    L10n.t.dueInstallmentsTab7,
                                     style: TextStyle(color: Colors.blue, fontSize: 11, fontWeight: FontWeight.bold),
                                   ),
                               ],
@@ -250,12 +250,12 @@ class DueInstallmentsTab extends ConsumerWidget {
                             if (item.customer.phone != null && item.customer.phone!.isNotEmpty) ...[
                               IconButton(
                                 icon: const Icon(Icons.call_rounded, size: 20),
-                                tooltip: 'اتصال',
+                                tooltip: L10n.t.dueInstallmentsTab8,
                                 onPressed: () => _callCustomer(item.customer.phone!),
                               ),
                               TextButton.icon(
                                 icon: const Icon(Icons.chat_outlined, size: 16, color: AppColors.primaryGreen),
-                                label: const Text('واتساب', style: TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
+                                label: Text(L10n.t.dueInstallmentsTab9, style: TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
                                 onPressed: () => _sendWhatsAppReminder(context: context, ref: ref, item: item),
                               ),
                             ],
@@ -267,7 +267,7 @@ class DueInstallmentsTab extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 12),
                               ),
                               icon: const Icon(Icons.payment_rounded, size: 16),
-                              label: const Text('سداد', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                              label: Text(L10n.t.installmentPlanDetailsScreen36, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                               onPressed: () {
                                 showDialog(
                                   context: context,

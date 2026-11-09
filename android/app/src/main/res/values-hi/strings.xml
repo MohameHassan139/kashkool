@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">काशकूल - आपका बकाया</string>
+    <string name="widget_medium_label">काशकूल - आज का सारांश</string>
+    <string name="widget_small_description">ग्राहकों पर आपका कुल बकाया</string>
+    <string name="widget_medium_description">बकाया, आज की वसूली और देय ग्राहक</string>
+    <string name="widget_receivables_title">आपका बकाया</string>
+    <string name="widget_app_tag">काशकूल 📒</string>
+    <string name="widget_collect_button">वसूली 🔔</string>
+    <string name="widget_collected_today_title">आज की वसूली</string>
+    <string name="widget_due_title">देय</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">कोई नहीं</string>
+    <string name="widget_updated_today">आख़िरी अपडेट: %1$s</string>
+    <string name="widget_open_to_update">अपडेट के लिए काशकूल खोलें</string>
+    <string name="widget_disabled">रुका हुआ ⏸</string>
+    <string name="widget_disabled_hint">काशकूल की सेटिंग्स से चालू करें</string>
+</resources>

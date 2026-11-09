@@ -1,4 +1,5 @@
 import 'dart:math';
+import '../../l10n/l10n.dart';
 
 /// Growth footer & referral link utilities (Feature 11).
 ///
@@ -30,10 +31,9 @@ abstract final class GrowthFooter {
 
   /// Footer text appended to messages and PDFs.
   static String footerText(String? shopCode) =>
-      '—\nاتعمل بكشكول 📒 جرّبه ببلاش: ${buildLink(shopCode)}';
+      L10n.t.growthFooter1(buildLink(shopCode));
 
   /// Ready-made invite message for "شارك التطبيق".
   static String shareMessage(String? shopCode) =>
-      'أنا بستخدم كشكول 📒 عشان أتابع حسابات الزباين والموردين والدرج من غير دفتر ورق.\n'
-      'سهل جداً وشغال من غير نت. جرّبه ببلاش:\n${buildLink(shopCode)}';
+      L10n.t.growthFooter2(buildLink(shopCode));
 }

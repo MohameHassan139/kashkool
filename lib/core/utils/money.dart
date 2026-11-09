@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import '../../l10n/l10n.dart';
 
 /// Utilities for financial amounts in Kashkool.
 ///
@@ -108,8 +109,9 @@ abstract final class MoneyUtils {
   static String formatMoney(
     int piasters, {
     bool includeCurrency = true,
-    String currency = 'جنيه',
+    String? currency,
   }) {
+    currency ??= L10n.t.money1;
     final isNegative = piasters < 0;
     final absPiasters = piasters.abs();
 

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'cloud_config.dart';
 import 'cloud_session_store.dart';
+import '../../l10n/l10n.dart';
 
 /// Error from the Kashkool backend (or the network), with an Arabic message for the user.
 class CloudApiException implements Exception {
@@ -38,13 +39,13 @@ class CloudApi {
 
   Future<dynamic> _send(String method, String path, {Object? body, bool auth = true, bool isRetry = false}) async {
     if (_baseUrl.isEmpty) {
-      throw const CloudApiException('not_configured', 'عنوان السيرفر مش متظبط في النسخة دي من التطبيق');
+      throw CloudApiException('not_configured', L10n.t.cloudApi1);
     }
     final headers = <String, String>{'Content-Type': 'application/json', 'Accept': 'application/json'};
     CloudSession? session;
     if (auth) {
       session = await _store.read();
-      if (session == null) throw const CloudApiException('signed_out', 'سجّل دخول بحساب جوجل الأول', statusCode: 401);
+      if (session == null) throw CloudApiException('signed_out', L10n.t.cloudApi2, statusCode: 401);
       headers['Authorization'] = 'Bearer ${session.accessToken}';
     }
 
@@ -55,11 +56,11 @@ class CloudApi {
     try {
       response = await http.Response.fromStream(await _http.send(request).timeout(_timeout));
     } on SocketException {
-      throw const CloudApiException('network', 'مفيش اتصال بالإنترنت، جرّب تاني');
+      throw CloudApiException('network', L10n.t.cloudApi3);
     } on TimeoutException {
-      throw const CloudApiException('timeout', 'السيرفر اتأخر في الرد، جرّب تاني');
+      throw CloudApiException('timeout', L10n.t.cloudApi4);
     } on http.ClientException {
-      throw const CloudApiException('network', 'مفيش اتصال بالإنترنت، جرّب تاني');
+      throw CloudApiException('network', L10n.t.cloudApi3);
     }
 
     if (response.statusCode == 401 && auth && !isRetry) {
@@ -92,7 +93,7 @@ class CloudApi {
     } on CloudApiException catch (e) {
       if (e.statusCode == 401) {
         await _store.clear();
-        throw const CloudApiException('signed_out', 'انتهت صلاحية الدخول، سجّل دخول بحساب جوجل تاني', statusCode: 401);
+        throw CloudApiException('signed_out', L10n.t.cloudApi5, statusCode: 401);
       }
       rethrow;
     }
@@ -101,18 +102,18 @@ class CloudApi {
   static String _arabicMessage(String code, int status) {
     switch (code) {
       case 'shop_id_taken':
-        return 'المحل ده متسجل على حساب جوجل تاني';
+        return L10n.t.cloudApi6;
       case 'subscription_required':
-        return 'الميزة دي محتاجة اشتراك';
+        return L10n.t.cloudApi7;
       case 'rate_limited':
-        return 'محاولات كتير، استنى شوية وجرّب تاني';
+        return L10n.t.cloudApi8;
       case 'unauthorized':
-        return 'سجّل دخول بحساب جوجل تاني';
+        return L10n.t.cloudApi9;
       case 'google_not_configured':
-        return 'تسجيل الدخول بجوجل مش متظبط على السيرفر';
+        return L10n.t.cloudApi10;
     }
-    if (status >= 500) return 'حصلت مشكلة في السيرفر، جرّب بعد شوية';
-    return 'حصلت مشكلة ($code)';
+    if (status >= 500) return L10n.t.cloudApi11;
+    return L10n.t.cloudApi12(code);
   }
 
   /// Exchanges a Google ID token for Kashkool tokens and saves the session.

@@ -4,6 +4,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/phone.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../data/supplier_repository.dart';
 import '../domain/supplier_with_balance.dart';
 
@@ -110,19 +111,12 @@ class _AddEditSupplierScreenState extends ConsumerState<AddEditSupplierScreen> {
       }
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.supplierSaved),
-            backgroundColor: AppColors.paymentGreen,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.supplierSaved);
         Navigator.of(context).pop();
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString()), backgroundColor: AppColors.debtRed),
-        );
+        AppGlassToast.showError(context, e.toString());
       }
     } finally {
       if (mounted) {

@@ -1,0 +1,1980 @@
+{
+  "@@locale": "ar_EG",
+  "appTitle": "كشكول",
+  "navCustomers": "العملاء",
+  "navCollection": "التحصيل",
+  "navSuppliers": "الموردين",
+  "navCashDrawer": "الدرج",
+  "navSettings": "الإعدادات",
+  "debt": "عليه",
+  "payment": "دفع",
+  "settled": "خالصين",
+  "currency": "جنيه",
+  "piaster": "قرش",
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "search": "بحث...",
+  "placeholderScreen": "شاشة {screenName}",
+  "@placeholderScreen": {
+    "placeholders": {
+      "screenName": {
+        "type": "String"
+      }
+    }
+  },
+  "comingSoon": "هتتوفر في الخطوة القادمة إن شاء الله",
+  "totalReceivablesTitle": "ليك عند الناس",
+  "searchCustomersHint": "ابحث بالاسم أو رقم التليفون...",
+  "filterAll": "الكل",
+  "filterHasDebt": "عليهم فلوس",
+  "filterSettled": "خالصين",
+  "filterLate": "متأخرين",
+  "sortHighestDebt": "أعلى دين",
+  "sortName": "الاسم",
+  "sortLastActivity": "آخر نشاط",
+  "addNewCustomer": "عميل جديد",
+  "addCustomer": "إضافة عميل",
+  "editCustomer": "تعديل العميل",
+  "customerName": "اسم العميل",
+  "customerNameHint": "مثلاً: عم محمد البقال",
+  "customerNameRequired": "اسم العميل مطلوب",
+  "customerNameTooShort": "الاسم يجب ألا يقل عن حرفين",
+  "customerPhone": "رقم الموبايل",
+  "customerPhoneHint": "010xxxxxxxx",
+  "customerPhoneInvalid": "رقم الموبايل غير صحيح (010, 011, 012, 015)",
+  "customerNotes": "ملاحظات",
+  "customerNotesHint": "مثلاً: جار الدور التاني",
+  "creditLimit": "حد الدين (اختياري)",
+  "creditLimitHint": "مثلاً: 1000",
+  "noCustomersTitle": "دفترك فاضي!",
+  "noCustomersSubtitle": "اضغط على الزرار تحت وضيف أول عميل عشان تبدأ تتابع حساباته بسهولة",
+  "noSearchResults": "مفيش عملاء بالاسم أو الرقم ده",
+  "duplicateCustomerWarning": "تنبيه: يوجد عميل مسجل بالفعل بنفس الاسم أو رقم التليفون",
+  "customerDetails": "بيانات العميل",
+  "callCustomer": "اتصال",
+  "deleteCustomer": "حذف العميل",
+  "deleteCustomerConfirm": "تأكيد حذف العميل",
+  "deleteCustomerWarningDebt": "انتبه! العميل ده لسه عليه حساب قدره {amount}. متأكد إنك عاوز تحذفه؟",
+  "@deleteCustomerWarningDebt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCustomerSafeConfirm": "هل أنت متأكد من حذف العميل {name}؟",
+  "@deleteCustomerSafeConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customerDeleted": "تم حذف العميل بنجاح",
+  "customerSaved": "تم حفظ بيانات العميل بنجاح",
+  "lastActivityNever": "مفيش حركات سابقة",
+  "lastActivityDate": "آخر حركة: {date}",
+  "@lastActivityDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "creditLimitLabel": "حد الدين: {amount}",
+  "@creditLimitLabel": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "creditLimitExceeded": "تعدى حد الدين!",
+  "heOwes": "عليه",
+  "hePaid": "له (دافع زيادة)",
+  "currentBalance": "الرصيد الحالي",
+  "noTransactionsYet": "لا توجد معاملات مسجلة حتى الآن",
+  "addDebtTitle": "تسجيل دين جديد (عليه)",
+  "addPaymentTitle": "تسجيل سداد (دفع)",
+  "amountLabel": "المبلغ",
+  "amountRequired": "يرجى إدخال مبلغ صحيح أكبر من صفر",
+  "today": "النهارده",
+  "yesterday": "إمبارح",
+  "date": "التاريخ",
+  "pickDate": "تحديد التاريخ",
+  "paymentMethod": "طريقة الدفع",
+  "methodCash": "كاش",
+  "methodInstapay": "إنستاباي",
+  "methodWallet": "محفظة",
+  "methodOther": "أخرى",
+  "noteOptional": "ملاحظة (اختياري: سكر، زيت، شحن...)",
+  "voiceDictation": "إملاء صوتي",
+  "listening": "جاري الاستماع... تكلّم الآن",
+  "speechNotAvailable": "الإملاء الصوتي غير متاح في هذا الجهاز",
+  "attachPhoto": "إرفاق صورة",
+  "camera": "الكاميرا",
+  "gallery": "المعرض",
+  "removePhoto": "حذف الصورة",
+  "overpaymentTitle": "المبلغ أكبر من اللي عليه!",
+  "overpaymentMessage": "المبلغ المدفوع ({paidAmount}) أكبر من اللي عليه ({dueAmount}). هل تسجل الزيادة ({creditAmount}) كرصيد له في حسابه؟",
+  "@overpaymentMessage": {
+    "placeholders": {
+      "paidAmount": {
+        "type": "String"
+      },
+      "dueAmount": {
+        "type": "String"
+      },
+      "creditAmount": {
+        "type": "String"
+      }
+    }
+  },
+  "overpaymentConfirm": "نعم، سجّل رصيد له",
+  "transactionSaved": "تم تسجيل الحركة بنجاح",
+  "undo": "تراجع",
+  "transactionUndone": "تم التراجع عن تسجيل الحركة",
+  "transactionDetails": "تفاصيل المعاملة",
+  "editTransaction": "تعديل المعاملة",
+  "deleteTransaction": "حذف المعاملة",
+  "deleteTransactionConfirm": "هل أنت متأكد من حذف هذه المعاملة؟",
+  "transactionDeleted": "تم حذف المعاملة بنجاح",
+  "viewPhoto": "عرض الصورة",
+  "creditLimitWarningTitle": "تنبيه حد الدين",
+  "creditLimitExceededDialog": "{customerName} كده هيبقى عليه {newTotal} — مع إن الحد بتاعه {limit}",
+  "@creditLimitExceededDialog": {
+    "placeholders": {
+      "customerName": {
+        "type": "String"
+      },
+      "newTotal": {
+        "type": "String"
+      },
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
+  "saveAnyway": "سجّل برضه",
+  "changeLimit": "غيّر الحد",
+  "newCreditLimit": "حد الدين الجديد",
+  "limitUpdated": "تم تعديل حد الدين بنجاح",
+  "totalPayablesTitle": "عليك للموردين",
+  "netMarketPosition": "صافي الموقف المالي",
+  "netReceivables": "صافي ليك في السوق: {amount}",
+  "@netReceivables": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "netPayables": "عليك عجز إجمالي: {amount}",
+  "@netPayables": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "netSettled": "الحسابات متوازنة (0 جنيه)",
+  "addNewSupplier": "مورد جديد",
+  "addSupplier": "إضافة مورد",
+  "editSupplier": "تعديل المورد",
+  "supplierName": "اسم المندوب / المورد",
+  "supplierNameHint": "مثلاً: عماد مندوب جهينة",
+  "supplierNameRequired": "اسم المورد مطلوب",
+  "company": "اسم الشركة / التوكيل",
+  "companyHint": "مثلاً: جهينة، شيبسي، الأهرام",
+  "visitDay": "يوم الزيارة الأسبوعي",
+  "noSpecificDay": "بدون يوم محدد",
+  "supplierNotes": "ملاحظات",
+  "supplierNotesHint": "مثلاً: بيعدي الساعة 10 الصبح",
+  "noSuppliersTitle": "دفتر الموردين فاضي!",
+  "noSuppliersSubtitle": "اضغط على الزرار تحت وضيف أول مورد أو شركة بتتعامل معاها",
+  "noSupplierSearchResults": "مفيش موردين بالاسم أو الشركة دي",
+  "searchSuppliersHint": "ابحث باسم المندوب أو الشركة أو الرقم...",
+  "supplierDetails": "بيانات المورد",
+  "iOweHim": "عليّا",
+  "iPaidHim": "دفعتله",
+  "deleteSupplier": "حذف المورد",
+  "deleteSupplierConfirm": "تأكيد حذف المورد",
+  "deleteSupplierWarningDebt": "انتبه! المورد ده لسه ليه حساب عندك قدره {amount}. متأكد إنك عاوز تحذفه؟",
+  "@deleteSupplierWarningDebt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteSupplierSafeConfirm": "هل أنت متأكد من حذف المورد {name}؟",
+  "@deleteSupplierSafeConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "supplierDeleted": "تم حذف المورد بنجاح",
+  "supplierSaved": "تم حفظ بيانات المورد بنجاح",
+  "visitDayPrefix": "يوم الزيارة: {day}",
+  "@visitDayPrefix": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "sortCompany": "الشركة",
+  "sortVisitDay": "يوم الزيارة",
+  "dueCustomersTitle": "عملاء مستحقين تحصيل",
+  "totalDueTitle": "إجمالي المستحق",
+  "dueCustomersCount": "{count} عميل",
+  "@dueCustomersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dueHeaderSummary": "عندك {count} عملاء عليهم {amount}",
+  "@dueHeaderSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oldestDebtDays": "أقدم دين من {days} يوم",
+  "@oldestDebtDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "oldestDebtToday": "الدين مسجل اليوم",
+  "lastReminderDays": "آخر تذكير: من {days} يوم",
+  "@lastReminderDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "lastReminderToday": "آخر تذكير: اليوم",
+  "neverReminded": "لم يتم التذكير بعد",
+  "snoozedUntilDate": "مؤجل حتى {date}",
+  "@snoozedUntilDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "sendWhatsApp": "واتساب",
+  "sendSms": "رسالة SMS",
+  "moreActions": "المزيد",
+  "snooze3Days": "تأجيل 3 أيام",
+  "snooze7Days": "تأجيل أسبوع",
+  "cancelSnooze": "إلغاء التأجيل",
+  "recordCollectionPayment": "تسجيل سداد",
+  "didSendMessage": "هل اتبعتت الرسالة؟",
+  "didSendMessageDesc": "هل قمت بإرسال رسالة التذكير للعميل {name} عبر واتساب؟",
+  "@didSendMessageDesc": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "yesSent": "أيوة اتبعتت",
+  "notSent": "لأ، متبعتتش",
+  "reminderMarkedSent": "تم تسجيل التذكير بنجاح",
+  "snoozedSuccess": "تم تأجيل التذكير",
+  "noDueCustomersTitle": "مفيش تحصيلات مستحقة النهاردة 🎉",
+  "noDueCustomersSubtitle": "كل الزباين حساباتهم مظبوطة أو تم تذكيرهم قريباً.",
+  "whatsAppNotInstalled": "تطبيق واتساب غير مثبت. هل تريد إرسال رسالة SMS بدلاً منه؟",
+  "openSms": "إرسال SMS",
+  "growthFooter": "\nتم الإرسال عبر تطبيق كشكول 📒",
+  "statementTitle": "كشف حساب",
+  "generateStatement": "استخراج كشف حساب",
+  "statementAllTime": "كل المعاملات",
+  "statementThisMonth": "هذا الشهر",
+  "statementCustomRange": "فترة مخصصة",
+  "statementFormatA4": "ورقة A4",
+  "statementFormatReceipt": "إيصال حراري (80mm)",
+  "dateCol": "التاريخ",
+  "descriptionCol": "البيان",
+  "debtCol": "عليه",
+  "paymentCol": "دفع",
+  "balanceCol": "الرصيد",
+  "startingBalance": "رصيد ما قبل الفترة",
+  "finalBalance": "الرصيد النهائي",
+  "periodLabel": "الفترة: {period}",
+  "@periodLabel": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "statementGeneratedAt": "تاريخ الاستخراج: {date}",
+  "@statementGeneratedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "shareStatement": "مشاركة كشف الحساب",
+  "printStatement": "طباعة",
+  "statementShareSubject": "كشف حساب - {name}",
+  "@statementShareSubject": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "totalDebits": "إجمالي المشتريات / السلف",
+  "totalCredits": "إجمالي المسدد",
+  "drawerTitle": "تقفيل الدرج والخزينة",
+  "todayDrawer": "درج اليوم",
+  "expectedInDrawer": "المفروض في الدرج",
+  "openingCash": "رصيد الافتتاح",
+  "openingCashHint": "المبلغ اللي بدأت بيه اليوم",
+  "editOpeningCash": "تعديل رصيد الافتتاح",
+  "cashSales": "مبيعات كاش",
+  "addCashSales": "تسجيل مبيعات كاش",
+  "cashIn": "داخل الدرج (كاش)",
+  "digitalIn": "داخل إلكتروني",
+  "cashOut": "خارج من الدرج (كاش)",
+  "customerPaymentsCash": "تحصيلات عملاء (كاش)",
+  "customerPaymentsDigital": "تحصيلات عملاء (إلكتروني)",
+  "supplierPaymentsCash": "دفعات موردين (كاش)",
+  "expensesCash": "مصاريف المحل (كاش)",
+  "addExpense": "تسجيل مصروف",
+  "editExpense": "تعديل المصروف",
+  "deleteExpense": "حذف المصروف",
+  "deleteExpenseConfirm": "هل أنت متأكد من حذف هذا المصروف؟",
+  "expenseCategory": "بند المصروف",
+  "catRent": "إيجار",
+  "catElectricity": "كهرباء ومرافق",
+  "catSalary": "يوميات ومرتبات",
+  "catSupplies": "بضاعة ومستلزمات",
+  "catSupplierPayment": "دفعة مورد",
+  "catOther": "أخرى",
+  "closeDay": "قفّل اليوم",
+  "reopenDay": "إعادة فتح اليوم",
+  "reopenDayConfirm": "هل تريد إعادة فتح هذا اليوم للتعديل عليه؟",
+  "dayClosedSuccess": "تم تقفيل اليوم بنجاح",
+  "dayReopenedSuccess": "تم إعادة فتح اليوم بنجاح",
+  "dayIsClosed": "اليوم مقفول",
+  "dayIsOpen": "اليوم مفتوح",
+  "actualCountLabel": "المبلغ الفعلي في الدرج",
+  "actualCountHint": "اكتب المبلغ اللي عديته في الدرج",
+  "drawerBalanced": "الدرج مظبوط تمام 🎉",
+  "drawerShortage": "عجز في الدرج",
+  "drawerSurplus": "زيادة في الدرج",
+  "differenceAmount": "الفرق: {amount}",
+  "@differenceAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "closeDaySummary": "ملخص تقفيل اليوم",
+  "confirmCloseDay": "تأكيد التقفيل",
+  "historyTab": "سجل الأيام",
+  "todayTab": "الدرج اليوم",
+  "monthlyTotals": "إجمالي الشهر",
+  "monthlySales": "مبيعات كاش",
+  "monthlyExpenses": "مصاريف كاش",
+  "monthlyNet": "صافي الدرج",
+  "drawerNotes": "ملاحظات التقفيل (اختياري)",
+  "noExpensesYet": "مفيش مصاريف متسجلة النهاردة",
+  "noHistoryYet": "مفيش أيام سابقة مسجلة",
+  "expenseAddedSuccess": "تم تسجيل المصروف بنجاح",
+  "cashSalesAddedSuccess": "تم تسجيل المبيعات الكاش بنجاح",
+  "openingCashUpdatedSuccess": "تم تعديل رصيد الافتتاح بنجاح",
+  "dayDetails": "تفاصيل اليوم",
+  "closedAtTime": "تم التقفيل في: {time}",
+  "@closedAtTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "readOnlyDayNotice": "هذا اليوم مقفول. لإجراء تعديلات اضغط على إعادة فتح اليوم.",
+  "privacyModeTitle": "وضع الخصوصية",
+  "privacyModeSubtitle": "إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)",
+  "shareAppTitle": "شارك التطبيق",
+  "shareAppSubtitle": "ابعت كشكول لصحابك أصحاب المحلات",
+  "shopCodeLabel": "كود المحل: {code}",
+  "@shopCodeLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "growthFooterToggleTitle": "إخفاء توقيع كشكول من الرسائل",
+  "growthFooterToggleSubtitle": "متاح في الباقة المدفوعة 🔒",
+  "codeCopied": "تم نسخ الكود",
+  "main1": "كشكول",
+  "notebookImportButton1": "انقل حساباتك من الكشكول 📒",
+  "notebookImportButton2": "مش لازم تنقل كل حركة قديمة: كفاية اسم العميل واللي عليه دلوقتي.",
+  "notebookImportButton3": "العملاء وحساباتهم",
+  "notebookImportButton4": "سطر لكل عميل: الاسم والموبايل والمبلغ اللي عليه",
+  "notebookImportButton5": "قسط قديم",
+  "notebookImportButton6": "السعر، واللي اتدفع، والأقساط الباقية وميعاد الجاي",
+  "notebookImportButton7": "انقل من الكشكول",
+  "oldInstallmentImportScreen1": "ميعاد القسط الجاي",
+  "oldInstallmentImportScreen2": "اتحفظ القسط ✓",
+  "oldInstallmentImportScreen3": "فاضل {remaining} على {countValue} قسط، أولهم يوم {nextDue}.",
+  "@oldInstallmentImportScreen3": {
+    "placeholders": {
+      "remaining": {
+        "type": "Object"
+      },
+      "countValue": {
+        "type": "Object"
+      },
+      "nextDue": {
+        "type": "Object"
+      }
+    }
+  },
+  "oldInstallmentImportScreen4": "خلصت",
+  "oldInstallmentImportScreen5": "قسط تاني",
+  "oldInstallmentImportScreen6": "حصلت مشكلة في الحفظ، مفيش حاجة اتحفظت",
+  "oldInstallmentImportScreen7": " شهرياً",
+  "oldInstallmentImportScreen8": " أسبوعياً",
+  "oldInstallmentImportScreen9": "فاضل {remaining} — {count} قسط × حوالي {count2}{monthly}",
+  "@oldInstallmentImportScreen9": {
+    "placeholders": {
+      "remaining": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      },
+      "count2": {
+        "type": "Object"
+      },
+      "monthly": {
+        "type": "Object"
+      }
+    }
+  },
+  "oldInstallmentImportScreen10": "قسط قديم من الكشكول",
+  "oldInstallmentImportScreen11": "قسط قديم ({savedCount})",
+  "@oldInstallmentImportScreen11": {
+    "placeholders": {
+      "savedCount": {
+        "type": "Object"
+      }
+    }
+  },
+  "oldInstallmentImportScreen12": "للأقساط اللي بدأت قبل التطبيق: اكتب السعر، واللي اتدفع لحد دلوقتي، وعدد الأقساط الباقية. التطبيق هيعمل جدول الباقي بس، ومش هيحسب المدفوع قبل كده في درج النهارده.",
+  "oldInstallmentImportScreen13": "العميل",
+  "oldInstallmentImportScreen14": "اسم العميل",
+  "oldInstallmentImportScreen15": "اكتب اسم عميل موجود أو جديد",
+  "oldInstallmentImportScreen16": "اكتب اسم العميل",
+  "oldInstallmentImportScreen17": "موبايل العميل (لو جديد — اختياري)",
+  "oldInstallmentImportScreen18": "رقم الموبايل غلط",
+  "oldInstallmentImportScreen19": "القسط",
+  "oldInstallmentImportScreen20": "السلعة",
+  "oldInstallmentImportScreen21": "مثلاً: تلاجة توشيبا",
+  "oldInstallmentImportScreen22": "اكتب اسم السلعة",
+  "oldInstallmentImportScreen23": "السعر الإجمالي",
+  "oldInstallmentImportScreen24": "ج",
+  "oldInstallmentImportScreen25": "مطلوب",
+  "oldInstallmentImportScreen26": "غلط",
+  "oldInstallmentImportScreen27": "اتدفع لحد دلوقتي",
+  "oldInstallmentImportScreen28": "لازم يكون أقل من السعر",
+  "oldInstallmentImportScreen29": "عدد الأقساط الباقية",
+  "oldInstallmentImportScreen30": "من 1 لـ 120",
+  "oldInstallmentImportScreen31": "الجاي: {nextDue}",
+  "@oldInstallmentImportScreen31": {
+    "placeholders": {
+      "nextDue": {
+        "type": "Object"
+      }
+    }
+  },
+  "oldInstallmentImportScreen32": "شهري",
+  "oldInstallmentImportScreen33": "أسبوعي",
+  "oldInstallmentImportScreen34": "الضامن (اختياري)",
+  "oldInstallmentImportScreen35": "اسم الضامن",
+  "oldInstallmentImportScreen36": "موبايل الضامن",
+  "oldInstallmentImportScreen37": "صور من الكشكول أو العقد (اختياري — بتفضل على الموبايل)",
+  "oldInstallmentImportScreen38": "تقدر تضيف كذا صورة: صفحات الكشكول، العقد، بطاقة الضامن…",
+  "oldInstallmentImportScreen39": "{photosLength} صورة — هتتحفظ في صور العميل",
+  "@oldInstallmentImportScreen39": {
+    "placeholders": {
+      "photosLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "oldInstallmentImportScreen40": "بيحفظ…",
+  "oldInstallmentImportScreen41": "احفظ القسط",
+  "notebookImportScreen1": "الحسابات دي لحد يوم",
+  "notebookImportScreen2": "سطر {firstError}: {error}",
+  "@notebookImportScreen2": {
+    "placeholders": {
+      "firstError": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen3": "اكتب اسم عميل واحد على الأقل",
+  "notebookImportScreen4": "اتحفظ ✓",
+  "notebookImportScreen5": "{newCustomers} عميل جديد",
+  "@notebookImportScreen5": {
+    "placeholders": {
+      "newCustomers": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen6": "{existingCustomers} عميل موجود اتضاف على حسابه",
+  "@notebookImportScreen6": {
+    "placeholders": {
+      "existingCustomers": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen7": "إجمالي: {totalPiasters}",
+  "@notebookImportScreen7": {
+    "placeholders": {
+      "totalPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen8": "صفحة تانية",
+  "notebookImportScreen9": "تخرج من غير ما تحفظ؟",
+  "notebookImportScreen10": "اللي كتبته في الصفحة دي مش هيتحفظ.",
+  "notebookImportScreen11": "كمّل",
+  "notebookImportScreen12": "اخرج",
+  "notebookImportScreen13": "انقل الكشكول 📒",
+  "notebookImportScreen14": "انقل الكشكول — صفحة {savedPages}",
+  "@notebookImportScreen14": {
+    "placeholders": {
+      "savedPages": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen15": "سطر جديد",
+  "notebookImportScreen16": "{validLength} عميل",
+  "@notebookImportScreen16": {
+    "placeholders": {
+      "validLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen17": "احفظ",
+  "notebookImportScreen18": "اكتب كل عميل في سطر: الاسم، والموبايل لو موجود، والمبلغ اللي عليه. دوس \"التالي\" في الكيبورد عشان تنقل بسرعة.",
+  "notebookImportScreen19": "الحساب لحد النهارده",
+  "notebookImportScreen20": "لحد {asOf}",
+  "@notebookImportScreen20": {
+    "placeholders": {
+      "asOf": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen21": "صور صفحة الكشكول (اختياري): بتتحفظ مع كل العملاء اللي في الصفحة",
+  "notebookImportScreen22": "{pagePhotosLength} صورة للصفحة — هتتحفظ مع كل العملاء اللي في الصفحة",
+  "@notebookImportScreen22": {
+    "placeholders": {
+      "pagePhotosLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen23": "الصفحة",
+  "notebookImportScreen24": "صور للعميل ده",
+  "notebookImportScreen25": "شيل السطر",
+  "notebookImportScreen26": "الموبايل (اختياري)",
+  "notebookImportScreen27": "المبلغ",
+  "notebookImportScreen28": "بيدوّر…",
+  "notebookImportScreen29": "موجود عندك \"{name}\" — المبلغ هيتضاف على حسابه",
+  "@notebookImportScreen29": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportScreen30": "المبلغ عليه (العميل مديون)",
+  "notebookImportScreen31": "المبلغ له (انت مديون للعميل)",
+  "notebookImportScreen32": "عليه",
+  "notebookImportScreen33": "له",
+  "notebookImportService1": "رصيد سابق من الكشكول",
+  "notebookImportService2": "صفحة من الكشكول",
+  "notebookImportService3": "الاسم ناقص",
+  "notebookImportService4": "الاسم طويل جداً",
+  "notebookImportService5": "المبلغ غلط",
+  "notebookImportService6": "المدفوع مينفعش يبقى بالسالب",
+  "notebookImportService7": "المدفوع لازم يكون أقل من السعر الإجمالي",
+  "notebookImportService8": "عدد الأقساط الباقية لازم يكون 1 على الأقل",
+  "notebookImportService9": "مستورد من الكشكول — مدفوع قبل كده {paidPiasters}",
+  "@notebookImportService9": {
+    "placeholders": {
+      "paidPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportService10": "قسط قديم: {trim} (الباقي من {totalPricePiasters})",
+  "@notebookImportService10": {
+    "placeholders": {
+      "trim": {
+        "type": "Object"
+      },
+      "totalPricePiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "notebookImportService11": "قسط: {trim}",
+  "@notebookImportService11": {
+    "placeholders": {
+      "trim": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentsScreen1": "نظام الأقساط 📋",
+  "installmentsScreen2": "ابحث باسم العميل، السلعة، الموبايل، أو الضامن...",
+  "installmentsScreen3": "إجمالي الأقساط",
+  "installmentsScreen4": "أقساط متأخرة",
+  "installmentsScreen5": "خطط نشطة",
+  "installmentsScreen6": "الكل",
+  "installmentsScreen7": "النشطة ⏳",
+  "installmentsScreen8": "المكتملة ✓",
+  "installmentsScreen9": "الملغية",
+  "installmentsScreen10": "خطأ في تحميل الأقساط: {e}",
+  "@installmentsScreen10": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentsScreen11": "مفيش أقساط مطابقة للبحث",
+  "installmentsScreen12": "مفيش خطط أقساط حالياً",
+  "installmentsScreen13": "اضغط على زرار (+ خطة قسط جديدة) لإنشاء وجدولة أول قسط لعميل.",
+  "installmentsScreen14": "خطة قسط جديدة",
+  "installmentPlanDetailsScreen1": "إنستاباي: {instapay}",
+  "@installmentPlanDetailsScreen1": {
+    "placeholders": {
+      "instapay": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen2": "محفظة/فودافون كاش: {wallet}",
+  "@installmentPlanDetailsScreen2": {
+    "placeholders": {
+      "wallet": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen3": "تليفون: {phoneNum}",
+  "@installmentPlanDetailsScreen3": {
+    "placeholders": {
+      "phoneNum": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen4": "إلغاء خطة القسط",
+  "installmentPlanDetailsScreen5": "هل أنت متأكد من رغبتك في إلغاء هذه الخطة؟ سيتم إيقاف التنبيهات مع الاحتفاظ بسجل المدفوعات.",
+  "installmentPlanDetailsScreen6": "رجوع",
+  "installmentPlanDetailsScreen7": "إلغاء الخطة",
+  "installmentPlanDetailsScreen8": "تم إلغاء خطة القسط",
+  "installmentPlanDetailsScreen9": "حذف خطة القسط",
+  "installmentPlanDetailsScreen10": "هل أنت متأكد من حذف خطة القسط نهائياً؟",
+  "installmentPlanDetailsScreen11": "إلغاء",
+  "installmentPlanDetailsScreen12": "حذف نهائي",
+  "installmentPlanDetailsScreen13": "تم حذف خطة القسط",
+  "installmentPlanDetailsScreen14": "تفاصيل القسط",
+  "installmentPlanDetailsScreen15": "خطأ: {e}",
+  "@installmentPlanDetailsScreen15": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen16": "خطة القسط غير موجودة أو تم حذفها",
+  "installmentPlanDetailsScreen17": "حذف الخطة",
+  "installmentPlanDetailsScreen18": "السعر الإجمالي:",
+  "installmentPlanDetailsScreen19": "المقدم:",
+  "installmentPlanDetailsScreen20": "إجمالي المدفوع:",
+  "installmentPlanDetailsScreen21": "المتبقي:",
+  "installmentPlanDetailsScreen22": "سداد مبكر وتصفية بالكامل",
+  "installmentPlanDetailsScreen23": "الضامن: {guarantorName}",
+  "@installmentPlanDetailsScreen23": {
+    "placeholders": {
+      "guarantorName": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen24": "صورة العقد / إيصال الأمانة",
+  "installmentPlanDetailsScreen25": "اضغط لعرض المستند بالحجم الكامل",
+  "installmentPlanDetailsScreen26": "مستند القسط",
+  "installmentPlanDetailsScreen27": "جدول الأقساط ({installmentsLength})",
+  "@installmentPlanDetailsScreen27": {
+    "placeholders": {
+      "installmentsLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen28": "سداد دفعة حرة",
+  "installmentPlanDetailsScreen29": "القسط رقم {installmentIndex} • {dueDate}",
+  "@installmentPlanDetailsScreen29": {
+    "placeholders": {
+      "installmentIndex": {
+        "type": "Object"
+      },
+      "dueDate": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen30": "تم السداد بالكامل ✓ ({paidPiasters})",
+  "@installmentPlanDetailsScreen30": {
+    "placeholders": {
+      "paidPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen31": "مدفوع {paidPiasters} من {amountPiasters}",
+  "@installmentPlanDetailsScreen31": {
+    "placeholders": {
+      "paidPiasters": {
+        "type": "Object"
+      },
+      "amountPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen32": "متأخر عن ميعاده ⚠️",
+  "installmentPlanDetailsScreen33": "مستحق السداد اليوم 🔔",
+  "installmentPlanDetailsScreen34": "قادم • {amountPiasters}",
+  "@installmentPlanDetailsScreen34": {
+    "placeholders": {
+      "amountPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanDetailsScreen35": "تذكير واتساب",
+  "installmentPlanDetailsScreen36": "سداد",
+  "addInstallmentPlanScreen1": "موبايل",
+  "addInstallmentPlanScreen2": "شاشة تلفزيون",
+  "addInstallmentPlanScreen3": "غسالة",
+  "addInstallmentPlanScreen4": "ثلاجة",
+  "addInstallmentPlanScreen5": "بوتاجاز",
+  "addInstallmentPlanScreen6": "لابتوب",
+  "addInstallmentPlanScreen7": "موتوسيكل",
+  "addInstallmentPlanScreen8": "أثاث / مفروشات",
+  "addInstallmentPlanScreen9": "برجاء اختيار العميل أولاً",
+  "addInstallmentPlanScreen10": "المقدم يجب أن يكون أقل من إجمالي السعر",
+  "addInstallmentPlanScreen11": "تم إنشاء خطة القسط وجدولة الأقساط بنجاح ✓",
+  "addInstallmentPlanScreen12": "حدث خطأ: {e}",
+  "@addInstallmentPlanScreen12": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "addInstallmentPlanScreen13": "خطأ في تحميل العملاء: {e}",
+  "@addInstallmentPlanScreen13": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "addInstallmentPlanScreen14": "اختر العميل",
+  "addInstallmentPlanScreen15": "برجاء اختيار العميل",
+  "addInstallmentPlanScreen16": "بيانات السلعة والمبالغ",
+  "addInstallmentPlanScreen17": "اسم السلعة أو المنتج *",
+  "addInstallmentPlanScreen18": "مثلاً: سامسونج A15 128GB",
+  "addInstallmentPlanScreen19": "اسم السلعة يجب ألا يقل عن حرفين",
+  "addInstallmentPlanScreen20": "السعر الإجمالي (جنيه) *",
+  "addInstallmentPlanScreen21": "مثلاً: 12000",
+  "addInstallmentPlanScreen22": "مبلغ غير صحيح",
+  "addInstallmentPlanScreen23": "المقدم (جنيه)",
+  "addInstallmentPlanScreen24": "المبلغ المتبقي للتقسيط:",
+  "addInstallmentPlanScreen25": "المدة ودورية السداد",
+  "addInstallmentPlanScreen26": "{count} قسط",
+  "@addInstallmentPlanScreen26": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "addInstallmentPlanScreen27": "عدد الأقساط *",
+  "addInstallmentPlanScreen28": "أدخل عدداً صحيحاً",
+  "addInstallmentPlanScreen29": "الدورية",
+  "addInstallmentPlanScreen30": "تاريخ استحقاق أول قسط",
+  "addInstallmentPlanScreen31": "تغيير التاريخ",
+  "addInstallmentPlanScreen32": "الضامن والمستندات (اختياري)",
+  "addInstallmentPlanScreen33": "مثلاً: محمد السيد إبراهيم",
+  "addInstallmentPlanScreen34": "رقم موبايل الضامن",
+  "addInstallmentPlanScreen35": "رقم الموبايل غير صحيح (010, 011, 012, 015)",
+  "addInstallmentPlanScreen36": "تم التقاط صورة المستند ✓",
+  "addInstallmentPlanScreen37": "تصوير العقد / إيصال الأمانة / البطاقة",
+  "addInstallmentPlanScreen38": "اضغط لتغيير الصورة",
+  "addInstallmentPlanScreen39": "حفظ صورة العقد للرجوع إليها في أي وقت",
+  "addInstallmentPlanScreen40": "تصوير",
+  "addInstallmentPlanScreen41": "ملاحظات إضافية",
+  "addInstallmentPlanScreen42": "ربط بكشكول العميل تلقائياً",
+  "addInstallmentPlanScreen43": "تسجيل السعر الإجمالي كدين والمقدم كدفعة في حساب العميل العام",
+  "addInstallmentPlanScreen44": "معاينة جدول الأقساط ({scheduleLength} أقساط)",
+  "@addInstallmentPlanScreen44": {
+    "placeholders": {
+      "scheduleLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "addInstallmentPlanScreen45": "قيمة القسط: ~{amountPiasters}",
+  "@addInstallmentPlanScreen45": {
+    "placeholders": {
+      "amountPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "addInstallmentPlanScreen46": "حفظ خطة القسط والجدولة",
+  "installmentProgressBar1": "سداد {paidCount} من {totalCount} قسط ({percentInt}%)",
+  "@installmentProgressBar1": {
+    "placeholders": {
+      "paidCount": {
+        "type": "Object"
+      },
+      "totalCount": {
+        "type": "Object"
+      },
+      "percentInt": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentProgressBar2": "باقي: {remainingPiasters}",
+  "@installmentProgressBar2": {
+    "placeholders": {
+      "remainingPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentProgressBar3": "خالص بالكامل ✓",
+  "payInstallmentDialog1": "برجاء كتابة مبلغ سداد صحيح أكبر من صفر",
+  "payInstallmentDialog2": "تم تسجيل سداد {amountPiasters} بنجاح ✓",
+  "@payInstallmentDialog2": {
+    "placeholders": {
+      "amountPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "payInstallmentDialog3": "حدث خطأ أثناء السداد: {e}",
+  "@payInstallmentDialog3": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "payInstallmentDialog4": "سداد القسط رقم {installmentIndex}",
+  "@payInstallmentDialog4": {
+    "placeholders": {
+      "installmentIndex": {
+        "type": "Object"
+      }
+    }
+  },
+  "payInstallmentDialog5": "سداد قسط ({itemDescription})",
+  "@payInstallmentDialog5": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      }
+    }
+  },
+  "payInstallmentDialog6": "المبلغ المطلوب للقسط:",
+  "payInstallmentDialog7": "المبلغ المدفوع (جنيه)",
+  "payInstallmentDialog8": "طريقة الدفع",
+  "payInstallmentDialog9": "كاش 💵",
+  "payInstallmentDialog10": "إنستاباي ⚡",
+  "payInstallmentDialog11": "محفظة 📱",
+  "payInstallmentDialog12": "تاريخ السداد",
+  "payInstallmentDialog13": "تغيير",
+  "payInstallmentDialog14": "ملاحظة (اختياري)",
+  "payInstallmentDialog15": "مثلاً: تحويل مع فلان",
+  "payInstallmentDialog16": "تسجيل في كشف حساب العميل",
+  "payInstallmentDialog17": "يخصم المبلغ تلقائياً من رصيد العميل العام",
+  "payInstallmentDialog18": "تأكيد السداد",
+  "earlySettlementDialog1": "تمت تسوية وتصفية قسط ({itemDescription}) بنجاح ✓",
+  "@earlySettlementDialog1": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      }
+    }
+  },
+  "earlySettlementDialog2": "حدث خطأ أثناء التسوية: {e}",
+  "@earlySettlementDialog2": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "earlySettlementDialog3": "سداد مبكر وتصفية القسط",
+  "earlySettlementDialog4": "إجمالي باقي الأقساط:",
+  "earlySettlementDialog5": "المبلغ المطلوب تحصيله:",
+  "earlySettlementDialog6": "خصم تعجيل سداد (جنيه)",
+  "earlySettlementDialog7": "تصفية القسط الآن",
+  "installmentPlanCard1": "متأخر ({overdueCount})",
+  "@installmentPlanCard1": {
+    "placeholders": {
+      "overdueCount": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanCard2": "مكتمل ✓",
+  "installmentPlanCard3": "ملغي",
+  "installmentPlanCard4": "القسط القادم: {dueDate} ({paidPiasters})",
+  "@installmentPlanCard4": {
+    "placeholders": {
+      "dueDate": {
+        "type": "Object"
+      },
+      "paidPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentPlanCard5": "الإجمالي: {totalPricePiasters}",
+  "@installmentPlanCard5": {
+    "placeholders": {
+      "totalPricePiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentRepository1": "وصف السلعة يجب ألا يقل عن حرفين",
+  "installmentRepository2": "السعر الإجمالي يجب أن يكون أكبر من صفر",
+  "installmentRepository3": "المقدم لا يمكن أن يكون بالسالب",
+  "installmentRepository4": "المقدم يجب أن يكون أقل من السعر الإجمالي",
+  "installmentRepository5": "عدد الأقساط يجب أن يكون أكبر من صفر",
+  "installmentRepository6": "قسط: {trim} ({installmentCount} أقساط)",
+  "@installmentRepository6": {
+    "placeholders": {
+      "trim": {
+        "type": "Object"
+      },
+      "installmentCount": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentRepository7": "مقدم قسط: {trim}",
+  "@installmentRepository7": {
+    "placeholders": {
+      "trim": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentRepository8": "مبلغ السداد يجب أن يكون أكبر من صفر",
+  "installmentRepository9": "سداد قسط: {itemDescription}{notes}",
+  "@installmentRepository9": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      },
+      "notes": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentRepository10": "خطة القسط غير موجودة",
+  "installmentRepository11": "سداد مبكر لقسط: {itemDescription}",
+  "@installmentRepository11": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      }
+    }
+  },
+  "installmentRepository12": "خصم تعجيل سداد: {itemDescription}",
+  "@installmentRepository12": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      }
+    }
+  },
+  "collectionScreen1": "أقساط مستحقة",
+  "dueInstallmentsTab1": "العميل ليس لديه رقم تليفون مسجل",
+  "dueInstallmentsTab2": "مفيش أقساط مستحقة أو متأخرة اليوم 🎉",
+  "dueInstallmentsTab3": "كل عملاء الأقساط منتظمين في السداد حتى الآن.",
+  "dueInstallmentsTab4": "مطلوب تحصيل ({dueListLength}) قسط:",
+  "@dueInstallmentsTab4": {
+    "placeholders": {
+      "dueListLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "dueInstallmentsTab5": "{itemDescription} • القسط ({installmentIndex} من {installmentCount})",
+  "@dueInstallmentsTab5": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      },
+      "installmentIndex": {
+        "type": "Object"
+      },
+      "installmentCount": {
+        "type": "Object"
+      }
+    }
+  },
+  "dueInstallmentsTab6": "متأخر {daysOverdue} يوم",
+  "@dueInstallmentsTab6": {
+    "placeholders": {
+      "daysOverdue": {
+        "type": "Object"
+      }
+    }
+  },
+  "dueInstallmentsTab7": "مستحق اليوم 🔔",
+  "dueInstallmentsTab8": "اتصال",
+  "dueInstallmentsTab9": "واتساب",
+  "cashDrawerScreen1": "حدث خطأ في تحميل بيانات الدرج: {err}",
+  "@cashDrawerScreen1": {
+    "placeholders": {
+      "err": {
+        "type": "Object"
+      }
+    }
+  },
+  "drawerLiveCard1": "ملاحظة: {notes}",
+  "@drawerLiveCard1": {
+    "placeholders": {
+      "notes": {
+        "type": "Object"
+      }
+    }
+  },
+  "expensesListCard1": "{expensesLength} مصروف",
+  "@expensesListCard1": {
+    "placeholders": {
+      "expensesLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "expensesListCard2": "إنستاباي",
+  "expensesListCard3": "محفظة",
+  "drawerFlowCard1": "(إنستاباي / محفظة)",
+  "addCashSalesBottomSheet1": "المبيعات المسجلة حتى الآن: {currentSalesPiasters}",
+  "@addCashSalesBottomSheet1": {
+    "placeholders": {
+      "currentSalesPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "addCashSalesBottomSheet2": "إضافة للمبيعات (+)",
+  "addCashSalesBottomSheet3": "تعديل الإجمالي (=)",
+  "addCashSalesBottomSheet4": "المبلغ المراد إضافته",
+  "addCashSalesBottomSheet5": "إجمالي المبيعات الجديد",
+  "addCashSalesBottomSheet6": "+{val} جنيه",
+  "@addCashSalesBottomSheet6": {
+    "placeholders": {
+      "val": {
+        "type": "Object"
+      }
+    }
+  },
+  "drawerHistoryTab1": "مبيعات كاش: {cashSalesPiasters} · افتتاح: {openingCashPiasters}",
+  "@drawerHistoryTab1": {
+    "placeholders": {
+      "cashSalesPiasters": {
+        "type": "Object"
+      },
+      "openingCashPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "drawerHistoryTab2": "تفاصيل يوم {date}",
+  "@drawerHistoryTab2": {
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "drawerHistoryTab3": "الفرق",
+  "customersScreen1": "نظام الأقساط",
+  "customersScreen2": "وضع الخصوصية",
+  "customersScreen3": "الترتيب",
+  "customerPhotosScreen1": "الصورة اتضافت",
+  "customerPhotosScreen2": "{pathsLength} صور اتضافوا",
+  "@customerPhotosScreen2": {
+    "placeholders": {
+      "pathsLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "customerPhotosScreen3": "الصورة اتشالت",
+  "customerPhotosScreen4": "رجّعها",
+  "customerPhotosScreen5": "صور {customerName}",
+  "@customerPhotosScreen5": {
+    "placeholders": {
+      "customerName": {
+        "type": "Object"
+      }
+    }
+  },
+  "customerPhotosScreen6": "ضيف صور",
+  "customerPhotosScreen7": "حصلت مشكلة في تحميل الصور",
+  "customerPhotosScreen8": "مفيش صور للعميل ده لسه.\nصوّر صفحاته من الكشكول أو أي ورقة تخصه — الصور بتفضل على الموبايل بس.",
+  "customerPhotosScreen9": "شيل الصورة",
+  "customerDetailsScreen1": "أقساط نشطة ({activePlansLength}) • باقي: {remainingPiasters}",
+  "@customerDetailsScreen1": {
+    "placeholders": {
+      "activePlansLength": {
+        "type": "Object"
+      },
+      "remainingPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "customerDetailsScreen2": "بيع بالتقسيط للعميل",
+  "customerDetailsScreen3": "عرض",
+  "customerDetailsScreen4": "إضافة قسط جديد",
+  "customerDetailsScreen5": "صور العميل",
+  "photoStrip1": "صوّر بالكاميرا",
+  "photoStrip2": "اختار من المعرض",
+  "photoStrip3": "تقدر تختار كذا صورة مرة واحدة",
+  "photoStrip4": "صورة",
+  "photoStrip5": "كمان",
+  "photoStrip6": "ضيف صورة",
+  "photoStrip7": "الصور",
+  "photoStrip8": "{title} ({index} من {count})",
+  "@photoStrip8": {
+    "placeholders": {
+      "title": {
+        "type": "Object"
+      },
+      "index": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "photoStrip9": "الصورة",
+  "photoStrip10": "الصورة مش موجودة على الموبايل",
+  "creditLimitProgressBar1": "حد الدين: {limitPiasters}",
+  "@creditLimitProgressBar1": {
+    "placeholders": {
+      "limitPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "ratingExplanationBottomSheet1": "تقييم العميل: {customerName}",
+  "@ratingExplanationBottomSheet1": {
+    "placeholders": {
+      "customerName": {
+        "type": "Object"
+      }
+    }
+  },
+  "ratingExplanationBottomSheet2": "سبب التقييم الحالي:",
+  "ratingExplanationBottomSheet3": "كيف يعمل نظام التقييم؟",
+  "ratingExplanationBottomSheet4": "ممتاز",
+  "ratingExplanationBottomSheet5": "حسابه خالص أو أقدم دين عليه لم يتجاوز 14 يوماً.",
+  "ratingExplanationBottomSheet6": "متابعة",
+  "ratingExplanationBottomSheet7": "أقدم دين عليه بين 15 و 45 يوماً (يستحسن تذكيره بالدفع).",
+  "ratingExplanationBottomSheet8": "متأخر",
+  "ratingExplanationBottomSheet9": "أقدم دين عليه تجاوز 45 يوماً أو تخطى حد الدين المحدد له.",
+  "ratingExplanationBottomSheet10": "جديد",
+  "ratingExplanationBottomSheet11": "عميل مسجل له أقل من 3 معاملات.",
+  "ratingExplanationBottomSheet12": "فهمت",
+  "customerWithBalance1": "عميل جديد",
+  "settingsScreen1": "بيانات المحل 🏪",
+  "settingsScreen2": "الحماية والخصوصية 🔒",
+  "settingsScreen3": "ويدجت الشاشة الرئيسية 📱",
+  "settingsScreen4": "رسائل التذكير والتحصيل 💬",
+  "settingsScreen5": "النسخ الاحتياطي والبيانات 💾",
+  "settingsScreen6": "مشاركة التطبيق 🚀",
+  "settingsScreen7": "عام ⚙️",
+  "settingsScreen8": "كشكول 📒",
+  "settingsScreen9": "دفتر حسابات المحل بدون نت (Offline-First)\nالإصدار 1.0.0",
+  "settingsScreen10": "متجر عام",
+  "settingsScreen11": "بقالة وسوبرماركت 🛒",
+  "settingsScreen12": "موبايلات وإكسسوارات 📱",
+  "settingsScreen13": "أجهزة كهربائية ومنزلية ⚡",
+  "settingsScreen14": "صيدلية ومستحضرات 💊",
+  "settingsScreen15": "أنشطة وتجارة حرة 🏪",
+  "settingsScreen16": "{tradeName} • تعديل النشاط وبيانات الدفع",
+  "@settingsScreen16": {
+    "placeholders": {
+      "tradeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen17": "إخفاء مبالغ الفلوس في الشاشة والودجت (••••••)",
+  "settingsScreen18": "قفل التطبيق برمز PIN (4 أرقام)",
+  "settingsScreen19": "مفعّل ومحمي (اضغط للإلغاء)",
+  "settingsScreen20": "غير مفعّل (اضغط للتعيين)",
+  "settingsScreen21": "مفعّل 🔒",
+  "settingsScreen22": "إعداد",
+  "settingsScreen23": "تم إلغاء قفل التطبيق بنجاح",
+  "settingsScreen24": "تم تعيين رمز الدخول بنجاح 🔒",
+  "settingsScreen25": "فتح بالبصمة / Face ID",
+  "settingsScreen26": "استخدام البصمة بدلاً من كتابة الرمز كل مرة",
+  "settingsScreen27": "جهازك لا يدعم التحقق بالبصمة حالياً",
+  "settingsScreen28": "دقيقة واحدة",
+  "settingsScreen29": "5 دقائق",
+  "settingsScreen30": "15 دقيقة",
+  "settingsScreen31": "فوراً",
+  "settingsScreen32": "مدة القفل التلقائي",
+  "settingsScreen33": "فور الخروج من التطبيق",
+  "settingsScreen34": "بعد {timeout} دقيقة من الخروج",
+  "@settingsScreen34": {
+    "placeholders": {
+      "timeout": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen35": "فوراً عند الخروج",
+  "settingsScreen36": "بعد دقيقة واحدة",
+  "settingsScreen37": "بعد 5 دقائق",
+  "settingsScreen38": "بعد 15 دقيقة",
+  "settingsScreen39": "صيغة رسالة التذكير",
+  "settingsScreen40": "تعديل نص الرسالة التلقائية للعملاء والمعاينة الحية",
+  "settingsScreen41": "حماية التنبيهات من الإغلاق في الخلفية",
+  "settingsScreen42": "دليل عملي لضمان وصول التذكيرات لأجهزة شاومي، ريلمي، وإنفينيكس",
+  "settingsScreen43": "لم يتم تصدير نسخة حتى الآن",
+  "settingsScreen44": "آخر نسخة احتياطية",
+  "settingsScreen45": "تصدير نسخة احتياطية (.kashkool)",
+  "settingsScreen46": "حفظ نسخة من الدفتر والصور وإرسالها على الواتساب أو درايف",
+  "settingsScreen47": "تم تصدير النسخة بنجاح 👍",
+  "settingsScreen48": "فشل التصدير: {e}",
+  "@settingsScreen48": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen49": "استعادة نسخة احتياطية",
+  "settingsScreen50": "استرجاع الحسابات والصور من ملف .kashkool تم حفظه مسبقاً",
+  "settingsScreen51": "الملف غير صالح ❌",
+  "settingsScreen52": "الملف المحدد ليس نسخة صالحة لتطبيق كشكول.",
+  "settingsScreen53": "حسناً",
+  "settingsScreen54": "تأكيد استعادة النسخة",
+  "settingsScreen55": "انتبه: الاستعادة ستستبدل كل البيانات الحالية المسجلة في التطبيق بالبيانات الموجودة في الملف.",
+  "settingsScreen56": "تاريخ النسخة: {exportedAt}",
+  "@settingsScreen56": {
+    "placeholders": {
+      "exportedAt": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen57": "عدد الصور المرفقة: {photosCount}",
+  "@settingsScreen57": {
+    "placeholders": {
+      "photosCount": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen58": "حجم الملف: {fileSizeBytes} ك.ب",
+  "@settingsScreen58": {
+    "placeholders": {
+      "fileSizeBytes": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen59": "نعم، استبدل واسترجع البيانات",
+  "settingsScreen60": "تمت الاستعادة بنجاح 🎉",
+  "settingsScreen61": "تم استرجاع جميع الحسابات والمعاملات والصور بنجاح. يرجى إعادة تشغيل التطبيق لتحديث كل الشاشات.",
+  "settingsScreen62": "إعادة التشغيل الآن",
+  "settingsScreen63": "خطأ في الاستعادة: {e}",
+  "@settingsScreen63": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "settingsScreen64": "داكن 🌙",
+  "settingsScreen65": "فاتح ☀️",
+  "settingsScreen66": "تلقائي",
+  "settingsScreen67": "مظهر التطبيق",
+  "settingsScreen68": "تلقائي (حسب نظام الجهاز)",
+  "settingsScreen69": "غير محدد",
+  "settingsScreen70": "حد الدين الافتراضي للعميل الجديد",
+  "settingsScreen71": "تواصل معنا عبر واتساب",
+  "settingsScreen72": "للاقتراحات والمساعدة الفنية المباشرة",
+  "settingsScreen73": "https://wa.me/201000000000?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول",
+  "settingsScreen74": "سياسة الخصوصية وشروط الاستخدام",
+  "settingsScreen75": "بياناتك ملكك بالكامل ومتخزنة على تليفونك فقط بدون إنترنت",
+  "settingsScreen76": "سياسة الخصوصية في كشكول 🔒",
+  "settingsScreen77": "1. تطبيق كشكول هو تطبيق يعمل بالكامل بدون اتصال بالإنترنت (Offline-First).\n\n2. جميع الحسابات والأسماء وأرقام الهواتف وصور الفواتير والمعاملات مخزنة محلياً على جهازك فقط، ولا يتم إرسال أي بيانات لأي خادم خارجي.\n\n3. أنت المسؤول الأول عن عمل نسخة احتياطية بشكل دوري عبر خيار (تصدير نسخة احتياطية) لحفظ بياناتك في حال تغيير أو فقدان الهاتف.\n\n4. كشكول صُمم لخدمة أصحاب المحلات والتجار لحفظ حقوقهم وتسهيل متابعة ديونهم بكل أمان.",
+  "settingsScreen78": "نظام الجهاز (تلقائي)",
+  "settingsScreen79": "حد الدين الافتراضي (جنيه)",
+  "settingsScreen80": "المبلغ بالجنيه",
+  "settingsScreen81": "اتركه فارغاً لجعله غير محدد",
+  "settingsScreen82": "حفظ",
+  "batteryGuideBottomSheet1": "دليل حماية الإشعارات ({brandName})",
+  "@batteryGuideBottomSheet1": {
+    "placeholders": {
+      "brandName": {
+        "type": "Object"
+      }
+    }
+  },
+  "batteryGuideBottomSheet2": "دليل حماية التنبيهات من الإغلاق",
+  "batteryGuideBottomSheet3": "تقوم بعض الهواتف (مثل شاومي، ريلمي، إنفينيكس، وهواوي) بإيقاف التطبيقات في الخلفية لتوفير البطارية. لضمان وصول تذكير التحصيل اليومي ومواعيد الأقساط بدقة، يُرجى تطبيق الخطوات التالية:",
+  "batteryGuideBottomSheet4": "فتح إعدادات بطارية الهاتف الآن",
+  "backupReminderBanner1": "تم تصدير النسخة الاحتياطية بنجاح 👍",
+  "backupReminderBanner2": "حدث خطأ أثناء النسخ: {e}",
+  "@backupReminderBanner2": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "backupReminderBanner3": "تنبيه: محتاج تعمل نسخة احتياطية ⚠️",
+  "backupReminderBanner4": "فات أكثر من 7 أيام من آخر نسخة. احفظ بياناتك عشان لو التليفون ضاع أو اتغير مفيش أي حساب يضيع.",
+  "backupReminderBanner5": "تجاهل مؤقتاً",
+  "backupReminderBanner6": "جاري الحفظ...",
+  "backupReminderBanner7": "نسخ احتياطي الآن",
+  "homeWidgetSettingsCard1": "عرض حساباتك على الشاشة الرئيسية",
+  "homeWidgetSettingsCard2": "الويدجت بتعرض ليك عند الناس والمحصّل النهارده من غير ما تفتح التطبيق",
+  "homeWidgetSettingsCard3": "الويدجت متوقفة ومش بتعرض أي أرقام",
+  "homeWidgetSettingsCard4": "ضيف الويدجت الصغيرة",
+  "homeWidgetSettingsCard5": "ليك عند الناس بس",
+  "homeWidgetSettingsCard6": "ضيف ويدجت ملخص اليوم",
+  "homeWidgetSettingsCard7": "ليك عند الناس + المحصّل النهارده + المستحقين + زرار تحصيل",
+  "homeWidgetSettingsCard8": "وافق على الرسالة اللي ظهرت عشان الويدجت تتضاف للشاشة 👍",
+  "homeWidgetSettingsCard9": "ضيف الويدجت بإيدك 📱",
+  "homeWidgetSettingsCard10": "موبايلك مش بيسمح للتطبيق يضيفها لوحده. اعمل كده:\n\n1. اضغط ضغطة طويلة على مكان فاضي في الشاشة الرئيسية\n2. اختار \"الأدوات\" أو \"Widgets\"\n3. دوّر على \"كشكول\" واسحب الويدجت للشاشة",
+  "messageTemplateEditorBottomSheet1": "بقالة الأمانة",
+  "messageTemplateEditorBottomSheet2": "فودافون كاش: 01012345678",
+  "messageTemplateEditorBottomSheet3": "محمد أحمد",
+  "messageTemplateEditorBottomSheet4": "تم حفظ نموذج الرسالة بنجاح 👍",
+  "messageTemplateEditorBottomSheet5": "تعديل رسالة التذكير 💬",
+  "messageTemplateEditorBottomSheet6": "نماذج جاهزة: ",
+  "messageTemplateEditorBottomSheet7": "ودّي 😊",
+  "messageTemplateEditorBottomSheet8": "رسمي 👔",
+  "messageTemplateEditorBottomSheet9": "اسم المحل",
+  "messageTemplateEditorBottomSheet10": "بيانات الدفع",
+  "messageTemplateEditorBottomSheet11": "تاريخ آخر حركة",
+  "messageTemplateEditorBottomSheet12": "اكتب نص رسالة التذكير هنا...",
+  "messageTemplateEditorBottomSheet13": "معاينة الرسالة كما ستصل للعميل:",
+  "messageTemplateEditorBottomSheet14": "حفظ النموذج",
+  "shopProfileBottomSheet1": "محفظة كاش: {trim}",
+  "@shopProfileBottomSheet1": {
+    "placeholders": {
+      "trim": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopProfileBottomSheet2": "تم حفظ بيانات المحل بنجاح 👍",
+  "shopProfileBottomSheet3": "اسم المحل *",
+  "shopProfileBottomSheet4": "مثلاً: بقالة الأمانة",
+  "shopProfileBottomSheet5": "يرجى إدخال اسم المحل",
+  "shopProfileBottomSheet6": "رقم هاتف المحل",
+  "shopProfileBottomSheet7": "مثلاً: 010xxxxxxxx",
+  "shopProfileBottomSheet8": "عنوان المحل",
+  "shopProfileBottomSheet9": "مثلاً: شارع السوق، بجوار المسجد الكبير",
+  "shopProfileBottomSheet10": "حساب إنستاباي (InstaPay)",
+  "shopProfileBottomSheet11": "مثلاً: name@instapay",
+  "shopProfileBottomSheet12": "رقم فودافون كاش / المحفظة الذكية",
+  "shopProfileBottomSheet13": "نوع النشاط التجاري",
+  "shopProfileBottomSheet14": "نشاط وتجارة أخرى 🏪",
+  "shopProfileBottomSheet15": "تفعيل نظام الأقساط",
+  "shopProfileBottomSheet16": "إظهار زر الأقساط وجداول السداد في التطبيق",
+  "shopProfileBottomSheet17": "حفظ التعديلات",
+  "cloudAccountButton1": "حسابك والنسخ على السحابة ☁️",
+  "cloudAccountButton2": "النسخ على السحابة",
+  "cloudAccountButton3": "سجّل دخول بحساب جوجل",
+  "cloudBackupCard1": "لحظة…",
+  "cloudBackupCard2": "حصلت مشكلة غير متوقعة، جرّب تاني",
+  "cloudBackupCard3": "بنفتح حسابات جوجل…",
+  "cloudBackupCard4": "اتسجّل الدخول بـ {email} ✓",
+  "@cloudBackupCard4": {
+    "placeholders": {
+      "email": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard5": "النسخة اترفعت مع ملاحظات ⚠️",
+  "cloudBackupCard6": "اترفع {uploaded} سجل، و {rejected} سجل اترفض:\n\n{n}",
+  "@cloudBackupCard6": {
+    "placeholders": {
+      "uploaded": {
+        "type": "Object"
+      },
+      "rejected": {
+        "type": "Object"
+      },
+      "n": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard7": "كل بياناتك متخزنة على السحابة بالفعل ✓",
+  "cloudBackupCard8": "اترفع {uploaded} سجل على السحابة ✓",
+  "@cloudBackupCard8": {
+    "placeholders": {
+      "uploaded": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard9": "بنجيب المحلات اللي على حسابك…",
+  "cloudBackupCard10": "مفيش نسخة على السحابة للحساب ده لسه",
+  "cloudBackupCard11": "اختار المحل",
+  "cloudBackupCard12": " (عامل)",
+  "cloudBackupCard13": "استرجاع من السحابة؟",
+  "cloudBackupCard14": "هننزّل نسخة \"{name}\" اللي على السحابة ونضيفها على الموبايل ده.\n\n",
+  "@cloudBackupCard14": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard15": "مش هنمسح أي حاجة: البيانات اللي على الموبايل بس هتفضل، ولو حاجة اتعدلت على الموبايل بعد آخر نسخة هنسيبها زي ما هي.",
+  "cloudBackupCard16": "أيوه، استرجع",
+  "cloudBackupCard17": "تم الاسترجاع 🎉",
+  "cloudBackupCard18": "، واتساب {keptLocal} سجل زي ما هو لأن نسخة الموبايل أحدث",
+  "@cloudBackupCard18": {
+    "placeholders": {
+      "keptLocal": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard19": "اترجع {records} سجل{keptLocal}.",
+  "@cloudBackupCard19": {
+    "placeholders": {
+      "records": {
+        "type": "Object"
+      },
+      "keptLocal": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard20": " اقفل التطبيق وافتحه تاني عشان كل الشاشات تتحدث.",
+  "cloudBackupCard21": "اقفل التطبيق",
+  "cloudBackupCard22": "تسجيل خروج؟",
+  "cloudBackupCard23": "بياناتك هتفضل على الموبايل وعلى السحابة. بس النسخ هيقف لحد ما تسجّل دخول تاني.",
+  "cloudBackupCard24": "خروج",
+  "cloudBackupCard25": "مش متاح في النسخة دي من التطبيق",
+  "cloudBackupCard26": "النسخ الاحتياطي على السحابة",
+  "cloudBackupCard27": "سجّل بحساب جوجل وبياناتك تتحفظ أونلاين. لو الموبايل ضاع، ترجّعها على أي موبايل تاني.",
+  "cloudBackupCard28": "لسه مفيش نسخة",
+  "cloudBackupCard29": "آخر نسخة: {last}",
+  "@cloudBackupCard29": {
+    "placeholders": {
+      "last": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupCard30": "بيرفع دلوقتي…",
+  "cloudBackupCard31": "مستني النت — هيرفع لوحده أول ما يرجع",
+  "cloudBackupCard32": "الرفع وقف، هنحاول تاني بعد شوية",
+  "cloudBackupCard33": "كله مرفوع ✓",
+  "cloudBackupCard34": "الرفع تلقائي لما النت يكون شغال",
+  "cloudBackupCard35": "ارفع نسخة احتياطية دلوقتي",
+  "cloudBackupCard36": "استرجع بياناتك على الموبايل ده",
+  "cloudBackupCard37": "لموبايل جديد أو بعد مسح التطبيق — مش بيمسح حاجة",
+  "cloudBackupCard38": "تسجيل خروج",
+  "onboardingScreen1": "محلي",
+  "onboardingScreen2": "تمت إضافة عملاء تجريبيين لتجربة التطبيق، يمكنك حذفهم في أي وقت",
+  "onboardingScreen3": "تهيئة كشكول لأول مرة",
+  "onboardingScreen4": "متابعة نوع النشاط",
+  "onboardingScreen5": "أهلاً بك في كشكول! 👋",
+  "onboardingScreen6": "دفترك الإلكتروني لحسابات الديون، التحصيل بالواتساب، والأقساط بدون تعقيد.",
+  "onboardingScreen7": "اسم المحل أو الكشكول *",
+  "onboardingScreen8": "مثال: بقالة الأمانة / موبايلات النجم",
+  "onboardingScreen9": "يرجى كتابة اسم المحل (حرفين على الأقل)",
+  "onboardingScreen10": "رقم هاتف المحل (اختياري)",
+  "onboardingScreen11": "يظهر في فواتير وكشوفات الحساب وتذييل رسائل الواتساب",
+  "onboardingScreen12": "بقالة وسوبرماركت",
+  "onboardingScreen13": "حسابات الديون اليومية وسرعة إغلاق الدرج",
+  "onboardingScreen14": "موبايلات وإكسسوارات",
+  "onboardingScreen15": "بيانات الأجهزة ويفعّل نظام الأقساط تلقائياً",
+  "onboardingScreen16": "أجهزة كهربائية ومنزلية",
+  "onboardingScreen17": "عقود بيع بالآجل ويفعّل نظام الأقساط تلقائياً",
+  "onboardingScreen18": "صيدلية ومستحضرات",
+  "onboardingScreen19": "حدود الائتمان ومتابعة ديون الروشتات",
+  "onboardingScreen20": "أنشطة وتجارة أخرى",
+  "onboardingScreen21": "دفتر مرن ومناسب لجميع أنواع التجارة الحرة",
+  "onboardingScreen22": "ما هو نوع نشاطك التجاري؟",
+  "onboardingScreen23": "سنقوم بتهيئة واجهة التطبيق والأقسام بناءً على طبيعة شغلك.",
+  "onboardingScreen24": "يدعم الأقساط",
+  "onboardingScreen25": "تفعيل نظام وجداول الأقساط",
+  "onboardingScreen26": "يمكنك تشغيله أو إيقافه في أي وقت من الإعدادات",
+  "onboardingScreen27": "ضمان وصول الإشعارات والتذكيرات 🔔",
+  "onboardingScreen28": "حتى يعمل كشكول في موعده اليومي لتنبيهك بالتحصيلات ومواعيد الأقساط:",
+  "onboardingScreen29": "إذن إرسال الإشعارات",
+  "onboardingScreen30": "تم تفعيل الإشعارات بنجاح ✅",
+  "onboardingScreen31": "محتاجين إذن الإشعارات عشان نبعتلك ملخص التحصيل اليومي",
+  "onboardingScreen32": "السماح بالإشعارات الآن",
+  "onboardingScreen33": "حماية التطبيق في الخلفية ({brandName})",
+  "@onboardingScreen33": {
+    "placeholders": {
+      "brandName": {
+        "type": "Object"
+      }
+    }
+  },
+  "onboardingScreen34": "حماية التطبيق من الإغلاق في الخلفية",
+  "onboardingScreen35": "فتح إعدادات بطارية الهاتف",
+  "onboardingScreen36": "جاهز للانطلاق! 🚀",
+  "onboardingScreen37": "تم حفظ بيانات محلك. كيف تود أن تبدأ الآن؟",
+  "onboardingScreen38": "+ إضافة أول عميل حقيقي",
+  "onboardingScreen39": "سجل أول عميل وابدأ تدوين الديون والدفعات مباشرة",
+  "onboardingScreen40": "جرب ببيانات تجريبية أولاً 💡",
+  "onboardingScreen41": "إضافة عميلين وحسابات تجريبية لاكتشاف مميزات كشكول (يمكن حذفهم بضغطة زر)",
+  "onboardingScreen42": "تخطي والذهاب إلى الشاشة الرئيسية",
+  "shopRepository1": "أحمد محمد (تجريبي)",
+  "shopRepository2": "مشتريات طلبات منزلية",
+  "shopRepository3": "محمود إبراهيم (تجريبي)",
+  "shopRepository4": "بضاعة أول الشهر",
+  "shopRepository5": "دفعة نقدية على الحساب",
+  "supplierWithBalance1": "السبت",
+  "supplierWithBalance2": "الأحد",
+  "supplierWithBalance3": "الإثنين",
+  "supplierWithBalance4": "الثلاثاء",
+  "supplierWithBalance5": "الأربعاء",
+  "supplierWithBalance6": "الخميس",
+  "supplierWithBalance7": "الجمعة",
+  "trashScreen1": "عملاء",
+  "trashScreen2": "عمليات",
+  "trashScreen3": "موردين",
+  "trashScreen4": "مصاريف",
+  "trashScreen5": "أقساط",
+  "trashScreen6": "رجع \"{title}\" ✓",
+  "@trashScreen6": {
+    "placeholders": {
+      "title": {
+        "type": "Object"
+      }
+    }
+  },
+  "trashScreen7": "مقدرناش نرجّعه، جرّب تاني",
+  "trashScreen8": "سلة المحذوفات 🗑️",
+  "trashScreen9": "أي حاجة بتمسحها بتتنقل هنا ومش بتضيع. تقدر ترجّعها في أي وقت، وهترجع كمان في النسخة اللي على السحابة.",
+  "trashScreen10": "حصلت مشكلة في تحميل المحذوفات",
+  "trashScreen11": "السلة فاضية ✨",
+  "trashScreen12": "اتمسح {deletedAt}",
+  "@trashScreen12": {
+    "placeholders": {
+      "deletedAt": {
+        "type": "Object"
+      }
+    }
+  },
+  "trashScreen13": "رجّع",
+  "trashScreen14": "سلة المحذوفات",
+  "trashScreen15": "شوف اللي اتمسح ورجّعه",
+  "trashScreen16": "فيها {count} حاجة — تقدر ترجّعها",
+  "@trashScreen16": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "trashRepository1": "إيجار",
+  "trashRepository2": "كهربا",
+  "trashRepository3": "مرتبات",
+  "trashRepository4": "مستلزمات",
+  "trashRepository5": "دفع لمورد",
+  "trashRepository6": "مصروف",
+  "trashRepository7": "عليّا",
+  "trashRepository8": "دفع",
+  "trashRepository9": "دفعتله",
+  "trashRepository10": "غير معروف",
+  "trashRepository11": "تقسيط: {itemDescription}",
+  "@trashRepository11": {
+    "placeholders": {
+      "itemDescription": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService1": "كشف_حساب_{sanitizedName}_{dateStr}.pdf",
+  "@pdfStatementService1": {
+    "placeholders": {
+      "sanitizedName": {
+        "type": "Object"
+      },
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService2": "كشف حساب عميل",
+  "pdfStatementService3": "العميل: {customerName}",
+  "@pdfStatementService3": {
+    "placeholders": {
+      "customerName": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService4": "التليفون: {phone}",
+  "@pdfStatementService4": {
+    "placeholders": {
+      "phone": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService5": "الفترة: {periodDescription}",
+  "@pdfStatementService5": {
+    "placeholders": {
+      "periodDescription": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService6": "رصيد ما قبل هذه الفترة:",
+  "pdfStatementService7": "التاريخ",
+  "pdfStatementService8": "البيان",
+  "pdfStatementService9": "الرصيد",
+  "pdfStatementService10": "إجمالي المشتريات / السلف: {periodDebitsPiasters}",
+  "@pdfStatementService10": {
+    "placeholders": {
+      "periodDebitsPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService11": "إجمالي المسدد: {periodCreditsPiasters}",
+  "@pdfStatementService11": {
+    "placeholders": {
+      "periodCreditsPiasters": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService12": "الرصيد النهائي المطلوب:",
+  "pdfStatementService13": "طرق الدفع المتاحة: {trim}",
+  "@pdfStatementService13": {
+    "placeholders": {
+      "trim": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfStatementService14": "اتعمل بكشكول — جرّبه ببلاش:",
+  "statementCalculator1": "كل المعاملات",
+  "statementCalculator2": "يناير",
+  "statementCalculator3": "فبراير",
+  "statementCalculator4": "مارس",
+  "statementCalculator5": "أبريل",
+  "statementCalculator6": "مايو",
+  "statementCalculator7": "يونيو",
+  "statementCalculator8": "يوليو",
+  "statementCalculator9": "أغسطس",
+  "statementCalculator10": "سبتمبر",
+  "statementCalculator11": "أكتوبر",
+  "statementCalculator12": "نوفمبر",
+  "statementCalculator13": "ديسمبر",
+  "statementCalculator14": "من {startDate} إلى {endDate}",
+  "@statementCalculator14": {
+    "placeholders": {
+      "startDate": {
+        "type": "Object"
+      },
+      "endDate": {
+        "type": "Object"
+      }
+    }
+  },
+  "statementCalculator15": "من {startDate}",
+  "@statementCalculator15": {
+    "placeholders": {
+      "startDate": {
+        "type": "Object"
+      }
+    }
+  },
+  "statementCalculator16": "حتى {endDate}",
+  "@statementCalculator16": {
+    "placeholders": {
+      "endDate": {
+        "type": "Object"
+      }
+    }
+  },
+  "growthFooter1": "—\nاتعمل بكشكول 📒 جرّبه ببلاش: {shopCode}",
+  "@growthFooter1": {
+    "placeholders": {
+      "shopCode": {
+        "type": "Object"
+      }
+    }
+  },
+  "growthFooter2": "أنا بستخدم كشكول 📒 عشان أتابع حسابات الزباين والموردين والدرج من غير دفتر ورق.\nسهل جداً وشغال من غير نت. جرّبه ببلاش:\n{shopCode}",
+  "@growthFooter2": {
+    "placeholders": {
+      "shopCode": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationService1": "التحصيل اليومي",
+  "notificationService2": "تذكير بالعملاء المستحقين للتحصيل ومواعيد دفعهم",
+  "notificationService3": "عندك {dueCount} عملاء عليهم {amountStr} — اضغط للتحصيل",
+  "@notificationService3": {
+    "placeholders": {
+      "dueCount": {
+        "type": "Object"
+      },
+      "amountStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationService4": "تذكير التحصيل اليومي 📒",
+  "backupService1": "ملف قاعدة البيانات غير موجود",
+  "backupService2": "نسخة احتياطية لتطبيق كشكول - {dateStr}",
+  "@backupService2": {
+    "placeholders": {
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "backupService3": "الملف المحدد غير موجود",
+  "backupService4": "الملف تالف أو غير مكتمل",
+  "backupService5": "صيغة الملف غير صحيحة (ليست ملف كشكول صالح)",
+  "backupService6": "الملف لا يحتوي على قاعدة بيانات كشكول",
+  "backupService7": "قاعدة البيانات داخل الملف تالفة",
+  "backupService8": "الملف ليس قاعدة بيانات SQLite صالحة",
+  "backupService9": "ملف النسخة الاحتياطية غير صالح",
+  "backupService10": "ملف قاعدة البيانات مفقود داخل الأرشيف",
+  "googleAuthService1": "النسخ على السحابة مش متظبط في النسخة دي من التطبيق",
+  "googleAuthService2": "جوجل مارجعش بيانات الدخول، جرّب تاني",
+  "googleAuthService3": "تم إلغاء تسجيل الدخول",
+  "googleAuthService4": "مقدرناش نسجّل دخول بجوجل ({codeName})",
+  "@googleAuthService4": {
+    "placeholders": {
+      "codeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudApi1": "عنوان السيرفر مش متظبط في النسخة دي من التطبيق",
+  "cloudApi2": "سجّل دخول بحساب جوجل الأول",
+  "cloudApi3": "مفيش اتصال بالإنترنت، جرّب تاني",
+  "cloudApi4": "السيرفر اتأخر في الرد، جرّب تاني",
+  "cloudApi5": "انتهت صلاحية الدخول، سجّل دخول بحساب جوجل تاني",
+  "cloudApi6": "المحل ده متسجل على حساب جوجل تاني",
+  "cloudApi7": "الميزة دي محتاجة اشتراك",
+  "cloudApi8": "محاولات كتير، استنى شوية وجرّب تاني",
+  "cloudApi9": "سجّل دخول بحساب جوجل تاني",
+  "cloudApi10": "تسجيل الدخول بجوجل مش متظبط على السيرفر",
+  "cloudApi11": "حصلت مشكلة في السيرفر، جرّب بعد شوية",
+  "cloudApi12": "حصلت مشكلة ({code})",
+  "@cloudApi12": {
+    "placeholders": {
+      "code": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupService1": "تسجيل الدخول بجوجل مش متاح",
+  "cloudBackupService2": "كمّل بيانات المحل الأول من الإعدادات",
+  "cloudBackupService3": "بنجهّز بيانات المحل…",
+  "cloudBackupService4": "بنرفع {length} من {changesLength}…",
+  "@cloudBackupService4": {
+    "placeholders": {
+      "length": {
+        "type": "Object"
+      },
+      "changesLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupService5": "خلصنا ✓",
+  "cloudBackupService6": "بننزّل البيانات… ({changesLength})",
+  "@cloudBackupService6": {
+    "placeholders": {
+      "changesLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupService7": "بنحفظ {changesLength} سجل على الموبايل…",
+  "@cloudBackupService7": {
+    "placeholders": {
+      "changesLength": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudBackupService8": "المحل",
+  "autoBackupCoordinator1": "{rejected} سجل مترفعش",
+  "@autoBackupCoordinator1": {
+    "placeholders": {
+      "rejected": {
+        "type": "Object"
+      }
+    }
+  },
+  "autoBackupCoordinator2": "حصلت مشكلة، هنحاول تاني بعد شوية",
+  "customerRating1": "عميل جديد (سجل أقل من 3 معاملات)",
+  "customerRating2": "حسابه خالص وبيدفع في مواعيده بانتظام",
+  "customerRating3": "متأخر: أقدم دين عليه من {oldestUnpaidAgeDays} يوم وتخطى حد الدين",
+  "@customerRating3": {
+    "placeholders": {
+      "oldestUnpaidAgeDays": {
+        "type": "Object"
+      }
+    }
+  },
+  "customerRating4": "تعدى حد الدين المحدد للعميل",
+  "customerRating5": "سجل ديناً اليوم فقط وحسابه منتظم",
+  "customerRating6": "أقدم مبلغ عليه من {oldestUnpaidAgeDays} يوم فقط (في نطاق الأمان)",
+  "@customerRating6": {
+    "placeholders": {
+      "oldestUnpaidAgeDays": {
+        "type": "Object"
+      }
+    }
+  },
+  "customerRating7": "أقدم مبلغ عليه من {oldestUnpaidAgeDays} يوم (متأخر عن 45 يوم)",
+  "@customerRating7": {
+    "placeholders": {
+      "oldestUnpaidAgeDays": {
+        "type": "Object"
+      }
+    }
+  },
+  "customerRating8": "أقدم مبلغ عليه من {oldestUnpaidAgeDays} يوم (يحتاج متابعة)",
+  "@customerRating8": {
+    "placeholders": {
+      "oldestUnpaidAgeDays": {
+        "type": "Object"
+      }
+    }
+  },
+  "whatsappTemplate1": "السلام عليكم أ/ '{'customer_name'}' 👋\nمعاك '{'shop_name'}'.\nرصيدك الحالي: '{'balance'}'\nآخر عملية: '{'last_transaction_date'}' - '{'last_transaction_amount'}'\nللدفع: '{'payment_info'}'\nشكراً لتعاملك معانا 🙏",
+  "whatsappTemplate2": "تحية طيبة أ/ '{'customer_name'}'\nنود تذكيركم بأن الحساب الحالي لدى '{'shop_name'}' يبلغ '{'balance'}'.\nآخر عملية مسجلة: '{'last_transaction_date'}' ('{'last_transaction_amount'}')\nطرق السداد المتاحة: '{'payment_info'}'\nمع خالص الشكر والتقدير.",
+  "whatsappTemplate3": "السلام عليكم أ/ '{'customer_name'}' 👋\nمعاك '{'shop_name'}'.\nبنفكرك بميعاد استحقاق قسط ('{'item'}') - القسط رقم '{'installment_number'}' من '{'installment_count'}':\nالمبلغ المستحق: '{'amount'}'\nتاريخ الاستحقاق: '{'due_date'}'\nإجمالي المتبقي من الأقساط: '{'remaining_total'}'\nطرق السداد المتاحة: '{'payment_info'}'\nشكراً لالتزامك معانا 🙏",
+  "whatsappTemplate4": "كاش في المحل أو التحويل المتاح",
+  "money1": "جنيه",
+  "batteryOptimizationHelper1": "نظام XOS / HiOS",
+  "batteryOptimizationHelper2": "افتح تطبيق Phone Master (مدير الهاتف) الموجود على جهازك.",
+  "batteryOptimizationHelper3": "ادخل على \"إدارة التشغيل التلقائي (Auto-start)\" وفعّل تطبيق كشكول.",
+  "batteryOptimizationHelper4": "في إعدادات التطبيق، ادخل على \"البطارية\" واختر \"بلا قيود (Unrestricted)\".",
+  "batteryOptimizationHelper5": "في شاشة التطبيقات المفتوحة، اسحب التطبيق لأسفل لتثبيته بالقفل 🔒.",
+  "batteryOptimizationHelper6": "نظام MIUI / HyperOS",
+  "batteryOptimizationHelper7": "ادخل على إعدادات التطبيق وفعّل \"التشغيل التلقائي (Autostart)\".",
+  "batteryOptimizationHelper8": "من \"موفر البطارية (Battery Saver)\"، اختر \"بلا قيود (No Restrictions)\".",
+  "batteryOptimizationHelper9": "من شاشة التطبيقات الحديثة، اضغط ضغطة مطولة على كشكول واختر أيقونة القفل 🔒.",
+  "batteryOptimizationHelper10": "نظام ColorOS / Realme UI",
+  "batteryOptimizationHelper11": "من إعدادات التطبيق -> استخدام البطارية، فعّل \"السماح بالنشاط في الخلفية\".",
+  "batteryOptimizationHelper12": "فعّل خيار \"التشغيل التلقائي (Auto-launch)\".",
+  "batteryOptimizationHelper13": "في قائمة التطبيقات المفتوحة، اضغط على النقاط الثلاث واختر \"تثبيت (Lock)\".",
+  "batteryOptimizationHelper14": "نظام One UI",
+  "batteryOptimizationHelper15": "ادخل على الإعدادات -> العناية بالجهاز (Device Care) -> البطارية.",
+  "batteryOptimizationHelper16": "ادخل على \"حدود استخدام الخلفية (Background usage limits)\".",
+  "batteryOptimizationHelper17": "أضف كشكول إلى قائمة \"التطبيقات التي لا تنام أبداً (Never sleeping apps)\".",
+  "batteryOptimizationHelper18": "نظام EMUI / MagicOS",
+  "batteryOptimizationHelper19": "ادخل على الإعدادات -> البطارية -> بدء تشغيل التطبيقات (App Launch).",
+  "batteryOptimizationHelper20": "ابحث عن \"كشكول\"، حوّل الإدارة إلى يدوية، وفعّل (التشغيل التلقائي + العمل في الخلفية).",
+  "batteryOptimizationHelper21": "إعدادات النظام",
+  "batteryOptimizationHelper22": "حماية إشعارات النظام",
+  "batteryOptimizationHelper23": "ادخل على معلومات التطبيق في إعدادات الهاتف.",
+  "batteryOptimizationHelper24": "ادخل على قسم \"البطارية (Battery)\" واختر \"غير مقيد (Unrestricted)\".",
+  "batteryOptimizationHelper25": "تأكد من عدم تفعيل وضع توفير الطاقة الفائق على الهاتف لضمان وصول تنبيهات التحصيل.",
+  "homeWidgetService1": "مفيش",
+  "homeWidgetService2": "عميل واحد",
+  "homeWidgetService3": "عميلين",
+  "homeWidgetService4": "{count} عملاء",
+  "@homeWidgetService4": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "pinLockScreen1": "رمز الدخول غير صحيح، حاول تاني",
+  "pinLockScreen2": "الرمزان غير متطابقين، حاول من جديد",
+  "pinLockScreen3": "البصمة غير متاحة أو غير مفعّلة في إعدادات جهازك",
+  "pinLockScreen4": "أهلاً بيك في كشكول 📒",
+  "pinLockScreen5": "تعيين رمز دخول جديد",
+  "pinLockScreen6": "أعد كتابة الرمز للتأكيد",
+  "pinLockScreen7": "أدخل رمز الدخول المكون من 4 أرقام",
+  "pinLockScreen8": "اكتب 4 أرقام تفتكرهم عشان تقفل بيهم التطبيق",
+  "pinLockScreen9": "اكتب نفس الأرقام مرة تانية",
+  "pinLockScreen10": "بصمة الإصبع",
+  "pinLockScreen11": "مسح",
+  "securityService1": "تأكيد الهوية لفتح كشكول",
+  "settingsLanguageTitle": "اللغة",
+  "settingsLanguageSystem": "لغة الموبايل (تلقائي)"
+}

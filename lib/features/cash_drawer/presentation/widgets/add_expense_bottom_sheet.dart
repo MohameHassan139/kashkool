@@ -5,6 +5,7 @@ import 'package:kashkool/core/db/app_database.dart';
 import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/expenses_repository.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/glass_toast.dart';
 
 /// Modal bottom sheet allowing the shopkeeper to record a shop expense.
 class AddExpenseBottomSheet extends ConsumerStatefulWidget {
@@ -125,9 +126,7 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.expenseAddedSuccess)),
-        );
+        AppGlassToast.showSuccess(context, l10n.expenseAddedSuccess);
         Navigator.pop(context);
       }
     } finally {

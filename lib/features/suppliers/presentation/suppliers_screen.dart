@@ -9,6 +9,7 @@ import 'supplier_details_screen.dart';
 import 'suppliers_providers.dart';
 import 'widgets/payables_header_card.dart';
 import 'widgets/supplier_list_item.dart';
+import '../../../l10n/l10n.dart';
 
 /// Primary Suppliers & Distributors Ledger Screen.
 class SuppliersScreen extends ConsumerStatefulWidget {
@@ -61,7 +62,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
           // Sort Options Menu
           PopupMenuButton<SupplierSort>(
             icon: const Icon(Icons.sort_rounded),
-            tooltip: 'الترتيب',
+            tooltip: L10n.t.customersScreen3,
             initialValue: activeSort,
             onSelected: (sort) {
               ref.read(supplierSortProvider.notifier).state = sort;

@@ -4,6 +4,7 @@ import '../../../../core/cloud/cloud_config.dart';
 import '../../../../core/cloud/cloud_providers.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'cloud_backup_card.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Cloud icon for app bars: shows whether the user is signed in, and opens the
 /// Google sign-in / backup card in a bottom sheet.
@@ -21,11 +22,11 @@ class CloudAccountButton extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
+            children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  'حسابك والنسخ على السحابة ☁️',
+                  L10n.t.cloudAccountButton1,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -42,7 +43,7 @@ class CloudAccountButton extends ConsumerWidget {
     if (!CloudConfig.isConfigured) return const SizedBox.shrink();
     final signedIn = ref.watch(cloudSessionProvider).valueOrNull != null;
     return IconButton(
-      tooltip: signedIn ? 'النسخ على السحابة' : 'سجّل دخول بحساب جوجل',
+      tooltip: signedIn ? L10n.t.cloudAccountButton2 : L10n.t.cloudAccountButton3,
       onPressed: () => showSheet(context),
       icon: Badge(
         isLabelVisible: !signedIn,

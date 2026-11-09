@@ -7,12 +7,13 @@ import '../../customers/data/customer_photo_repository.dart';
 import '../../customers/data/customer_repository.dart';
 import '../../installments/data/installment_repository.dart';
 import '../../transactions/data/transaction_repository.dart';
+import '../../../l10n/l10n.dart';
 
 /// Note written on every opening balance, so it is easy to recognise later.
-const String kNotebookOpeningNote = 'رصيد سابق من الكشكول';
+String get kNotebookOpeningNote => L10n.t.notebookImportService1;
 
 /// Caption for a notebook page photo linked to every customer typed from that page.
-const String kNotebookPageNote = 'صفحة من الكشكول';
+String get kNotebookPageNote => L10n.t.notebookImportService2;
 
 /// One typed row from the notebook, after validation.
 class ImportRow {
@@ -90,19 +91,19 @@ class NotebookImportService {
     final trimmedPhone = phone.trim();
     final trimmedAmount = amount.trim();
     if (trimmedName.isEmpty && trimmedPhone.isEmpty && trimmedAmount.isEmpty && !hasPhotos) return const RowCheck.empty();
-    if (trimmedName.length < 2) return const RowCheck.error('الاسم ناقص');
-    if (trimmedName.length > 60) return const RowCheck.error('الاسم طويل جداً');
+    if (trimmedName.length < 2) return RowCheck.error(L10n.t.notebookImportService3);
+    if (trimmedName.length > 60) return RowCheck.error(L10n.t.notebookImportService4);
 
     String? normalizedPhone;
     if (trimmedPhone.isNotEmpty) {
       normalizedPhone = PhoneUtils.normalizeEgyptianMobile(trimmedPhone);
-      if (normalizedPhone == null) return const RowCheck.error('رقم الموبايل غلط');
+      if (normalizedPhone == null) return RowCheck.error(L10n.t.oldInstallmentImportScreen18);
     }
 
     var piasters = 0;
     if (trimmedAmount.isNotEmpty) {
       piasters = MoneyUtils.toPiasters(trimmedAmount, fallback: -1);
-      if (piasters < 0) return const RowCheck.error('المبلغ غلط');
+      if (piasters < 0) return RowCheck.error(L10n.t.notebookImportService5);
     }
     return RowCheck.ok(ImportRow(
       name: trimmedName,
@@ -191,9 +192,9 @@ class NotebookImportService {
   }) async {
     final photoPath = photoPaths.isEmpty ? null : photoPaths.first;
     final remaining = totalPricePiasters - paidPiasters;
-    if (paidPiasters < 0) throw ArgumentError('المدفوع مينفعش يبقى بالسالب');
-    if (remaining <= 0) throw ArgumentError('المدفوع لازم يكون أقل من السعر الإجمالي');
-    if (remainingCount < 1) throw ArgumentError('عدد الأقساط الباقية لازم يكون 1 على الأقل');
+    if (paidPiasters < 0) throw ArgumentError(L10n.t.notebookImportService6);
+    if (remaining <= 0) throw ArgumentError(L10n.t.notebookImportService7);
+    if (remainingCount < 1) throw ArgumentError(L10n.t.notebookImportService8);
 
     late String planId;
     await _db.transaction(() async {
@@ -207,7 +208,7 @@ class NotebookImportService {
         startDate: nextDueDate,
         guarantorName: guarantorName,
         guarantorPhone: guarantorPhone,
-        notes: 'مستورد من الكشكول — مدفوع قبل كده ${MoneyUtils.formatMoney(paidPiasters)}',
+        notes: L10n.t.notebookImportService9(MoneyUtils.formatMoney(paidPiasters)),
         photoPath: photoPath,
         // Don't post the full price + a "down payment" collected today (that would show up in
         // today's cash drawer). Post only the remaining amount below.
@@ -218,10 +219,10 @@ class NotebookImportService {
         partyId: customerId,
         type: TransactionType.debt,
         amountPiasters: remaining,
-        note: 'قسط قديم: ${itemDescription.trim()} (الباقي من ${MoneyUtils.formatMoney(totalPricePiasters)})',
+        note: L10n.t.notebookImportService10(itemDescription.trim(), MoneyUtils.formatMoney(totalPricePiasters)),
         photoPath: photoPath,
       );
-      await _photos.addPhotos(customerId, photoPaths, note: 'قسط: ${itemDescription.trim()}');
+      await _photos.addPhotos(customerId, photoPaths, note: L10n.t.notebookImportService11(itemDescription.trim()));
     });
     return planId;
   }

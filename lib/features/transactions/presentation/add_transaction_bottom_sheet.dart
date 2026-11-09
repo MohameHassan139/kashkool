@@ -10,6 +10,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/credit_limit.dart';
 import '../../../core/utils/money.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../customers/data/customer_repository.dart';
 import '../data/transaction_repository.dart';
 import 'widgets/numeric_keypad.dart';
@@ -183,16 +184,12 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
         );
       } else {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.speechNotAvailable)),
-          );
+          AppGlassToast.showInfo(context, l10n.speechNotAvailable);
         }
       }
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.speechNotAvailable)),
-        );
+        AppGlassToast.showInfo(context, l10n.speechNotAvailable);
       }
     }
   }
@@ -276,12 +273,7 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
     final piasters = MoneyUtils.toPiasters(_amountString);
 
     if (piasters <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.amountRequired),
-          backgroundColor: AppColors.debtRed,
-        ),
-      );
+      AppGlassToast.showError(context, l10n.amountRequired);
       return;
     }
 
@@ -426,36 +418,23 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
       if (mounted) {
         Navigator.of(context).pop();
 
-        // Show SnackBar with 5-second Undo action
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.transactionSaved),
-            backgroundColor: _type == TransactionType.debt ? AppColors.debtRed : AppColors.paymentGreen,
-            duration: const Duration(seconds: 5),
-            action: SnackBarAction(
-              label: l10n.undo,
-              textColor: Colors.white,
-              onPressed: () async {
-                await repo.undoTransaction(txId);
-                await HapticFeedback.mediumImpact();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(l10n.transactionUndone),
-                      backgroundColor: AppColors.neutralGreyDark,
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
+        // Show Glass Toast with 4-second Undo action that auto-dismisses smoothly
+        AppGlassToast.showSuccess(
+          context,
+          l10n.transactionSaved,
+          actionLabel: l10n.undo,
+          onAction: () async {
+            await repo.undoTransaction(txId);
+            await HapticFeedback.mediumImpact();
+            if (mounted) {
+              AppGlassToast.showInfo(context, l10n.transactionUndone);
+            }
+          },
         );
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString()), backgroundColor: AppColors.debtRed),
-        );
+        AppGlassToast.showError(context, e.toString());
       }
     } finally {
       if (mounted) {

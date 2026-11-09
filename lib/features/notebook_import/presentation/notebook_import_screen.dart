@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../../core/utils/money.dart';
 import '../../customers/data/customer_photo_repository.dart';
 import '../../customers/presentation/widgets/photo_strip.dart';
 import '../data/notebook_import_service.dart';
+import '../../../l10n/l10n.dart';
 
 /// One editable line on the screen.
 class _Line {
@@ -144,7 +146,7 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
       initialDate: _asOf,
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
-      helpText: 'الحسابات دي لحد يوم',
+      helpText: L10n.t.notebookImportScreen1,
     );
     if (picked != null) setState(() => _asOf = picked);
   }
@@ -155,10 +157,10 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
     final firstError = checks.indexWhere((c) => c.error != null);
     if (firstError != -1) {
       _lines[firstError].nameFocus.requestFocus();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('سطر ${firstError + 1}: ${checks[firstError].error}'),
-        backgroundColor: AppColors.debtRed,
-      ));
+      AppGlassToast.showError(
+        context,
+        L10n.t.notebookImportScreen2(firstError + 1, checks[firstError].error!),
+      );
       return;
     }
     final rows = [
@@ -166,7 +168,7 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
         if (checks[i].row != null) checks[i].row!.withPhotos(_lines[i].photos),
     ];
     if (rows.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('اكتب اسم عميل واحد على الأقل')));
+      AppGlassToast.showInfo(context, L10n.t.notebookImportScreen3);
       return;
     }
 
@@ -179,18 +181,18 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
         context: context,
         barrierDismissible: false,
         builder: (ctx) => AlertDialog(
-          title: const Text('اتحفظ ✓'),
+          title: Text(L10n.t.notebookImportScreen4),
           content: Text(
             [
-              if (summary.newCustomers > 0) '${summary.newCustomers} عميل جديد',
-              if (summary.existingCustomers > 0) '${summary.existingCustomers} عميل موجود اتضاف على حسابه',
-              'إجمالي: ${MoneyUtils.formatMoney(summary.totalPiasters)}',
+              if (summary.newCustomers > 0) L10n.t.notebookImportScreen5(summary.newCustomers),
+              if (summary.existingCustomers > 0) L10n.t.notebookImportScreen6(summary.existingCustomers),
+              L10n.t.notebookImportScreen7(MoneyUtils.formatMoney(summary.totalPiasters)),
             ].join('\n'),
             style: const TextStyle(height: 1.6),
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('خلصت')),
-            ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('صفحة تانية')),
+            TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.oldInstallmentImportScreen4)),
+            ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: Text(L10n.t.notebookImportScreen8)),
           ],
         ),
       );
@@ -209,9 +211,7 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('حصلت مشكلة في الحفظ، مفيش حاجة اتحفظت'), backgroundColor: AppColors.debtRed),
-      );
+      AppGlassToast.showError(context, L10n.t.oldInstallmentImportScreen6);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -222,11 +222,11 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
     final leave = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('تخرج من غير ما تحفظ؟'),
-        content: const Text('اللي كتبته في الصفحة دي مش هيتحفظ.'),
+        title: Text(L10n.t.notebookImportScreen9),
+        content: Text(L10n.t.notebookImportScreen10),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('كمّل')),
-          TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('اخرج')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.notebookImportScreen11)),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text(L10n.t.notebookImportScreen12)),
         ],
       ),
     );
@@ -247,7 +247,7 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_savedPages == 0 ? 'انقل الكشكول 📒' : 'انقل الكشكول — صفحة ${_savedPages + 1}'),
+          title: Text(_savedPages == 0 ? L10n.t.notebookImportScreen13 : L10n.t.notebookImportScreen14(_savedPages + 1)),
         ),
         body: Column(
           children: [
@@ -271,7 +271,7 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
                       child: OutlinedButton.icon(
                         onPressed: _addLine,
                         icon: const Icon(Icons.add_rounded),
-                        label: const Text('سطر جديد'),
+                        label: Text(L10n.t.notebookImportScreen15),
                         style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
                       ),
                     );
@@ -314,8 +314,8 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${valid.length} عميل', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                      Text('إجمالي: ${MoneyUtils.formatMoney(total)}',
+                      Text(L10n.t.notebookImportScreen16(valid.length), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                      Text(L10n.t.notebookImportScreen7(MoneyUtils.formatMoney(total)),
                           style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey)),
                     ],
                   ),
@@ -325,7 +325,7 @@ class _NotebookImportScreenState extends ConsumerState<NotebookImportScreen> {
                   icon: _saving
                       ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                       : const Icon(Icons.save_rounded),
-                  label: Text(_saving ? 'بيحفظ…' : 'احفظ'),
+                  label: Text(_saving ? L10n.t.oldInstallmentImportScreen40 : L10n.t.notebookImportScreen17),
                   style: FilledButton.styleFrom(minimumSize: const Size(120, 52)),
                 ),
               ],
@@ -360,28 +360,28 @@ class _Header extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'اكتب كل عميل في سطر: الاسم، والموبايل لو موجود، والمبلغ اللي عليه. دوس "التالي" في الكيبورد عشان تنقل بسرعة.',
+          Text(
+            L10n.t.notebookImportScreen18,
             style: TextStyle(fontSize: 13, color: AppColors.neutralGrey, height: 1.5),
           ),
           const SizedBox(height: 10),
           OutlinedButton.icon(
             onPressed: onPickDate,
             icon: const Icon(Icons.event_rounded, size: 20),
-            label: Text(isToday ? 'الحساب لحد النهارده' : 'لحد ${DateFormat('yyyy/MM/dd').format(asOf)}',
+            label: Text(isToday ? L10n.t.notebookImportScreen19 : L10n.t.notebookImportScreen20(DateFormat('yyyy/MM/dd').format(asOf)),
                 overflow: TextOverflow.ellipsis),
           ),
           const SizedBox(height: 8),
           Text(
             pagePhotos.isEmpty
-                ? 'صور صفحة الكشكول (اختياري): بتتحفظ مع كل العملاء اللي في الصفحة'
-                : '${pagePhotos.length} صورة للصفحة — هتتحفظ مع كل العملاء اللي في الصفحة',
+                ? L10n.t.notebookImportScreen21
+                : L10n.t.notebookImportScreen22(pagePhotos.length),
             style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
           ),
           PhotoStrip(
             paths: pagePhotos,
             size: 56,
-            addLabel: 'الصفحة',
+            addLabel: L10n.t.notebookImportScreen23,
             onAdd: onAddPagePhotos,
             onRemove: onRemovePagePhoto,
           ),
@@ -439,13 +439,13 @@ class _LineCard extends StatelessWidget {
                     focusNode: line.nameFocus,
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(hintText: 'اسم العميل', isDense: true),
+                    decoration: InputDecoration(hintText: L10n.t.oldInstallmentImportScreen14, isDense: true),
                     onChanged: (_) => onChanged(),
                     onSubmitted: (_) => line.phoneFocus.requestFocus(),
                   ),
                 ),
                 IconButton(
-                  tooltip: 'صور للعميل ده',
+                  tooltip: L10n.t.notebookImportScreen24,
                   onPressed: onAddPhotos,
                   icon: Badge(
                     isLabelVisible: line.photos.isNotEmpty,
@@ -454,7 +454,7 @@ class _LineCard extends StatelessWidget {
                   ),
                 ),
                 if (onRemove != null)
-                  IconButton(tooltip: 'شيل السطر', onPressed: onRemove, icon: const Icon(Icons.close_rounded, size: 20)),
+                  IconButton(tooltip: L10n.t.notebookImportScreen25, onPressed: onRemove, icon: const Icon(Icons.close_rounded, size: 20)),
               ],
             ),
             const SizedBox(height: 6),
@@ -469,7 +469,7 @@ class _LineCard extends StatelessWidget {
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
                     textDirection: TextDirection.ltr,
-                    decoration: const InputDecoration(hintText: 'الموبايل (اختياري)', isDense: true),
+                    decoration: InputDecoration(hintText: L10n.t.notebookImportScreen26, isDense: true),
                     onChanged: (_) => onChanged(),
                     onSubmitted: (_) => line.amountFocus.requestFocus(),
                   ),
@@ -484,7 +484,7 @@ class _LineCard extends StatelessWidget {
                     inputFormatters: [digitsOnly],
                     textInputAction: TextInputAction.next,
                     textDirection: TextDirection.ltr,
-                    decoration: const InputDecoration(hintText: 'المبلغ', suffixText: 'ج', isDense: true),
+                    decoration: InputDecoration(hintText: L10n.t.notebookImportScreen27, suffixText: L10n.t.oldInstallmentImportScreen24, isDense: true),
                     onChanged: (_) => onChanged(),
                     onSubmitted: (_) => onSubmitAmount(),
                   ),
@@ -504,9 +504,9 @@ class _LineCard extends StatelessWidget {
                 child: error != null
                     ? Text(error!, style: const TextStyle(color: AppColors.debtRed, fontSize: 12, fontWeight: FontWeight.w600))
                     : line.checking
-                        ? const Text('بيدوّر…', style: TextStyle(fontSize: 12, color: AppColors.neutralGrey))
+                        ? Text(L10n.t.notebookImportScreen28, style: TextStyle(fontSize: 12, color: AppColors.neutralGrey))
                         : Text(
-                            'موجود عندك "${line.existing!.name}" — المبلغ هيتضاف على حسابه',
+                            L10n.t.notebookImportScreen29(line.existing!.name),
                             style: const TextStyle(fontSize: 12, color: AppColors.warningAmber, fontWeight: FontWeight.w600),
                           ),
               ),
@@ -527,7 +527,7 @@ class _OwesToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = owes ? AppColors.debtRed : AppColors.paymentGreen;
     return Tooltip(
-      message: owes ? 'المبلغ عليه (العميل مديون)' : 'المبلغ له (انت مديون للعميل)',
+      message: owes ? L10n.t.notebookImportScreen30 : L10n.t.notebookImportScreen31,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () => onChanged(!owes),
@@ -539,7 +539,7 @@ class _OwesToggle extends StatelessWidget {
             color: color.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(owes ? 'عليه' : 'له', style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          child: Text(owes ? L10n.t.notebookImportScreen32 : L10n.t.notebookImportScreen33, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
         ),
       ),
     );

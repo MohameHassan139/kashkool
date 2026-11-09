@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/money.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../data/trash_repository.dart';
+import '../../../l10n/l10n.dart';
 
 /// "سلة المحذوفات": everything that was deleted, with a button to bring it back.
 class TrashScreen extends ConsumerStatefulWidget {
@@ -20,13 +22,14 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
   TrashKind? _filter;
   final Set<String> _restoring = {};
 
-  static const _filters = <TrashKind?, String>{
-    null: 'الكل',
-    TrashKind.customer: 'عملاء',
-    TrashKind.transaction: 'عمليات',
-    TrashKind.supplier: 'موردين',
-    TrashKind.expense: 'مصاريف',
-    TrashKind.installmentPlan: 'أقساط',
+  // A getter (not const) so the labels follow the current app language.
+  static Map<TrashKind?, String> get _filters => <TrashKind?, String>{
+    null: L10n.t.installmentsScreen6,
+    TrashKind.customer: L10n.t.trashScreen1,
+    TrashKind.transaction: L10n.t.trashScreen2,
+    TrashKind.supplier: L10n.t.trashScreen3,
+    TrashKind.expense: L10n.t.trashScreen4,
+    TrashKind.installmentPlan: L10n.t.trashScreen5,
   };
 
   static IconData _icon(TrashKind kind) => switch (kind) {
@@ -42,14 +45,10 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
     try {
       await ref.read(trashRepositoryProvider).restore(item);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('رجع "${item.title}" ✓'), backgroundColor: AppColors.paymentGreen),
-      );
+      AppGlassToast.showSuccess(context, L10n.t.trashScreen6(item.title));
     } catch (_) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('مقدرناش نرجّعه، جرّب تاني'), backgroundColor: AppColors.debtRed),
-      );
+      AppGlassToast.showError(context, L10n.t.trashScreen7);
     } finally {
       if (mounted) setState(() => _restoring.remove(item.id));
     }
@@ -61,7 +60,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
     final dateFormat = DateFormat('yyyy/MM/dd - hh:mm a');
 
     return Scaffold(
-      appBar: AppBar(title: const Text('سلة المحذوفات 🗑️')),
+      appBar: AppBar(title: Text(L10n.t.trashScreen8)),
       body: Column(
         children: [
           Container(
@@ -72,8 +71,8 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
               color: AppColors.primaryBlue.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Text(
-              'أي حاجة بتمسحها بتتنقل هنا ومش بتضيع. تقدر ترجّعها في أي وقت، وهترجع كمان في النسخة اللي على السحابة.',
+            child: Text(
+              L10n.t.trashScreen9,
               style: TextStyle(fontSize: 13, height: 1.5),
             ),
           ),
@@ -98,15 +97,15 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
           Expanded(
             child: itemsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (_, __) => const Center(child: Text('حصلت مشكلة في تحميل المحذوفات')),
+              error: (_, __) => Center(child: Text(L10n.t.trashScreen10)),
               data: (all) {
                 final items = _filter == null ? all : all.where((i) => i.kind == _filter).toList();
                 if (items.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Padding(
                       padding: EdgeInsets.all(32),
                       child: Text(
-                        'السلة فاضية ✨',
+                        L10n.t.trashScreen11,
                         style: TextStyle(fontSize: 16, color: AppColors.neutralGrey),
                       ),
                     ),
@@ -130,7 +129,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
                       ),
                       title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold)),
                       subtitle: Text(
-                        [if (details.isNotEmpty) details, 'اتمسح ${dateFormat.format(item.deletedAt)}'].join('\n'),
+                        [if (details.isNotEmpty) details, L10n.t.trashScreen12(dateFormat.format(item.deletedAt))].join('\n'),
                         style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey, height: 1.4),
                       ),
                       isThreeLine: details.isNotEmpty,
@@ -139,7 +138,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
                           : TextButton.icon(
                               onPressed: () => _restore(item),
                               icon: const Icon(Icons.restore_rounded),
-                              label: const Text('رجّع'),
+                              label: Text(L10n.t.trashScreen13),
                             ),
                     );
                   },
@@ -170,9 +169,9 @@ class TrashEntryTile extends ConsumerWidget {
             backgroundColor: Colors.grey.shade200,
             child: const Icon(Icons.delete_outline_rounded, color: AppColors.neutralGrey),
           ),
-          title: const Text('سلة المحذوفات', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          title: Text(L10n.t.trashScreen14, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           subtitle: Text(
-            count == null || count == 0 ? 'شوف اللي اتمسح ورجّعه' : 'فيها $count حاجة — تقدر ترجّعها',
+            count == null || count == 0 ? L10n.t.trashScreen15 : L10n.t.trashScreen16(count),
             style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
           ),
           trailing: const Icon(Icons.chevron_left_rounded),

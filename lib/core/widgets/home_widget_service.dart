@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_widget/home_widget.dart';
 import '../utils/money.dart';
+import '../../l10n/l10n.dart';
 
 /// Service responsible for updating native Home Screen widgets (Android 2x1 and 4x2)
 /// and handling widget deep links.
@@ -51,11 +52,11 @@ class HomeWidgetService {
   ///
   /// 0 → "مفيش", 1 → "عميل واحد", 2 → "عميلين", 3–10 → "N عملاء", 11+ → "N عميل".
   static String formatCustomerCount(int count) {
-    if (count <= 0) return 'مفيش';
-    if (count == 1) return 'عميل واحد';
-    if (count == 2) return 'عميلين';
-    if (count <= 10) return '$count عملاء';
-    return '$count عميل';
+    if (count <= 0) return L10n.t.homeWidgetService1;
+    if (count == 1) return L10n.t.homeWidgetService2;
+    if (count == 2) return L10n.t.homeWidgetService3;
+    if (count <= 10) return L10n.t.homeWidgetService4(count);
+    return L10n.t.notebookImportScreen16(count);
   }
 
   static String _two(int n) => n.toString().padLeft(2, '0');

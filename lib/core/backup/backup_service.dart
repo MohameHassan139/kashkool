@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../features/settings/data/settings_repository.dart';
 import '../db/app_database.dart';
 import '../db/encryption_helper.dart';
+import '../../l10n/l10n.dart';
 
 /// Validation result of a backup file.
 class BackupValidationResult {
@@ -100,7 +101,7 @@ class BackupService {
 
     final dbFile = await getDatabaseFile();
     if (!dbFile.existsSync()) {
-      throw BackupException('ملف قاعدة البيانات غير موجود');
+      throw BackupException(L10n.t.backupService1);
     }
 
     final dbBytes = await dbFile.readAsBytes();
@@ -163,7 +164,7 @@ class BackupService {
     await SharePlus.instance.share(
       ShareParams(
         files: [XFile(file.path)],
-        text: 'نسخة احتياطية لتطبيق كشكول - $dateStr',
+        text: L10n.t.backupService2(dateStr),
       ),
     );
     return file;
@@ -172,17 +173,17 @@ class BackupService {
   /// Validates a `.kashkool` file without applying changes.
   Future<BackupValidationResult> validateBackup(File file) async {
     if (!file.existsSync()) {
-      return const BackupValidationResult(
+      return BackupValidationResult(
         isValid: false,
-        errorMessage: 'الملف المحدد غير موجود',
+        errorMessage: L10n.t.backupService3,
       );
     }
 
     final bytes = await file.readAsBytes();
     if (bytes.length < 32) {
-      return const BackupValidationResult(
+      return BackupValidationResult(
         isValid: false,
-        errorMessage: 'الملف تالف أو غير مكتمل',
+        errorMessage: L10n.t.backupService4,
       );
     }
 
@@ -190,9 +191,9 @@ class BackupService {
     try {
       archive = ZipDecoder().decodeBytes(bytes);
     } catch (_) {
-      return const BackupValidationResult(
+      return BackupValidationResult(
         isValid: false,
-        errorMessage: 'صيغة الملف غير صحيحة (ليست ملف كشكول صالح)',
+        errorMessage: L10n.t.backupService5,
       );
     }
 
@@ -206,9 +207,9 @@ class BackupService {
     }
 
     if (dbFile == null) {
-      return const BackupValidationResult(
+      return BackupValidationResult(
         isValid: false,
-        errorMessage: 'الملف لا يحتوي على قاعدة بيانات كشكول',
+        errorMessage: L10n.t.backupService6,
       );
     }
 
@@ -236,9 +237,9 @@ class BackupService {
     // Verify SQLite Header
     final List<int> dbBytes = dbFile.content;
     if (dbBytes.length < 16) {
-      return const BackupValidationResult(
+      return BackupValidationResult(
         isValid: false,
-        errorMessage: 'قاعدة البيانات داخل الملف تالفة',
+        errorMessage: L10n.t.backupService7,
       );
     }
 
@@ -252,9 +253,9 @@ class BackupService {
 
     if (!isPlainSqlite) {
       if (!isMarkedEncrypted || dbBytes.length < 100) {
-        return const BackupValidationResult(
+        return BackupValidationResult(
           isValid: false,
-          errorMessage: 'الملف ليس قاعدة بيانات SQLite صالحة',
+          errorMessage: L10n.t.backupService8,
         );
       }
     }
@@ -272,7 +273,7 @@ class BackupService {
   Future<void> importBackup(File file) async {
     final validation = await validateBackup(file);
     if (!validation.isValid) {
-      throw BackupException(validation.errorMessage ?? 'ملف النسخة الاحتياطية غير صالح');
+      throw BackupException(validation.errorMessage ?? L10n.t.backupService9);
     }
 
     final bytes = await file.readAsBytes();
@@ -288,7 +289,7 @@ class BackupService {
     }
 
     if (dbEntry == null) {
-      throw BackupException('ملف قاعدة البيانات مفقود داخل الأرشيف');
+      throw BackupException(L10n.t.backupService10);
     }
 
     // Target DB file

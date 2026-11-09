@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/customer_rating.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Bottom sheet explaining the customer's financial rating to the shopkeeper.
 class RatingExplanationBottomSheet extends StatelessWidget {
@@ -64,7 +65,7 @@ class RatingExplanationBottomSheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'تقييم العميل: $customerName',
+                        L10n.t.ratingExplanationBottomSheet1(customerName),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -112,8 +113,8 @@ class RatingExplanationBottomSheet extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'سبب التقييم الحالي:',
+                  Text(
+                    L10n.t.ratingExplanationBottomSheet2,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -133,34 +134,34 @@ class RatingExplanationBottomSheet extends StatelessWidget {
             const SizedBox(height: 20),
 
             // System explanation legend for merchant
-            const Text(
-              'كيف يعمل نظام التقييم؟',
+            Text(
+              L10n.t.ratingExplanationBottomSheet3,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             const SizedBox(height: 10),
 
             _buildLegendItem(
               color: AppColors.paymentGreen,
-              title: 'ممتاز',
-              desc: 'حسابه خالص أو أقدم دين عليه لم يتجاوز 14 يوماً.',
+              title: L10n.t.ratingExplanationBottomSheet4,
+              desc: L10n.t.ratingExplanationBottomSheet5,
             ),
             const SizedBox(height: 8),
             _buildLegendItem(
               color: AppColors.warningAmber,
-              title: 'متابعة',
-              desc: 'أقدم دين عليه بين 15 و 45 يوماً (يستحسن تذكيره بالدفع).',
+              title: L10n.t.ratingExplanationBottomSheet6,
+              desc: L10n.t.ratingExplanationBottomSheet7,
             ),
             const SizedBox(height: 8),
             _buildLegendItem(
               color: AppColors.debtRed,
-              title: 'متأخر',
-              desc: 'أقدم دين عليه تجاوز 45 يوماً أو تخطى حد الدين المحدد له.',
+              title: L10n.t.ratingExplanationBottomSheet8,
+              desc: L10n.t.ratingExplanationBottomSheet9,
             ),
             const SizedBox(height: 8),
             _buildLegendItem(
               color: const Color(0xFF94A3B8),
-              title: 'جديد',
-              desc: 'عميل مسجل له أقل من 3 معاملات.',
+              title: L10n.t.ratingExplanationBottomSheet10,
+              desc: L10n.t.ratingExplanationBottomSheet11,
             ),
             const SizedBox(height: 20),
 
@@ -170,7 +171,7 @@ class RatingExplanationBottomSheet extends StatelessWidget {
                 minimumSize: const Size.fromHeight(50),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('فهمت'),
+              child: Text(L10n.t.ratingExplanationBottomSheet12),
             ),
           ],
         ),

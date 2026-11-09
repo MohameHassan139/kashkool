@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/utils/battery_optimization_helper.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../customers/presentation/add_edit_customer_screen.dart';
 import '../data/shop_repository.dart';
+import '../../../l10n/l10n.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -70,7 +72,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Future<void> _saveShopDetails() async {
     final repo = ref.read(shopRepositoryProvider);
     final name = _nameController.text.trim().isEmpty
-        ? 'محلي'
+        ? L10n.t.onboardingScreen1
         : _nameController.text.trim();
     final phone = _phoneController.text.trim().isEmpty
         ? null
@@ -98,12 +100,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (!mounted) return;
 
     if (seedData) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تمت إضافة عملاء تجريبيين لتجربة التطبيق، يمكنك حذفهم في أي وقت'),
-          backgroundColor: AppColors.paymentGreen,
-          duration: Duration(seconds: 4),
-        ),
+      AppGlassToast.showSuccess(
+        context,
+        L10n.t.onboardingScreen2,
       );
     }
 
@@ -150,8 +149,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'تهيئة كشكول لأول مرة',
+        title: Text(
+          L10n.t.onboardingScreen3,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -220,7 +219,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       elevation: 2,
                     ),
                     child: Text(
-                      _currentPage == 0 ? 'متابعة نوع النشاط' : 'متابعة',
+                      _currentPage == 0 ? L10n.t.onboardingScreen4 : L10n.t.ratingExplanationBottomSheet6,
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -259,14 +258,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'أهلاً بك في كشكول! 👋',
+            Text(
+              L10n.t.onboardingScreen5,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              'دفترك الإلكتروني لحسابات الديون، التحصيل بالواتساب، والأقساط بدون تعقيد.',
+              L10n.t.onboardingScreen6,
               style: TextStyle(fontSize: 14, color: Colors.grey[700], height: 1.4),
               textAlign: TextAlign.center,
             ),
@@ -276,8 +275,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             TextFormField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: 'اسم المحل أو الكشكول *',
-                hintText: 'مثال: بقالة الأمانة / موبايلات النجم',
+                labelText: L10n.t.onboardingScreen7,
+                hintText: L10n.t.onboardingScreen8,
                 prefixIcon: const Icon(Icons.store_rounded),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 filled: true,
@@ -285,7 +284,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
               validator: (val) {
                 if (val == null || val.trim().length < 2) {
-                  return 'يرجى كتابة اسم المحل (حرفين على الأقل)';
+                  return L10n.t.onboardingScreen9;
                 }
                 return null;
               },
@@ -297,10 +296,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               controller: _phoneController,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                labelText: 'رقم هاتف المحل (اختياري)',
+                labelText: L10n.t.onboardingScreen10,
                 hintText: '01XXXXXXXXX',
                 prefixIcon: const Icon(Icons.phone_rounded),
-                helperText: 'يظهر في فواتير وكشوفات الحساب وتذييل رسائل الواتساب',
+                helperText: L10n.t.onboardingScreen11,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 filled: true,
                 fillColor: Colors.white,
@@ -319,33 +318,33 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final tradeTypes = [
       {
         'id': 'grocery',
-        'title': 'بقالة وسوبرماركت',
+        'title': L10n.t.onboardingScreen12,
         'icon': Icons.shopping_basket_rounded,
-        'desc': 'حسابات الديون اليومية وسرعة إغلاق الدرج',
+        'desc': L10n.t.onboardingScreen13,
       },
       {
         'id': 'mobile',
-        'title': 'موبايلات وإكسسوارات',
+        'title': L10n.t.onboardingScreen14,
         'icon': Icons.phone_android_rounded,
-        'desc': 'بيانات الأجهزة ويفعّل نظام الأقساط تلقائياً',
+        'desc': L10n.t.onboardingScreen15,
       },
       {
         'id': 'electronics',
-        'title': 'أجهزة كهربائية ومنزلية',
+        'title': L10n.t.onboardingScreen16,
         'icon': Icons.tv_rounded,
-        'desc': 'عقود بيع بالآجل ويفعّل نظام الأقساط تلقائياً',
+        'desc': L10n.t.onboardingScreen17,
       },
       {
         'id': 'pharmacy',
-        'title': 'صيدلية ومستحضرات',
+        'title': L10n.t.onboardingScreen18,
         'icon': Icons.local_pharmacy_rounded,
-        'desc': 'حدود الائتمان ومتابعة ديون الروشتات',
+        'desc': L10n.t.onboardingScreen19,
       },
       {
         'id': 'other',
-        'title': 'أنشطة وتجارة أخرى',
+        'title': L10n.t.onboardingScreen20,
         'icon': Icons.business_center_rounded,
-        'desc': 'دفتر مرن ومناسب لجميع أنواع التجارة الحرة',
+        'desc': L10n.t.onboardingScreen21,
       },
     ];
 
@@ -354,13 +353,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'ما هو نوع نشاطك التجاري؟',
+          Text(
+            L10n.t.onboardingScreen22,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
           Text(
-            'سنقوم بتهيئة واجهة التطبيق والأقسام بناءً على طبيعة شغلك.',
+            L10n.t.onboardingScreen23,
             style: TextStyle(fontSize: 13, color: Colors.grey[700]),
           ),
           const SizedBox(height: 18),
@@ -433,8 +432,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                           .withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
-                                    child: const Text(
-                                      'يدعم الأقساط',
+                                    child: Text(
+                                      L10n.t.onboardingScreen24,
                                       style: TextStyle(
                                         color: AppColors.paymentGreen,
                                         fontSize: 10,
@@ -474,12 +473,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           SwitchListTile.adaptive(
             contentPadding: const EdgeInsets.symmetric(horizontal: 8),
             value: _enableInstallments,
-            title: const Text(
-              'تفعيل نظام وجداول الأقساط',
+            title: Text(
+              L10n.t.onboardingScreen25,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
             ),
-            subtitle: const Text(
-              'يمكنك تشغيله أو إيقافه في أي وقت من الإعدادات',
+            subtitle: Text(
+              L10n.t.onboardingScreen26,
               style: TextStyle(fontSize: 12),
             ),
             onChanged: (val) => setState(() => _enableInstallments = val),
@@ -500,13 +499,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'ضمان وصول الإشعارات والتذكيرات 🔔',
+          Text(
+            L10n.t.onboardingScreen27,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
           Text(
-            'حتى يعمل كشكول في موعده اليومي لتنبيهك بالتحصيلات ومواعيد الأقساط:',
+            L10n.t.onboardingScreen28,
             style: TextStyle(fontSize: 13, color: Colors.grey[700]),
           ),
           const SizedBox(height: 20),
@@ -544,15 +543,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'إذن إرسال الإشعارات',
+                            Text(
+                              L10n.t.onboardingScreen29,
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               _notificationGranted
-                                  ? 'تم تفعيل الإشعارات بنجاح ✅'
-                                  : 'محتاجين إذن الإشعارات عشان نبعتلك ملخص التحصيل اليومي',
+                                  ? L10n.t.onboardingScreen30
+                                  : L10n.t.onboardingScreen31,
                               style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                             ),
                           ],
@@ -569,7 +568,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         setState(() => _notificationGranted = granted);
                       },
                       icon: const Icon(Icons.security_rounded),
-                      label: const Text('السماح بالإشعارات الآن'),
+                      label: Text(L10n.t.onboardingScreen32),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryNavy,
                         shape: RoundedRectangleBorder(
@@ -600,8 +599,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       Expanded(
                         child: Text(
                           guide != null
-                              ? 'حماية التطبيق في الخلفية (${guide.brandName})'
-                              : 'حماية التطبيق من الإغلاق في الخلفية',
+                              ? L10n.t.onboardingScreen33(guide.brandName)
+                              : L10n.t.onboardingScreen34,
                           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         ),
                       ),
@@ -651,7 +650,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ElevatedButton.icon(
                     onPressed: () => BatteryOptimizationHelper.openBatterySettings(),
                     icon: const Icon(Icons.tune_rounded, size: 18),
-                    label: const Text('فتح إعدادات بطارية الهاتف'),
+                    label: Text(L10n.t.onboardingScreen35),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.indigo,
                       foregroundColor: Colors.white,
@@ -694,14 +693,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          const Text(
-            'جاهز للانطلاق! 🚀',
+          Text(
+            L10n.t.onboardingScreen36,
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            'تم حفظ بيانات محلك. كيف تود أن تبدأ الآن؟',
+            L10n.t.onboardingScreen37,
             style: TextStyle(fontSize: 14, color: Colors.grey[700]),
             textAlign: TextAlign.center,
           ),
@@ -731,17 +730,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '+ إضافة أول عميل حقيقي',
+                            L10n.t.onboardingScreen38,
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 3),
                           Text(
-                            'سجل أول عميل وابدأ تدوين الديون والدفعات مباشرة',
+                            L10n.t.onboardingScreen39,
                             style: TextStyle(fontSize: 12, color: Colors.black54),
                           ),
                         ],
@@ -779,17 +778,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'جرب ببيانات تجريبية أولاً 💡',
+                            L10n.t.onboardingScreen40,
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 3),
                           Text(
-                            'إضافة عميلين وحسابات تجريبية لاكتشاف مميزات كشكول (يمكن حذفهم بضغطة زر)',
+                            L10n.t.onboardingScreen41,
                             style: TextStyle(fontSize: 12, color: Colors.black54),
                           ),
                         ],
@@ -806,8 +805,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           // Action 3: Skip to home
           TextButton(
             onPressed: () => _finishOnboarding(),
-            child: const Text(
-              'تخطي والذهاب إلى الشاشة الرئيسية',
+            child: Text(
+              L10n.t.onboardingScreen42,
               style: TextStyle(color: Colors.grey, fontSize: 14),
             ),
           ),

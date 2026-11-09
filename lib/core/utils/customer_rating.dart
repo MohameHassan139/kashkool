@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/rating_constants.dart';
 import '../db/app_database.dart';
+import '../../l10n/l10n.dart';
 
 enum RatingBadge {
   /// ⚪ جديد (< 3 transactions)
@@ -44,13 +45,13 @@ class CustomerRatingResult {
   String get labelAr {
     switch (badge) {
       case RatingBadge.newCustomer:
-        return 'جديد';
+        return L10n.t.ratingExplanationBottomSheet10;
       case RatingBadge.good:
-        return 'ممتاز';
+        return L10n.t.ratingExplanationBottomSheet4;
       case RatingBadge.watch:
-        return 'متابعة';
+        return L10n.t.ratingExplanationBottomSheet6;
       case RatingBadge.late:
-        return 'متأخر';
+        return L10n.t.ratingExplanationBottomSheet8;
     }
   }
 
@@ -122,16 +123,16 @@ abstract final class CustomerRatingUtils {
       return CustomerRatingResult(
         badge: RatingBadge.newCustomer,
         oldestUnpaidAgeDays: oldestUnpaidAgeDays,
-        explanation: 'عميل جديد (سجل أقل من 3 معاملات)',
+        explanation: L10n.t.customerRating1,
       );
     }
 
     // 2. Settled or Credit balance
     if (balancePiasters <= 0) {
-      return const CustomerRatingResult(
+      return CustomerRatingResult(
         badge: RatingBadge.good,
         oldestUnpaidAgeDays: 0,
-        explanation: 'حسابه خالص وبيدفع في مواعيده بانتظام',
+        explanation: L10n.t.customerRating2,
       );
     }
 
@@ -142,8 +143,8 @@ abstract final class CustomerRatingUtils {
     // Rule: Exceeding credit limit immediately marks as Late
     if (isLimitExceeded) {
       final reason = oldestUnpaidAgeDays > RatingConstants.lateThresholdDays
-          ? 'متأخر: أقدم دين عليه من $oldestUnpaidAgeDays يوم وتخطى حد الدين'
-          : 'تعدى حد الدين المحدد للعميل';
+          ? L10n.t.customerRating3(oldestUnpaidAgeDays)
+          : L10n.t.customerRating4;
 
       return CustomerRatingResult(
         badge: RatingBadge.late,
@@ -158,8 +159,8 @@ abstract final class CustomerRatingUtils {
         badge: RatingBadge.good,
         oldestUnpaidAgeDays: oldestUnpaidAgeDays,
         explanation: oldestUnpaidAgeDays == 0
-            ? 'سجل ديناً اليوم فقط وحسابه منتظم'
-            : 'أقدم مبلغ عليه من $oldestUnpaidAgeDays يوم فقط (في نطاق الأمان)',
+            ? L10n.t.customerRating5
+            : L10n.t.customerRating6(oldestUnpaidAgeDays),
       );
     }
 
@@ -168,7 +169,7 @@ abstract final class CustomerRatingUtils {
       return CustomerRatingResult(
         badge: RatingBadge.late,
         oldestUnpaidAgeDays: oldestUnpaidAgeDays,
-        explanation: 'أقدم مبلغ عليه من $oldestUnpaidAgeDays يوم (متأخر عن 45 يوم)',
+        explanation: L10n.t.customerRating7(oldestUnpaidAgeDays),
       );
     }
 
@@ -176,7 +177,7 @@ abstract final class CustomerRatingUtils {
     return CustomerRatingResult(
       badge: RatingBadge.watch,
       oldestUnpaidAgeDays: oldestUnpaidAgeDays,
-      explanation: 'أقدم مبلغ عليه من $oldestUnpaidAgeDays يوم (يحتاج متابعة)',
+      explanation: L10n.t.customerRating8(oldestUnpaidAgeDays),
     );
   }
 }

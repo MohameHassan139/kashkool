@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/backup/backup_service.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../data/settings_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Warning banner displayed when >= 7 days have passed since the last backup.
 class BackupReminderBanner extends ConsumerStatefulWidget {
@@ -22,20 +24,10 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
       final backupService = ref.read(backupServiceProvider);
       await backupService.shareBackup();
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تم تصدير النسخة الاحتياطية بنجاح 👍'),
-          backgroundColor: AppColors.paymentGreen,
-        ),
-      );
+      AppGlassToast.showSuccess(context, L10n.t.backupReminderBanner1);
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('حدث خطأ أثناء النسخ: $e'),
-          backgroundColor: AppColors.debtRed,
-        ),
-      );
+      AppGlassToast.showError(context, L10n.t.backupReminderBanner2(e));
     } finally {
       if (mounted) {
         setState(() => _isExporting = false);
@@ -83,7 +75,7 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'تنبيه: محتاج تعمل نسخة احتياطية ⚠️',
+                          L10n.t.backupReminderBanner3,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
@@ -92,7 +84,7 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'فات أكثر من 7 أيام من آخر نسخة. احفظ بياناتك عشان لو التليفون ضاع أو اتغير مفيش أي حساب يضيع.',
+                          L10n.t.backupReminderBanner4,
                           style: TextStyle(
                             fontSize: 13,
                             color: isDark ? const Color(0xFFE5E7EB) : AppColors.textDark,
@@ -105,7 +97,7 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
                   IconButton(
                     icon: const Icon(Icons.close_rounded, size: 20, color: AppColors.neutralGrey),
                     onPressed: () => setState(() => _dismissed = true),
-                    tooltip: 'تجاهل مؤقتاً',
+                    tooltip: L10n.t.backupReminderBanner5,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                   ),
@@ -123,7 +115,7 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
                           child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                         )
                       : const Icon(Icons.backup_rounded, size: 18),
-                  label: Text(_isExporting ? 'جاري الحفظ...' : 'نسخ احتياطي الآن'),
+                  label: Text(_isExporting ? L10n.t.backupReminderBanner6 : L10n.t.backupReminderBanner7),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.warningAmber,
                     foregroundColor: Colors.white,

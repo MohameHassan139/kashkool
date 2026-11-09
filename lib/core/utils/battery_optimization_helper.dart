@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import '../../l10n/l10n.dart';
 
 enum DeviceBrandFamily {
   transsion, // Infinix, Tecno, Itel
@@ -45,15 +46,15 @@ class BatteryOptimizationHelper {
             combined.contains('tecno') ||
             combined.contains('itel') ||
             combined.contains('transsion')) {
-          return const BrandBatteryGuide(
+          return BrandBatteryGuide(
             family: DeviceBrandFamily.transsion,
             brandName: 'Infinix / Tecno',
-            osName: 'نظام XOS / HiOS',
+            osName: L10n.t.batteryOptimizationHelper1,
             steps: [
-              'افتح تطبيق Phone Master (مدير الهاتف) الموجود على جهازك.',
-              'ادخل على "إدارة التشغيل التلقائي (Auto-start)" وفعّل تطبيق كشكول.',
-              'في إعدادات التطبيق، ادخل على "البطارية" واختر "بلا قيود (Unrestricted)".',
-              'في شاشة التطبيقات المفتوحة، اسحب التطبيق لأسفل لتثبيته بالقفل 🔒.',
+              L10n.t.batteryOptimizationHelper2,
+              L10n.t.batteryOptimizationHelper3,
+              L10n.t.batteryOptimizationHelper4,
+              L10n.t.batteryOptimizationHelper5,
             ],
           );
         }
@@ -61,14 +62,14 @@ class BatteryOptimizationHelper {
         if (combined.contains('xiaomi') ||
             combined.contains('redmi') ||
             combined.contains('poco')) {
-          return const BrandBatteryGuide(
+          return BrandBatteryGuide(
             family: DeviceBrandFamily.xiaomi,
             brandName: 'Xiaomi / Redmi',
-            osName: 'نظام MIUI / HyperOS',
+            osName: L10n.t.batteryOptimizationHelper6,
             steps: [
-              'ادخل على إعدادات التطبيق وفعّل "التشغيل التلقائي (Autostart)".',
-              'من "موفر البطارية (Battery Saver)"، اختر "بلا قيود (No Restrictions)".',
-              'من شاشة التطبيقات الحديثة، اضغط ضغطة مطولة على كشكول واختر أيقونة القفل 🔒.',
+              L10n.t.batteryOptimizationHelper7,
+              L10n.t.batteryOptimizationHelper8,
+              L10n.t.batteryOptimizationHelper9,
             ],
           );
         }
@@ -76,39 +77,39 @@ class BatteryOptimizationHelper {
         if (combined.contains('oppo') ||
             combined.contains('realme') ||
             combined.contains('oneplus')) {
-          return const BrandBatteryGuide(
+          return BrandBatteryGuide(
             family: DeviceBrandFamily.oppo,
             brandName: 'Oppo / Realme',
-            osName: 'نظام ColorOS / Realme UI',
+            osName: L10n.t.batteryOptimizationHelper10,
             steps: [
-              'من إعدادات التطبيق -> استخدام البطارية، فعّل "السماح بالنشاط في الخلفية".',
-              'فعّل خيار "التشغيل التلقائي (Auto-launch)".',
-              'في قائمة التطبيقات المفتوحة، اضغط على النقاط الثلاث واختر "تثبيت (Lock)".',
+              L10n.t.batteryOptimizationHelper11,
+              L10n.t.batteryOptimizationHelper12,
+              L10n.t.batteryOptimizationHelper13,
             ],
           );
         }
 
         if (combined.contains('samsung')) {
-          return const BrandBatteryGuide(
+          return BrandBatteryGuide(
             family: DeviceBrandFamily.samsung,
             brandName: 'Samsung Galaxy',
-            osName: 'نظام One UI',
+            osName: L10n.t.batteryOptimizationHelper14,
             steps: [
-              'ادخل على الإعدادات -> العناية بالجهاز (Device Care) -> البطارية.',
-              'ادخل على "حدود استخدام الخلفية (Background usage limits)".',
-              'أضف كشكول إلى قائمة "التطبيقات التي لا تنام أبداً (Never sleeping apps)".',
+              L10n.t.batteryOptimizationHelper15,
+              L10n.t.batteryOptimizationHelper16,
+              L10n.t.batteryOptimizationHelper17,
             ],
           );
         }
 
         if (combined.contains('huawei') || combined.contains('honor')) {
-          return const BrandBatteryGuide(
+          return BrandBatteryGuide(
             family: DeviceBrandFamily.huawei,
             brandName: 'Huawei / Honor',
-            osName: 'نظام EMUI / MagicOS',
+            osName: L10n.t.batteryOptimizationHelper18,
             steps: [
-              'ادخل على الإعدادات -> البطارية -> بدء تشغيل التطبيقات (App Launch).',
-              'ابحث عن "كشكول"، حوّل الإدارة إلى يدوية، وفعّل (التشغيل التلقائي + العمل في الخلفية).',
+              L10n.t.batteryOptimizationHelper19,
+              L10n.t.batteryOptimizationHelper20,
             ],
           );
         }
@@ -118,14 +119,14 @@ class BatteryOptimizationHelper {
     }
 
     // Default / iOS / Desktop / Other Android
-    return const BrandBatteryGuide(
+    return BrandBatteryGuide(
       family: DeviceBrandFamily.generic,
-      brandName: 'إعدادات النظام',
-      osName: 'حماية إشعارات النظام',
+      brandName: L10n.t.batteryOptimizationHelper21,
+      osName: L10n.t.batteryOptimizationHelper22,
       steps: [
-        'ادخل على معلومات التطبيق في إعدادات الهاتف.',
-        'ادخل على قسم "البطارية (Battery)" واختر "غير مقيد (Unrestricted)".',
-        'تأكد من عدم تفعيل وضع توفير الطاقة الفائق على الهاتف لضمان وصول تنبيهات التحصيل.',
+        L10n.t.batteryOptimizationHelper23,
+        L10n.t.batteryOptimizationHelper24,
+        L10n.t.batteryOptimizationHelper25,
       ],
     );
   }

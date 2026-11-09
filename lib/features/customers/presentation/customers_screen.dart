@@ -14,6 +14,7 @@ import 'customer_details_screen.dart';
 import 'customers_providers.dart';
 import 'widgets/customer_list_item.dart';
 import 'widgets/receivables_header_card.dart';
+import '../../../l10n/l10n.dart';
 
 /// Primary Customers Ledger Screen.
 class CustomersScreen extends ConsumerStatefulWidget {
@@ -66,7 +67,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
           if (installmentsEnabled)
             IconButton(
               icon: const Icon(Icons.receipt_long_rounded),
-              tooltip: 'نظام الأقساط',
+              tooltip: L10n.t.customersScreen1,
               onPressed: () {
                 context.push('/installments');
               },
@@ -77,7 +78,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
               privacyMode ? Icons.visibility_off_rounded : Icons.visibility_rounded,
               color: privacyMode ? AppColors.warningAmber : null,
             ),
-            tooltip: 'وضع الخصوصية',
+            tooltip: L10n.t.customersScreen2,
             onPressed: () async {
               await ref.read(settingsRepositoryProvider).setPrivacyMode(!privacyMode);
             },
@@ -85,7 +86,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
           // Sort Options Menu
           PopupMenuButton<CustomerSort>(
             icon: const Icon(Icons.sort_rounded),
-            tooltip: 'الترتيب',
+            tooltip: L10n.t.customersScreen3,
             initialValue: activeSort,
             onSelected: (sort) {
               ref.read(customerSortProvider.notifier).state = sort;

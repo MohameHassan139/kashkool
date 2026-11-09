@@ -4,8 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../data/customer_photo_repository.dart';
 import 'widgets/photo_strip.dart';
+import '../../../l10n/l10n.dart';
 
 /// All photos of one customer (notebook pages, contracts, receipts). Stored on this phone only.
 class CustomerPhotosScreen extends ConsumerWidget {
@@ -26,8 +28,9 @@ class CustomerPhotosScreen extends ConsumerWidget {
     if (paths.isEmpty) return;
     await repo.addPhotos(customerId, paths);
     if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(paths.length == 1 ? 'الصورة اتضافت' : '${paths.length} صور اتضافوا')),
+      AppGlassToast.showSuccess(
+        context,
+        paths.length == 1 ? L10n.t.customerPhotosScreen1 : L10n.t.customerPhotosScreen2(paths.length),
       );
     }
   }
@@ -36,32 +39,34 @@ class CustomerPhotosScreen extends ConsumerWidget {
     final repo = ref.read(customerPhotoRepositoryProvider);
     await repo.moveToTrash(photo.id);
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: const Text('الصورة اتشالت'),
-      action: SnackBarAction(label: 'رجّعها', onPressed: () => repo.restore(photo.id)),
-    ));
+    AppGlassToast.showInfo(
+      context,
+      L10n.t.customerPhotosScreen3,
+      actionLabel: L10n.t.customerPhotosScreen4,
+      onAction: () => repo.restore(photo.id),
+    );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final photosAsync = ref.watch(customerPhotosProvider(customerId));
     return Scaffold(
-      appBar: AppBar(title: Text('صور $customerName')),
+      appBar: AppBar(title: Text(L10n.t.customerPhotosScreen5(customerName))),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _add(context, ref),
         icon: const Icon(Icons.add_a_photo_rounded),
-        label: const Text('ضيف صور'),
+        label: Text(L10n.t.customerPhotosScreen6),
       ),
       body: photosAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => const Center(child: Text('حصلت مشكلة في تحميل الصور')),
+        error: (e, _) => Center(child: Text(L10n.t.customerPhotosScreen7)),
         data: (photos) {
           if (photos.isEmpty) {
-            return const Center(
+            return Center(
               child: Padding(
                 padding: EdgeInsets.all(32),
                 child: Text(
-                  'مفيش صور للعميل ده لسه.\nصوّر صفحاته من الكشكول أو أي ورقة تخصه — الصور بتفضل على الموبايل بس.',
+                  L10n.t.customerPhotosScreen8,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: AppColors.neutralGrey, height: 1.6),
                 ),
@@ -134,7 +139,7 @@ class _PhotoTile extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    tooltip: 'شيل الصورة',
+                    tooltip: L10n.t.customerPhotosScreen9,
                     visualDensity: VisualDensity.compact,
                     onPressed: onRemove,
                     icon: const Icon(Icons.delete_outline_rounded, size: 20),

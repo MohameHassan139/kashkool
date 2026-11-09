@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../data/customer_photo_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Asks "camera or gallery", then copies the chosen images into the app folder.
 /// The gallery allows choosing several images at once. Returns the saved paths (may be empty).
@@ -16,13 +17,13 @@ Future<List<String>> pickCustomerPhotos(BuildContext context, CustomerPhotoRepos
         children: [
           ListTile(
             leading: const Icon(Icons.photo_camera_rounded),
-            title: const Text('صوّر بالكاميرا'),
+            title: Text(L10n.t.photoStrip1),
             onTap: () => Navigator.pop(ctx, ImageSource.camera),
           ),
           ListTile(
             leading: const Icon(Icons.photo_library_rounded),
-            title: const Text('اختار من المعرض'),
-            subtitle: const Text('تقدر تختار كذا صورة مرة واحدة'),
+            title: Text(L10n.t.photoStrip2),
+            subtitle: Text(L10n.t.photoStrip3),
             onTap: () => Navigator.pop(ctx, ImageSource.gallery),
           ),
           const SizedBox(height: 8),
@@ -55,7 +56,7 @@ class PhotoStrip extends StatelessWidget {
   final VoidCallback onAdd;
   final ValueChanged<int> onRemove;
   final double size;
-  final String addLabel;
+  final String? addLabel;
 
   const PhotoStrip({
     super.key,
@@ -63,7 +64,7 @@ class PhotoStrip extends StatelessWidget {
     required this.onAdd,
     required this.onRemove,
     this.size = 64,
-    this.addLabel = 'صورة',
+    this.addLabel,
   });
 
   @override
@@ -77,7 +78,7 @@ class PhotoStrip extends StatelessWidget {
         separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           if (index == paths.length) {
-            return _AddTile(size: size, label: paths.isEmpty ? addLabel : 'كمان', onTap: onAdd);
+            return _AddTile(size: size, label: paths.isEmpty ? (addLabel ?? L10n.t.photoStrip4) : L10n.t.photoStrip5, onTap: onAdd);
           }
           return _Thumb(
             path: paths[index],
@@ -101,7 +102,7 @@ class _AddTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
     return Tooltip(
-      message: 'ضيف صورة',
+      message: L10n.t.photoStrip6,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(10),
@@ -218,7 +219,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        title: Text(count > 1 ? '${widget.title ?? 'الصور'} (${_index + 1} من $count)' : (widget.title ?? 'الصورة')),
+        title: Text(count > 1 ? L10n.t.photoStrip8(widget.title ?? L10n.t.photoStrip7, _index + 1, count) : (widget.title ?? L10n.t.photoStrip9)),
       ),
       body: PageView.builder(
         controller: _controller,
@@ -229,7 +230,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
           child: Center(
             child: Image.file(
               File(widget.paths[i]),
-              errorBuilder: (_, _, _) => const Text('الصورة مش موجودة على الموبايل', style: TextStyle(color: Colors.white)),
+              errorBuilder: (_, _, _) => Text(L10n.t.photoStrip10, style: TextStyle(color: Colors.white)),
             ),
           ),
         ),

@@ -7,9 +7,11 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../customers/presentation/customers_providers.dart';
 import '../data/installment_repository.dart';
 import '../domain/installment_calculator.dart';
+import '../../../l10n/l10n.dart';
 
 /// Screen for creating a new Installment Plan with live schedule preview.
 class AddInstallmentPlanScreen extends ConsumerStatefulWidget {
@@ -40,14 +42,14 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
   bool _isSaving = false;
 
   final List<String> _itemSuggestions = [
-    'موبايل',
-    'شاشة تلفزيون',
-    'غسالة',
-    'ثلاجة',
-    'بوتاجاز',
-    'لابتوب',
-    'موتوسيكل',
-    'أثاث / مفروشات',
+    L10n.t.addInstallmentPlanScreen1,
+    L10n.t.addInstallmentPlanScreen2,
+    L10n.t.addInstallmentPlanScreen3,
+    L10n.t.addInstallmentPlanScreen4,
+    L10n.t.addInstallmentPlanScreen5,
+    L10n.t.addInstallmentPlanScreen6,
+    L10n.t.addInstallmentPlanScreen7,
+    L10n.t.addInstallmentPlanScreen8,
   ];
 
   @override
@@ -123,16 +125,12 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
     if (!_formKey.currentState!.validate()) return;
 
     if (_selectedCustomerId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('برجاء اختيار العميل أولاً')),
-      );
+      AppGlassToast.showInfo(context, L10n.t.addInstallmentPlanScreen9);
       return;
     }
 
     if (_downPaymentPiasters >= _totalPricePiasters) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('المقدم يجب أن يكون أقل من إجمالي السعر')),
-      );
+      AppGlassToast.showError(context, L10n.t.addInstallmentPlanScreen10);
       return;
     }
 
@@ -162,19 +160,15 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
       if (mounted) {
         Navigator.pop(context, true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('تم إنشاء خطة القسط وجدولة الأقساط بنجاح ✓'),
-            backgroundColor: AppColors.primaryGreen,
-          ),
+        AppGlassToast.showSuccess(
+          context,
+          L10n.t.addInstallmentPlanScreen11,
         );
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isSaving = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('حدث خطأ: $e'), backgroundColor: AppColors.debtRed),
-        );
+        AppGlassToast.showError(context, L10n.t.addInstallmentPlanScreen12(e));
       }
     }
   }
@@ -188,7 +182,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('خطة قسط جديدة', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.installmentsScreen14, style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Form(
         key: _formKey,
@@ -196,17 +190,17 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
           padding: const EdgeInsets.all(16),
           children: [
             // 1. Customer Selection
-            Text('العميل', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(L10n.t.oldInstallmentImportScreen13, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             customersAsync.when(
               loading: () => const LinearProgressIndicator(),
-              error: (e, _) => Text('خطأ في تحميل العملاء: $e'),
+              error: (e, _) => Text(L10n.t.addInstallmentPlanScreen13(e)),
               data: (customers) {
                 return DropdownButtonFormField<String>(
                   initialValue: _selectedCustomerId,
                   isExpanded: true,
-                  decoration: const InputDecoration(
-                    labelText: 'اختر العميل',
+                  decoration: InputDecoration(
+                    labelText: L10n.t.addInstallmentPlanScreen14,
                     prefixIcon: Icon(Icons.person_outline),
                     border: OutlineInputBorder(),
                   ),
@@ -220,25 +214,25 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     );
                   }).toList(),
                   onChanged: (val) => setState(() => _selectedCustomerId = val),
-                  validator: (val) => val == null ? 'برجاء اختيار العميل' : null,
+                  validator: (val) => val == null ? L10n.t.addInstallmentPlanScreen15 : null,
                 );
               },
             ),
             const SizedBox(height: 20),
 
             // 2. Merchandise / Item Details
-            Text('بيانات السلعة والمبالغ', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(L10n.t.addInstallmentPlanScreen16, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
 
             TextFormField(
               controller: _itemController,
-              decoration: const InputDecoration(
-                labelText: 'اسم السلعة أو المنتج *',
-                hintText: 'مثلاً: سامسونج A15 128GB',
+              decoration: InputDecoration(
+                labelText: L10n.t.addInstallmentPlanScreen17,
+                hintText: L10n.t.addInstallmentPlanScreen18,
                 prefixIcon: Icon(Icons.shopping_bag_outlined),
                 border: OutlineInputBorder(),
               ),
-              validator: (val) => (val == null || val.trim().length < 2) ? 'اسم السلعة يجب ألا يقل عن حرفين' : null,
+              validator: (val) => (val == null || val.trim().length < 2) ? L10n.t.addInstallmentPlanScreen19 : null,
             ),
             const SizedBox(height: 8),
 
@@ -272,15 +266,15 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
                     onChanged: (_) => setState(() {}),
-                    decoration: const InputDecoration(
-                      labelText: 'السعر الإجمالي (جنيه) *',
-                      hintText: 'مثلاً: 12000',
+                    decoration: InputDecoration(
+                      labelText: L10n.t.addInstallmentPlanScreen20,
+                      hintText: L10n.t.addInstallmentPlanScreen21,
                       prefixIcon: Icon(Icons.monetization_on_outlined),
                       border: OutlineInputBorder(),
                     ),
                     validator: (val) {
                       final numVal = double.tryParse(val ?? '');
-                      if (numVal == null || numVal <= 0) return 'مبلغ غير صحيح';
+                      if (numVal == null || numVal <= 0) return L10n.t.addInstallmentPlanScreen22;
                       return null;
                     },
                   ),
@@ -292,8 +286,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
                     onChanged: (_) => setState(() {}),
-                    decoration: const InputDecoration(
-                      labelText: 'المقدم (جنيه)',
+                    decoration: InputDecoration(
+                      labelText: L10n.t.addInstallmentPlanScreen23,
                       hintText: '0',
                       prefixIcon: Icon(Icons.paid_outlined),
                       border: OutlineInputBorder(),
@@ -314,7 +308,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 ),
                 child: Row(
                   children: [
-                    const Expanded(child: Text('المبلغ المتبقي للتقسيط:')),
+                    Expanded(child: Text(L10n.t.addInstallmentPlanScreen24)),
                     const SizedBox(width: 8),
                     FittedBox(
                       fit: BoxFit.scaleDown,
@@ -329,7 +323,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             const SizedBox(height: 20),
 
             // 3. Installment Duration & Frequency
-            Text('المدة ودورية السداد', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(L10n.t.addInstallmentPlanScreen25, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
 
             // Number of installments quick chips
@@ -338,7 +332,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               children: [3, 6, 10, 12, 18, 24].map((count) {
                 final isSelected = _countController.text == count.toString();
                 return ChoiceChip(
-                  label: Text('$count قسط'),
+                  label: Text(L10n.t.addInstallmentPlanScreen26(count)),
                   selected: isSelected,
                   onSelected: (val) {
                     if (val) setState(() => _countController.text = count.toString());
@@ -356,14 +350,14 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     onChanged: (_) => setState(() {}),
-                    decoration: const InputDecoration(
-                      labelText: 'عدد الأقساط *',
+                    decoration: InputDecoration(
+                      labelText: L10n.t.addInstallmentPlanScreen27,
                       prefixIcon: Icon(Icons.format_list_numbered_rounded),
                       border: OutlineInputBorder(),
                     ),
                     validator: (val) {
                       final n = int.tryParse(val ?? '');
-                      if (n == null || n <= 0) return 'أدخل عدداً صحيحاً';
+                      if (n == null || n <= 0) return L10n.t.addInstallmentPlanScreen28;
                       return null;
                     },
                   ),
@@ -372,13 +366,13 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 Expanded(
                   child: DropdownButtonFormField<InstallmentFrequency>(
                     initialValue: _frequency,
-                    decoration: const InputDecoration(
-                      labelText: 'الدورية',
+                    decoration: InputDecoration(
+                      labelText: L10n.t.addInstallmentPlanScreen29,
                       border: OutlineInputBorder(),
                     ),
-                    items: const [
-                      DropdownMenuItem(value: InstallmentFrequency.monthly, child: Text('شهري')),
-                      DropdownMenuItem(value: InstallmentFrequency.weekly, child: Text('أسبوعي')),
+                    items: [
+                      DropdownMenuItem(value: InstallmentFrequency.monthly, child: Text(L10n.t.oldInstallmentImportScreen32)),
+                      DropdownMenuItem(value: InstallmentFrequency.weekly, child: Text(L10n.t.oldInstallmentImportScreen33)),
                     ],
                     onChanged: (val) {
                       if (val != null) setState(() => _frequency = val);
@@ -393,24 +387,24 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.event_rounded, color: AppColors.primaryGreen),
-              title: const Text('تاريخ استحقاق أول قسط'),
+              title: Text(L10n.t.addInstallmentPlanScreen30),
               subtitle: Text(dateFmt.format(_startDate)),
               trailing: OutlinedButton(
                 onPressed: _selectStartDate,
-                child: const Text('تغيير التاريخ'),
+                child: Text(L10n.t.addInstallmentPlanScreen31),
               ),
             ),
             const SizedBox(height: 20),
 
             // 4. Guarantor & Security Details
-            Text('الضامن والمستندات (اختياري)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(L10n.t.addInstallmentPlanScreen32, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
 
             TextFormField(
               controller: _guarantorNameController,
-              decoration: const InputDecoration(
-                labelText: 'اسم الضامن',
-                hintText: 'مثلاً: محمد السيد إبراهيم',
+              decoration: InputDecoration(
+                labelText: L10n.t.oldInstallmentImportScreen35,
+                hintText: L10n.t.addInstallmentPlanScreen33,
                 prefixIcon: Icon(Icons.shield_outlined),
                 border: OutlineInputBorder(),
               ),
@@ -421,15 +415,15 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               controller: _guarantorPhoneController,
               keyboardType: TextInputType.phone,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: const InputDecoration(
-                labelText: 'رقم موبايل الضامن',
+              decoration: InputDecoration(
+                labelText: L10n.t.addInstallmentPlanScreen34,
                 hintText: '010xxxxxxxx',
                 prefixIcon: Icon(Icons.phone_outlined),
                 border: OutlineInputBorder(),
               ),
               validator: (val) {
                 if (val != null && val.trim().isNotEmpty && PhoneUtils.normalizeEgyptianMobile(val) == null) {
-                  return 'رقم الموبايل غير صحيح (010, 011, 012, 015)';
+                  return L10n.t.addInstallmentPlanScreen35;
                 }
                 return null;
               },
@@ -440,11 +434,11 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.camera_alt_outlined),
-              title: Text(_capturedPhotoPath != null ? 'تم التقاط صورة المستند ✓' : 'تصوير العقد / إيصال الأمانة / البطاقة'),
-              subtitle: Text(_capturedPhotoPath != null ? 'اضغط لتغيير الصورة' : 'حفظ صورة العقد للرجوع إليها في أي وقت'),
+              title: Text(_capturedPhotoPath != null ? L10n.t.addInstallmentPlanScreen36 : L10n.t.addInstallmentPlanScreen37),
+              subtitle: Text(_capturedPhotoPath != null ? L10n.t.addInstallmentPlanScreen38 : L10n.t.addInstallmentPlanScreen39),
               trailing: ElevatedButton.icon(
                 icon: const Icon(Icons.add_a_photo_outlined, size: 18),
-                label: const Text('تصوير'),
+                label: Text(L10n.t.addInstallmentPlanScreen40),
                 onPressed: _pickPhoto,
               ),
             ),
@@ -452,8 +446,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
             TextFormField(
               controller: _notesController,
-              decoration: const InputDecoration(
-                labelText: 'ملاحظات إضافية',
+              decoration: InputDecoration(
+                labelText: L10n.t.addInstallmentPlanScreen41,
                 prefixIcon: Icon(Icons.notes_outlined),
                 border: OutlineInputBorder(),
               ),
@@ -463,8 +457,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             // Link to Ledger Checkbox
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('ربط بكشكول العميل تلقائياً'),
-              subtitle: const Text('تسجيل السعر الإجمالي كدين والمقدم كدفعة في حساب العميل العام'),
+              title: Text(L10n.t.addInstallmentPlanScreen42),
+              subtitle: Text(L10n.t.addInstallmentPlanScreen43),
               value: _linkToLedger,
               onChanged: (val) => setState(() => _linkToLedger = val ?? true),
             ),
@@ -476,7 +470,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 children: [
                   Expanded(
                     child: Text(
-                      'معاينة جدول الأقساط (${schedule.length} أقساط)',
+                      L10n.t.addInstallmentPlanScreen44(schedule.length),
                       style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -486,7 +480,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      'قيمة القسط: ~${MoneyUtils.formatMoney(schedule.first.amountPiasters)}',
+                      L10n.t.addInstallmentPlanScreen45(MoneyUtils.formatMoney(schedule.first.amountPiasters)),
                       style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryGreen),
                     ),
                   ),
@@ -535,7 +529,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               onPressed: _isSaving ? null : _savePlan,
               child: _isSaving
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text('حفظ خطة القسط والجدولة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  : Text(L10n.t.addInstallmentPlanScreen46, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 32),
           ],

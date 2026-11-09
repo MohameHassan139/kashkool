@@ -1,4 +1,5 @@
 import '../../../core/db/app_database.dart';
+import '../../../l10n/l10n.dart';
 
 /// Presentation/Domain model combining supplier entity with real-time computed financial balance.
 class SupplierWithBalance {
@@ -32,19 +33,19 @@ class SupplierWithBalance {
     if (dayIndex == null) return null;
     switch (dayIndex) {
       case 0:
-        return 'السبت';
+        return L10n.t.supplierWithBalance1;
       case 1:
-        return 'الأحد';
+        return L10n.t.supplierWithBalance2;
       case 2:
-        return 'الإثنين';
+        return L10n.t.supplierWithBalance3;
       case 3:
-        return 'الثلاثاء';
+        return L10n.t.supplierWithBalance4;
       case 4:
-        return 'الأربعاء';
+        return L10n.t.supplierWithBalance5;
       case 5:
-        return 'الخميس';
+        return L10n.t.supplierWithBalance6;
       case 6:
-        return 'الجمعة';
+        return L10n.t.supplierWithBalance7;
       default:
         return null;
     }

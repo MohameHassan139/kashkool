@@ -6,6 +6,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../data/transaction_repository.dart';
 
 /// Modal bottom sheet to view transaction details, photo full-screen, or delete.
@@ -63,12 +64,7 @@ class TransactionDetailsBottomSheet extends ConsumerWidget {
       await repo.deleteTransaction(transaction.id);
       if (context.mounted) {
         Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.transactionDeleted),
-            backgroundColor: AppColors.debtRed,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.transactionDeleted);
       }
     }
   }

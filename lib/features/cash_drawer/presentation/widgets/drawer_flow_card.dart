@@ -5,6 +5,7 @@ import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
 import 'add_cash_sales_bottom_sheet.dart';
 import 'add_expense_bottom_sheet.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Card breaking down the cash inflows, outflows, and digital receipts for the day,
 /// along with quick buttons to add cash sales or expenses.
@@ -251,8 +252,8 @@ class DrawerFlowCard extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const Text(
-                          '(إنستاباي / محفظة)',
+                        Text(
+                          L10n.t.drawerFlowCard1,
                           style: TextStyle(fontSize: 11, color: AppColors.neutralGrey),
                           overflow: TextOverflow.ellipsis,
                         ),

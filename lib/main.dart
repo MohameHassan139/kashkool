@@ -11,6 +11,7 @@ import 'core/widgets/home_widget_service.dart';
 import 'core/widgets/home_widget_sync_coordinator.dart';
 import 'features/settings/data/settings_repository.dart';
 import 'l10n/app_localizations.dart';
+import 'l10n/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,15 +24,25 @@ void main() async {
     open.overrideFor(OperatingSystem.android, openCipherOnAndroid);
   }
 
+  // Read the saved language before the first frame, so the app doesn't flash in another language.
+  final container = ProviderContainer();
+  String? languageCode;
+  try {
+    languageCode = await container.read(settingsRepositoryProvider).getLanguageCode();
+  } catch (_) {}
+
   runApp(
-    const ProviderScope(
-      child: KashkoolApp(),
+    UncontrolledProviderScope(
+      container: container,
+      child: KashkoolApp(initialLanguageCode: languageCode),
     ),
   );
 }
 
 class KashkoolApp extends ConsumerStatefulWidget {
-  const KashkoolApp({super.key});
+  final String? initialLanguageCode;
+
+  const KashkoolApp({super.key, this.initialLanguageCode});
 
   @override
   ConsumerState<KashkoolApp> createState() => _KashkoolAppState();
@@ -66,26 +77,44 @@ class _KashkoolAppState extends ConsumerState<KashkoolApp> {
     );
   }
 
+  static void _rebuildEverything() {
+    void mark(Element element) {
+      element.markNeedsBuild();
+      element.visitChildren(mark);
+    }
+
+    WidgetsBinding.instance.rootElement?.visitChildren(mark);
+  }
+
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
     final themeMode = ref.watch(themeModeProvider).valueOrNull ?? ThemeMode.system;
+    final languageCode = ref.watch(languageCodeProvider).valueOrNull ?? widget.initialLanguageCode;
 
     return MaterialApp.router(
-      title: 'كشكول',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
       routerConfig: router,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      locale: const Locale('ar'),
+      // null = follow the phone's language (see L10n.resolve).
+      locale: L10n.localeForCode(languageCode),
+      localeListResolutionCallback: (deviceLocales, supported) =>
+          L10n.localeForCode(languageCode) ?? L10n.resolve(deviceLocales),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       builder: (context, child) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: AppLockWrapper(child: child ?? const SizedBox.shrink()),
-        );
+        // Text direction comes from the language (RTL for Arabic, Urdu and Persian).
+        final locale = Localizations.localeOf(context);
+        if (locale != L10n.locale) {
+          L10n.setLocale(locale);
+          // Screens and helpers that read L10n.t don't depend on Localizations, so after a
+          // language change rebuild every widget once (open screens keep their state).
+          WidgetsBinding.instance.addPostFrameCallback((_) => _rebuildEverything());
+        }
+        return AppLockWrapper(child: child ?? const SizedBox.shrink());
       },
     );
   }

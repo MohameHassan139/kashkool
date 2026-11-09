@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/db/app_database.dart';
 import '../../../../core/utils/money.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../data/installment_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Modal dialog for early settlement of the entire remaining balance with optional discount.
 class EarlySettlementDialog extends ConsumerStatefulWidget {
@@ -59,23 +61,17 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
 
       if (mounted) {
         Navigator.pop(context, true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'تمت تسوية وتصفية قسط (${widget.itemDescription}) بنجاح ✓',
-            ),
-            backgroundColor: AppColors.primaryGreen,
-          ),
+        AppGlassToast.showSuccess(
+          context,
+          L10n.t.earlySettlementDialog1(widget.itemDescription),
         );
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isLoading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('حدث خطأ أثناء التسوية: $e'),
-            backgroundColor: AppColors.debtRed,
-          ),
+        AppGlassToast.showError(
+          context,
+          L10n.t.earlySettlementDialog2(e),
         );
       }
     }
@@ -86,13 +82,13 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
     final theme = Theme.of(context);
 
     return AlertDialog(
-      title: const Row(
+      title: Row(
         children: [
           Icon(Icons.verified_rounded, color: AppColors.primaryGreen),
           SizedBox(width: 8),
           Expanded(
             child: Text(
-              'سداد مبكر وتصفية القسط',
+              L10n.t.earlySettlementDialog3,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -113,7 +109,7 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
                 children: [
                   Row(
                     children: [
-                      const Expanded(child: Text('إجمالي باقي الأقساط:')),
+                      Expanded(child: Text(L10n.t.earlySettlementDialog4)),
                       Text(
                         MoneyUtils.formatMoney(widget.remainingPiasters),
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -123,7 +119,7 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
                   const Divider(),
                   Row(
                     children: [
-                      const Expanded(child: Text('المبلغ المطلوب تحصيله:')),
+                      Expanded(child: Text(L10n.t.earlySettlementDialog5)),
                       Text(
                         MoneyUtils.formatMoney(_netSettlementPiasters),
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryGreen),
@@ -141,8 +137,8 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
               onChanged: (_) => setState(() {}),
-              decoration: const InputDecoration(
-                labelText: 'خصم تعجيل سداد (جنيه)',
+              decoration: InputDecoration(
+                labelText: L10n.t.earlySettlementDialog6,
                 hintText: '0',
                 prefixIcon: Icon(Icons.discount_outlined),
                 border: OutlineInputBorder(),
@@ -151,27 +147,27 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
             const SizedBox(height: 12),
 
             // Payment method
-            Text('طريقة الدفع', style: theme.textTheme.labelMedium),
+            Text(L10n.t.payInstallmentDialog8, style: theme.textTheme.labelMedium),
             const SizedBox(height: 6),
             Wrap(
               spacing: 8,
               children: [
                 ChoiceChip(
-                  label: const Text('كاش 💵'),
+                  label: Text(L10n.t.payInstallmentDialog9),
                   selected: _selectedMethod == PaymentMethod.cash,
                   onSelected: (val) {
                     if (val) setState(() => _selectedMethod = PaymentMethod.cash);
                   },
                 ),
                 ChoiceChip(
-                  label: const Text('إنستاباي ⚡'),
+                  label: Text(L10n.t.payInstallmentDialog10),
                   selected: _selectedMethod == PaymentMethod.instapay,
                   onSelected: (val) {
                     if (val) setState(() => _selectedMethod = PaymentMethod.instapay);
                   },
                 ),
                 ChoiceChip(
-                  label: const Text('محفظة 📱'),
+                  label: Text(L10n.t.payInstallmentDialog11),
                   selected: _selectedMethod == PaymentMethod.wallet,
                   onSelected: (val) {
                     if (val) setState(() => _selectedMethod = PaymentMethod.wallet);
@@ -183,7 +179,7 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
 
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('تسجيل في كشف حساب العميل'),
+              title: Text(L10n.t.payInstallmentDialog16),
               value: _linkToLedger,
               onChanged: (val) => setState(() => _linkToLedger = val ?? true),
             ),
@@ -193,7 +189,7 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.pop(context),
-          child: const Text('إلغاء'),
+          child: Text(L10n.t.installmentPlanDetailsScreen11),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -204,7 +200,7 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
           onPressed: _isLoading ? null : _submit,
           child: _isLoading
               ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-              : const Text('تصفية القسط الآن', style: TextStyle(fontWeight: FontWeight.bold)),
+              : Text(L10n.t.earlySettlementDialog7, style: TextStyle(fontWeight: FontWeight.bold)),
         ),
       ],
     );

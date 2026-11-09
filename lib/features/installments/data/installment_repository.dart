@@ -8,6 +8,7 @@ import '../../../core/utils/arabic_search.dart';
 import '../domain/due_installment_item.dart';
 import '../domain/installment_calculator.dart';
 import '../domain/installment_plan_with_details.dart';
+import '../../../l10n/l10n.dart';
 
 /// Repository managing Installment Plans, Schedules, and Payments.
 class InstallmentRepository {
@@ -49,19 +50,19 @@ class InstallmentRepository {
     bool linkToCustomerLedger = true,
   }) async {
     if (itemDescription.trim().length < 2) {
-      throw ArgumentError('وصف السلعة يجب ألا يقل عن حرفين');
+      throw ArgumentError(L10n.t.installmentRepository1);
     }
     if (totalPricePiasters <= 0) {
-      throw ArgumentError('السعر الإجمالي يجب أن يكون أكبر من صفر');
+      throw ArgumentError(L10n.t.installmentRepository2);
     }
     if (downPaymentPiasters < 0) {
-      throw ArgumentError('المقدم لا يمكن أن يكون بالسالب');
+      throw ArgumentError(L10n.t.installmentRepository3);
     }
     if (downPaymentPiasters >= totalPricePiasters) {
-      throw ArgumentError('المقدم يجب أن يكون أقل من السعر الإجمالي');
+      throw ArgumentError(L10n.t.installmentRepository4);
     }
     if (installmentCount <= 0) {
-      throw ArgumentError('عدد الأقساط يجب أن يكون أكبر من صفر');
+      throw ArgumentError(L10n.t.installmentRepository5);
     }
 
     final planId = _uuid.v4();
@@ -125,7 +126,7 @@ class InstallmentRepository {
                 partyId: customerId,
                 type: TransactionType.debt,
                 amountPiasters: totalPricePiasters,
-                note: Value('قسط: ${itemDescription.trim()} ($installmentCount أقساط)'),
+                note: Value(L10n.t.installmentRepository6(itemDescription.trim(), installmentCount)),
                 occurredAt: Value(now),
                 createdAt: Value(now),
                 updatedAt: Value(now),
@@ -142,7 +143,7 @@ class InstallmentRepository {
                   type: TransactionType.payment,
                   amountPiasters: downPaymentPiasters,
                   method: const Value(PaymentMethod.cash),
-                  note: Value('مقدم قسط: ${itemDescription.trim()}'),
+                  note: Value(L10n.t.installmentRepository7(itemDescription.trim())),
                   occurredAt: Value(now),
                   createdAt: Value(now),
                   updatedAt: Value(now),
@@ -166,7 +167,7 @@ class InstallmentRepository {
     bool linkToCustomerLedger = true,
   }) async {
     if (amountPiasters <= 0) {
-      throw ArgumentError('مبلغ السداد يجب أن يكون أكبر من صفر');
+      throw ArgumentError(L10n.t.installmentRepository8);
     }
 
     final now = paymentDate ?? DateTime.now();
@@ -177,7 +178,7 @@ class InstallmentRepository {
           .getSingleOrNull();
 
       if (plan == null) {
-        throw StateError('خطة القسط غير موجودة أو تم حذفها');
+        throw StateError(L10n.t.installmentPlanDetailsScreen16);
       }
 
       // Fetch all installments for this plan ordered by index
@@ -246,7 +247,7 @@ class InstallmentRepository {
                 type: TransactionType.payment,
                 amountPiasters: amountPiasters,
                 method: Value(method),
-                note: Value('سداد قسط: ${plan.itemDescription}${notes != null ? ' - $notes' : ''}'),
+                note: Value(L10n.t.installmentRepository9(plan.itemDescription, notes != null ? ' - $notes' : '')),
                 occurredAt: Value(now),
                 createdAt: Value(now),
                 updatedAt: Value(now),
@@ -271,7 +272,7 @@ class InstallmentRepository {
             ..where((tbl) => tbl.id.equals(planId) & tbl.deletedAt.isNull()))
           .getSingleOrNull();
 
-      if (plan == null) throw StateError('خطة القسط غير موجودة');
+      if (plan == null) throw StateError(L10n.t.installmentRepository10);
 
       final allInstallments = await (_db.select(_db.installments)
             ..where((tbl) => tbl.planId.equals(planId) & tbl.deletedAt.isNull()))
@@ -323,7 +324,7 @@ class InstallmentRepository {
                   type: TransactionType.payment,
                   amountPiasters: settlement.netSettlementAmount,
                   method: Value(method),
-                  note: Value('سداد مبكر لقسط: ${plan.itemDescription}'),
+                  note: Value(L10n.t.installmentRepository11(plan.itemDescription)),
                   occurredAt: Value(now),
                   createdAt: Value(now),
                   updatedAt: Value(now),
@@ -343,7 +344,7 @@ class InstallmentRepository {
                     type: TransactionType.payment,
                     amountPiasters: actualDiscount,
                     method: const Value(PaymentMethod.other),
-                    note: Value('خصم تعجيل سداد: ${plan.itemDescription}'),
+                    note: Value(L10n.t.installmentRepository12(plan.itemDescription)),
                     occurredAt: Value(now),
                     createdAt: Value(now),
                     updatedAt: Value(now),

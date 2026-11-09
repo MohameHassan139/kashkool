@@ -50,8 +50,4 @@ kashkool-google-backup.zip
 Claude outputs/
 
 # Backend local files
-backend/.env
-backend/.env.*
-!backend/.env.example
-backend/.vercel/
-backend/node_modules/
+

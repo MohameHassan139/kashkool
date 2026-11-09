@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../utils/money.dart';
+import '../../l10n/l10n.dart';
 
 /// Service managing local push notifications for daily collections.
 class NotificationService {
@@ -74,26 +75,26 @@ class NotificationService {
   }) async {
     if (dueCount <= 0) return;
 
-    const androidDetails = AndroidNotificationDetails(
+    final androidDetails = AndroidNotificationDetails(
       'daily_collection_channel',
-      'التحصيل اليومي',
-      channelDescription: 'تذكير بالعملاء المستحقين للتحصيل ومواعيد دفعهم',
+      L10n.t.notificationService1,
+      channelDescription: L10n.t.notificationService2,
       importance: Importance.high,
       priority: Priority.high,
       showWhen: true,
     );
 
-    const notificationDetails = NotificationDetails(
+    final notificationDetails = NotificationDetails(
       android: androidDetails,
-      iOS: DarwinNotificationDetails(),
+      iOS: const DarwinNotificationDetails(),
     );
 
     final amountStr = MoneyUtils.formatMoney(totalPiasters);
-    final body = 'عندك $dueCount عملاء عليهم $amountStr — اضغط للتحصيل';
+    final body = L10n.t.notificationService3(dueCount, amountStr);
 
     await _notificationsPlugin.show(
       id: 1001,
-      title: 'تذكير التحصيل اليومي 📒',
+      title: L10n.t.notificationService4,
       body: body,
       notificationDetails: notificationDetails,
       payload: '/collection',

@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import '../../../core/db/app_database.dart';
 import '../domain/statement_filter.dart';
 import '../domain/statement_row.dart';
+import '../../../l10n/l10n.dart';
 
 /// Calculation result containing statement rows and summary balances.
 class StatementResult {
@@ -44,15 +45,15 @@ abstract final class StatementCalculator {
 
     switch (period) {
       case StatementPeriod.allTime:
-        periodDesc = 'كل المعاملات';
+        periodDesc = L10n.t.statementCalculator1;
         break;
 
       case StatementPeriod.thisMonth:
         startDate = DateTime(currentTime.year, currentTime.month, 1);
         endDate = DateTime(currentTime.year, currentTime.month + 1, 0, 23, 59, 59);
-        const arabicMonths = [
-          'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-          'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+        final arabicMonths = [
+          L10n.t.statementCalculator2, L10n.t.statementCalculator3, L10n.t.statementCalculator4, L10n.t.statementCalculator5, L10n.t.statementCalculator6, L10n.t.statementCalculator7,
+          L10n.t.statementCalculator8, L10n.t.statementCalculator9, L10n.t.statementCalculator10, L10n.t.statementCalculator11, L10n.t.statementCalculator12, L10n.t.statementCalculator13
         ];
         periodDesc = '${arabicMonths[currentTime.month - 1]} ${currentTime.year}';
         break;
@@ -67,13 +68,13 @@ abstract final class StatementCalculator {
 
         final dFmt = DateFormat('yyyy/MM/dd');
         if (startDate != null && endDate != null) {
-          periodDesc = 'من ${dFmt.format(startDate)} إلى ${dFmt.format(endDate)}';
+          periodDesc = L10n.t.statementCalculator14(dFmt.format(startDate), dFmt.format(endDate));
         } else if (startDate != null) {
-          periodDesc = 'من ${dFmt.format(startDate)}';
+          periodDesc = L10n.t.statementCalculator15(dFmt.format(startDate));
         } else if (endDate != null) {
-          periodDesc = 'حتى ${dFmt.format(endDate)}';
+          periodDesc = L10n.t.statementCalculator16(dFmt.format(endDate));
         } else {
-          periodDesc = 'كل المعاملات';
+          periodDesc = L10n.t.statementCalculator1;
         }
         break;
     }

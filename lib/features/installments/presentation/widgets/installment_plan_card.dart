@@ -5,6 +5,7 @@ import '../../../../core/db/app_database.dart';
 import '../../../../core/utils/money.dart';
 import '../../domain/installment_plan_with_details.dart';
 import 'installment_progress_bar.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Card item displaying an installment plan in lists.
 class InstallmentPlanCard extends StatelessWidget {
@@ -104,7 +105,7 @@ class InstallmentPlanCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        'متأخر (${item.overdueCount})',
+                        L10n.t.installmentPlanCard1(item.overdueCount),
                         style: const TextStyle(
                           color: AppColors.debtRed,
                           fontWeight: FontWeight.bold,
@@ -119,8 +120,8 @@ class InstallmentPlanCard extends StatelessWidget {
                         color: AppColors.primaryGreen.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        'مكتمل ✓',
+                      child: Text(
+                        L10n.t.installmentPlanCard2,
                         style: TextStyle(
                           color: AppColors.primaryGreen,
                           fontWeight: FontWeight.bold,
@@ -135,8 +136,8 @@ class InstallmentPlanCard extends StatelessWidget {
                         color: Colors.grey.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        'ملغي',
+                      child: Text(
+                        L10n.t.installmentPlanCard3,
                         style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
@@ -173,7 +174,7 @@ class InstallmentPlanCard extends StatelessWidget {
                               const SizedBox(width: 4),
                               Expanded(
                                 child: Text(
-                                  'القسط القادم: ${dateFmt.format(item.nextDueInstallment!.dueDate)} (${MoneyUtils.formatMoney(item.nextDueInstallment!.amountPiasters - item.nextDueInstallment!.paidPiasters)})',
+                                  L10n.t.installmentPlanCard4(dateFmt.format(item.nextDueInstallment!.dueDate), MoneyUtils.formatMoney(item.nextDueInstallment!.amountPiasters - item.nextDueInstallment!.paidPiasters)),
                                   style: theme.textTheme.bodySmall?.copyWith(
                                     color: theme.colorScheme.onSurfaceVariant,
                                   ),
@@ -184,7 +185,7 @@ class InstallmentPlanCard extends StatelessWidget {
                             ],
                           )
                         : Text(
-                            'الإجمالي: ${MoneyUtils.formatMoney(plan.totalPricePiasters)}',
+                            L10n.t.installmentPlanCard5(MoneyUtils.formatMoney(plan.totalPricePiasters)),
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),

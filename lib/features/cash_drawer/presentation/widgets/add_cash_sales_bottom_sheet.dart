@@ -4,6 +4,8 @@ import 'package:kashkool/core/constants/app_colors.dart';
 import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/glass_toast.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Modal bottom sheet allowing the shopkeeper to record cash sales for the day.
 class AddCashSalesBottomSheet extends ConsumerStatefulWidget {
@@ -69,9 +71,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.cashSalesAddedSuccess)),
-        );
+        AppGlassToast.showSuccess(context, l10n.cashSalesAddedSuccess);
         Navigator.pop(context);
       }
     } finally {
@@ -125,7 +125,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
             // Current sales indication
             Center(
               child: Text(
-                'المبيعات المسجلة حتى الآن: ${MoneyUtils.formatMoney(widget.currentSalesPiasters)}',
+                L10n.t.addCashSalesBottomSheet1(MoneyUtils.formatMoney(widget.currentSalesPiasters)),
                 style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
               ),
             ),
@@ -134,12 +134,12 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
             // Mode toggle
             SegmentedButton<bool>(
               showSelectedIcon: false,
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: true,
                   label: FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text('إضافة للمبيعات (+)'),
+                    child: Text(L10n.t.addCashSalesBottomSheet2),
                   ),
                   icon: Icon(Icons.add_rounded),
                 ),
@@ -147,7 +147,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                   value: false,
                   label: FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text('تعديل الإجمالي (=)'),
+                    child: Text(L10n.t.addCashSalesBottomSheet3),
                   ),
                   icon: Icon(Icons.edit_outlined),
                 ),
@@ -172,7 +172,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                 hintText: '0',
                 suffixText: l10n.currency,
                 suffixStyle: const TextStyle(fontSize: 18, color: Colors.grey),
-                labelText: _isAddMode ? 'المبلغ المراد إضافته' : 'إجمالي المبيعات الجديد',
+                labelText: _isAddMode ? L10n.t.addCashSalesBottomSheet4 : L10n.t.addCashSalesBottomSheet5,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                 filled: true,
                 fillColor: isDark ? const Color(0xFF111827) : Colors.grey.shade50,
@@ -186,7 +186,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
               spacing: 8,
               children: [50, 100, 200, 500, 1000].map((val) {
                 return ActionChip(
-                  label: Text('+$val جنيه'),
+                  label: Text(L10n.t.addCashSalesBottomSheet6(val)),
                   onPressed: () => _addQuickAmount(val),
                   backgroundColor: AppColors.paymentContainer(isDark),
                   labelStyle: TextStyle(

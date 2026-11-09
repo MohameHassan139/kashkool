@@ -7,6 +7,7 @@ import 'add_installment_plan_screen.dart';
 import 'installment_plan_details_screen.dart';
 import 'installments_providers.dart';
 import 'widgets/installment_plan_card.dart';
+import '../../../l10n/l10n.dart';
 
 /// Primary Installments Management Screen (الأقساط).
 class InstallmentsScreen extends ConsumerStatefulWidget {
@@ -43,7 +44,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('نظام الأقساط 📋', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.installmentsScreen1, style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Column(
         children: [
@@ -54,7 +55,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
               controller: _searchController,
               onChanged: _onSearchChanged,
               decoration: InputDecoration(
-                hintText: 'ابحث باسم العميل، السلعة، الموبايل، أو الضامن...',
+                hintText: L10n.t.installmentsScreen2,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
@@ -88,7 +89,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                       Expanded(
                         child: Column(
                           children: [
-                            Text('إجمالي الأقساط', style: theme.textTheme.bodySmall, maxLines: 1),
+                            Text(L10n.t.installmentsScreen3, style: theme.textTheme.bodySmall, maxLines: 1),
                             const SizedBox(height: 4),
                             FittedBox(
                               fit: BoxFit.scaleDown,
@@ -106,7 +107,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                       Expanded(
                         child: Column(
                           children: [
-                            Text('أقساط متأخرة', style: theme.textTheme.bodySmall, maxLines: 1),
+                            Text(L10n.t.installmentsScreen4, style: theme.textTheme.bodySmall, maxLines: 1),
                             const SizedBox(height: 4),
                             FittedBox(
                               fit: BoxFit.scaleDown,
@@ -128,7 +129,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                       Expanded(
                         child: Column(
                           children: [
-                            Text('خطط نشطة', style: theme.textTheme.bodySmall, maxLines: 1),
+                            Text(L10n.t.installmentsScreen5, style: theme.textTheme.bodySmall, maxLines: 1),
                             const SizedBox(height: 4),
                             FittedBox(
                               fit: BoxFit.scaleDown,
@@ -155,7 +156,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
               child: Row(
                 children: [
                   ChoiceChip(
-                    label: const Text('الكل'),
+                    label: Text(L10n.t.installmentsScreen6),
                     selected: selectedFilter == null,
                     onSelected: (val) {
                       if (val) ref.read(installmentStatusFilterProvider.notifier).state = null;
@@ -163,7 +164,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                   ),
                   const SizedBox(width: 8),
                   ChoiceChip(
-                    label: const Text('النشطة ⏳'),
+                    label: Text(L10n.t.installmentsScreen7),
                     selected: selectedFilter == PlanStatus.active,
                     onSelected: (val) {
                       if (val) ref.read(installmentStatusFilterProvider.notifier).state = PlanStatus.active;
@@ -171,7 +172,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                   ),
                   const SizedBox(width: 8),
                   ChoiceChip(
-                    label: const Text('المكتملة ✓'),
+                    label: Text(L10n.t.installmentsScreen8),
                     selected: selectedFilter == PlanStatus.completed,
                     onSelected: (val) {
                       if (val) ref.read(installmentStatusFilterProvider.notifier).state = PlanStatus.completed;
@@ -179,7 +180,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                   ),
                   const SizedBox(width: 8),
                   ChoiceChip(
-                    label: const Text('الملغية'),
+                    label: Text(L10n.t.installmentsScreen9),
                     selected: selectedFilter == PlanStatus.cancelled,
                     onSelected: (val) {
                       if (val) ref.read(installmentStatusFilterProvider.notifier).state = PlanStatus.cancelled;
@@ -194,7 +195,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
           Expanded(
             child: plansAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('خطأ في تحميل الأقساط: $e')),
+              error: (e, _) => Center(child: Text(L10n.t.installmentsScreen10(e))),
               data: (plans) {
                 if (plans.isEmpty) {
                   return Center(
@@ -211,13 +212,13 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
                           const SizedBox(height: 16),
                           Text(
                             _searchController.text.isNotEmpty
-                                ? 'مفيش أقساط مطابقة للبحث'
-                                : 'مفيش خطط أقساط حالياً',
+                                ? L10n.t.installmentsScreen11
+                                : L10n.t.installmentsScreen12,
                             style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'اضغط على زرار (+ خطة قسط جديدة) لإنشاء وجدولة أول قسط لعميل.',
+                            L10n.t.installmentsScreen13,
                             textAlign: TextAlign.center,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
@@ -256,7 +257,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
         backgroundColor: AppColors.primaryGreen,
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
-        label: const Text('خطة قسط جديدة', style: TextStyle(fontWeight: FontWeight.bold)),
+        label: Text(L10n.t.installmentsScreen14, style: TextStyle(fontWeight: FontWeight.bold)),
         onPressed: () {
           Navigator.push(
             context,

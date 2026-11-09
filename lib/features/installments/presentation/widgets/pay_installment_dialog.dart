@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/db/app_database.dart';
 import '../../../../core/utils/money.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../data/installment_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Modal dialog for recording an installment payment.
 class PayInstallmentDialog extends ConsumerStatefulWidget {
@@ -52,9 +54,7 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
     final text = _amountController.text.trim();
     final amountEgp = double.tryParse(text);
     if (amountEgp == null || amountEgp <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('برجاء كتابة مبلغ سداد صحيح أكبر من صفر')),
-      );
+      AppGlassToast.showError(context, L10n.t.payInstallmentDialog1);
       return;
     }
 
@@ -75,18 +75,17 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
 
       if (mounted) {
         Navigator.pop(context, true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('تم تسجيل سداد ${MoneyUtils.formatMoney(amountPiasters)} بنجاح ✓'),
-            backgroundColor: AppColors.primaryGreen,
-          ),
+        AppGlassToast.showSuccess(
+          context,
+          L10n.t.payInstallmentDialog2(MoneyUtils.formatMoney(amountPiasters)),
         );
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isLoading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('حدث خطأ أثناء السداد: $e'), backgroundColor: AppColors.debtRed),
+        AppGlassToast.showError(
+          context,
+          L10n.t.payInstallmentDialog3(e),
         );
       }
     }
@@ -117,8 +116,8 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
           Expanded(
             child: Text(
               widget.installment != null
-                  ? 'سداد القسط رقم ${widget.installment!.installmentIndex}'
-                  : 'سداد قسط (${widget.itemDescription})',
+                  ? L10n.t.payInstallmentDialog4(widget.installment!.installmentIndex)
+                  : L10n.t.payInstallmentDialog5(widget.itemDescription),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -138,7 +137,7 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
                 ),
                 child: Row(
                   children: [
-                    const Expanded(child: Text('المبلغ المطلوب للقسط:')),
+                    Expanded(child: Text(L10n.t.payInstallmentDialog6)),
                     Text(
                       MoneyUtils.formatMoney(widget.installment!.amountPiasters - widget.installment!.paidPiasters),
                       style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryGreen),
@@ -154,8 +153,8 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
               controller: _amountController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
-              decoration: const InputDecoration(
-                labelText: 'المبلغ المدفوع (جنيه)',
+              decoration: InputDecoration(
+                labelText: L10n.t.payInstallmentDialog7,
                 prefixIcon: Icon(Icons.attach_money_rounded),
                 border: OutlineInputBorder(),
               ),
@@ -163,27 +162,27 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
             const SizedBox(height: 12),
 
             // Payment Method
-            Text('طريقة الدفع', style: theme.textTheme.labelMedium),
+            Text(L10n.t.payInstallmentDialog8, style: theme.textTheme.labelMedium),
             const SizedBox(height: 6),
             Wrap(
               spacing: 8,
               children: [
                 ChoiceChip(
-                  label: const Text('كاش 💵'),
+                  label: Text(L10n.t.payInstallmentDialog9),
                   selected: _selectedMethod == PaymentMethod.cash,
                   onSelected: (val) {
                     if (val) setState(() => _selectedMethod = PaymentMethod.cash);
                   },
                 ),
                 ChoiceChip(
-                  label: const Text('إنستاباي ⚡'),
+                  label: Text(L10n.t.payInstallmentDialog10),
                   selected: _selectedMethod == PaymentMethod.instapay,
                   onSelected: (val) {
                     if (val) setState(() => _selectedMethod = PaymentMethod.instapay);
                   },
                 ),
                 ChoiceChip(
-                  label: const Text('محفظة 📱'),
+                  label: Text(L10n.t.payInstallmentDialog11),
                   selected: _selectedMethod == PaymentMethod.wallet,
                   onSelected: (val) {
                     if (val) setState(() => _selectedMethod = PaymentMethod.wallet);
@@ -197,20 +196,20 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.calendar_today_rounded),
-              title: const Text('تاريخ السداد'),
+              title: Text(L10n.t.payInstallmentDialog12),
               subtitle: Text(dateFmt.format(_selectedDate)),
               trailing: TextButton(
                 onPressed: _pickDate,
-                child: const Text('تغيير'),
+                child: Text(L10n.t.payInstallmentDialog13),
               ),
             ),
 
             // Notes
             TextField(
               controller: _notesController,
-              decoration: const InputDecoration(
-                labelText: 'ملاحظة (اختياري)',
-                hintText: 'مثلاً: تحويل مع فلان',
+              decoration: InputDecoration(
+                labelText: L10n.t.payInstallmentDialog14,
+                hintText: L10n.t.payInstallmentDialog15,
                 prefixIcon: Icon(Icons.note_alt_outlined),
                 border: OutlineInputBorder(),
               ),
@@ -220,8 +219,8 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
             // Link to customer ledger checkbox
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('تسجيل في كشف حساب العميل'),
-              subtitle: const Text('يخصم المبلغ تلقائياً من رصيد العميل العام'),
+              title: Text(L10n.t.payInstallmentDialog16),
+              subtitle: Text(L10n.t.payInstallmentDialog17),
               value: _linkToLedger,
               onChanged: (val) => setState(() => _linkToLedger = val ?? true),
             ),
@@ -231,7 +230,7 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.pop(context),
-          child: const Text('إلغاء'),
+          child: Text(L10n.t.installmentPlanDetailsScreen11),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -242,7 +241,7 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
           onPressed: _isLoading ? null : _submit,
           child: _isLoading
               ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-              : const Text('تأكيد السداد', style: TextStyle(fontWeight: FontWeight.bold)),
+              : Text(L10n.t.payInstallmentDialog18, style: TextStyle(fontWeight: FontWeight.bold)),
         ),
       ],
     );

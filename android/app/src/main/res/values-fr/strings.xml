@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">Kashkool - À recevoir</string>
+    <string name="widget_medium_label">Kashkool - Aujourd\'hui</string>
+    <string name="widget_small_description">Total que vos clients vous doivent</string>
+    <string name="widget_medium_description">Créances, encaissé aujourd\'hui et clients à relancer</string>
+    <string name="widget_receivables_title">À recevoir</string>
+    <string name="widget_app_tag">Kashkool 📒</string>
+    <string name="widget_collect_button">Relancer 🔔</string>
+    <string name="widget_collected_today_title">Encaissé aujourd\'hui</string>
+    <string name="widget_due_title">À relancer</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">Aucun</string>
+    <string name="widget_updated_today">Mis à jour : %1$s</string>
+    <string name="widget_open_to_update">Ouvrez Kashkool pour actualiser</string>
+    <string name="widget_disabled">En pause ⏸</string>
+    <string name="widget_disabled_hint">Activez-le dans les réglages de Kashkool</string>
+</resources>

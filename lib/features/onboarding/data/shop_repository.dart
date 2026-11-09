@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/db/app_database.dart';
 import '../../settings/data/settings_repository.dart';
+import '../../../l10n/l10n.dart';
 
 /// Repository for Shop profile and onboarding state management.
 class ShopRepository {
@@ -167,7 +168,7 @@ class ShopRepository {
             shopId: Value(shopId),
             deviceId: Value(deviceId),
             createdBy: Value(createdBy),
-            name: const Value('أحمد محمد (تجريبي)'),
+            name: Value(L10n.t.shopRepository1),
             phone: const Value('01012345678'),
             notes: const Value('[تجريبي] تجربة كشكول - مشتريات بالآجل'),
             creditLimitPiasters: const Value(150000), // 1,500 EGP
@@ -186,7 +187,7 @@ class ShopRepository {
             partyId: Value(cust1Id),
             type: const Value(TransactionType.debt),
             amountPiasters: const Value(35000), // 350 EGP
-            note: const Value('مشتريات طلبات منزلية'),
+            note: Value(L10n.t.shopRepository2),
             occurredAt: Value(now.subtract(const Duration(days: 5))),
             createdAt: Value(now.subtract(const Duration(days: 5))),
             updatedAt: Value(now.subtract(const Duration(days: 5))),
@@ -201,7 +202,7 @@ class ShopRepository {
             shopId: Value(shopId),
             deviceId: Value(deviceId),
             createdBy: Value(createdBy),
-            name: const Value('محمود إبراهيم (تجريبي)'),
+            name: Value(L10n.t.shopRepository3),
             phone: const Value('01198765432'),
             notes: const Value('[تجريبي] تجربة كشكول - سداد جزئي'),
             creditLimitPiasters: const Value(300000), // 3,000 EGP
@@ -221,7 +222,7 @@ class ShopRepository {
             partyId: Value(cust2Id),
             type: const Value(TransactionType.debt),
             amountPiasters: const Value(120000), // 1200 EGP
-            note: const Value('بضاعة أول الشهر'),
+            note: Value(L10n.t.shopRepository4),
             occurredAt: Value(now.subtract(const Duration(days: 10))),
             createdAt: Value(now.subtract(const Duration(days: 10))),
             updatedAt: Value(now.subtract(const Duration(days: 10))),
@@ -239,7 +240,7 @@ class ShopRepository {
             partyId: Value(cust2Id),
             type: const Value(TransactionType.payment),
             amountPiasters: const Value(50000), // 500 EGP
-            note: const Value('دفعة نقدية على الحساب'),
+            note: Value(L10n.t.shopRepository5),
             occurredAt: Value(now.subtract(const Duration(days: 2))),
             createdAt: Value(now.subtract(const Duration(days: 2))),
             updatedAt: Value(now.subtract(const Duration(days: 2))),

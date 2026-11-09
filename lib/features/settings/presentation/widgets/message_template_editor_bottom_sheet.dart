@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
+import '../../../../shared/widgets/glass_toast.dart';
 import '../../../../core/utils/whatsapp_template.dart';
 import '../../data/settings_repository.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Interactive modal sheet to edit WhatsApp / SMS reminder template with chips and live preview.
 class MessageTemplateEditorBottomSheet extends ConsumerStatefulWidget {
@@ -28,8 +29,8 @@ class _MessageTemplateEditorBottomSheetState
     extends ConsumerState<MessageTemplateEditorBottomSheet> {
   final _templateController = TextEditingController();
   bool _isLoading = true;
-  String _shopName = 'بقالة الأمانة';
-  String _paymentInfo = 'فودافون كاش: 01012345678';
+  String _shopName = L10n.t.messageTemplateEditorBottomSheet1;
+  String _paymentInfo = L10n.t.messageTemplateEditorBottomSheet2;
   String? _shopCode;
 
   @override
@@ -48,8 +49,8 @@ class _MessageTemplateEditorBottomSheetState
     if (mounted) {
       setState(() {
         _templateController.text = template;
-        _shopName = name.isNotEmpty ? name : 'بقالة الأمانة';
-        _paymentInfo = pay.isNotEmpty ? pay : 'فودافون كاش: 01012345678';
+        _shopName = name.isNotEmpty ? name : L10n.t.messageTemplateEditorBottomSheet1;
+        _paymentInfo = pay.isNotEmpty ? pay : L10n.t.messageTemplateEditorBottomSheet2;
         _shopCode = code;
         _isLoading = false;
       });
@@ -85,7 +86,7 @@ class _MessageTemplateEditorBottomSheetState
   String _renderPreview() {
     return WhatsAppTemplateUtils.render(
       template: _templateController.text,
-      customerName: 'محمد أحمد',
+      customerName: L10n.t.messageTemplateEditorBottomSheet3,
       shopName: _shopName,
       balancePiasters: 25000, // 250.00 EGP
       paymentInfo: _paymentInfo,
@@ -99,12 +100,7 @@ class _MessageTemplateEditorBottomSheetState
     await repo.setMessageTemplate(_templateController.text.trim());
     if (mounted) {
       Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تم حفظ نموذج الرسالة بنجاح 👍'),
-          backgroundColor: AppColors.paymentGreen,
-        ),
-      );
+      AppGlassToast.showSuccess(context, L10n.t.messageTemplateEditorBottomSheet4);
     }
   }
 
@@ -146,7 +142,7 @@ class _MessageTemplateEditorBottomSheetState
             ),
 
             Text(
-              'تعديل رسالة التذكير 💬',
+              L10n.t.messageTemplateEditorBottomSheet5,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -162,14 +158,14 @@ class _MessageTemplateEditorBottomSheetState
               runSpacing: 6,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                const Text('نماذج جاهزة: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                Text(L10n.t.messageTemplateEditorBottomSheet6, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                 ActionChip(
-                  label: const Text('ودّي 😊'),
+                  label: Text(L10n.t.messageTemplateEditorBottomSheet7),
                   backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
                   onPressed: () => _applyPreset(WhatsAppTemplateUtils.defaultFriendlyTemplate),
                 ),
                 ActionChip(
-                  label: const Text('رسمي 👔'),
+                  label: Text(L10n.t.messageTemplateEditorBottomSheet8),
                   backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   onPressed: () => _applyPreset(WhatsAppTemplateUtils.defaultFormalTemplate),
                 ),
@@ -182,11 +178,11 @@ class _MessageTemplateEditorBottomSheetState
               spacing: 8,
               runSpacing: 4,
               children: [
-                _buildPlaceholderChip('{customer_name}', 'اسم العميل'),
-                _buildPlaceholderChip('{balance}', 'المبلغ'),
-                _buildPlaceholderChip('{shop_name}', 'اسم المحل'),
-                _buildPlaceholderChip('{payment_info}', 'بيانات الدفع'),
-                _buildPlaceholderChip('{last_transaction_date}', 'تاريخ آخر حركة'),
+                _buildPlaceholderChip('{customer_name}', L10n.t.oldInstallmentImportScreen14),
+                _buildPlaceholderChip('{balance}', L10n.t.notebookImportScreen27),
+                _buildPlaceholderChip('{shop_name}', L10n.t.messageTemplateEditorBottomSheet9),
+                _buildPlaceholderChip('{payment_info}', L10n.t.messageTemplateEditorBottomSheet10),
+                _buildPlaceholderChip('{last_transaction_date}', L10n.t.messageTemplateEditorBottomSheet11),
               ],
             ),
             const SizedBox(height: 12),
@@ -197,7 +193,7 @@ class _MessageTemplateEditorBottomSheetState
               maxLines: 5,
               onChanged: (_) => setState(() {}),
               decoration: InputDecoration(
-                hintText: 'اكتب نص رسالة التذكير هنا...',
+                hintText: L10n.t.messageTemplateEditorBottomSheet12,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
@@ -205,7 +201,7 @@ class _MessageTemplateEditorBottomSheetState
 
             // Live Preview Card
             Text(
-              'معاينة الرسالة كما ستصل للعميل:',
+              L10n.t.messageTemplateEditorBottomSheet13,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 13,
@@ -240,8 +236,8 @@ class _MessageTemplateEditorBottomSheetState
                 minimumSize: const Size.fromHeight(52),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text(
-                'حفظ النموذج',
+              child: Text(
+                L10n.t.messageTemplateEditorBottomSheet14,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),

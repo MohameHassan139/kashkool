@@ -5,6 +5,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../../settings/data/settings_repository.dart';
 import '../data/customer_repository.dart';
 
@@ -126,22 +127,12 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
       }
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.customerSaved),
-            backgroundColor: AppColors.paymentGreen,
-          ),
-        );
+        AppGlassToast.showSuccess(context, l10n.customerSaved);
         Navigator.of(context).pop();
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-            backgroundColor: AppColors.debtRed,
-          ),
-        );
+        AppGlassToast.showError(context, e.toString());
       }
     } finally {
       if (mounted) {

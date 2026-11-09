@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">كشكول - مستحقاتك</string>
+    <string name="widget_medium_label">كشكول - ملخص اليوم</string>
+    <string name="widget_small_description">إجمالي المبالغ المستحقة لك لدى العملاء</string>
+    <string name="widget_medium_description">مستحقاتك، والمحصَّل اليوم، والعملاء المستحق تحصيلهم</string>
+    <string name="widget_receivables_title">مستحقاتك</string>
+    <string name="widget_app_tag">كشكول 📒</string>
+    <string name="widget_collect_button">تحصيل 🔔</string>
+    <string name="widget_collected_today_title">المحصَّل اليوم</string>
+    <string name="widget_due_title">مستحق التحصيل</string>
+    <string name="widget_zero_amount">0 جنيه</string>
+    <string name="widget_no_customers">لا أحد</string>
+    <string name="widget_updated_today">آخر تحديث: %1$s</string>
+    <string name="widget_open_to_update">افتح كشكول للتحديث</string>
+    <string name="widget_disabled">متوقفة ⏸</string>
+    <string name="widget_disabled_hint">فعّلها من إعدادات كشكول</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">کشکول - آپ کا بقایا</string>
+    <string name="widget_medium_label">کشکول - آج کا خلاصہ</string>
+    <string name="widget_small_description">گاہکوں پر آپ کا کل بقایا</string>
+    <string name="widget_medium_description">بقایا، آج کی وصولی اور واجب الوصول گاہک</string>
+    <string name="widget_receivables_title">آپ کا بقایا</string>
+    <string name="widget_app_tag">کشکول 📒</string>
+    <string name="widget_collect_button">وصولی 🔔</string>
+    <string name="widget_collected_today_title">آج کی وصولی</string>
+    <string name="widget_due_title">واجب الوصول</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">کوئی نہیں</string>
+    <string name="widget_updated_today">آخری اپ ڈیٹ: %1$s</string>
+    <string name="widget_open_to_update">اپ ڈیٹ کے لیے کشکول کھولیں</string>
+    <string name="widget_disabled">رکا ہوا ⏸</string>
+    <string name="widget_disabled_hint">کشکول کی سیٹنگز سے چالو کریں</string>
+</resources>

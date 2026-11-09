@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Home screen widgets: names shown in the launcher's widget list -->
-    <string name="widget_small_label">كشكول - ليك عند الناس</string>
-    <string name="widget_medium_label">كشكول - ملخص اليوم</string>
-    <string name="widget_small_description">إجمالي الفلوس اللي ليك عند العملاء</string>
-    <string name="widget_medium_description">ليك عند الناس، المحصّل النهارده، والعملاء المستحقين للتحصيل</string>
-
-    <!-- Widget content -->
-    <string name="widget_receivables_title">ليك عند الناس</string>
-    <string name="widget_app_tag">كشكول 📒</string>
-    <string name="widget_collect_button">تحصيل 🔔</string>
-    <string name="widget_collected_today_title">محصّل النهارده</string>
-    <string name="widget_due_title">مستحق للتحصيل</string>
-    <string name="widget_zero_amount">0 جنيه</string>
-    <string name="widget_no_customers">مفيش</string>
-    <string name="widget_updated_today">آخر تحديث: %1$s</string>
-    <string name="widget_open_to_update">افتح كشكول للتحديث</string>
-    <string name="widget_disabled">متوقفة ⏸</string>
-    <string name="widget_disabled_hint">شغّلها من إعدادات كشكول</string>
+    <string name="widget_small_label">Kashkool - Owed to you</string>
+    <string name="widget_medium_label">Kashkool - Today</string>
+    <string name="widget_small_description">Total your customers owe you</string>
+    <string name="widget_medium_description">What you\'re owed, today\'s collections and who\'s due</string>
+    <string name="widget_receivables_title">Owed to you</string>
+    <string name="widget_app_tag">Kashkool 📒</string>
+    <string name="widget_collect_button">Collect 🔔</string>
+    <string name="widget_collected_today_title">Collected today</string>
+    <string name="widget_due_title">Due</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">None</string>
+    <string name="widget_updated_today">Updated: %1$s</string>
+    <string name="widget_open_to_update">Open Kashkool to update</string>
+    <string name="widget_disabled">Paused ⏸</string>
+    <string name="widget_disabled_hint">Turn it on in Kashkool settings</string>
 </resources>

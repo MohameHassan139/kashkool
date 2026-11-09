@@ -8,6 +8,7 @@ import 'package:kashkool/features/cash_drawer/data/expenses_repository.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
 import 'add_expense_bottom_sheet.dart';
+import '../../../../l10n/l10n.dart';
 
 /// Card displaying the list of expenses recorded for the day with edit/delete actions.
 class ExpensesListCard extends ConsumerWidget {
@@ -112,7 +113,7 @@ class ExpensesListCard extends ConsumerWidget {
                   ],
                 ),
                 Text(
-                  '${expenses.length} مصروف',
+                  L10n.t.expensesListCard1(expenses.length),
                   style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
                 ),
               ],
@@ -158,7 +159,7 @@ class ExpensesListCard extends ConsumerWidget {
                         if (expense.note != null && expense.note!.isNotEmpty) expense.note!,
                         timeStr,
                         if (expense.method != PaymentMethod.cash)
-                          expense.method == PaymentMethod.instapay ? 'إنستاباي' : 'محفظة',
+                          expense.method == PaymentMethod.instapay ? L10n.t.expensesListCard2 : L10n.t.expensesListCard3,
                       ].join(' · '),
                       style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
                     ),

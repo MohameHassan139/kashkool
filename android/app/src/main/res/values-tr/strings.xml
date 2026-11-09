@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_small_label">Kashkool - Alacaklar</string>
+    <string name="widget_medium_label">Kashkool - Bugün</string>
+    <string name="widget_small_description">Müşterilerden toplam alacağınız</string>
+    <string name="widget_medium_description">Alacaklar, bugünkü tahsilat ve vadesi gelenler</string>
+    <string name="widget_receivables_title">Alacaklar</string>
+    <string name="widget_app_tag">Kashkool 📒</string>
+    <string name="widget_collect_button">Tahsil et 🔔</string>
+    <string name="widget_collected_today_title">Bugün tahsil</string>
+    <string name="widget_due_title">Vadesi gelen</string>
+    <string name="widget_zero_amount">0 EGP</string>
+    <string name="widget_no_customers">Yok</string>
+    <string name="widget_updated_today">Güncellendi: %1$s</string>
+    <string name="widget_open_to_update">Güncellemek için Kashkool\'u açın</string>
+    <string name="widget_disabled">Duraklatıldı ⏸</string>
+    <string name="widget_disabled_hint">Kashkool ayarlarından açın</string>
+</resources>
