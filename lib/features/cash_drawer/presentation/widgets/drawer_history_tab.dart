@@ -26,61 +26,64 @@ class DrawerHistoryTab extends ConsumerWidget {
         children: [
           // Monthly Totals Card
           monthlyTotalsAsync.when(
-            data: (totals) => Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.calendar_month_rounded, color: AppColors.primaryBlue, size: 22),
-                        const SizedBox(width: 8),
-                        Text(
-                          l10n.monthlyTotals,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryBlue,
+            data: (totals) {
+              final theme = Theme.of(context);
+              final isDark = theme.brightness == Brightness.dark;
+              return Card(
+                elevation: isDark ? 1 : 2,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.calendar_month_rounded, color: theme.colorScheme.primary, size: 22),
+                          const SizedBox(width: 8),
+                          Text(
+                            l10n.monthlyTotals,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.primary,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _statItem(
-                            l10n.monthlySales,
-                            totals.totalCashSales,
-                            AppColors.paymentGreen,
+                        ],
+                      ),
+                      const SizedBox(height: 14),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _statItem(
+                              l10n.monthlySales,
+                              totals.totalCashSales,
+                              AppColors.paymentGreen,
+                            ),
                           ),
-                        ),
-                        Container(width: 1, height: 40, color: Colors.grey.shade200),
-                        Expanded(
-                          child: _statItem(
-                            l10n.monthlyExpenses,
-                            totals.totalExpensesCash,
-                            AppColors.debtRed,
+                          Container(width: 1, height: 40, color: theme.dividerColor),
+                          Expanded(
+                            child: _statItem(
+                              l10n.monthlyExpenses,
+                              totals.totalExpensesCash,
+                              AppColors.debtRed,
+                            ),
                           ),
-                        ),
-                        Container(width: 1, height: 40, color: Colors.grey.shade200),
-                        Expanded(
-                          child: _statItem(
-                            l10n.monthlyNet,
-                            totals.netCash,
-                            totals.netCash >= 0 ? AppColors.primaryBlue : AppColors.debtRed,
+                          Container(width: 1, height: 40, color: theme.dividerColor),
+                          Expanded(
+                            child: _statItem(
+                              l10n.monthlyNet,
+                              totals.netCash,
+                              totals.netCash >= 0 ? theme.colorScheme.primary : AppColors.debtRed,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (_, _) => const SizedBox.shrink(),
           ),
@@ -158,13 +161,14 @@ class _HistoryDayCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final isClosed = day.closedAt != null;
     final dateStr = DateFormat('EEEE، d MMMM yyyy').format(day.date);
 
     return Card(
-      elevation: 1,
+      elevation: isDark ? 0.5 : 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      color: Colors.white,
       child: InkWell(
         borderRadius: BorderRadius.circular(14),
         onTap: () async {
@@ -178,10 +182,14 @@ class _HistoryDayCard extends ConsumerWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundColor: isClosed ? Colors.grey.shade100 : AppColors.paymentGreenLight,
+                backgroundColor: isClosed
+                    ? theme.colorScheme.surfaceContainerHighest
+                    : AppColors.paymentContainer(isDark),
                 child: Icon(
                   isClosed ? Icons.lock_outline_rounded : Icons.lock_open_rounded,
-                  color: isClosed ? Colors.grey.shade700 : AppColors.paymentGreen,
+                  color: isClosed
+                      ? theme.colorScheme.onSurfaceVariant
+                      : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
                   size: 20,
                 ),
               ),
@@ -237,6 +245,7 @@ class _HistoryDayCard extends ConsumerWidget {
 
   void _showDayDetailsModal(BuildContext context, DrawerDaySummary summary, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final isClosed = summary.isClosed;
 
     showModalBottomSheet(
@@ -245,9 +254,9 @@ class _HistoryDayCard extends ConsumerWidget {
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
         padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -260,7 +269,7 @@ class _HistoryDayCard extends ConsumerWidget {
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: theme.dividerColor,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -271,19 +280,20 @@ class _HistoryDayCard extends ConsumerWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              _detailRow(l10n.openingCash, summary.openingCashPiasters),
-              _detailRow(l10n.cashIn, summary.cashInPiasters, isPositive: true),
-              _detailRow('  - ${l10n.cashSales}', summary.cashSalesPiasters),
-              _detailRow('  - ${l10n.customerPaymentsCash}', summary.customerCashPaymentsPiasters),
-              _detailRow(l10n.cashOut, summary.cashOutPiasters, isNegative: true),
-              _detailRow('  - ${l10n.expensesCash}', summary.expensesCashPiasters),
-              _detailRow('  - ${l10n.supplierPaymentsCash}', summary.supplierCashPaymentsPiasters),
+              _detailRow(context, l10n.openingCash, summary.openingCashPiasters),
+              _detailRow(context, l10n.cashIn, summary.cashInPiasters, isPositive: true),
+              _detailRow(context, '  - ${l10n.cashSales}', summary.cashSalesPiasters),
+              _detailRow(context, '  - ${l10n.customerPaymentsCash}', summary.customerCashPaymentsPiasters),
+              _detailRow(context, l10n.cashOut, summary.cashOutPiasters, isNegative: true),
+              _detailRow(context, '  - ${l10n.expensesCash}', summary.expensesCashPiasters),
+              _detailRow(context, '  - ${l10n.supplierPaymentsCash}', summary.supplierCashPaymentsPiasters),
               const Divider(height: 20),
-              _detailRow(l10n.expectedInDrawer, summary.expectedDrawerPiasters, isBold: true),
+              _detailRow(context, l10n.expectedInDrawer, summary.expectedDrawerPiasters, isBold: true),
               if (summary.actualCountPiasters != null) ...[
-                _detailRow(l10n.actualCountLabel, summary.actualCountPiasters!, isBold: true),
+                _detailRow(context, l10n.actualCountLabel, summary.actualCountPiasters!, isBold: true),
                 if (summary.differencePiasters != null)
                   _detailRow(
+                    context,
                     'الفرق',
                     summary.differencePiasters!,
                     isDiff: true,
@@ -321,16 +331,19 @@ class _HistoryDayCard extends ConsumerWidget {
     );
   }
 
-  Widget _detailRow(String label, int amount, {bool isBold = false, bool isPositive = false, bool isNegative = false, bool isDiff = false}) {
-    Color color = Colors.black87;
-    if (isPositive) color = AppColors.paymentGreen;
-    if (isNegative) color = AppColors.debtRed;
+  Widget _detailRow(BuildContext context, String label, int amount, {bool isBold = false, bool isPositive = false, bool isNegative = false, bool isDiff = false}) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    Color color = isDark ? Colors.white : Colors.black87;
+    if (isPositive) color = isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen;
+    if (isNegative) color = isDark ? AppColors.debtRedDark : AppColors.debtRed;
     if (isDiff) {
       color = amount == 0
-          ? AppColors.paymentGreen
+          ? (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen)
           : amount < 0
-              ? AppColors.debtRed
-              : AppColors.warningAmber;
+              ? (isDark ? AppColors.debtRedDark : AppColors.debtRed)
+              : (isDark ? AppColors.warningAmberDark : AppColors.warningAmber);
     }
 
     return Padding(
@@ -343,7 +356,7 @@ class _HistoryDayCard extends ConsumerWidget {
             style: TextStyle(
               fontSize: isBold ? 15 : 13,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-              color: isBold ? Colors.black87 : AppColors.neutralGreyDark,
+              color: isBold ? (isDark ? Colors.white : Colors.black87) : (isDark ? const Color(0xFF9CA3AF) : AppColors.neutralGreyDark),
             ),
           ),
           Text(

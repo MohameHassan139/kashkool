@@ -254,8 +254,8 @@ class CustomerDetailsScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
                           color: item.isCreditLimitExceeded
-                              ? AppColors.debtRedLight
-                              : AppColors.neutralGreyLight,
+                              ? AppColors.debtContainer(isDark)
+                              : (isDark ? const Color(0xFF374151) : AppColors.neutralGreyLight),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -266,8 +266,8 @@ class CustomerDetailsScreen extends ConsumerWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: item.isCreditLimitExceeded
-                                ? AppColors.debtRed
-                                : AppColors.neutralGreyDark,
+                                ? (isDark ? AppColors.debtRedDark : AppColors.debtRed)
+                                : (isDark ? const Color(0xFFE5E7EB) : AppColors.neutralGreyDark),
                           ),
                         ),
                       ),

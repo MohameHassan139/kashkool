@@ -19,12 +19,13 @@ class DrawerFlowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final isClosed = summary.isClosed;
 
     return Card(
-      elevation: 2,
+      elevation: isDark ? 1 : 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
@@ -44,17 +45,23 @@ class DrawerFlowCard extends StatelessWidget {
                                 date: summary.date,
                                 currentSalesPiasters: summary.cashSalesPiasters,
                               ),
-                      icon: const Icon(Icons.add_shopping_cart_rounded, size: 20, color: AppColors.paymentGreen),
+                      icon: Icon(
+                        Icons.add_shopping_cart_rounded,
+                        size: 20,
+                        color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
+                      ),
                       label: Text(
                         l10n.addCashSales,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.paymentGreen,
+                          color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                         ),
                       ),
                       style: FilledButton.styleFrom(
-                        backgroundColor: AppColors.paymentGreenLight,
+                        backgroundColor: isDark
+                            ? const Color(0xFF064E3B).withValues(alpha: 0.5)
+                            : AppColors.paymentGreenLight,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       ),
                     ),
@@ -71,17 +78,23 @@ class DrawerFlowCard extends StatelessWidget {
                                 context,
                                 date: summary.date,
                               ),
-                      icon: const Icon(Icons.receipt_long_rounded, size: 20, color: AppColors.debtRed),
+                      icon: Icon(
+                        Icons.receipt_long_rounded,
+                        size: 20,
+                        color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                      ),
                       label: Text(
                         l10n.addExpense,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.debtRed,
+                          color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                         ),
                       ),
                       style: FilledButton.styleFrom(
-                        backgroundColor: AppColors.debtRedLight,
+                        backgroundColor: isDark
+                            ? const Color(0xFF7F1D1D).withValues(alpha: 0.5)
+                            : AppColors.debtRedLight,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       ),
                     ),
@@ -95,9 +108,13 @@ class DrawerFlowCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Colors.green.shade50.withAlpha(120),
+                color: isDark
+                    ? const Color(0xFF052E16).withValues(alpha: 0.4)
+                    : Colors.green.shade50.withAlpha(120),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: Colors.green.shade200),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF166534) : Colors.green.shade200,
+                ),
               ),
               child: Column(
                 children: [
@@ -106,31 +123,35 @@ class DrawerFlowCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.arrow_downward_rounded, color: AppColors.paymentGreen, size: 20),
+                          Icon(
+                            Icons.arrow_downward_rounded,
+                            color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
+                            size: 20,
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             l10n.cashIn,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.paymentGreen,
+                              color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                             ),
                           ),
                         ],
                       ),
                       Text(
                         MoneyUtils.formatMoney(summary.cashInPiasters),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.paymentGreen,
+                          color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  _subRow(l10n.cashSales, summary.cashSalesPiasters),
-                  _subRow(l10n.customerPaymentsCash, summary.customerCashPaymentsPiasters),
+                  _subRow(context, l10n.cashSales, summary.cashSalesPiasters),
+                  _subRow(context, l10n.customerPaymentsCash, summary.customerCashPaymentsPiasters),
                 ],
               ),
             ),
@@ -140,9 +161,13 @@ class DrawerFlowCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Colors.red.shade50.withAlpha(120),
+                color: isDark
+                    ? const Color(0xFF450A0A).withValues(alpha: 0.4)
+                    : Colors.red.shade50.withAlpha(120),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: Colors.red.shade200),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF991B1B) : Colors.red.shade200,
+                ),
               ),
               child: Column(
                 children: [
@@ -151,31 +176,35 @@ class DrawerFlowCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.arrow_upward_rounded, color: AppColors.debtRed, size: 20),
+                          Icon(
+                            Icons.arrow_upward_rounded,
+                            color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                            size: 20,
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             l10n.cashOut,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.debtRed,
+                              color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                             ),
                           ),
                         ],
                       ),
                       Text(
                         MoneyUtils.formatMoney(summary.cashOutPiasters),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.debtRed,
+                          color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  _subRow(l10n.expensesCash, summary.expensesCashPiasters),
-                  _subRow(l10n.supplierPaymentsCash, summary.supplierCashPaymentsPiasters),
+                  _subRow(context, l10n.expensesCash, summary.expensesCashPiasters),
+                  _subRow(context, l10n.supplierPaymentsCash, summary.supplierCashPaymentsPiasters),
                 ],
               ),
             ),
@@ -185,26 +214,34 @@ class DrawerFlowCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Colors.blueGrey.shade50.withAlpha(120),
+                color: isDark
+                    ? const Color(0xFF1E293B).withValues(alpha: 0.5)
+                    : Colors.blueGrey.shade50.withAlpha(120),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: Colors.blueGrey.shade200),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF334155) : Colors.blueGrey.shade200,
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.phone_android_rounded, color: Colors.blueGrey, size: 20),
+                      Icon(
+                        Icons.phone_android_rounded,
+                        color: isDark ? const Color(0xFF94A3B8) : Colors.blueGrey,
+                        size: 20,
+                      ),
                       const SizedBox(width: 6),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             l10n.digitalIn,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blueGrey,
+                              color: isDark ? const Color(0xFFCBD5E1) : Colors.blueGrey,
                             ),
                           ),
                           const Text(
@@ -217,10 +254,10 @@ class DrawerFlowCard extends StatelessWidget {
                   ),
                   Text(
                     MoneyUtils.formatMoney(summary.digitalInPiasters),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
+                      color: isDark ? const Color(0xFFCBD5E1) : Colors.blueGrey,
                     ),
                   ),
                 ],
@@ -232,7 +269,8 @@ class DrawerFlowCard extends StatelessWidget {
     );
   }
 
-  Widget _subRow(String label, int amountPiasters) {
+  Widget _subRow(BuildContext context, String label, int amountPiasters) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
@@ -240,7 +278,10 @@ class DrawerFlowCard extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(fontSize: 13, color: AppColors.neutralGreyDark),
+            style: TextStyle(
+              fontSize: 13,
+              color: isDark ? const Color(0xFF9CA3AF) : AppColors.neutralGreyDark,
+            ),
           ),
           Text(
             MoneyUtils.formatMoney(amountPiasters),

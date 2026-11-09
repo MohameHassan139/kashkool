@@ -102,6 +102,9 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
       diff = actual - expected;
     }
 
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.only(
         left: 20,
@@ -109,9 +112,9 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
         top: 20,
         bottom: MediaQuery.of(context).viewInsets.bottom + 24,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -124,7 +127,7 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: theme.dividerColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -141,27 +144,29 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.blue.shade50,
+                color: isDark ? theme.colorScheme.primary.withValues(alpha: 0.15) : Colors.blue.shade50,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.blue.shade200),
+                border: Border.all(
+                  color: isDark ? theme.colorScheme.primary.withValues(alpha: 0.3) : Colors.blue.shade200,
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     l10n.expectedInDrawer,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primaryBlue,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                   Text(
                     MoneyUtils.formatMoney(expected),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primaryBlue,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                 ],
@@ -175,10 +180,10 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
               autofocus: true,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 34,
                 fontWeight: FontWeight.bold,
-                color: AppColors.primaryBlue,
+                color: theme.colorScheme.primary,
               ),
               decoration: InputDecoration(
                 hintText: '0',
@@ -188,7 +193,7 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                 helperText: l10n.actualCountHint,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                 filled: true,
-                fillColor: Colors.grey.shade50,
+                fillColor: isDark ? const Color(0xFF111827) : Colors.grey.shade50,
               ),
             ),
             const SizedBox(height: 20),
@@ -199,17 +204,17 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: diff == 0
-                      ? AppColors.paymentGreenLight
+                      ? AppColors.paymentContainer(isDark)
                       : diff < 0
-                          ? AppColors.debtRedLight
-                          : AppColors.warningAmberLight,
+                          ? AppColors.debtContainer(isDark)
+                          : AppColors.warningContainer(isDark),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: diff == 0
-                        ? AppColors.paymentGreen
+                        ? (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen)
                         : diff < 0
-                            ? AppColors.debtRed
-                            : AppColors.warningAmber,
+                            ? (isDark ? AppColors.debtRedDark : AppColors.debtRed)
+                            : (isDark ? AppColors.warningAmberDark : AppColors.warningAmber),
                     width: 1.5,
                   ),
                 ),
@@ -288,7 +293,8 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                   style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.primaryBlue,
+                  backgroundColor: theme.colorScheme.primary,
+                  foregroundColor: theme.colorScheme.onPrimary,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
               ),

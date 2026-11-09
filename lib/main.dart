@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sqlcipher_flutter_libs/sqlcipher_flutter_libs.dart';
+import 'package:sqlite3/open.dart';
 import 'core/router/app_router.dart';
 import 'core/security/app_lock_wrapper.dart';
 import 'core/theme/app_theme.dart';
@@ -8,8 +11,17 @@ import 'core/widgets/home_widget_sync_coordinator.dart';
 import 'features/settings/data/settings_repository.dart';
 import 'l10n/app_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // On Android, configure SQLCipher native library before any database access
+  if (Platform.isAndroid) {
+    try {
+      await applyWorkaroundToOpenSqlCipherOnOldAndroidVersions();
+    } catch (_) {}
+    open.overrideFor(OperatingSystem.android, openCipherOnAndroid);
+  }
+
   runApp(
     const ProviderScope(
       child: KashkoolApp(),

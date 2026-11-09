@@ -12,7 +12,6 @@ class MessageTemplateEditorBottomSheet extends ConsumerStatefulWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -118,6 +117,9 @@ class _MessageTemplateEditorBottomSheetState
       );
     }
 
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Padding(
       padding: EdgeInsets.only(
         left: 20,
@@ -137,18 +139,18 @@ class _MessageTemplateEditorBottomSheetState
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: theme.dividerColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
             ),
 
-            const Text(
+            Text(
               'تعديل رسالة التذكير 💬',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: AppColors.textDark,
+                color: theme.colorScheme.onSurface,
               ),
               textAlign: TextAlign.center,
             ),
@@ -161,13 +163,13 @@ class _MessageTemplateEditorBottomSheetState
                 const SizedBox(width: 8),
                 ActionChip(
                   label: const Text('ودّي 😊'),
-                  backgroundColor: AppColors.primaryBlueLight,
+                  backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
                   onPressed: () => _applyPreset(WhatsAppTemplateUtils.defaultFriendlyTemplate),
                 ),
                 const SizedBox(width: 8),
                 ActionChip(
                   label: const Text('رسمي 👔'),
-                  backgroundColor: Colors.grey.shade200,
+                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   onPressed: () => _applyPreset(WhatsAppTemplateUtils.defaultFormalTemplate),
                 ),
               ],
@@ -201,23 +203,29 @@ class _MessageTemplateEditorBottomSheetState
             const SizedBox(height: 16),
 
             // Live Preview Card
-            const Text(
+            Text(
               'معاينة الرسالة كما ستصل للعميل:',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: theme.colorScheme.onSurface,
+              ),
             ),
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: const Color(0xFFDCF8C6), // WhatsApp soft green
+                color: isDark ? const Color(0xFF005C4B) : const Color(0xFFDCF8C6), // WhatsApp soft green
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFC7EBB0)),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF0B8067) : const Color(0xFFC7EBB0),
+                ),
               ),
               child: Text(
                 _renderPreview(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 13,
-                  color: Colors.black87,
+                  color: isDark ? Colors.white : Colors.black87,
                   height: 1.4,
                 ),
               ),
@@ -244,7 +252,7 @@ class _MessageTemplateEditorBottomSheetState
 
   Widget _buildPlaceholderChip(String placeholder, String label) {
     return ActionChip(
-      avatar: const Icon(Icons.add, size: 16, color: AppColors.primaryBlue),
+      avatar: Icon(Icons.add, size: 16, color: Theme.of(context).colorScheme.primary),
       label: Text(label, style: const TextStyle(fontSize: 12)),
       onPressed: () => _insertPlaceholder(placeholder),
     );

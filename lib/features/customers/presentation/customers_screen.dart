@@ -91,7 +91,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   children: [
                     Icon(
                       Icons.trending_down_rounded,
-                      color: activeSort == CustomerSort.highestBalance ? AppColors.primaryBlue : null,
+                      color: activeSort == CustomerSort.highestBalance ? theme.colorScheme.primary : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortHighestDebt),
@@ -104,7 +104,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   children: [
                     Icon(
                       Icons.sort_by_alpha_rounded,
-                      color: activeSort == CustomerSort.name ? AppColors.primaryBlue : null,
+                      color: activeSort == CustomerSort.name ? theme.colorScheme.primary : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortName),
@@ -117,7 +117,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   children: [
                     Icon(
                       Icons.schedule_rounded,
-                      color: activeSort == CustomerSort.lastActivity ? AppColors.primaryBlue : null,
+                      color: activeSort == CustomerSort.lastActivity ? theme.colorScheme.primary : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortLastActivity),
@@ -270,8 +270,6 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: AppColors.primaryBlue,
-        foregroundColor: Colors.white,
         icon: const Icon(Icons.person_add_alt_1_rounded),
         label: Text(
           l10n.addNewCustomer,

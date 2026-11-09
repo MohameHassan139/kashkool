@@ -21,8 +21,8 @@ dependencies:
 
   # Local Database
   drift: ^2.24.2
-  drift_flutter: ^0.2.4
-  sqlite3_flutter_libs: ^0.5.28
+  sqlcipher_flutter_libs: ^0.6.8
+  sqlite3: ^2.4.6
   path_provider: ^2.1.5
 
   # External Links & Media
@@ -45,7 +45,6 @@ dependencies:
   file_picker: ^13.3.2
   archive: ^4.0.2
   path: ^1.9.1
-  sqlcipher_flutter_libs: ^0.7.0+eol
   flutter_secure_storage: ^11.2.0
   device_info_plus: ^13.3.0
 

@@ -189,10 +189,12 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Directionality(
       textDirection: Directionality.maybeOf(context) ?? TextDirection.rtl,
       child: Scaffold(
-      backgroundColor: Colors.white,
       appBar: widget.onCancel != null
           ? AppBar(
               backgroundColor: Colors.transparent,
@@ -214,24 +216,24 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
               Container(
                 width: 72,
                 height: 72,
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryBlueLight,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.lock_rounded,
                   size: 38,
-                  color: AppColors.primaryBlue,
+                  color: theme.colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 20),
               // Header text
               Text(
                 _titleText,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textDark,
+                  color: theme.colorScheme.onSurface,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -258,9 +260,13 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
                     height: 18,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isFilled ? AppColors.primaryBlue : Colors.grey.shade300,
+                      color: isFilled
+                          ? theme.colorScheme.primary
+                          : (isDark ? const Color(0xFF374151) : Colors.grey.shade300),
                       border: Border.all(
-                        color: isFilled ? AppColors.primaryBlue : Colors.grey.shade400,
+                        color: isFilled
+                            ? theme.colorScheme.primary
+                            : (isDark ? const Color(0xFF4B5563) : Colors.grey.shade400),
                         width: 1.5,
                       ),
                     ),
@@ -341,11 +347,14 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
   }
 
   Widget _buildKeypadDigit(String digit) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return SizedBox(
       width: 72,
       height: 72,
       child: Material(
-        color: Colors.grey.shade100,
+        color: isDark ? const Color(0xFF1F2937) : Colors.grey.shade100,
         shape: const CircleBorder(),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -353,10 +362,10 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
           child: Center(
             child: Text(
               digit,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
-                color: AppColors.textDark,
+                color: theme.colorScheme.onSurface,
               ),
             ),
           ),
@@ -370,6 +379,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
     required VoidCallback onTap,
     String? tooltip,
   }) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: 72,
       height: 72,
@@ -380,7 +390,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
         child: InkWell(
           onTap: onTap,
           child: Center(
-            child: Icon(icon, size: 28, color: AppColors.primaryBlue),
+            child: Icon(icon, size: 28, color: theme.colorScheme.primary),
           ),
         ),
       ),

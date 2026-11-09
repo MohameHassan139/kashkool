@@ -34,10 +34,10 @@ class _CashDrawerScreenState extends ConsumerState<CashDrawerScreen> with Single
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final todaySummaryAsync = ref.watch(todayDrawerSummaryProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.lightBg,
       appBar: AppBar(
         title: Text(
           l10n.drawerTitle,
@@ -45,9 +45,11 @@ class _CashDrawerScreenState extends ConsumerState<CashDrawerScreen> with Single
         ),
         bottom: TabBar(
           controller: _tabController,
-          labelColor: AppColors.primaryBlue,
-          unselectedLabelColor: AppColors.neutralGrey,
-          indicatorColor: AppColors.primaryBlue,
+          labelColor: theme.colorScheme.primary,
+          unselectedLabelColor: theme.brightness == Brightness.dark
+              ? const Color(0xFF9CA3AF)
+              : AppColors.neutralGrey,
+          indicatorColor: theme.colorScheme.primary,
           indicatorWeight: 3,
           tabs: [
             Tab(

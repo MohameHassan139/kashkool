@@ -23,8 +23,8 @@ class HomeWidgetSettingsCard extends ConsumerWidget {
           children: [
             SwitchListTile(
               secondary: CircleAvatar(
-                backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.12),
-                child: const Icon(Icons.widgets_rounded, color: AppColors.primaryBlue),
+                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(Icons.widgets_rounded, color: Theme.of(context).colorScheme.primary),
               ),
               title: const Text(
                 'عرض حساباتك على الشاشة الرئيسية',

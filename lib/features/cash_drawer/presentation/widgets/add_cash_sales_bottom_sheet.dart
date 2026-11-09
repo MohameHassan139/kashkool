@@ -84,6 +84,8 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       padding: EdgeInsets.only(
@@ -92,9 +94,9 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
         top: 20,
         bottom: MediaQuery.of(context).viewInsets.bottom + 24,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -107,7 +109,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: theme.dividerColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -154,10 +156,10 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
               autofocus: true,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 34,
                 fontWeight: FontWeight.bold,
-                color: AppColors.paymentGreen,
+                color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
               ),
               decoration: InputDecoration(
                 hintText: '0',
@@ -166,7 +168,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                 labelText: _isAddMode ? 'المبلغ المراد إضافته' : 'إجمالي المبيعات الجديد',
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                 filled: true,
-                fillColor: Colors.grey.shade50,
+                fillColor: isDark ? const Color(0xFF111827) : Colors.grey.shade50,
               ),
             ),
             const SizedBox(height: 12),
@@ -179,9 +181,9 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                 return ActionChip(
                   label: Text('+$val جنيه'),
                   onPressed: () => _addQuickAmount(val),
-                  backgroundColor: AppColors.paymentGreenLight,
-                  labelStyle: const TextStyle(
-                    color: AppColors.paymentGreen,
+                  backgroundColor: AppColors.paymentContainer(isDark),
+                  labelStyle: TextStyle(
+                    color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                     fontWeight: FontWeight.bold,
                   ),
                 );

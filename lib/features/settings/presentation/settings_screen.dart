@@ -29,6 +29,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final privacyModeAsync = ref.watch(privacyModeProvider);
     final shopCodeAsync = ref.watch(shopCodeProvider);
     final hasPinAsync = ref.watch(hasPinProvider);
@@ -37,7 +38,6 @@ class SettingsScreen extends ConsumerWidget {
     final themeModeAsync = ref.watch(themeModeProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.lightBg,
       appBar: AppBar(
         title: Text(l10n.navSettings),
       ),
@@ -48,11 +48,11 @@ class SettingsScreen extends ConsumerWidget {
           const BackupReminderBanner(),
 
           // 1. بيانات المحل (Shop Info)
-          _buildSectionHeader('بيانات المحل 🏪'),
+          _buildSectionHeader(context, 'بيانات المحل 🏪'),
           _buildShopInfoCard(context, ref),
 
           // 2. الحماية والخصوصية (Security & Privacy)
-          _buildSectionHeader('الحماية والخصوصية 🔒'),
+          _buildSectionHeader(context, 'الحماية والخصوصية 🔒'),
           _buildSecurityCard(
             context,
             ref,
@@ -62,23 +62,23 @@ class SettingsScreen extends ConsumerWidget {
           ),
 
           // 2b. ويدجت الشاشة الرئيسية (Home Screen Widget)
-          _buildSectionHeader('ويدجت الشاشة الرئيسية 📱'),
+          _buildSectionHeader(context, 'ويدجت الشاشة الرئيسية 📱'),
           const HomeWidgetSettingsCard(),
 
           // 3. التذكيرات ورسائل الواتساب (Reminders)
-          _buildSectionHeader('رسائل التذكير والتحصيل 💬'),
+          _buildSectionHeader(context, 'رسائل التذكير والتحصيل 💬'),
           _buildRemindersCard(context, ref),
 
           // 4. النسخ الاحتياطي والبيانات (Backup & Data)
-          _buildSectionHeader('النسخ الاحتياطي والبيانات 💾'),
+          _buildSectionHeader(context, 'النسخ الاحتياطي والبيانات 💾'),
           _buildBackupCard(context, ref, lastBackupAsync.valueOrNull),
 
           // 5. مشاركة التطبيق (Growth)
-          _buildSectionHeader('مشاركة التطبيق 🚀'),
+          _buildSectionHeader(context, 'مشاركة التطبيق 🚀'),
           _buildShareCard(context, ref, l10n, shopCodeAsync.valueOrNull),
 
           // 6. عام والمظهر (General)
-          _buildSectionHeader('عام ⚙️'),
+          _buildSectionHeader(context, 'عام ⚙️'),
           _buildGeneralCard(context, ref, themeModeAsync.valueOrNull ?? ThemeMode.system),
 
           const SizedBox(height: 16),
@@ -88,19 +88,25 @@ class SettingsScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     'كشكول 📒',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primaryBlue,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'دفتر حسابات المحل بدون نت (Offline-First)\nالإصدار 1.0.0',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: theme.brightness == Brightness.dark
+                          ? const Color(0xFF9CA3AF)
+                          : Colors.grey.shade600,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -112,15 +118,16 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(BuildContext context, String title) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 16, bottom: 6),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
-          color: AppColors.primaryBlue,
+          color: theme.colorScheme.primary,
         ),
       ),
     );
@@ -160,9 +167,9 @@ class SettingsScreen extends ConsumerWidget {
         elevation: 1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: ListTile(
-          leading: const CircleAvatar(
-            backgroundColor: AppColors.primaryBlueLight,
-            child: Icon(Icons.storefront_rounded, color: AppColors.primaryBlue),
+          leading: CircleAvatar(
+            backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+            child: Icon(Icons.storefront_rounded, color: Theme.of(context).colorScheme.primary),
           ),
           title: Text(
             shopName,
@@ -199,9 +206,9 @@ class SettingsScreen extends ConsumerWidget {
           children: [
             // Privacy Mode
             SwitchListTile(
-              secondary: const CircleAvatar(
-                backgroundColor: AppColors.warningAmberLight,
-                child: Icon(Icons.visibility_off_rounded, color: AppColors.warningAmber),
+              secondary: CircleAvatar(
+                backgroundColor: AppColors.warningAmber.withValues(alpha: 0.15),
+                child: const Icon(Icons.visibility_off_rounded, color: AppColors.warningAmber),
               ),
               title: const Text(
                 'وضع الخصوصية',
@@ -221,10 +228,14 @@ class SettingsScreen extends ConsumerWidget {
             // PIN Lock ListTile with clean badge + chevron
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: hasPin ? AppColors.paymentGreenLight : Colors.grey.shade100,
+                backgroundColor: hasPin
+                    ? AppColors.paymentGreen.withValues(alpha: 0.15)
+                    : Theme.of(context).colorScheme.surfaceContainerHighest,
                 child: Icon(
                   Icons.lock_rounded,
-                  color: hasPin ? AppColors.paymentGreen : AppColors.neutralGrey,
+                  color: hasPin
+                      ? AppColors.paymentGreen
+                      : AppColors.secondaryText(Theme.of(context).brightness == Brightness.dark),
                 ),
               ),
               title: const Text(
@@ -246,7 +257,7 @@ class SettingsScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
-                      color: hasPin ? AppColors.paymentGreen : AppColors.primaryBlue,
+                      color: hasPin ? AppColors.paymentGreen : Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -300,9 +311,9 @@ class SettingsScreen extends ConsumerWidget {
               const Divider(height: 1),
               // Biometric Lock
               SwitchListTile(
-                secondary: const CircleAvatar(
-                  backgroundColor: AppColors.primaryBlueLight,
-                  child: Icon(Icons.fingerprint_rounded, color: AppColors.primaryBlue),
+                secondary: CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                  child: Icon(Icons.fingerprint_rounded, color: Theme.of(context).colorScheme.primary),
                 ),
                 title: const Text(
                   'فتح بالبصمة / Face ID',
@@ -412,9 +423,9 @@ class SettingsScreen extends ConsumerWidget {
         child: Column(
           children: [
             ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.primaryBlueLight,
-                child: Icon(Icons.edit_note_rounded, color: AppColors.primaryBlue),
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(Icons.edit_note_rounded, color: Theme.of(context).colorScheme.primary),
               ),
               title: const Text(
                 'صيغة رسالة التذكير',
@@ -432,7 +443,7 @@ class SettingsScreen extends ConsumerWidget {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.indigo.withValues(alpha: 0.12),
+                  color: Colors.indigo.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.battery_alert_rounded, color: Colors.indigo, size: 22),
@@ -470,7 +481,9 @@ class SettingsScreen extends ConsumerWidget {
             // Status row
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: lastBackup != null ? AppColors.paymentGreenLight : AppColors.warningAmberLight,
+                backgroundColor: lastBackup != null
+                    ? AppColors.paymentGreen.withValues(alpha: 0.15)
+                    : AppColors.warningAmber.withValues(alpha: 0.15),
                 child: Icon(
                   Icons.history_rounded,
                   color: lastBackup != null ? AppColors.paymentGreen : AppColors.warningAmber,
@@ -489,9 +502,9 @@ class SettingsScreen extends ConsumerWidget {
 
             // Export button
             ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.primaryBlueLight,
-                child: Icon(Icons.upload_file_rounded, color: AppColors.primaryBlue),
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(Icons.upload_file_rounded, color: Theme.of(context).colorScheme.primary),
               ),
               title: const Text(
                 'تصدير نسخة احتياطية (.kashkool)',
@@ -527,9 +540,9 @@ class SettingsScreen extends ConsumerWidget {
 
             // Import button
             ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.warningAmberLight,
-                child: Icon(Icons.download_rounded, color: AppColors.warningAmber),
+              leading: CircleAvatar(
+                backgroundColor: AppColors.warningAmber.withValues(alpha: 0.15),
+                child: const Icon(Icons.download_rounded, color: AppColors.warningAmber),
               ),
               title: const Text(
                 'استعادة نسخة احتياطية',
@@ -664,9 +677,9 @@ class SettingsScreen extends ConsumerWidget {
           children: [
             ListTile(
               minVerticalPadding: 14,
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.paymentGreenLight,
-                child: Icon(Icons.share_rounded, color: AppColors.paymentGreen),
+              leading: CircleAvatar(
+                backgroundColor: AppColors.paymentGreen.withValues(alpha: 0.15),
+                child: const Icon(Icons.share_rounded, color: AppColors.paymentGreen),
               ),
               title: Text(
                 l10n.shareAppTitle,
@@ -698,9 +711,12 @@ class SettingsScreen extends ConsumerWidget {
             const Divider(height: 1),
             // Locked in Free tier
             SwitchListTile(
-              secondary: const CircleAvatar(
-                backgroundColor: AppColors.neutralGreyLight,
-                child: Icon(Icons.lock_rounded, color: AppColors.neutralGrey),
+              secondary: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                child: Icon(
+                  Icons.lock_rounded,
+                  color: AppColors.secondaryText(Theme.of(context).brightness == Brightness.dark),
+                ),
               ),
               title: Text(
                 l10n.growthFooterToggleTitle,
@@ -736,9 +752,9 @@ class SettingsScreen extends ConsumerWidget {
           children: [
             // Theme selector with dialog
             ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.primaryBlueLight,
-                child: Icon(Icons.palette_outlined, color: AppColors.primaryBlue),
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(Icons.palette_outlined, color: Theme.of(context).colorScheme.primary),
               ),
               title: const Text(
                 'مظهر التطبيق',
@@ -772,9 +788,12 @@ class SettingsScreen extends ConsumerWidget {
                     final limitPiasters = snapshot.data;
                     final limitStr = limitPiasters != null ? MoneyUtils.formatMoney(limitPiasters) : 'غير محدد';
                     return ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: AppColors.neutralGreyLight,
-                        child: Icon(Icons.credit_card_rounded, color: AppColors.textDark),
+                      leading: CircleAvatar(
+                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        child: Icon(
+                          Icons.credit_card_rounded,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
                       title: const Text(
                         'حد الدين الافتراضي للعميل الجديد',
@@ -795,9 +814,9 @@ class SettingsScreen extends ConsumerWidget {
 
             // Contact us on WhatsApp
             ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.paymentGreenLight,
-                child: Icon(Icons.chat_bubble_outline_rounded, color: AppColors.paymentGreen),
+              leading: CircleAvatar(
+                backgroundColor: AppColors.paymentGreen.withValues(alpha: 0.15),
+                child: const Icon(Icons.chat_bubble_outline_rounded, color: AppColors.paymentGreen),
               ),
               title: const Text(
                 'تواصل معنا عبر واتساب',
@@ -819,9 +838,12 @@ class SettingsScreen extends ConsumerWidget {
 
             // Privacy Policy & Terms
             ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: Colors.grey,
-                child: Icon(Icons.privacy_tip_outlined, color: Colors.white),
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                child: Icon(
+                  Icons.privacy_tip_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
               title: const Text(
                 'سياسة الخصوصية وشروط الاستخدام',

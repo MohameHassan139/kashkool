@@ -81,13 +81,14 @@ class ExpensesListCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final expenses = summary.expenses;
     final isClosed = summary.isClosed;
 
     return Card(
-      elevation: 2,
+      elevation: isDark ? 1 : 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
@@ -98,7 +99,11 @@ class ExpensesListCard extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.receipt_long_outlined, color: AppColors.debtRed, size: 24),
+                    Icon(
+                      Icons.receipt_long_outlined,
+                      color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                      size: 24,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       l10n.expensesCash,
@@ -137,8 +142,12 @@ class ExpensesListCard extends ConsumerWidget {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: CircleAvatar(
-                      backgroundColor: AppColors.debtRedLight,
-                      child: Icon(_getCategoryIcon(expense.category), color: AppColors.debtRed, size: 20),
+                      backgroundColor: AppColors.debtContainer(isDark),
+                      child: Icon(
+                        _getCategoryIcon(expense.category),
+                        color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                        size: 20,
+                      ),
                     ),
                     title: Text(
                       _getCategoryLabel(expense.category, l10n),
@@ -158,10 +167,10 @@ class ExpensesListCard extends ConsumerWidget {
                       children: [
                         Text(
                           MoneyUtils.formatMoney(expense.amountPiasters),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.debtRed,
+                            color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                           ),
                         ),
                         if (!isClosed) ...[

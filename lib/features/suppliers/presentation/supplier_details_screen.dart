@@ -238,14 +238,14 @@ class SupplierDetailsScreen extends ConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.calendar_today_rounded, size: 15, color: AppColors.primaryBlue),
+                            Icon(Icons.calendar_today_rounded, size: 15, color: theme.colorScheme.primary),
                             const SizedBox(width: 6),
                             Text(
                               l10n.visitDayPrefix(visitDay),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.primaryBlue,
+                                color: theme.colorScheme.primary,
                               ),
                             ),
                           ],

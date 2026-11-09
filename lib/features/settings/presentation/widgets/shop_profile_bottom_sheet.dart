@@ -14,7 +14,6 @@ class ShopProfileBottomSheet extends ConsumerStatefulWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -163,15 +162,19 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: Theme.of(context).dividerColor,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
               ),
 
-              const Text(
+              Text(
                 'بيانات المحل 🏪',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textDark),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -182,10 +185,10 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                   children: [
                     CircleAvatar(
                       radius: 40,
-                      backgroundColor: AppColors.primaryBlueLight,
+                      backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                       backgroundImage: _logoPath != null ? FileImage(File(_logoPath!)) : null,
                       child: _logoPath == null
-                          ? const Icon(Icons.storefront_rounded, size: 40, color: AppColors.primaryBlue)
+                          ? Icon(Icons.storefront_rounded, size: 40, color: Theme.of(context).colorScheme.primary)
                           : null,
                     ),
                     Positioned(
@@ -193,10 +196,14 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                       right: 0,
                       child: InkWell(
                         onTap: _pickLogo,
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 14,
-                          backgroundColor: AppColors.primaryBlue,
-                          child: Icon(Icons.camera_alt_rounded, size: 14, color: Colors.white),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          child: Icon(
+                            Icons.camera_alt_rounded,
+                            size: 14,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                         ),
                       ),
                     ),

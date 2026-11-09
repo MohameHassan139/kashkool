@@ -74,7 +74,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
                     Icon(
                       Icons.trending_down_rounded,
                       color: activeSort == SupplierSort.highestBalance
-                          ? AppColors.primaryBlue
+                          ? theme.colorScheme.primary
                           : null,
                     ),
                     const SizedBox(width: 8),
@@ -88,7 +88,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
                   children: [
                     Icon(
                       Icons.sort_by_alpha_rounded,
-                      color: activeSort == SupplierSort.name ? AppColors.primaryBlue : null,
+                      color: activeSort == SupplierSort.name ? theme.colorScheme.primary : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortName),
@@ -101,7 +101,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
                   children: [
                     Icon(
                       Icons.business_rounded,
-                      color: activeSort == SupplierSort.company ? AppColors.primaryBlue : null,
+                      color: activeSort == SupplierSort.company ? theme.colorScheme.primary : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortCompany),
@@ -114,7 +114,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
                   children: [
                     Icon(
                       Icons.calendar_today_rounded,
-                      color: activeSort == SupplierSort.visitDay ? AppColors.primaryBlue : null,
+                      color: activeSort == SupplierSort.visitDay ? theme.colorScheme.primary : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortVisitDay),

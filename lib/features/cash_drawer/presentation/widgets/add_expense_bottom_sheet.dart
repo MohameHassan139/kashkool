@@ -142,6 +142,9 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
     final l10n = AppLocalizations.of(context)!;
     final isEditing = widget.existingExpense != null;
 
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.only(
         left: 20,
@@ -149,9 +152,9 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
         top: 20,
         bottom: MediaQuery.of(context).viewInsets.bottom + 24,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Form(
         key: _formKey,
@@ -167,7 +170,7 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: theme.dividerColor,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -189,10 +192,10 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
                 autofocus: true,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.debtRed,
+                  color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                 ),
                 decoration: InputDecoration(
                   hintText: '0',
@@ -201,7 +204,7 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
                   labelText: l10n.amountLabel,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                   filled: true,
-                  fillColor: Colors.grey.shade50,
+                  fillColor: isDark ? const Color(0xFF111827) : Colors.grey.shade50,
                 ),
                 validator: (val) {
                   final piasters = MoneyUtils.toPiasters(val ?? '');
@@ -226,13 +229,13 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
                     avatar: Icon(
                       _getCategoryIcon(cat),
                       size: 18,
-                      color: isSelected ? Colors.white : Colors.grey.shade700,
+                      color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurfaceVariant,
                     ),
                     label: Text(_getCategoryLabel(cat, l10n)),
                     selected: isSelected,
-                    selectedColor: AppColors.primaryBlue,
+                    selectedColor: theme.colorScheme.primary,
                     labelStyle: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black87,
+                      color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
                       fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                     ),
                     onSelected: (selected) {
@@ -300,7 +303,8 @@ class _AddExpenseBottomSheetState extends ConsumerState<AddExpenseBottomSheet> {
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.primaryBlue,
+                    backgroundColor: theme.colorScheme.primary,
+                    foregroundColor: theme.colorScheme.onPrimary,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   ),
                 ),

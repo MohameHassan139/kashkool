@@ -145,8 +145,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: const Text(
           'تهيئة كشكول لأول مرة',
@@ -174,7 +176,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       height: 5,
                       margin: const EdgeInsets.symmetric(horizontal: 3),
                       decoration: BoxDecoration(
-                        color: active ? AppColors.primaryNavy : Colors.grey[300],
+                        color: active
+                            ? theme.colorScheme.primary
+                            : (isDark ? const Color(0xFF374151) : Colors.grey[300]),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
@@ -208,8 +212,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   child: ElevatedButton(
                     onPressed: _nextPage,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryNavy,
-                      foregroundColor: Colors.white,
+                      backgroundColor: theme.colorScheme.primary,
+                      foregroundColor: theme.colorScheme.onPrimary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),

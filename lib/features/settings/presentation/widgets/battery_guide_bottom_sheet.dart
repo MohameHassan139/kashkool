@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/battery_optimization_helper.dart';
 
 class BatteryGuideBottomSheet extends StatefulWidget {
@@ -9,7 +8,6 @@ class BatteryGuideBottomSheet extends StatefulWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -44,6 +42,8 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final guide = _guide;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -63,7 +63,7 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: theme.dividerColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -73,7 +73,7 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.indigo.withValues(alpha: 0.12),
+                    color: Colors.indigo.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.battery_alert_rounded, color: Colors.indigo),
@@ -94,7 +94,7 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
                           guide.osName,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.indigo[800],
+                            color: isDark ? const Color(0xFF818CF8) : Colors.indigo[800],
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -106,7 +106,11 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
             const Divider(height: 24),
             Text(
               'تقوم بعض الهواتف (مثل شاومي، ريلمي، إنفينيكس، وهواوي) بإيقاف التطبيقات في الخلفية لتوفير البطارية. لضمان وصول تذكير التحصيل اليومي ومواعيد الأقساط بدقة، يُرجى تطبيق الخطوات التالية:',
-              style: TextStyle(fontSize: 13, color: Colors.grey[700], height: 1.4),
+              style: TextStyle(
+                fontSize: 13,
+                color: isDark ? const Color(0xFF9CA3AF) : Colors.grey[700],
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 16),
             if (_loading)
@@ -122,9 +126,11 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
                   margin: const EdgeInsets.only(bottom: 10),
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.grey[50],
+                    color: isDark ? const Color(0xFF111827) : Colors.grey[50],
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey.shade200),
+                    border: Border.all(
+                      color: isDark ? const Color(0xFF374151) : Colors.grey.shade200,
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,8 +164,8 @@ class _BatteryGuideBottomSheetState extends State<BatteryGuideBottomSheet> {
               icon: const Icon(Icons.tune_rounded, size: 18),
               label: const Text('فتح إعدادات بطارية الهاتف الآن'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryNavy,
-                foregroundColor: Colors.white,
+                backgroundColor: theme.colorScheme.primary,
+                foregroundColor: theme.colorScheme.onPrimary,
                 minimumSize: const Size.fromHeight(50),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),

@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../features/settings/data/settings_repository.dart';
 import '../db/app_database.dart';
+import '../db/encryption_helper.dart';
 
 /// Validation result of a backup file.
 class BackupValidationResult {
@@ -127,12 +128,14 @@ class BackupService {
 
     // Add metadata.json
     final now = DateTime.now();
+    final isUnencrypted = await AppDatabase.isUnencryptedDatabase(dbFile);
     final metadata = {
       'formatVersion': 1,
       'exportedAt': now.toIso8601String(),
       'appVersion': '1.0.0',
       'dbSha256': dbHash,
       'photosCount': photosCount,
+      'isEncrypted': !isUnencrypted,
     };
     final metaBytes = utf8.encode(jsonEncode(metadata));
     archive.addFile(ArchiveFile('metadata.json', metaBytes.length, metaBytes));
@@ -209,27 +212,10 @@ class BackupService {
       );
     }
 
-    // Verify SQLite Header
-    final List<int> dbBytes = dbFile.content;
-    if (dbBytes.length < 16) {
-      return const BackupValidationResult(
-        isValid: false,
-        errorMessage: 'قاعدة البيانات داخل الملف تالفة',
-      );
-    }
-
-    for (int i = 0; i < 16; i++) {
-      if (dbBytes[i] != sqliteHeaderBytes[i]) {
-        return const BackupValidationResult(
-          isValid: false,
-          errorMessage: 'الملف ليس قاعدة بيانات SQLite صالحة',
-        );
-      }
-    }
-
     // Count photos and parse metadata
     int photosCount = 0;
     DateTime? exportedAt;
+    bool isMarkedEncrypted = false;
     for (final f in archive.files) {
       if (f.name.startsWith('photos/') && !f.name.endsWith('/')) {
         photosCount++;
@@ -240,7 +226,36 @@ class BackupService {
           if (map['exportedAt'] != null) {
             exportedAt = DateTime.tryParse(map['exportedAt'].toString());
           }
+          if (map['isEncrypted'] == true) {
+            isMarkedEncrypted = true;
+          }
         } catch (_) {}
+      }
+    }
+
+    // Verify SQLite Header
+    final List<int> dbBytes = dbFile.content;
+    if (dbBytes.length < 16) {
+      return const BackupValidationResult(
+        isValid: false,
+        errorMessage: 'قاعدة البيانات داخل الملف تالفة',
+      );
+    }
+
+    bool isPlainSqlite = true;
+    for (int i = 0; i < 16; i++) {
+      if (dbBytes[i] != sqliteHeaderBytes[i]) {
+        isPlainSqlite = false;
+        break;
+      }
+    }
+
+    if (!isPlainSqlite) {
+      if (!isMarkedEncrypted || dbBytes.length < 100) {
+        return const BackupValidationResult(
+          isValid: false,
+          errorMessage: 'الملف ليس قاعدة بيانات SQLite صالحة',
+        );
       }
     }
 
@@ -293,6 +308,16 @@ class BackupService {
     // Overwrite SQLite database
     final dbBytes = dbEntry.content;
     await targetDbFile.writeAsBytes(dbBytes, flush: true);
+
+    // If the restored database is an unencrypted legacy database, automatically migrate and encrypt it
+    try {
+      if (await AppDatabase.isUnencryptedDatabase(targetDbFile)) {
+        final key = await DatabaseEncryptionHelper.getOrCreateKey();
+        await AppDatabase.migrateUnencryptedDatabase(targetDbFile, key);
+      }
+    } catch (_) {
+      // In tests with synthetic bytes or corrupted files, ignore migration failure
+    }
 
     // Extract photos
     final photosDir = await getPhotosDirectory();

@@ -53,12 +53,13 @@ class DrawerLiveCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final isClosed = summary.isClosed;
 
     return Card(
-      elevation: 3,
+      elevation: isDark ? 1 : 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -70,14 +71,14 @@ class DrawerLiveCard extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.point_of_sale_rounded, color: AppColors.primaryBlue, size: 28),
+                    Icon(Icons.point_of_sale_rounded, color: theme.colorScheme.primary, size: 28),
                     const SizedBox(width: 8),
                     Text(
                       l10n.expectedInDrawer,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.neutralGreyDark,
+                        color: theme.colorScheme.onSurface,
                       ),
                     ),
                   ],
@@ -85,7 +86,9 @@ class DrawerLiveCard extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: isClosed ? Colors.grey.shade200 : AppColors.paymentGreenLight,
+                    color: isClosed
+                        ? (isDark ? const Color(0xFF374151) : Colors.grey.shade200)
+                        : AppColors.paymentContainer(isDark),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -94,7 +97,9 @@ class DrawerLiveCard extends ConsumerWidget {
                       Icon(
                         isClosed ? Icons.lock_outline_rounded : Icons.lock_open_rounded,
                         size: 14,
-                        color: isClosed ? Colors.grey.shade700 : AppColors.paymentGreen,
+                        color: isClosed
+                            ? (isDark ? const Color(0xFFD1D5DB) : Colors.grey.shade700)
+                            : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
                       ),
                       const SizedBox(width: 4),
                       Text(
@@ -102,7 +107,9 @@ class DrawerLiveCard extends ConsumerWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: isClosed ? Colors.grey.shade800 : AppColors.paymentGreen,
+                          color: isClosed
+                              ? (isDark ? const Color(0xFFF3F4F6) : Colors.grey.shade800)
+                              : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
                         ),
                       ),
                     ],
@@ -115,10 +122,10 @@ class DrawerLiveCard extends ConsumerWidget {
             // Big Expected Amount
             Text(
               MoneyUtils.formatMoney(summary.expectedDrawerPiasters),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.w900,
-                color: AppColors.primaryBlue,
+                color: theme.colorScheme.primary,
                 letterSpacing: -0.5,
               ),
               textAlign: TextAlign.start,
@@ -140,16 +147,16 @@ class DrawerLiveCard extends ConsumerWidget {
                   children: [
                     Text(
                       MoneyUtils.formatMoney(summary.openingCashPiasters),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: theme.colorScheme.onSurface,
                       ),
                     ),
                     if (!isClosed) ...[
                       const SizedBox(width: 4),
                       IconButton(
-                        icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.primaryBlue),
+                        icon: Icon(Icons.edit_outlined, size: 18, color: theme.colorScheme.primary),
                         onPressed: () => EditOpeningCashDialog.show(
                           context,
                           date: summary.date,
@@ -177,10 +184,10 @@ class DrawerLiveCard extends ConsumerWidget {
                   ),
                   Text(
                     MoneyUtils.formatMoney(summary.actualCountPiasters!),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: theme.colorScheme.onSurface,
                     ),
                   ),
                 ],
@@ -264,7 +271,8 @@ class DrawerLiveCard extends ConsumerWidget {
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       style: FilledButton.styleFrom(
-                        backgroundColor: AppColors.primaryBlue,
+                        backgroundColor: theme.colorScheme.primary,
+                        foregroundColor: theme.colorScheme.onPrimary,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       ),
                     ),

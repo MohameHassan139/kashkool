@@ -48,6 +48,8 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
     if (_dismissed) return const SizedBox.shrink();
 
     final isDueAsync = ref.watch(isBackupDueProvider);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return isDueAsync.maybeWhen(
       data: (isDue) {
@@ -57,9 +59,12 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.warningAmberLight,
+            color: AppColors.warningContainer(isDark),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: AppColors.warningAmber, width: 1.5),
+            border: Border.all(
+              color: isDark ? AppColors.warningAmberDark : AppColors.warningAmber,
+              width: 1.5,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,13 +72,13 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.warning_amber_rounded,
-                    color: AppColors.warningAmber,
+                    color: isDark ? AppColors.warningAmberDark : AppColors.warningAmber,
                     size: 26,
                   ),
                   const SizedBox(width: 10),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -82,15 +87,15 @@ class _BackupReminderBannerState extends ConsumerState<BackupReminderBanner> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: AppColors.textDark,
+                            color: isDark ? AppColors.textLight : AppColors.textDark,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           'فات أكثر من 7 أيام من آخر نسخة. احفظ بياناتك عشان لو التليفون ضاع أو اتغير مفيش أي حساب يضيع.',
                           style: TextStyle(
                             fontSize: 13,
-                            color: AppColors.textDark,
+                            color: isDark ? const Color(0xFFE5E7EB) : AppColors.textDark,
                             height: 1.3,
                           ),
                         ),
