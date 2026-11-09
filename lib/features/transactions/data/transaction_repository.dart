@@ -104,24 +104,9 @@ class TransactionRepository {
     );
   }
 
-  /// Immediately undoes/cancels a newly recorded transaction.
-  Future<void> undoTransaction(String id) async {
-    // Look up transaction to clean up photo if present
-    final tx = await (_db.select(_db.transactions)..where((t) => t.id.equals(id))).getSingleOrNull();
-    if (tx?.photoPath != null) {
-      try {
-        final file = File(tx!.photoPath!);
-        if (await file.exists()) {
-          await file.delete();
-        }
-      } catch (_) {
-        // Silently ignore photo deletion error
-      }
-    }
-
-    // Permanently remove the undone transaction
-    await (_db.delete(_db.transactions)..where((t) => t.id.equals(id))).go();
-  }
+  /// Undoes a newly recorded transaction.
+  /// Nothing is erased: the row is hidden (soft delete) and can be brought back from the trash.
+  Future<void> undoTransaction(String id) => deleteTransaction(id);
 
   /// Retrieves a single transaction by ID.
   Future<Transaction?> getTransaction(String id) {

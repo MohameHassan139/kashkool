@@ -183,8 +183,10 @@ void main() {
       expect(customer!.balancePiasters, equals(5000));
       expect(customer.transactionCount, equals(1));
 
-      final deletedTx = await txRepo.getTransaction(mistakenTxId);
-      expect(deletedTx, isNull);
+      // Undo hides the transaction (soft delete); it is never erased.
+      final undoneTx = await txRepo.getTransaction(mistakenTxId);
+      expect(undoneTx, isNotNull);
+      expect(undoneTx!.deletedAt, isNotNull);
     });
 
     test('rejects transaction with non-positive amount', () async {

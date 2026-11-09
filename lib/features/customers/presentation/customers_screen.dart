@@ -5,6 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../onboarding/data/shop_repository.dart';
 import '../../settings/data/settings_repository.dart';
+import '../../settings/presentation/widgets/cloud_account_button.dart';
 import '../../suppliers/presentation/suppliers_providers.dart';
 import '../domain/customer_filter_sort.dart';
 import 'add_edit_customer_screen.dart';
@@ -56,6 +57,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
       appBar: AppBar(
         title: Text(l10n.navCustomers),
         actions: [
+          // Google sign-in / cloud backup status
+          const CloudAccountButton(),
           // Installments Quick Entry (visible when enabled for shop)
           if (installmentsEnabled)
             IconButton(

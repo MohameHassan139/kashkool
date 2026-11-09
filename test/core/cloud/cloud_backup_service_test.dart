@@ -178,6 +178,29 @@ void main() {
     expect(settings['security_pin_hash'], 'new-phone-pin');
   });
 
+  test('restore never deletes: phone-only rows stay, newer phone edits win', () async {
+    await CloudBackupService(db, api, store).backupNow();
+
+    final phone = AppDatabase(NativeDatabase.memory());
+    addTearDown(phone.close);
+    // A customer that exists only on this phone.
+    await phone.into(phone.customers).insert(CustomersCompanion.insert(id: 'phone-only', name: 'عميل الموبايل'));
+    // The same customer as the cloud (c1), edited on the phone AFTER the cloud copy.
+    await phone.into(phone.customers).insert(CustomersCompanion.insert(
+          id: 'c1',
+          name: 'أحمد (معدّل على الموبايل)',
+          updatedAt: Value(DateTime.now().add(const Duration(days: 1))),
+        ));
+
+    final result = await CloudBackupService(phone, api, store).restore(api.registered!);
+    expect(result.keptLocal, 1);
+
+    final customers = {for (final c in await phone.select(phone.customers).get()) c.id: c.name};
+    expect(customers['phone-only'], 'عميل الموبايل');
+    expect(customers['c1'], 'أحمد (معدّل على الموبايل)');
+    expect(await phone.select(phone.transactions).get(), hasLength(1));
+  });
+
   test('backup without signing in fails with a clear error', () async {
     await store.clear();
     await expectLater(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/cloud/auto_backup_coordinator.dart';
 import '../../../../core/cloud/cloud_api.dart';
 import '../../../../core/cloud/cloud_backup_service.dart';
 import '../../../../core/cloud/cloud_config.dart';
@@ -135,13 +136,12 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       builder: (ctx) => AlertDialog(
         title: const Text('استرجاع من السحابة؟'),
         content: Text(
-          'هنستبدل كل البيانات اللي على الموبايل ده بنسخة "${shop!['name']}" اللي على السحابة.\n\n'
-          'لو فيه بيانات على الموبايل ده مش مرفوعة، هتضيع. قفل التطبيق (PIN والبصمة) هيفضل زي ما هو.',
+          'هننزّل نسخة "${shop!['name']}" اللي على السحابة ونضيفها على الموبايل ده.\n\n'
+          'مش هنمسح أي حاجة: البيانات اللي على الموبايل بس هتفضل، ولو حاجة اتعدلت على الموبايل بعد آخر نسخة هنسيبها زي ما هي.',
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('إلغاء')),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed, foregroundColor: Colors.white),
             onPressed: () => Navigator.pop(ctx, true),
             child: const Text('أيوه، استرجع'),
           ),
@@ -157,7 +157,11 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
         title: const Text('تم الاسترجاع 🎉'),
-        content: Text('اترجع ${result.records} سجل. اقفل التطبيق وافتحه تاني عشان كل الشاشات تتحدث.'),
+        content: Text(
+          'اترجع ${result.records} سجل'
+          '${result.keptLocal > 0 ? '، واتساب ${result.keptLocal} سجل زي ما هو لأن نسخة الموبايل أحدث' : ''}.'
+          ' اقفل التطبيق وافتحه تاني عشان كل الشاشات تتحدث.',
+        ),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -240,6 +244,14 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
   List<Widget> _signedInTiles(CloudSession session) {
     final last = session.lastBackupAt;
     final lastText = last == null ? 'لسه مفيش نسخة' : 'آخر نسخة: ${DateFormat('yyyy/MM/dd - hh:mm a').format(last)}';
+    final auto = ref.watch(autoBackupStatusProvider);
+    final (autoText, autoColor) = switch (auto.state) {
+      AutoBackupState.uploading => ('بيرفع دلوقتي…', AppColors.primaryBlue),
+      AutoBackupState.waitingForInternet => ('مستني النت — هيرفع لوحده أول ما يرجع', AppColors.warningAmber),
+      AutoBackupState.failed => (auto.message ?? 'الرفع وقف، هنحاول تاني بعد شوية', AppColors.debtRed),
+      AutoBackupState.upToDate => (auto.message ?? 'كله مرفوع ✓', AppColors.paymentGreen),
+      AutoBackupState.idle => ('الرفع تلقائي لما النت يكون شغال', AppColors.neutralGrey),
+    };
     return [
       ListTile(
         leading: const CircleAvatar(
@@ -247,7 +259,14 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
           child: Icon(Icons.cloud_done_rounded, color: AppColors.paymentGreen),
         ),
         title: Text(session.email, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-        subtitle: Text(lastText, style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+        subtitle: Text.rich(
+          TextSpan(children: [
+            TextSpan(text: '$lastText\n'),
+            TextSpan(text: autoText, style: TextStyle(color: autoColor, fontWeight: FontWeight.w600)),
+          ]),
+          style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey, height: 1.5),
+        ),
+        isThreeLine: true,
       ),
       const Divider(height: 1),
       ListTile(
@@ -262,7 +281,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
         enabled: !_busy,
         leading: const Icon(Icons.cloud_download_rounded, color: AppColors.warningAmber),
         title: const Text('استرجع بياناتك على الموبايل ده', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-        subtitle: const Text('لموبايل جديد أو بعد مسح التطبيق', style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+        subtitle: const Text('لموبايل جديد أو بعد مسح التطبيق — مش بيمسح حاجة', style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
         trailing: const Icon(Icons.chevron_left_rounded),
         onTap: _restore,
       ),

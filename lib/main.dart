@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqlcipher_flutter_libs/sqlcipher_flutter_libs.dart';
 import 'package:sqlite3/open.dart';
+import 'core/cloud/auto_backup_coordinator.dart';
 import 'core/router/app_router.dart';
 import 'core/security/app_lock_wrapper.dart';
 import 'core/theme/app_theme.dart';
@@ -42,6 +43,9 @@ class _KashkoolAppState extends ConsumerState<KashkoolApp> {
     super.initState();
     // Initialize Home Widget sync coordinator
     ref.read(homeWidgetSyncCoordinatorProvider);
+
+    // Automatic cloud backup (when signed in): on reconnect, after changes, on resume
+    ref.read(autoBackupCoordinatorProvider);
 
     // Ensure the stable shop referral code exists from first launch (Feature 11)
     ref.read(settingsRepositoryProvider).getOrCreateShopCode();

@@ -47,6 +47,8 @@ export function checkWritePermission({ collection, def, member, incoming, existi
   }
 
   const deleting = incoming.deletedAt && !(existing?.deletedAt);
+  const restoring = existing?.deletedAt && 'deletedAt' in incoming && incoming.deletedAt === null;
+  if (restoring && !can(member, 'delete')) return 'permission_denied:delete';
   if (deleting && !can(member, 'delete')) {
     // An employee may correct (soft-delete + replace) their own transaction within 10 minutes.
     const ownRecent =

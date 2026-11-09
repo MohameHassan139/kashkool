@@ -37,7 +37,7 @@ test('push then pull round-trips records with server sequence numbers', async ()
   assert.equal(none.body.cursor, 2);
 });
 
-test('transactions are append-only: amounts never change, soft delete is one-way', async () => {
+test('transactions are append-only: amounts never change; trash and restore work', async () => {
   await push(owner.token, 'shop-1', [{ collection: 'transactions', record: tx('t-1') }]);
 
   const edit = await push(owner.token, 'shop-1', [{ collection: 'transactions', record: tx('t-1', { amountPiasters: 999999 }) }]);
@@ -49,12 +49,18 @@ test('transactions are append-only: amounts never change, soft delete is one-way
   ]);
   assert.deepEqual(del.body.results.map((r) => r.status), ['updated', 'inserted']);
 
-  const undelete = await push(owner.token, 'shop-1', [{ collection: 'transactions', record: tx('t-1', { deletedAt: null }) }]);
-  assert.equal(undelete.body.results[0].status, 'unchanged');
-
-  const stored = await db.collection('transactions').findOne({ shopId: 'shop-1', id: 't-1' });
-  assert.equal(stored.amountPiasters, 10000);
+  let stored = await db.collection('transactions').findOne({ shopId: 'shop-1', id: 't-1' });
   assert.equal(stored.deletedAt, '2026-11-02T10:00:00Z');
+  assert.equal(stored.supersededById, 't-2');
+
+  // Restore from trash: deletedAt cleared, amount still can't change, edit link stays.
+  const restore = await push(owner.token, 'shop-1', [
+    { collection: 'transactions', record: tx('t-1', { deletedAt: null, supersededById: null, amountPiasters: 1 }) },
+  ]);
+  assert.equal(restore.body.results[0].status, 'updated');
+  stored = await db.collection('transactions').findOne({ shopId: 'shop-1', id: 't-1' });
+  assert.equal(stored.deletedAt, null);
+  assert.equal(stored.amountPiasters, 10000);
   assert.equal(stored.supersededById, 't-2');
 });
 
@@ -145,11 +151,20 @@ test('expenses can be edited (they are not append-only)', async () => {
   assert.equal((await db.collection('expenses').findOne({ id: 'e-1' })).amountPiasters, 7000);
 });
 
-test('a deleted customer stays deleted', async () => {
+test('a deleted customer is kept and can be restored', async () => {
   await push(owner.token, 'shop-1', [{ collection: 'customers', record: { id: 'c-1', name: 'x', deletedAt: '2026-11-02T00:00:00Z' } }]);
-  await push(owner.token, 'shop-1', [{ collection: 'customers', record: { id: 'c-1', name: 'x', deletedAt: null } }]);
-  const c = await db.collection('customers').findOne({ id: 'c-1' });
+  let c = await db.collection('customers').findOne({ id: 'c-1' });
   assert.equal(c.deletedAt, '2026-11-02T00:00:00Z');
+  await push(owner.token, 'shop-1', [{ collection: 'customers', record: { id: 'c-1', name: 'x', deletedAt: null } }]);
+  c = await db.collection('customers').findOne({ id: 'c-1' });
+  assert.equal(c.deletedAt, null);
+});
+
+test('employees without the delete permission cannot restore from trash', async () => {
+  await push(owner.token, 'shop-1', [{ collection: 'customers', record: { id: 'c-1', name: 'x', deletedAt: '2026-11-02T00:00:00Z' } }]);
+  const emp = await addEmployee();
+  const res = await push(emp.token, 'shop-1', [{ collection: 'customers', record: { id: 'c-1', name: 'x', deletedAt: null } }]);
+  assert.equal(res.body.results[0].status, 'rejected');
 });
 
 async function addEmployee(permissions) {

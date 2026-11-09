@@ -4,7 +4,9 @@
  * mode:
  *  - "mutable": profile-like rows; later pushes overwrite fields (last write wins, server order).
  *  - "append":  financial rows; insert once. After that only `appendMutable` fields may change
- *               (soft delete, superseded link). Amounts are never edited in place.
+ *               (soft delete / restore from trash, superseded link). Amounts are never edited in place.
+ *
+ * Nothing is ever hard-deleted: `deletedAt` hides a row, clearing it restores the row.
  *
  * derived:   values the app computes locally (balances, paid amounts, statuses). Never stored/synced.
  * immutable: fields fixed after the first insert (e.g. installment plan prices).
@@ -173,10 +175,11 @@ export function planWrite(collectionName, incoming, existing) {
       if (field === 'updatedAt') continue; // only follows a real change
       const next = incoming[field];
       const prev = existing[field] ?? null;
-      if (field === 'deletedAt' || field === 'supersededById') {
-        // Soft delete and "superseded by" can be set once and never cleared.
+      if (field === 'supersededById') {
+        // An edit link is set once and never cleared.
         if (prev === null && next !== null) set[field] = next;
       } else if (next !== prev) {
+        // deletedAt can be set (moved to trash) and cleared (restored from trash).
         set[field] = next;
       }
     }
@@ -184,8 +187,6 @@ export function planWrite(collectionName, incoming, existing) {
     for (const [field, next] of Object.entries(incoming)) {
       if (field === 'id' || field === 'createdBy' || field === 'deviceId') continue;
       if (def.immutable?.includes(field) && existing[field] !== undefined && existing[field] !== null) continue;
-      // A soft-deleted row stays deleted.
-      if (field === 'deletedAt' && existing.deletedAt && next === null) continue;
       if (next !== (existing[field] ?? null)) set[field] = next;
     }
     delete set.updatedAt;

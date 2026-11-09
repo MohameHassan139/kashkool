@@ -100,9 +100,10 @@ status is anything except `rejected`. Show rejected ones in a "sync problems" li
 
 Rules the server enforces:
 - `transactions`, `installment_events`, `installment_attachments` are **append-only**:
-  after the first push only `deletedAt` and `supersededById` can be set (once, never cleared).
+  after the first push only `deletedAt` (move to trash / restore) and `supersededById` (set once) can change.
   An edit in the app = soft-delete the old row + push a new row.
-- Soft-deleted rows stay deleted.
+- Nothing is ever hard-deleted. Rows in the trash have `deletedAt`; restoring sends `deletedAt: null`
+  (employees need the `delete` permission for both).
 - Installment plan prices (`totalPricePiasters`, `downPaymentPiasters`, `cashPricePiasters`, markup,
   `customerId`, `planNumber`) are fixed after the first push.
 - Employees: permissions from spec 15 (no deleting, no suppliers/drawer/settings by default,

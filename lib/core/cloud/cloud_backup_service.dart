@@ -15,8 +15,12 @@ class BackupResult {
 }
 
 class RestoreResult {
+  /// Rows written to the phone.
   final int records;
-  const RestoreResult(this.records);
+
+  /// Rows skipped because the copy on the phone was newer.
+  final int keptLocal;
+  const RestoreResult(this.records, [this.keptLocal = 0]);
 }
 
 /// Cloud backup on the Kashkool backend: Google sign-in, upload local rows, restore on a phone.
@@ -157,8 +161,9 @@ class CloudBackupService {
   /// Shops on this Google account (to choose what to restore).
   Future<List<Map<String, dynamic>>> listCloudShops() => _api.listShops();
 
-  /// Replaces ALL data on this phone with the cloud copy of [shopId].
-  /// Security settings (PIN, fingerprint) on this phone are kept.
+  /// Brings the cloud copy of a shop to this phone **without deleting anything**:
+  /// cloud rows are added or updated; rows that exist only on the phone are kept, and a row
+  /// that was edited on the phone more recently than in the cloud is kept as it is.
   Future<RestoreResult> restore(Map<String, dynamic> shop, {CloudProgress? onProgress}) async {
     final shopId = shop['id'] as String;
     final changes = <Map<String, dynamic>>[];
@@ -173,59 +178,115 @@ class CloudBackupService {
 
     onProgress?.call('بنحفظ ${changes.length} سجل على الموبايل…', null);
     final now = DateTime.now();
-    final deviceId = (await (_db.select(_db.shops)..limit(1)).getSingleOrNull())?.deviceId;
+    final currentShop = await (_db.select(_db.shops)..where((s) => s.deletedAt.isNull())..limit(1)).getSingleOrNull();
+    var written = 0, keptLocal = 0;
 
     await _db.transaction(() async {
-      await _db.delete(_db.transactions).go();
-      await _db.delete(_db.installments).go();
-      await _db.delete(_db.installmentPlans).go();
-      await _db.delete(_db.customers).go();
-      await _db.delete(_db.suppliers).go();
-      await _db.delete(_db.cashDays).go();
-      await _db.delete(_db.expenses).go();
-      await _db.delete(_db.shops).go();
-      await (_db.delete(_db.appSettings)..where((s) => s.key.like('security_%').not())).go();
+      final stamps = {
+        'customers': await _stamps(_db.customers, _db.customers.id, _db.customers.updatedAt),
+        'suppliers': await _stamps(_db.suppliers, _db.suppliers.id, _db.suppliers.updatedAt),
+        'transactions': await _stamps(_db.transactions, _db.transactions.id, _db.transactions.updatedAt),
+        'installment_plans': await _stamps(_db.installmentPlans, _db.installmentPlans.id, _db.installmentPlans.updatedAt),
+        'installments': await _stamps(_db.installments, _db.installments.id, _db.installments.updatedAt),
+        'cash_days': await _stamps(_db.cashDays, _db.cashDays.id, _db.cashDays.updatedAt),
+        'expenses': await _stamps(_db.expenses, _db.expenses.id, _db.expenses.updatedAt),
+        'settings': await _stamps(_db.appSettings, _db.appSettings.id, _db.appSettings.updatedAt),
+      };
 
-      final type = (shop['type'] as String?) ?? 'other';
-      await _db.into(_db.shops).insertOnConflictUpdate(ShopsCompanion.insert(
-            id: shopId,
-            name: (shop['name'] as String?) ?? 'المحل',
-            shopId: Value(shopId),
-            deviceId: Value(deviceId ?? 'local_device'),
-            shopType: Value(type),
-            phone: Value(shop['phone'] as String?),
-            address: Value(shop['address'] as String?),
-            enableInstallments: Value(const {'mobile', 'electronics', 'furniture'}.contains(type)),
-            createdAt: Value(now),
-            updatedAt: Value(now),
-          ));
+      // Keep the phone's newer copy of a row; otherwise take the cloud copy.
+      bool phoneIsNewer(String collection, String id, DateTime cloudUpdatedAt) {
+        final local = stamps[collection]?[id];
+        return local != null && local.isAfter(cloudUpdatedAt);
+      }
+
+      final existingShop = await (_db.select(_db.shops)..where((s) => s.id.equals(shopId))).getSingleOrNull();
+      if (existingShop == null) {
+        final type = (shop['type'] as String?) ?? 'other';
+        await _db.into(_db.shops).insert(ShopsCompanion.insert(
+              id: shopId,
+              name: (shop['name'] as String?) ?? 'المحل',
+              shopId: Value(shopId),
+              deviceId: Value(currentShop?.deviceId ?? 'local_device'),
+              shopType: Value(type),
+              phone: Value(shop['phone'] as String?),
+              address: Value(shop['address'] as String?),
+              enableInstallments: Value(const {'mobile', 'electronics', 'furniture'}.contains(type)),
+              createdAt: Value(now),
+              updatedAt: Value(now),
+            ));
+      }
 
       for (final change in changes) {
+        final collection = change['collection'] as String?;
         final json = Map<String, dynamic>.from(change['record'] as Map);
-        switch (change['collection']) {
+        if (collection == 'installments') {
+          json['paidPiasters'] ??= 0;
+          json['status'] ??= 'pending';
+        }
+        if (collection == 'settings' && isPrivateSetting(json['key'] as String? ?? '')) continue;
+
+        Object? row;
+        DateTime? cloudUpdatedAt;
+        switch (collection) {
           case 'customers':
-            await _db.into(_db.customers).insertOnConflictUpdate(Customer.fromJson(json, serializer: serializer));
+            final r = Customer.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'suppliers':
-            await _db.into(_db.suppliers).insertOnConflictUpdate(Supplier.fromJson(json, serializer: serializer));
+            final r = Supplier.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'transactions':
-            await _db.into(_db.transactions).insertOnConflictUpdate(Transaction.fromJson(json, serializer: serializer));
+            final r = Transaction.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'installment_plans':
-            await _db.into(_db.installmentPlans).insertOnConflictUpdate(InstallmentPlan.fromJson(json, serializer: serializer));
+            final r = InstallmentPlan.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'installments':
-            json['paidPiasters'] ??= 0;
-            json['status'] ??= 'pending';
-            await _db.into(_db.installments).insertOnConflictUpdate(Installment.fromJson(json, serializer: serializer));
+            final r = Installment.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'cash_days':
-            await _db.into(_db.cashDays).insertOnConflictUpdate(CashDay.fromJson(json, serializer: serializer));
+            final r = CashDay.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'expenses':
-            await _db.into(_db.expenses).insertOnConflictUpdate(Expense.fromJson(json, serializer: serializer));
+            final r = Expense.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           case 'settings':
-            if (!isPrivateSetting(json['key'] as String? ?? '')) {
-              await _db.into(_db.appSettings).insertOnConflictUpdate(AppSetting.fromJson(json, serializer: serializer));
-            }
+            final r = AppSetting.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           default:
             break; // collections this app version doesn't store yet
         }
+        if (row == null || cloudUpdatedAt == null) continue;
+        if (phoneIsNewer(collection!, json['id'] as String, cloudUpdatedAt)) {
+          keptLocal++;
+          continue;
+        }
+        switch (collection) {
+          case 'customers':
+            await _db.into(_db.customers).insertOnConflictUpdate(row as Customer);
+          case 'suppliers':
+            await _db.into(_db.suppliers).insertOnConflictUpdate(row as Supplier);
+          case 'transactions':
+            await _db.into(_db.transactions).insertOnConflictUpdate(row as Transaction);
+          case 'installment_plans':
+            await _db.into(_db.installmentPlans).insertOnConflictUpdate(row as InstallmentPlan);
+          case 'installments':
+            await _db.into(_db.installments).insertOnConflictUpdate(row as Installment);
+          case 'cash_days':
+            await _db.into(_db.cashDays).insertOnConflictUpdate(row as CashDay);
+          case 'expenses':
+            await _db.into(_db.expenses).insertOnConflictUpdate(row as Expense);
+          case 'settings':
+            await _db.into(_db.appSettings).insertOnConflictUpdate(row as AppSetting);
+        }
+        written++;
       }
 
       for (final entry in {'active_shop_id': shopId, 'onboarding_completed': 'true'}.entries) {
@@ -243,6 +304,17 @@ class CloudBackupService {
     if (session != null) {
       await _store.write(session.copyWith(linkedShopId: shopId, lastBackupAt: now, lastBackupStartedAt: now));
     }
-    return RestoreResult(changes.length);
+    return RestoreResult(written, keptLocal);
+  }
+
+  /// `id → updatedAt` for every row of a table (deleted rows included).
+  Future<Map<String, DateTime>> _stamps<T extends Table, D>(
+    TableInfo<T, D> table,
+    GeneratedColumn<String> id,
+    GeneratedColumn<DateTime> updatedAt,
+  ) async {
+    final query = _db.selectOnly(table)..addColumns([id, updatedAt]);
+    final rows = await query.get();
+    return {for (final r in rows) r.read(id)!: r.read(updatedAt)!};
   }
 }

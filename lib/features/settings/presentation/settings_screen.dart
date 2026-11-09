@@ -17,6 +17,7 @@ import '../../onboarding/data/shop_repository.dart';
 import '../data/settings_repository.dart';
 import 'widgets/backup_reminder_banner.dart';
 import 'widgets/battery_guide_bottom_sheet.dart';
+import '../../trash/presentation/trash_screen.dart';
 import 'widgets/cloud_backup_card.dart';
 import 'widgets/home_widget_settings_card.dart';
 import 'widgets/message_template_editor_bottom_sheet.dart';
@@ -74,6 +75,7 @@ class SettingsScreen extends ConsumerWidget {
           _buildSectionHeader(context, 'النسخ الاحتياطي والبيانات 💾'),
           _buildBackupCard(context, ref, lastBackupAsync.valueOrNull),
           const CloudBackupCard(),
+          const TrashEntryTile(),
 
           // 5. مشاركة التطبيق (Growth)
           _buildSectionHeader(context, 'مشاركة التطبيق 🚀'),
