@@ -79,30 +79,33 @@ class _EditOpeningCashDialogState extends ConsumerState<EditOpeningCashDialog> {
 
     return AlertDialog(
       title: Text(l10n.editOpeningCash),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            l10n.openingCashHint,
-            style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _controller,
-            autofocus: true,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryBlue,
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              l10n.openingCashHint,
+              style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
             ),
-            decoration: InputDecoration(
-              suffixText: l10n.currency,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _controller,
+              autofocus: true,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primaryBlue,
+              ),
+              decoration: InputDecoration(
+                suffixText: l10n.currency,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: [
         TextButton(

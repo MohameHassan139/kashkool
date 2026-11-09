@@ -129,12 +129,15 @@ class DueInstallmentsTab extends ConsumerWidget {
                   border: Border.all(color: AppColors.debtRed.withValues(alpha: 0.3)),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'مطلوب تحصيل (${dueList.length}) قسط:',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Text(
+                        'مطلوب تحصيل (${dueList.length}) قسط:',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    const SizedBox(width: 8),
                     Text(
                       MoneyUtils.formatMoney(totalDuePiasters),
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.debtRed),

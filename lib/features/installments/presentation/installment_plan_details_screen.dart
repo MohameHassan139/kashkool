@@ -283,8 +283,12 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                             minimumSize: const Size.fromHeight(48),
                           ),
                           icon: const Icon(Icons.verified_rounded),
-                          label: const Text('سداد مبكر وتصفية بالكامل (مع إمكانية خصم)',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          label: const Text(
+                            'سداد مبكر وتصفية بالكامل',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -390,6 +394,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                     child: Text(
                       'جدول الأقساط (${item.installments.length})',
                       style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   if (!isCompleted && !isCancelled)

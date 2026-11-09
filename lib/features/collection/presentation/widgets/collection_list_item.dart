@@ -53,7 +53,7 @@ class CollectionListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Top Row: Name + Rating badge + Balance
+              // Top Row: Name + Phone + Balance
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -61,24 +61,13 @@ class CollectionListItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Text(
-                                customer.name,
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            CustomerRatingBadge(
-                              customerName: customer.name,
-                              rating: item.rating,
-                            ),
-                          ],
+                        Text(
+                          customer.name,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         if (customer.phone != null) ...[
                           const SizedBox(height: 2),
@@ -92,14 +81,20 @@ class CollectionListItem extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(width: 8),
 
-                  // Balance
-                  Text(
-                    MoneyUtils.formatMoney(balance),
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: AppColors.debtRed,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -0.5,
+                  // Balance (Flexible + FittedBox prevents overflow on large amounts / fonts)
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        MoneyUtils.formatMoney(balance),
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: AppColors.debtRed,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -107,9 +102,16 @@ class CollectionListItem extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // Debt age & Last reminder metadata chips
-              Row(
+              // Metadata chips: Rating badge, Debt age & Last reminder
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
+                  CustomerRatingBadge(
+                    customerName: customer.name,
+                    rating: item.rating,
+                  ),
                   // Debt Age
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -122,19 +124,21 @@ class CollectionListItem extends StatelessWidget {
                       children: [
                         const Icon(Icons.schedule_rounded, size: 14, color: AppColors.neutralGrey),
                         const SizedBox(width: 4),
-                        Text(
-                          item.oldestUnpaidAgeDays == 0
-                              ? l10n.oldestDebtToday
-                              : l10n.oldestDebtDays(item.oldestUnpaidAgeDays),
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Text(
+                            item.oldestUnpaidAgeDays == 0
+                                ? l10n.oldestDebtToday
+                                : l10n.oldestDebtDays(item.oldestUnpaidAgeDays),
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 8),
 
                   // Last Reminder
                   Container(
@@ -154,15 +158,18 @@ class CollectionListItem extends StatelessWidget {
                           color: AppColors.neutralGrey,
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          daysSinceReminder == null
+                        Flexible(
+                          child: Text(
+                            daysSinceReminder == null
                               ? l10n.neverReminded
                               : (daysSinceReminder == 0
                                   ? l10n.lastReminderToday
                                   : l10n.lastReminderDays(daysSinceReminder)),
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
-                            fontWeight: FontWeight.w600,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -187,55 +194,67 @@ class CollectionListItem extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                       ),
                       icon: const Icon(Icons.chat_bubble_rounded, size: 20),
                       label: Text(
                         l10n.sendWhatsApp,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       onPressed: onWhatsApp,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
 
                   // SMS Button
                   Container(
+                    width: 42,
+                    height: 48,
                     decoration: BoxDecoration(
                       color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: IconButton(
-                      icon: const Icon(Icons.sms_outlined),
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(Icons.sms_outlined, size: 20),
                       tooltip: l10n.sendSms,
                       color: isDark ? Colors.white : AppColors.primaryBlue,
                       onPressed: onSms,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
 
                   // Call Button
                   Container(
+                    width: 42,
+                    height: 48,
                     decoration: BoxDecoration(
                       color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: IconButton(
-                      icon: const Icon(Icons.phone_in_talk_outlined),
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(Icons.phone_in_talk_outlined, size: 20),
                       tooltip: l10n.callCustomer,
                       color: AppColors.paymentGreen,
                       onPressed: onCall,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
 
                   // More Options Popup Menu
                   Container(
+                    width: 42,
+                    height: 48,
                     decoration: BoxDecoration(
                       color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: PopupMenuButton<String>(
-                      icon: const Icon(Icons.more_horiz_rounded),
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(Icons.more_horiz_rounded, size: 20),
                       tooltip: l10n.moreActions,
                       onSelected: onActionSelected,
                       itemBuilder: (ctx) => [

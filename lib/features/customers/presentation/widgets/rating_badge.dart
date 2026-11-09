@@ -39,27 +39,30 @@ class CustomerRatingBadge extends StatelessWidget {
             width: 1,
           ),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 7,
-              height: 7,
-              decoration: BoxDecoration(
-                color: rating.color,
-                shape: BoxShape.circle,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: rating.color,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              rating.labelAr,
-              style: TextStyle(
-                color: rating.color,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+              const SizedBox(width: 5),
+              Text(
+                rating.labelAr,
+                style: TextStyle(
+                  color: rating.color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -17,6 +17,7 @@ import '../../onboarding/data/shop_repository.dart';
 import '../data/settings_repository.dart';
 import 'widgets/backup_reminder_banner.dart';
 import 'widgets/battery_guide_bottom_sheet.dart';
+import 'widgets/cloud_backup_card.dart';
 import 'widgets/home_widget_settings_card.dart';
 import 'widgets/message_template_editor_bottom_sheet.dart';
 import 'widgets/shop_profile_bottom_sheet.dart';
@@ -72,6 +73,7 @@ class SettingsScreen extends ConsumerWidget {
           // 4. النسخ الاحتياطي والبيانات (Backup & Data)
           _buildSectionHeader(context, 'النسخ الاحتياطي والبيانات 💾'),
           _buildBackupCard(context, ref, lastBackupAsync.valueOrNull),
+          const CloudBackupCard(),
 
           // 5. مشاركة التطبيق (Growth)
           _buildSectionHeader(context, 'مشاركة التطبيق 🚀'),
@@ -598,7 +600,12 @@ class SettingsScreen extends ConsumerWidget {
               children: [
                 Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
                 SizedBox(width: 8),
-                Text('تأكيد استعادة النسخة'),
+                Expanded(
+                  child: Text(
+                    'تأكيد استعادة النسخة',
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
             content: Column(

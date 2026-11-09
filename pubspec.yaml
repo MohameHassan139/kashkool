@@ -46,6 +46,10 @@ dependencies:
   archive: ^4.0.2
   path: ^1.9.1
   flutter_secure_storage: ^11.2.0
+
+  # Cloud backup (Google Sign-In + Kashkool backend)
+  google_sign_in: ^7.1.1
+  http: ^1.4.0
   device_info_plus: ^13.3.0
 
 dev_dependencies:

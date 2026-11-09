@@ -157,16 +157,17 @@ class _MessageTemplateEditorBottomSheetState
             const SizedBox(height: 12),
 
             // Presets row
-            Row(
+            Wrap(
+              spacing: 8,
+              runSpacing: 6,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 const Text('نماذج جاهزة: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                const SizedBox(width: 8),
                 ActionChip(
                   label: const Text('ودّي 😊'),
                   backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
                   onPressed: () => _applyPreset(WhatsAppTemplateUtils.defaultFriendlyTemplate),
                 ),
-                const SizedBox(width: 8),
                 ActionChip(
                   label: const Text('رسمي 👔'),
                   backgroundColor: theme.colorScheme.surfaceContainerHighest,

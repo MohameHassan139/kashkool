@@ -241,13 +241,15 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(l10n.changeLimit),
-        content: TextField(
-          controller: controller,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          autofocus: true,
-          decoration: InputDecoration(
-            labelText: l10n.newCreditLimit,
-            suffixText: l10n.currency,
+        content: SingleChildScrollView(
+          child: TextField(
+            controller: controller,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            autofocus: true,
+            decoration: InputDecoration(
+              labelText: l10n.newCreditLimit,
+              suffixText: l10n.currency,
+            ),
           ),
         ),
         actions: [
@@ -336,7 +338,12 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
             children: [
               const Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
               const SizedBox(width: 8),
-              Text(l10n.creditLimitWarningTitle),
+              Expanded(
+                child: Text(
+                  l10n.creditLimitWarningTitle,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           content: Text(
@@ -347,6 +354,8 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
             ),
             style: const TextStyle(fontSize: 16),
           ),
+          actionsOverflowDirection: VerticalDirection.down,
+          actionsOverflowButtonSpacing: 8,
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop('cancel'),
@@ -650,55 +659,65 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
 
               // Secondary Row: Date picker, Note, Voice dictation, and Photo
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: Row(
                   children: [
                     // Date button
                     OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        minimumSize: const Size(0, 46),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        minimumSize: const Size(0, 44),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const Icon(Icons.calendar_today_rounded, size: 18),
-                      label: Text(_formatDateLabel(l10n), style: const TextStyle(fontSize: 14)),
+                      icon: const Icon(Icons.calendar_today_rounded, size: 16),
+                      label: Text(
+                        _formatDateLabel(l10n),
+                        style: const TextStyle(fontSize: 13),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       onPressed: _pickDate,
                     ),
                     const SizedBox(width: 8),
 
-                    // Note Input field
+                    // Note Input field with integrated mic & photo buttons
                     Expanded(
                       child: TextField(
                         controller: _noteController,
                         decoration: InputDecoration(
                           hintText: l10n.noteOptional,
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                           isDense: true,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          suffixIcon: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  _isListening ? Icons.mic_rounded : Icons.mic_none_rounded,
+                                  size: 20,
+                                  color: _isListening ? AppColors.debtRed : null,
+                                ),
+                                tooltip: l10n.voiceDictation,
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                onPressed: () => _toggleVoiceDictation(l10n),
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  _selectedPhotoPath != null ? Icons.photo_rounded : Icons.camera_alt_outlined,
+                                  size: 20,
+                                  color: _selectedPhotoPath != null ? accentColor : null,
+                                ),
+                                tooltip: l10n.attachPhoto,
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                onPressed: _pickPhoto,
+                              ),
+                              const SizedBox(width: 4),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 6),
-
-                    // Voice Dictation button
-                    IconButton.filledTonal(
-                      icon: Icon(
-                        _isListening ? Icons.mic_rounded : Icons.mic_none_rounded,
-                        color: _isListening ? AppColors.debtRed : null,
-                      ),
-                      tooltip: l10n.voiceDictation,
-                      onPressed: () => _toggleVoiceDictation(l10n),
-                    ),
-                    const SizedBox(width: 4),
-
-                    // Photo button
-                    IconButton.filledTonal(
-                      icon: Icon(
-                        _selectedPhotoPath != null ? Icons.photo_rounded : Icons.camera_alt_outlined,
-                        color: _selectedPhotoPath != null ? accentColor : null,
-                      ),
-                      tooltip: l10n.attachPhoto,
-                      onPressed: _pickPhoto,
                     ),
                   ],
                 ),

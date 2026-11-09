@@ -261,6 +261,8 @@ class _StatementPreviewScreenState extends ConsumerState<StatementPreviewScreen>
                     label: Text(
                       l10n.shareStatement,
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: _pdfBytes != null ? _share : null,
                   ),
@@ -278,6 +280,8 @@ class _StatementPreviewScreenState extends ConsumerState<StatementPreviewScreen>
                     label: Text(
                       l10n.printStatement,
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: _pdfBytes != null ? _print : null,
                   ),

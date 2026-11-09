@@ -94,9 +94,11 @@ class CustomerListItem extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        CustomerRatingBadge(
-                          customerName: customer.name,
-                          rating: item.rating,
+                        Flexible(
+                          child: CustomerRatingBadge(
+                            customerName: customer.name,
+                            rating: item.rating,
+                          ),
                         ),
                         if (item.isCreditLimitExceeded) ...[
                           const SizedBox(width: 6),

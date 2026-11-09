@@ -133,15 +133,22 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
 
             // Mode toggle
             SegmentedButton<bool>(
+              showSelectedIcon: false,
               segments: const [
                 ButtonSegment(
                   value: true,
-                  label: Text('إضافة لمبيعات اليوم (+)'),
+                  label: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('إضافة للمبيعات (+)'),
+                  ),
                   icon: Icon(Icons.add_rounded),
                 ),
                 ButtonSegment(
                   value: false,
-                  label: Text('تعديل الإجمالي (=)'),
+                  label: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('تعديل الإجمالي (=)'),
+                  ),
                   icon: Icon(Icons.edit_outlined),
                 ),
               ],

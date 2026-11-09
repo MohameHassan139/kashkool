@@ -35,68 +35,68 @@ class DrawerFlowCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: SizedBox(
-                    height: 52,
-                    child: FilledButton.tonalIcon(
-                      onPressed: isClosed
-                          ? null
-                          : () => AddCashSalesBottomSheet.show(
-                                context,
-                                date: summary.date,
-                                currentSalesPiasters: summary.cashSalesPiasters,
-                              ),
-                      icon: Icon(
-                        Icons.add_shopping_cart_rounded,
-                        size: 20,
+                  child: FilledButton.tonalIcon(
+                    onPressed: isClosed
+                        ? null
+                        : () => AddCashSalesBottomSheet.show(
+                              context,
+                              date: summary.date,
+                              currentSalesPiasters: summary.cashSalesPiasters,
+                            ),
+                    icon: Icon(
+                      Icons.add_shopping_cart_rounded,
+                      size: 20,
+                      color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
+                    ),
+                    label: Text(
+                      l10n.addCashSales,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                         color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                       ),
-                      label: Text(
-                        l10n.addCashSales,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
-                        ),
-                      ),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: isDark
-                            ? const Color(0xFF064E3B).withValues(alpha: 0.5)
-                            : AppColors.paymentGreenLight,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(52),
+                      backgroundColor: isDark
+                          ? const Color(0xFF064E3B).withValues(alpha: 0.5)
+                          : AppColors.paymentGreenLight,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: SizedBox(
-                    height: 52,
-                    child: FilledButton.tonalIcon(
-                      onPressed: isClosed
-                          ? null
-                          : () => AddExpenseBottomSheet.show(
-                                context,
-                                date: summary.date,
-                              ),
-                      icon: Icon(
-                        Icons.receipt_long_rounded,
-                        size: 20,
+                  child: FilledButton.tonalIcon(
+                    onPressed: isClosed
+                        ? null
+                        : () => AddExpenseBottomSheet.show(
+                              context,
+                              date: summary.date,
+                            ),
+                    icon: Icon(
+                      Icons.receipt_long_rounded,
+                      size: 20,
+                      color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                    ),
+                    label: Text(
+                      l10n.addExpense,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                         color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                       ),
-                      label: Text(
-                        l10n.addExpense,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
-                        ),
-                      ),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: isDark
-                            ? const Color(0xFF7F1D1D).withValues(alpha: 0.5)
-                            : AppColors.debtRedLight,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(52),
+                      backgroundColor: isDark
+                          ? const Color(0xFF7F1D1D).withValues(alpha: 0.5)
+                          : AppColors.debtRedLight,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                   ),
                 ),
@@ -119,32 +119,36 @@ class DrawerFlowCard extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_downward_rounded,
+                      Icon(
+                        Icons.arrow_downward_rounded,
+                        color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          l10n.cashIn,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                             color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
-                            size: 20,
                           ),
-                          const SizedBox(width: 6),
-                          Text(
-                            l10n.cashIn,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            MoneyUtils.formatMoney(summary.cashInPiasters),
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                             ),
                           ),
-                        ],
-                      ),
-                      Text(
-                        MoneyUtils.formatMoney(summary.cashInPiasters),
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                         ),
                       ),
                     ],
@@ -172,32 +176,36 @@ class DrawerFlowCard extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_upward_rounded,
+                      Icon(
+                        Icons.arrow_upward_rounded,
+                        color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          l10n.cashOut,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                             color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
-                            size: 20,
                           ),
-                          const SizedBox(width: 6),
-                          Text(
-                            l10n.cashOut,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            MoneyUtils.formatMoney(summary.cashOutPiasters),
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                             ),
                           ),
-                        ],
-                      ),
-                      Text(
-                        MoneyUtils.formatMoney(summary.cashOutPiasters),
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
                         ),
                       ),
                     ],
@@ -223,41 +231,46 @@ class DrawerFlowCard extends StatelessWidget {
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.phone_android_rounded,
-                        color: isDark ? const Color(0xFF94A3B8) : Colors.blueGrey,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 6),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.digitalIn,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: isDark ? const Color(0xFFCBD5E1) : Colors.blueGrey,
-                            ),
-                          ),
-                          const Text(
-                            '(إنستاباي / محفظة - خارج الدرج)',
-                            style: TextStyle(fontSize: 11, color: AppColors.neutralGrey),
-                          ),
-                        ],
-                      ),
-                    ],
+                  Icon(
+                    Icons.phone_android_rounded,
+                    color: isDark ? const Color(0xFF94A3B8) : Colors.blueGrey,
+                    size: 20,
                   ),
-                  Text(
-                    MoneyUtils.formatMoney(summary.digitalInPiasters),
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? const Color(0xFFCBD5E1) : Colors.blueGrey,
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.digitalIn,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? const Color(0xFFCBD5E1) : Colors.blueGrey,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Text(
+                          '(إنستاباي / محفظة)',
+                          style: TextStyle(fontSize: 11, color: AppColors.neutralGrey),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        MoneyUtils.formatMoney(summary.digitalInPiasters),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? const Color(0xFFCBD5E1) : Colors.blueGrey,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -274,15 +287,18 @@ class DrawerFlowCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              color: isDark ? const Color(0xFF9CA3AF) : AppColors.neutralGreyDark,
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: isDark ? const Color(0xFF9CA3AF) : AppColors.neutralGreyDark,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
+          const SizedBox(width: 8),
           Text(
             MoneyUtils.formatMoney(amountPiasters),
             style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),

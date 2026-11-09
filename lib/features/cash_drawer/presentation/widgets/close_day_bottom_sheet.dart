@@ -151,16 +151,19 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    l10n.expectedInDrawer,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
+                  Expanded(
+                    child: Text(
+                      l10n.expectedInDrawer,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 8),
                   Text(
                     MoneyUtils.formatMoney(expected),
                     style: TextStyle(

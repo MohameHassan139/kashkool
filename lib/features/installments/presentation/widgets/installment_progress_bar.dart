@@ -41,17 +41,19 @@ class InstallmentProgressBar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                remainingPiasters > 0
-                    ? 'باقي: ${MoneyUtils.formatMoney(remainingPiasters)}'
-                    : 'خالص بالكامل ✓',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: remainingPiasters > 0
-                      ? (isOverdue ? AppColors.debtRed : AppColors.primaryGreen)
-                      : AppColors.primaryGreen,
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  remainingPiasters > 0
+                      ? 'باقي: ${MoneyUtils.formatMoney(remainingPiasters)}'
+                      : 'خالص بالكامل ✓',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: remainingPiasters > 0
+                        ? (isOverdue ? AppColors.debtRed : AppColors.primaryGreen)
+                        : AppColors.primaryGreen,
+                  ),
                 ),
               ),
             ),

@@ -67,22 +67,27 @@ class DrawerLiveCard extends ConsumerWidget {
           children: [
             // Top row: Label & Status badge
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.point_of_sale_rounded, color: theme.colorScheme.primary, size: 28),
-                    const SizedBox(width: 8),
-                    Text(
-                      l10n.expectedInDrawer,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.onSurface,
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(Icons.point_of_sale_rounded, color: theme.colorScheme.primary, size: 28),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          l10n.expectedInDrawer,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.onSurface,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                const SizedBox(width: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
@@ -137,12 +142,15 @@ class DrawerLiveCard extends ConsumerWidget {
 
             // Opening Cash row
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  l10n.openingCash,
-                  style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
+                Expanded(
+                  child: Text(
+                    l10n.openingCash,
+                    style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 Row(
                   children: [
                     Text(
@@ -176,12 +184,15 @@ class DrawerLiveCard extends ConsumerWidget {
             if (isClosed && summary.actualCountPiasters != null) ...[
               const SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    l10n.actualCountLabel,
-                    style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
+                  Expanded(
+                    child: Text(
+                      l10n.actualCountLabel,
+                      style: const TextStyle(fontSize: 14, color: AppColors.neutralGrey),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
+                  const SizedBox(width: 8),
                   Text(
                     MoneyUtils.formatMoney(summary.actualCountPiasters!),
                     style: TextStyle(
@@ -194,24 +205,27 @@ class DrawerLiveCard extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    summary.differenceStatus == DrawerDifferenceStatus.balanced
-                        ? l10n.drawerBalanced
-                        : summary.differenceStatus == DrawerDifferenceStatus.shortage
-                            ? l10n.drawerShortage
-                            : l10n.drawerSurplus,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: summary.differenceStatus == DrawerDifferenceStatus.balanced
-                          ? AppColors.paymentGreen
+                  Expanded(
+                    child: Text(
+                      summary.differenceStatus == DrawerDifferenceStatus.balanced
+                          ? l10n.drawerBalanced
                           : summary.differenceStatus == DrawerDifferenceStatus.shortage
-                              ? AppColors.debtRed
-                              : AppColors.warningAmber,
+                              ? l10n.drawerShortage
+                              : l10n.drawerSurplus,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: summary.differenceStatus == DrawerDifferenceStatus.balanced
+                            ? AppColors.paymentGreen
+                            : summary.differenceStatus == DrawerDifferenceStatus.shortage
+                                ? AppColors.debtRed
+                                : AppColors.warningAmber,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 8),
                   if (summary.differencePiasters != null && summary.differencePiasters != 0)
                     Text(
                       MoneyUtils.formatMoney(summary.differencePiasters!),
