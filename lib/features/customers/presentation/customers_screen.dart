@@ -6,6 +6,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../onboarding/data/shop_repository.dart';
 import '../../settings/data/settings_repository.dart';
 import '../../settings/presentation/widgets/cloud_account_button.dart';
+import '../../notebook_import/presentation/notebook_import_button.dart';
 import '../../suppliers/presentation/suppliers_providers.dart';
 import '../domain/customer_filter_sort.dart';
 import 'add_edit_customer_screen.dart';
@@ -57,6 +58,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
       appBar: AppBar(
         title: Text(l10n.navCustomers),
         actions: [
+          // Move the paper notebook into the app (customers & balances, old installments)
+          NotebookImportButton(installmentsEnabled: installmentsEnabled),
           // Google sign-in / cloud backup status
           const CloudAccountButton(),
           // Installments Quick Entry (visible when enabled for shop)

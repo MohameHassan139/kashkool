@@ -10,6 +10,7 @@ import 'package:sqlite3/sqlite3.dart';
 import 'base_table.dart';
 import 'encryption_helper.dart';
 import 'tables/cash_days_table.dart';
+import 'tables/customer_photos_table.dart';
 import 'tables/customers_table.dart';
 import 'tables/expenses_table.dart';
 import 'tables/installment_plans_table.dart';
@@ -19,6 +20,7 @@ import 'tables/suppliers_table.dart';
 import 'tables/transactions_table.dart';
 
 export 'tables/cash_days_table.dart';
+export 'tables/customer_photos_table.dart';
 export 'tables/customers_table.dart';
 export 'tables/expenses_table.dart';
 export 'tables/installment_plans_table.dart';
@@ -53,12 +55,13 @@ void _setupSqlCipherInIsolate() {
   Expenses,
   InstallmentPlans,
   Installments,
+  CustomerPhotos,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   static QueryExecutor _openConnection() {
     return LazyDatabase(() async {
@@ -297,6 +300,9 @@ class AppDatabase extends _$AppDatabase {
         try {
           await m.addColumn(appSettings, appSettings.createdBy);
         } catch (_) {}
+      }
+      if (from < 6) {
+        await m.createTable(customerPhotos);
       }
     },
     beforeOpen: (details) async {

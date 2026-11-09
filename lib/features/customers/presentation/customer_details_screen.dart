@@ -13,8 +13,10 @@ import '../../installments/presentation/installments_providers.dart';
 import '../../statement/presentation/statement_preview_screen.dart';
 import '../../transactions/presentation/add_transaction_bottom_sheet.dart';
 import '../../transactions/presentation/transaction_details_bottom_sheet.dart';
+import '../data/customer_photo_repository.dart';
 import '../data/customer_repository.dart';
 import 'add_edit_customer_screen.dart';
+import 'customer_photos_screen.dart';
 import 'customers_providers.dart';
 import 'widgets/credit_limit_progress_bar.dart';
 import 'widgets/rating_badge.dart';
@@ -131,6 +133,7 @@ class CustomerDetailsScreen extends ConsumerWidget {
           appBar: AppBar(
             title: Text(customer.name),
             actions: [
+              _PhotosButton(customerId: customer.id, customerName: customer.name),
               IconButton(
                 icon: const Icon(Icons.picture_as_pdf_outlined),
                 tooltip: l10n.statementTitle,
@@ -524,6 +527,27 @@ class CustomerDetailsScreen extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// App-bar button that opens the customer's photos, with a count badge.
+class _PhotosButton extends ConsumerWidget {
+  final String customerId;
+  final String customerName;
+  const _PhotosButton({required this.customerId, required this.customerName});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(customerPhotosProvider(customerId)).valueOrNull?.length ?? 0;
+    return IconButton(
+      tooltip: 'صور العميل',
+      onPressed: () => CustomerPhotosScreen.open(context, customerId: customerId, customerName: customerName),
+      icon: Badge(
+        isLabelVisible: count > 0,
+        label: Text('$count'),
+        child: const Icon(Icons.photo_library_outlined),
+      ),
     );
   }
 }
