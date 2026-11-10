@@ -14,7 +14,7 @@ void main() {
         overrides: [
           databaseProvider.overrideWithValue(testDb),
         ],
-        child: const KashkoolApp(),
+        child: const KashkoolApp(initialLanguageCode: 'ar_EG'),
       ),
     );
     await tester.pumpAndSettle();
@@ -46,7 +46,7 @@ void main() {
         overrides: [
           databaseProvider.overrideWithValue(testDb),
         ],
-        child: const KashkoolApp(),
+        child: const KashkoolApp(initialLanguageCode: 'ar_EG'),
       ),
     );
     await tester.pumpAndSettle();

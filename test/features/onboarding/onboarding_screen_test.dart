@@ -4,12 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashkool/core/db/app_database.dart';
 import 'package:kashkool/features/onboarding/data/shop_repository.dart';
+import 'package:kashkool/l10n/l10n.dart';
 import 'package:kashkool/main.dart';
 
 void main() {
   late AppDatabase db;
 
   setUp(() {
+    L10n.setLocale(L10n.fallback);
     db = AppDatabase(NativeDatabase.memory());
   });
 
@@ -23,7 +25,7 @@ void main() {
         overrides: [
           databaseProvider.overrideWithValue(db),
         ],
-        child: const KashkoolApp(),
+        child: const KashkoolApp(initialLanguageCode: 'ar_EG'),
       ),
     );
     await tester.pumpAndSettle();
