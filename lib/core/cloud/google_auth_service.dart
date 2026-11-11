@@ -9,18 +9,22 @@ class GoogleAuthService {
 
   Future<void> _ensureInitialized() async {
     if (_initialized) return;
-    await GoogleSignIn.instance.initialize(serverClientId: CloudConfig.googleServerClientId);
+    await GoogleSignIn.instance.initialize(
+      serverClientId: CloudConfig.googleServerClientId,
+    );
     _initialized = true;
   }
 
   /// Shows the Google account picker and returns an ID token.
   Future<String> getIdToken() async {
-    if (!CloudConfig.isConfigured) {
+    if (!CloudConfig.googleSignInConfigured) {
       throw CloudApiException('not_configured', L10n.t.googleAuthService1);
     }
     await _ensureInitialized();
     try {
-      final account = await GoogleSignIn.instance.authenticate(scopeHint: const ['email']);
+      final account = await GoogleSignIn.instance.authenticate(
+        scopeHint: const ['email'],
+      );
       final idToken = account.authentication.idToken;
       if (idToken == null || idToken.isEmpty) {
         throw CloudApiException('google_no_token', L10n.t.googleAuthService2);
@@ -30,7 +34,10 @@ class GoogleAuthService {
       if (e.code == GoogleSignInExceptionCode.canceled) {
         throw CloudApiException('canceled', L10n.t.googleAuthService3);
       }
-      throw CloudApiException('google_error', L10n.t.googleAuthService4(e.code.name));
+      throw CloudApiException(
+        'google_error',
+        L10n.t.googleAuthService4(e.code.name),
+      );
     }
   }
 

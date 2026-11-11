@@ -113,10 +113,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get customerPhone => 'Cep telefonu';
 
   @override
-  String get customerPhoneHint => '010xxxxxxxx';
+  String get customerPhoneHint => '+2010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid => 'Geçersiz numara (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'Geçerli bir telefon numarası girin';
 
   @override
   String get customerNotes => 'Notlar';
@@ -2304,7 +2304,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get shopProfileBottomSheet6 => 'Dükkân telefonu';
 
   @override
-  String get shopProfileBottomSheet7 => 'örn. 010xxxxxxxx';
+  String get shopProfileBottomSheet7 => 'örn. +2010xxxxxxxx';
 
   @override
   String get shopProfileBottomSheet8 => 'Dükkân adresi';
@@ -2347,6 +2347,76 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get cloudAccountButton3 => 'Google ile giriş yap';
+
+  @override
+  String get cloudSyncRunning => 'جاري المزامنة…';
+
+  @override
+  String get emailAuthTitleLogin => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthTitleRegister => 'إنشاء حساب بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthName => 'الاسم';
+
+  @override
+  String get emailAuthNameRequired => 'اكتب اسمك';
+
+  @override
+  String get emailAuthEmail => 'البريد الإلكتروني';
+
+  @override
+  String get emailAuthPassword => 'كلمة المرور';
+
+  @override
+  String get emailAuthInvalidEmail => 'اكتب بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get emailAuthShortPassword => 'كلمة المرور لازم تكون 8 أحرف على الأقل';
+
+  @override
+  String get emailAuthGoToRegister => 'مستخدم جديد؟ أنشئ حسابًا';
+
+  @override
+  String get emailAuthGoToLogin => 'لديك حساب؟ سجّل الدخول';
+
+  @override
+  String get emailAuthRegister => 'إنشاء حساب';
+
+  @override
+  String get emailAuthLogin => 'تسجيل الدخول بالبريد';
+
+  @override
+  String get emailAuthCancel => 'إلغاء';
+
+  @override
+  String get emailAuthSigningIn => 'جارٍ تسجيل الدخول…';
+
+  @override
+  String get accountSwitchTitle => 'تبديل الحساب';
+
+  @override
+  String get accountSwitchWarning =>
+      'بيانات المحل الموجودة على هذا الجهاز هتتمسح عند تبديل الحساب، وبعدها هنحمّل بيانات الحساب الجديد من السحابة.';
+
+  @override
+  String get accountSwitchUnbackedWarning =>
+      'في بيانات على الجهاز مش موجودة في آخر نسخة احتياطية. اعمل نسخة قبل التبديل؛ لو كملت، هتتمسح البيانات المحلية ومش هتقدر تسترجع غير اللي اتنسخ للسحابة.';
+
+  @override
+  String get accountSwitchCancel => 'إلغاء التبديل';
+
+  @override
+  String get accountSwitchContinue => 'متابعة ومسح البيانات';
+
+  @override
+  String get accountSwitchChooseMethod =>
+      'اختار طريقة تسجيل الدخول للحساب الجديد';
+
+  @override
+  String get accountSwitchFileCleanupWarning =>
+      'الحساب اتبدّل، لكن بعض ملفات الصور المحلية ما اتمسحتش.';
 
   @override
   String get cloudBackupCard1 => 'Bir saniye…';
@@ -2486,10 +2556,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get onboardingScreen1 => 'Dükkânım';
 
   @override
-  String get onboardingScreen2 =>
-      'Uygulamayı denemeniz için örnek müşteriler eklendi, istediğiniz zaman silebilirsiniz';
-
-  @override
   String get onboardingScreen3 => 'Kashkool kurulumu';
 
   @override
@@ -2611,29 +2677,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bir müşteri ekleyin ve hemen borç/ödeme kaydetmeye başlayın';
 
   @override
-  String get onboardingScreen40 => 'Önce örnek verilerle deneyin 💡';
-
-  @override
-  String get onboardingScreen41 =>
-      'Kashkool\'u keşfetmek için iki örnek müşteri ekler (tek dokunuşla silinir)';
-
-  @override
   String get onboardingScreen42 => 'Atla ve ana ekrana git';
-
-  @override
-  String get shopRepository1 => 'Ahmet Mehmet (örnek)';
-
-  @override
-  String get shopRepository2 => 'Ev alışverişi';
-
-  @override
-  String get shopRepository3 => 'Mahmut İbrahim (örnek)';
-
-  @override
-  String get shopRepository4 => 'Ay başı malı';
-
-  @override
-  String get shopRepository5 => 'Hesaba nakit ödeme';
 
   @override
   String get supplierWithBalance1 => 'Cumartesi';
@@ -2966,6 +3010,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String cloudApi12(Object code) {
     return 'Bir sorun oluştu ($code)';
   }
+
+  @override
+  String get cloudApi13 => 'البريد الإلكتروني مستخدم بالفعل';
+
+  @override
+  String get cloudApi14 => 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
 
   @override
   String get cloudBackupService1 => 'Google girişi kullanılamıyor';

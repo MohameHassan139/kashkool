@@ -32,29 +32,46 @@ class CloudApi {
   final String _baseUrl;
 
   CloudApi(this._store, {http.Client? client, String? baseUrl})
-      : _http = client ?? http.Client(),
-        _baseUrl = baseUrl ?? CloudConfig.baseUrl;
+    : _http = client ?? http.Client(),
+      _baseUrl = baseUrl ?? CloudConfig.baseUrl;
 
   static const _timeout = Duration(seconds: 45);
 
-  Future<dynamic> _send(String method, String path, {Object? body, bool auth = true, bool isRetry = false}) async {
+  Future<dynamic> _send(
+    String method,
+    String path, {
+    Object? body,
+    bool auth = true,
+    bool isRetry = false,
+  }) async {
     if (_baseUrl.isEmpty) {
       throw CloudApiException('not_configured', L10n.t.cloudApi1);
     }
-    final headers = <String, String>{'Content-Type': 'application/json', 'Accept': 'application/json'};
+    final headers = <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
     CloudSession? session;
     if (auth) {
       session = await _store.read();
-      if (session == null) throw CloudApiException('signed_out', L10n.t.cloudApi2, statusCode: 401);
+      if (session == null)
+        throw CloudApiException(
+          'signed_out',
+          L10n.t.cloudApi2,
+          statusCode: 401,
+        );
       headers['Authorization'] = 'Bearer ${session.accessToken}';
     }
 
-    final request = http.Request(method, Uri.parse('$_baseUrl$path'))..headers.addAll(headers);
+    final request = http.Request(method, Uri.parse('$_baseUrl$path'))
+      ..headers.addAll(headers);
     if (body != null) request.body = jsonEncode(body);
 
     http.Response response;
     try {
-      response = await http.Response.fromStream(await _http.send(request).timeout(_timeout));
+      response = await http.Response.fromStream(
+        await _http.send(request).timeout(_timeout),
+      );
     } on SocketException {
       throw CloudApiException('network', L10n.t.cloudApi3);
     } on TimeoutException {
@@ -77,23 +94,42 @@ class CloudApi {
       }
     }
     if (response.statusCode >= 400) {
-      final code = decoded is Map ? (decoded['error'] as String? ?? 'error') : 'error';
-      throw CloudApiException(code, _arabicMessage(code, response.statusCode), statusCode: response.statusCode);
+      final code = decoded is Map
+          ? (decoded['error'] as String? ?? 'error')
+          : 'error';
+      throw CloudApiException(
+        code,
+        _arabicMessage(code, response.statusCode),
+        statusCode: response.statusCode,
+      );
     }
     return decoded;
   }
 
   Future<void> _refresh(CloudSession session) async {
     try {
-      final res = await _send('POST', '/v1/auth/refresh', body: {'refreshToken': session.refreshToken}, auth: false) as Map;
-      await _store.write(session.copyWith(
-        accessToken: res['accessToken'] as String,
-        refreshToken: res['refreshToken'] as String,
-      ));
+      final res =
+          await _send(
+                'POST',
+                '/v1/auth/refresh',
+                body: {'refreshToken': session.refreshToken},
+                auth: false,
+              )
+              as Map;
+      await _store.write(
+        session.copyWith(
+          accessToken: res['accessToken'] as String,
+          refreshToken: res['refreshToken'] as String,
+        ),
+      );
     } on CloudApiException catch (e) {
       if (e.statusCode == 401) {
         await _store.clear();
-        throw CloudApiException('signed_out', L10n.t.cloudApi5, statusCode: 401);
+        throw CloudApiException(
+          'signed_out',
+          L10n.t.cloudApi5,
+          statusCode: 401,
+        );
       }
       rethrow;
     }
@@ -111,15 +147,57 @@ class CloudApi {
         return L10n.t.cloudApi9;
       case 'google_not_configured':
         return L10n.t.cloudApi10;
+      case 'email_already_registered':
+        return L10n.t.cloudApi13;
+      case 'invalid_credentials':
+        return L10n.t.cloudApi14;
     }
     if (status >= 500) return L10n.t.cloudApi11;
     return L10n.t.cloudApi12(code);
   }
 
   /// Exchanges a Google ID token for Kashkool tokens and saves the session.
-  Future<CloudSession> loginWithGoogle(String idToken, {String? deviceLabel}) async {
-    final res = await _send('POST', '/v1/auth/google',
-        body: {'idToken': idToken, if (deviceLabel != null) 'deviceLabel': deviceLabel}, auth: false) as Map;
+  Future<CloudSession> loginWithGoogle(
+    String idToken, {
+    String? deviceLabel,
+  }) async {
+    final res =
+        await _send(
+              'POST',
+              '/v1/auth/google',
+              body: {
+                'idToken': idToken,
+                if (deviceLabel != null) 'deviceLabel': deviceLabel,
+              },
+              auth: false,
+            )
+            as Map;
+    return _saveLoginSession(res);
+  }
+
+  Future<CloudSession> loginWithEmail(
+    String email,
+    String password, {
+    bool register = false,
+    String? name,
+  }) async {
+    final res =
+        await _send(
+              'POST',
+              register ? '/v1/auth/email/register' : '/v1/auth/email/login',
+              body: {
+                'email': email.trim(),
+                'password': password,
+                if (register && name != null && name.trim().isNotEmpty)
+                  'name': name.trim(),
+              },
+              auth: false,
+            )
+            as Map;
+    return _saveLoginSession(res);
+  }
+
+  Future<CloudSession> _saveLoginSession(Map<dynamic, dynamic> res) async {
     final user = res['user'] as Map;
     final previous = await _store.read();
     final sameUser = previous?.userId == user['id'];
@@ -132,6 +210,7 @@ class CloudApi {
       linkedShopId: sameUser ? previous?.linkedShopId : null,
       lastBackupAt: sameUser ? previous?.lastBackupAt : null,
       lastBackupStartedAt: sameUser ? previous?.lastBackupStartedAt : null,
+      lastPullCursor: sameUser ? previous?.lastPullCursor ?? 0 : 0,
     );
     await _store.write(session);
     return session;
@@ -141,7 +220,12 @@ class CloudApi {
     final session = await _store.read();
     if (session != null) {
       try {
-        await _send('POST', '/v1/auth/logout', body: {'refreshToken': session.refreshToken}, auth: false);
+        await _send(
+          'POST',
+          '/v1/auth/logout',
+          body: {'refreshToken': session.refreshToken},
+          auth: false,
+        );
       } catch (_) {
         // Signing out locally still works offline.
       }
@@ -163,26 +247,52 @@ class CloudApi {
     String? address,
     String? shopCode,
   }) async {
-    final res = await _send('POST', '/v1/shops', body: {
-      'id': id,
-      'name': name,
-      'type': type,
-      if (phone != null && phone.isNotEmpty) 'phone': phone,
-      if (address != null && address.isNotEmpty) 'address': address,
-      if (shopCode != null && RegExp(r'^[A-Za-z0-9]{4,12}$').hasMatch(shopCode)) 'shopCode': shopCode,
-    }) as Map;
+    final res =
+        await _send(
+              'POST',
+              '/v1/shops',
+              body: {
+                'id': id,
+                'name': name,
+                'type': type,
+                if (phone != null && phone.isNotEmpty) 'phone': phone,
+                if (address != null && address.isNotEmpty) 'address': address,
+                if (shopCode != null &&
+                    RegExp(r'^[A-Za-z0-9]{4,12}$').hasMatch(shopCode))
+                  'shopCode': shopCode,
+              },
+            )
+            as Map;
     return (res['shop'] as Map).cast<String, dynamic>();
   }
 
   /// Uploads up to 500 changes. Returns one result per change, in order.
-  Future<List<Map<String, dynamic>>> push(String shopId, String deviceId, List<Map<String, dynamic>> changes) async {
-    final res = await _send('POST', '/v1/shops/${Uri.encodeComponent(shopId)}/sync/push',
-        body: {'deviceId': deviceId, 'changes': changes}) as Map;
+  Future<List<Map<String, dynamic>>> push(
+    String shopId,
+    String deviceId,
+    List<Map<String, dynamic>> changes,
+  ) async {
+    final res =
+        await _send(
+              'POST',
+              '/v1/shops/${Uri.encodeComponent(shopId)}/sync/push',
+              body: {'deviceId': deviceId, 'changes': changes},
+            )
+            as Map;
     return (res['results'] as List).cast<Map<String, dynamic>>();
   }
 
-  Future<PullPage> pull(String shopId, {int since = 0, int limit = 1000}) async {
-    final res = await _send('GET', '/v1/shops/${Uri.encodeComponent(shopId)}/sync/pull?since=$since&limit=$limit') as Map;
+  Future<PullPage> pull(
+    String shopId, {
+    int since = 0,
+    int limit = 1000,
+  }) async {
+    final res =
+        await _send(
+              'GET',
+              '/v1/shops/${Uri.encodeComponent(shopId)}/sync/pull?since=$since&limit=$limit',
+            )
+            as Map;
     return PullPage(
       (res['changes'] as List).cast<Map<String, dynamic>>(),
       (res['cursor'] as num).toInt(),

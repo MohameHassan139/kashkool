@@ -17,6 +17,7 @@ class CloudSession {
 
   /// When the last successful backup *started* (rows changed after this are uploaded next time).
   final DateTime? lastBackupStartedAt;
+  final int lastPullCursor;
 
   const CloudSession({
     required this.accessToken,
@@ -27,6 +28,7 @@ class CloudSession {
     this.linkedShopId,
     this.lastBackupAt,
     this.lastBackupStartedAt,
+    this.lastPullCursor = 0,
   });
 
   CloudSession copyWith({
@@ -35,6 +37,7 @@ class CloudSession {
     String? linkedShopId,
     DateTime? lastBackupAt,
     DateTime? lastBackupStartedAt,
+    int? lastPullCursor,
   }) {
     return CloudSession(
       accessToken: accessToken ?? this.accessToken,
@@ -45,6 +48,7 @@ class CloudSession {
       linkedShopId: linkedShopId ?? this.linkedShopId,
       lastBackupAt: lastBackupAt ?? this.lastBackupAt,
       lastBackupStartedAt: lastBackupStartedAt ?? this.lastBackupStartedAt,
+      lastPullCursor: lastPullCursor ?? this.lastPullCursor,
     );
   }
 
@@ -57,6 +61,7 @@ class CloudSession {
         'linkedShopId': linkedShopId,
         'lastBackupAt': lastBackupAt?.toIso8601String(),
         'lastBackupStartedAt': lastBackupStartedAt?.toIso8601String(),
+        'lastPullCursor': lastPullCursor,
       };
 
   factory CloudSession.fromJson(Map<String, dynamic> json) => CloudSession(
@@ -68,6 +73,7 @@ class CloudSession {
         linkedShopId: json['linkedShopId'] as String?,
         lastBackupAt: DateTime.tryParse(json['lastBackupAt'] as String? ?? ''),
         lastBackupStartedAt: DateTime.tryParse(json['lastBackupStartedAt'] as String? ?? ''),
+        lastPullCursor: (json['lastPullCursor'] as num?)?.toInt() ?? 0,
       );
 }
 

@@ -24,8 +24,11 @@ As a shop owner, I want my shop ledger automatically backed up to the cloud and 
 
 ## 2. Authentication Strategy
 
-### Phase 2 Launch: Google Sign-In (الخيار الرئيسي الفوري)
-- **1-Tap Google Sign-In** via `google_sign_in` and Supabase Native OAuth.
+### Phase 2 Launch: Google and Email/Password Sign-In
+- **Google Sign-In** via `google_sign_in` and the Kashkool backend.
+- **Email and password** registration and login are also available. Passwords are stored as scrypt hashes; the backend never stores plain-text passwords.
+- After successful authentication, the app lists the account's shops and restores the selected shop's cloud data before opening the home screen.
+- When switching to a different account, the app warns if local data has not been backed up. Continuing clears the previous account's local shop data before restoring the selected shop; device security and app preferences remain on the phone.
 - **Why Google First**:
   - Almost 100% of Android phone owners in Egypt have an active Google Play / Gmail account on their device.
   - Zero SMS delivery failures (SMS OTP in Egypt suffers from severe telecom filtering and costs ~0.05 USD per message).
@@ -101,7 +104,9 @@ bucket_definitions:
 
 ## Acceptance Criteria
 - [ ] PowerSync replicates Postgres data into local Drift SQLCipher DB and vice versa.
-- [ ] Google Sign-In works in 1-tap; session tokens refresh automatically.
+- [ ] Google Sign-In and email/password authentication work; session tokens refresh automatically.
+- [ ] Successful login restores the selected account shop before opening the home screen.
+- [ ] Switching accounts warns about unbacked local data and, after confirmation, clears previous account data before restoring the new account.
 - [ ] RLS tests verify User A cannot query, read, or write to Shop B under any API call.
 - [ ] Offline edits created without internet queue locally and sync automatically when internet is restored.
 - [ ] Photos upload to Supabase Storage with signed upload URLs and sync local file references.

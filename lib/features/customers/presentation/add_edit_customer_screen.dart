@@ -16,7 +16,8 @@ class AddEditCustomerScreen extends ConsumerStatefulWidget {
   const AddEditCustomerScreen({super.key, this.customer});
 
   @override
-  ConsumerState<AddEditCustomerScreen> createState() => _AddEditCustomerScreenState();
+  ConsumerState<AddEditCustomerScreen> createState() =>
+      _AddEditCustomerScreenState();
 }
 
 class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
@@ -42,7 +43,9 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
 
     final limitPiasters = c?.creditLimitPiasters;
     _creditLimitController = TextEditingController(
-      text: limitPiasters != null ? (limitPiasters / MoneyUtils.piastersPerPound).toStringAsFixed(0) : '',
+      text: limitPiasters != null
+          ? (limitPiasters / MoneyUtils.piastersPerPound).toStringAsFixed(0)
+          : '',
     );
 
     _nameController.addListener(_checkDuplicate);
@@ -50,10 +53,15 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
 
     if (!_isEditing) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final defaultLimit = await ref.read(settingsRepositoryProvider).getDefaultCreditLimitPiasters();
-        if (defaultLimit != null && _creditLimitController.text.isEmpty && mounted) {
+        final defaultLimit = await ref
+            .read(settingsRepositoryProvider)
+            .getDefaultCreditLimitPiasters();
+        if (defaultLimit != null &&
+            _creditLimitController.text.isEmpty &&
+            mounted) {
           setState(() {
-            _creditLimitController.text = (defaultLimit / MoneyUtils.piastersPerPound).toStringAsFixed(0);
+            _creditLimitController.text =
+                (defaultLimit / MoneyUtils.piastersPerPound).toStringAsFixed(0);
           });
         }
       });
@@ -100,12 +108,18 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     final name = _nameController.text.trim();
-    final phone = _phoneController.text.trim().isEmpty ? null : _phoneController.text.trim();
-    final notes = _notesController.text.trim().isEmpty ? null : _notesController.text.trim();
+    final phone = _phoneController.text.trim().isEmpty
+        ? null
+        : _phoneController.text.trim();
+    final notes = _notesController.text.trim().isEmpty
+        ? null
+        : _notesController.text.trim();
 
     int? creditLimitPiasters;
     if (_creditLimitController.text.trim().isNotEmpty) {
-      creditLimitPiasters = MoneyUtils.toPiasters(_creditLimitController.text.trim());
+      creditLimitPiasters = MoneyUtils.toPiasters(
+        _creditLimitController.text.trim(),
+      );
     }
 
     try {
@@ -167,7 +181,10 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.warning_amber_rounded, color: AppColors.warningAmber),
+                      const Icon(
+                        Icons.warning_amber_rounded,
+                        color: AppColors.warningAmber,
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -216,7 +233,7 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
                 validator: (val) {
                   final text = val?.trim() ?? '';
                   if (text.isEmpty) return null; // phone is optional
-                  if (!PhoneUtils.isValidEgyptianMobile(text)) {
+                  if (!PhoneUtils.isValidPhone(text)) {
                     return l10n.customerPhoneInvalid;
                   }
                   return null;
@@ -233,7 +250,9 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
                   prefixIcon: const Icon(Icons.speed_rounded),
                   suffixText: l10n.currency,
                 ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 16),
@@ -264,11 +283,17 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
                     ? const SizedBox(
                         height: 24,
                         width: 24,
-                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2.5,
+                        ),
                       )
                     : Text(
                         l10n.save,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
               ),
             ],

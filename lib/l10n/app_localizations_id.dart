@@ -113,10 +113,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get customerPhone => 'Nomor HP';
 
   @override
-  String get customerPhoneHint => '010xxxxxxxx';
+  String get customerPhoneHint => '+2010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid => 'Nomor tidak valid (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'Masukkan nomor telepon yang valid';
 
   @override
   String get customerNotes => 'Catatan';
@@ -2305,7 +2305,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get shopProfileBottomSheet6 => 'Telepon toko';
 
   @override
-  String get shopProfileBottomSheet7 => 'mis. 010xxxxxxxx';
+  String get shopProfileBottomSheet7 => 'mis. +2010xxxxxxxx';
 
   @override
   String get shopProfileBottomSheet8 => 'Alamat toko';
@@ -2346,6 +2346,76 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get cloudAccountButton3 => 'Masuk dengan Google';
+
+  @override
+  String get cloudSyncRunning => 'جاري المزامنة…';
+
+  @override
+  String get emailAuthTitleLogin => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthTitleRegister => 'إنشاء حساب بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthName => 'الاسم';
+
+  @override
+  String get emailAuthNameRequired => 'اكتب اسمك';
+
+  @override
+  String get emailAuthEmail => 'البريد الإلكتروني';
+
+  @override
+  String get emailAuthPassword => 'كلمة المرور';
+
+  @override
+  String get emailAuthInvalidEmail => 'اكتب بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get emailAuthShortPassword => 'كلمة المرور لازم تكون 8 أحرف على الأقل';
+
+  @override
+  String get emailAuthGoToRegister => 'مستخدم جديد؟ أنشئ حسابًا';
+
+  @override
+  String get emailAuthGoToLogin => 'لديك حساب؟ سجّل الدخول';
+
+  @override
+  String get emailAuthRegister => 'إنشاء حساب';
+
+  @override
+  String get emailAuthLogin => 'تسجيل الدخول بالبريد';
+
+  @override
+  String get emailAuthCancel => 'إلغاء';
+
+  @override
+  String get emailAuthSigningIn => 'جارٍ تسجيل الدخول…';
+
+  @override
+  String get accountSwitchTitle => 'تبديل الحساب';
+
+  @override
+  String get accountSwitchWarning =>
+      'بيانات المحل الموجودة على هذا الجهاز هتتمسح عند تبديل الحساب، وبعدها هنحمّل بيانات الحساب الجديد من السحابة.';
+
+  @override
+  String get accountSwitchUnbackedWarning =>
+      'في بيانات على الجهاز مش موجودة في آخر نسخة احتياطية. اعمل نسخة قبل التبديل؛ لو كملت، هتتمسح البيانات المحلية ومش هتقدر تسترجع غير اللي اتنسخ للسحابة.';
+
+  @override
+  String get accountSwitchCancel => 'إلغاء التبديل';
+
+  @override
+  String get accountSwitchContinue => 'متابعة ومسح البيانات';
+
+  @override
+  String get accountSwitchChooseMethod =>
+      'اختار طريقة تسجيل الدخول للحساب الجديد';
+
+  @override
+  String get accountSwitchFileCleanupWarning =>
+      'الحساب اتبدّل، لكن بعض ملفات الصور المحلية ما اتمسحتش.';
 
   @override
   String get cloudBackupCard1 => 'Sebentar…';
@@ -2484,10 +2554,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen1 => 'Toko saya';
 
   @override
-  String get onboardingScreen2 =>
-      'Pelanggan contoh ditambahkan untuk mencoba aplikasi, bisa dihapus kapan saja';
-
-  @override
   String get onboardingScreen3 => 'Menyiapkan Kashkool';
 
   @override
@@ -2609,29 +2675,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Catat pelanggan pertama dan langsung catat utang serta pembayaran';
 
   @override
-  String get onboardingScreen40 => 'Coba dulu dengan data contoh 💡';
-
-  @override
-  String get onboardingScreen41 =>
-      'Menambah dua pelanggan contoh untuk mencoba Kashkool (hapus dengan sekali ketuk)';
-
-  @override
   String get onboardingScreen42 => 'Lewati ke layar utama';
-
-  @override
-  String get shopRepository1 => 'Ahmad (contoh)';
-
-  @override
-  String get shopRepository2 => 'Belanja rumah tangga';
-
-  @override
-  String get shopRepository3 => 'Mahmud (contoh)';
-
-  @override
-  String get shopRepository4 => 'Stok awal bulan';
-
-  @override
-  String get shopRepository5 => 'Bayar tunai ke rekening';
 
   @override
   String get supplierWithBalance1 => 'Sabtu';
@@ -2963,6 +3007,12 @@ class AppLocalizationsId extends AppLocalizations {
   String cloudApi12(Object code) {
     return 'Terjadi masalah ($code)';
   }
+
+  @override
+  String get cloudApi13 => 'البريد الإلكتروني مستخدم بالفعل';
+
+  @override
+  String get cloudApi14 => 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
 
   @override
   String get cloudBackupService1 => 'Masuk Google tidak tersedia';

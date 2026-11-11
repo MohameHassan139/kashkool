@@ -53,13 +53,16 @@ class SupplierRepository {
 
           // For suppliers: Debt = I owe him (+), Payment = I paid him (-)
           if (transaction.type == TransactionType.debt) {
-            balanceMap[supplier.id] = (balanceMap[supplier.id] ?? 0) + transaction.amountPiasters;
+            balanceMap[supplier.id] =
+                (balanceMap[supplier.id] ?? 0) + transaction.amountPiasters;
           } else {
-            balanceMap[supplier.id] = (balanceMap[supplier.id] ?? 0) - transaction.amountPiasters;
+            balanceMap[supplier.id] =
+                (balanceMap[supplier.id] ?? 0) - transaction.amountPiasters;
           }
 
           final currentLast = lastActivityMap[supplier.id];
-          if (currentLast == null || transaction.occurredAt.isAfter(currentLast)) {
+          if (currentLast == null ||
+              transaction.occurredAt.isAfter(currentLast)) {
             lastActivityMap[supplier.id] = transaction.occurredAt;
           }
         }
@@ -79,9 +82,11 @@ class SupplierRepository {
         final q = query.trim();
         list = list.where((item) {
           final nameMatch = ArabicSearchUtils.matches(item.supplier.name, q);
-          final companyMatch = item.supplier.company != null &&
+          final companyMatch =
+              item.supplier.company != null &&
               ArabicSearchUtils.matches(item.supplier.company!, q);
-          final phoneMatch = item.supplier.phone != null && item.supplier.phone!.contains(q);
+          final phoneMatch =
+              item.supplier.phone != null && item.supplier.phone!.contains(q);
           return nameMatch || companyMatch || phoneMatch;
         }).toList();
       }
@@ -104,8 +109,11 @@ class SupplierRepository {
           list.sort((a, b) => b.balancePiasters.compareTo(a.balancePiasters));
           break;
         case SupplierSort.name:
-          list.sort((a, b) => ArabicSearchUtils.normalize(a.supplier.name)
-              .compareTo(ArabicSearchUtils.normalize(b.supplier.name)));
+          list.sort(
+            (a, b) => ArabicSearchUtils.normalize(
+              a.supplier.name,
+            ).compareTo(ArabicSearchUtils.normalize(b.supplier.name)),
+          );
           break;
         case SupplierSort.company:
           list.sort((a, b) {
@@ -114,8 +122,9 @@ class SupplierRepository {
             if (aComp.isEmpty && bComp.isEmpty) return 0;
             if (aComp.isEmpty) return 1;
             if (bComp.isEmpty) return -1;
-            return ArabicSearchUtils.normalize(aComp)
-                .compareTo(ArabicSearchUtils.normalize(bComp));
+            return ArabicSearchUtils.normalize(
+              aComp,
+            ).compareTo(ArabicSearchUtils.normalize(bComp));
           });
           break;
         case SupplierSort.visitDay:
@@ -174,10 +183,12 @@ class SupplierRepository {
   /// Watches full transaction history for a supplier, newest first.
   Stream<List<Transaction>> watchSupplierTransactions(String supplierId) {
     return (_db.select(_db.transactions)
-          ..where((t) =>
-              t.partyId.equals(supplierId) &
-              t.partyType.equalsValue(PartyType.supplier) &
-              t.deletedAt.isNull())
+          ..where(
+            (t) =>
+                t.partyId.equals(supplierId) &
+                t.partyType.equalsValue(PartyType.supplier) &
+                t.deletedAt.isNull(),
+          )
           ..orderBy([(t) => OrderingTerm.desc(t.occurredAt)]))
         .watch();
   }
@@ -195,15 +206,19 @@ class SupplierRepository {
       throw ArgumentError('Supplier name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalizePhone(phone);
     final id = _uuid.v4();
     final now = DateTime.now();
 
-    await _db.into(_db.suppliers).insert(
+    await _db
+        .into(_db.suppliers)
+        .insert(
           SuppliersCompanion.insert(
             id: id,
             name: trimmedName,
-            company: Value(company?.trim().isEmpty == true ? null : company?.trim()),
+            company: Value(
+              company?.trim().isEmpty == true ? null : company?.trim(),
+            ),
             phone: Value(normalizedPhone),
             visitDay: Value(visitDay),
             notes: Value(notes?.trim().isEmpty == true ? null : notes?.trim()),
@@ -229,13 +244,15 @@ class SupplierRepository {
       throw ArgumentError('Supplier name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalizePhone(phone);
     final now = DateTime.now();
 
     await (_db.update(_db.suppliers)..where((s) => s.id.equals(id))).write(
       SuppliersCompanion(
         name: Value(trimmedName),
-        company: Value(company?.trim().isEmpty == true ? null : company?.trim()),
+        company: Value(
+          company?.trim().isEmpty == true ? null : company?.trim(),
+        ),
         phone: Value(normalizedPhone),
         visitDay: Value(visitDay),
         notes: Value(notes?.trim().isEmpty == true ? null : notes?.trim()),
@@ -248,10 +265,7 @@ class SupplierRepository {
   Future<void> deleteSupplier(String id) async {
     final now = DateTime.now();
     await (_db.update(_db.suppliers)..where((s) => s.id.equals(id))).write(
-      SuppliersCompanion(
-        deletedAt: Value(now),
-        updatedAt: Value(now),
-      ),
+      SuppliersCompanion(deletedAt: Value(now), updatedAt: Value(now)),
     );
   }
 
@@ -261,17 +275,19 @@ class SupplierRepository {
     String? phone,
     String? excludeSupplierId,
   }) async {
-    final activeSuppliers = await (_db.select(_db.suppliers)
-          ..where((s) => s.deletedAt.isNull()))
-        .get();
+    final activeSuppliers = await (_db.select(
+      _db.suppliers,
+    )..where((s) => s.deletedAt.isNull())).get();
 
     final normalizedTargetName = ArabicSearchUtils.normalize(name);
-    final normalizedTargetPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedTargetPhone = PhoneUtils.normalizePhone(phone);
 
     for (final s in activeSuppliers) {
       if (excludeSupplierId != null && s.id == excludeSupplierId) continue;
 
-      if (normalizedTargetPhone != null && s.phone != null && s.phone == normalizedTargetPhone) {
+      if (normalizedTargetPhone != null &&
+          s.phone != null &&
+          s.phone == normalizedTargetPhone) {
         return s;
       }
 

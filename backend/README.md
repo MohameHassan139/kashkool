@@ -1,6 +1,6 @@
 # Kashkool Backend (Node.js + MongoDB on Vercel)
 
-Cloud backup, multi-device sync, employees, statement links, referrals and Google Play
+Cloud backup, multi-device sync, email/Google accounts, employees, statement links, referrals and Google Play
 subscriptions for the Kashkool app. **The app stays local-first**: it works fully offline,
 and this API is only used for the paid cloud features.
 
@@ -19,7 +19,7 @@ cd backend
 npm install
 cp .env.example .env      # then fill in the values (a ready .env may already exist)
 npm run dev               # http://localhost:3000
-npm test                  # 32 tests (in-memory DB). Real DB: MONGODB_TEST_URI=<uri> npm test
+npm test                  # in-memory DB tests. Real DB: MONGODB_TEST_URI=<uri> npm test
 ```
 With `ALLOW_DEV_LOGIN=true` (local only) you can get a token without Google:
 ```bash
@@ -51,6 +51,8 @@ Errors are JSON: `{ "error": "<code>", "message": "...", "details"?: [...] }`.
 | GET | `/health` | public | Server + DB check |
 | GET | `/v1/config` | public | Remote config: min version, flags, announcement |
 | POST | `/v1/auth/google` | public | `{ idToken }` from Google Sign-In → tokens |
+| POST | `/v1/auth/email/register` | public | `{ email, password, name? }` → create account + tokens |
+| POST | `/v1/auth/email/login` | public | `{ email, password }` → tokens |
 | POST | `/v1/auth/refresh` | public | `{ refreshToken }` → new pair (old one stops working) |
 | POST | `/v1/auth/logout` | public | `{ refreshToken }` |
 | GET | `/v1/me` | user | Profile + shops |

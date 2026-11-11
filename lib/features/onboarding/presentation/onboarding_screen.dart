@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/utils/battery_optimization_helper.dart';
-import '../../../shared/widgets/glass_toast.dart';
+import '../../../core/utils/phone.dart';
 import '../../customers/presentation/add_edit_customer_screen.dart';
 import '../data/shop_repository.dart';
 import '../../../l10n/l10n.dart';
@@ -86,25 +86,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Future<void> _finishOnboarding({bool seedData = false, bool openAddCustomer = false}) async {
+  Future<void> _finishOnboarding({bool openAddCustomer = false}) async {
     FocusScope.of(context).unfocus();
     final repo = ref.read(shopRepositoryProvider);
     await _saveShopDetails();
 
-    if (seedData) {
-      await repo.seedSampleData();
-    }
-
     await repo.setOnboardingCompleted(true);
 
     if (!mounted) return;
-
-    if (seedData) {
-      AppGlassToast.showSuccess(
-        context,
-        L10n.t.onboardingScreen2,
-      );
-    }
 
     if (openAddCustomer) {
       context.go('/');
@@ -177,7 +166,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       decoration: BoxDecoration(
                         color: active
                             ? theme.colorScheme.primary
-                            : (isDark ? const Color(0xFF374151) : Colors.grey[300]),
+                            : (isDark
+                                  ? const Color(0xFF374151)
+                                  : Colors.grey[300]),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
@@ -219,8 +210,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       elevation: 2,
                     ),
                     child: Text(
-                      _currentPage == 0 ? L10n.t.onboardingScreen4 : L10n.t.ratingExplanationBottomSheet6,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      _currentPage == 0
+                          ? L10n.t.onboardingScreen4
+                          : L10n.t.ratingExplanationBottomSheet6,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -266,7 +262,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             const SizedBox(height: 8),
             Text(
               L10n.t.onboardingScreen6,
-              style: TextStyle(fontSize: 14, color: Colors.grey[700], height: 1.4),
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[700],
+                height: 1.4,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
@@ -278,7 +278,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 labelText: L10n.t.onboardingScreen7,
                 hintText: L10n.t.onboardingScreen8,
                 prefixIcon: const Icon(Icons.store_rounded),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 filled: true,
                 fillColor: Colors.white,
               ),
@@ -297,13 +299,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: L10n.t.onboardingScreen10,
-                hintText: '01XXXXXXXXX',
+                hintText: '+2010xxxxxxxx',
                 prefixIcon: const Icon(Icons.phone_rounded),
                 helperText: L10n.t.onboardingScreen11,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 filled: true,
                 fillColor: Colors.white,
               ),
+              validator: (value) {
+                final phone = value?.trim() ?? '';
+                if (phone.isNotEmpty && !PhoneUtils.isValidPhone(phone)) {
+                  return L10n.t.customerPhoneInvalid;
+                }
+                return null;
+              },
             ),
           ],
         ),
@@ -426,10 +437,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                   const SizedBox(width: 8),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 6, vertical: 2),
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: AppColors.paymentGreen
-                                          .withValues(alpha: 0.15),
+                                      color: AppColors.paymentGreen.withValues(
+                                        alpha: 0.15,
+                                      ),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Text(
@@ -513,7 +527,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           // 1. Notification Permission Card
           Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -545,14 +561,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           children: [
                             Text(
                               L10n.t.onboardingScreen29,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               _notificationGranted
                                   ? L10n.t.onboardingScreen30
                                   : L10n.t.onboardingScreen31,
-                              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ],
                         ),
@@ -563,8 +585,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   if (!_notificationGranted)
                     OutlinedButton.icon(
                       onPressed: () async {
-                        final granted =
-                            await NotificationService().requestPermissions();
+                        final granted = await NotificationService()
+                            .requestPermissions();
                         setState(() => _notificationGranted = granted);
                       },
                       icon: const Icon(Icons.security_rounded),
@@ -586,7 +608,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           Card(
             elevation: 1,
             color: Colors.blueGrey[50],
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -594,14 +618,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.battery_alert_rounded, color: Colors.indigo),
+                      const Icon(
+                        Icons.battery_alert_rounded,
+                        color: Colors.indigo,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           guide != null
                               ? L10n.t.onboardingScreen33(guide.brandName)
                               : L10n.t.onboardingScreen34,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],
@@ -610,7 +640,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     const SizedBox(height: 4),
                     Text(
                       guide.osName,
-                      style: TextStyle(fontSize: 11, color: Colors.indigo[800], fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.indigo[800],
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                   const Divider(height: 24),
@@ -625,7 +659,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           children: [
                             CircleAvatar(
                               radius: 10,
-                              backgroundColor: Colors.indigo.withValues(alpha: 0.15),
+                              backgroundColor: Colors.indigo.withValues(
+                                alpha: 0.15,
+                              ),
                               child: Text(
                                 '${entry.key + 1}',
                                 style: const TextStyle(
@@ -639,7 +675,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             Expanded(
                               child: Text(
                                 entry.value,
-                                style: const TextStyle(fontSize: 12, height: 1.35),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  height: 1.35,
+                                ),
                               ),
                             ),
                           ],
@@ -648,7 +687,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     }),
                   const SizedBox(height: 12),
                   ElevatedButton.icon(
-                    onPressed: () => BatteryOptimizationHelper.openBatterySettings(),
+                    onPressed: () =>
+                        BatteryOptimizationHelper.openBatterySettings(),
                     icon: const Icon(Icons.tune_rounded, size: 18),
                     label: Text(L10n.t.onboardingScreen35),
                     style: ElevatedButton.styleFrom(
@@ -709,7 +749,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           // Action 1: Add first real customer
           Card(
             elevation: 1.5,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
             child: InkWell(
               borderRadius: BorderRadius.circular(14),
               onTap: () => _finishOnboarding(openAddCustomer: true),
@@ -736,17 +778,27 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         children: [
                           Text(
                             L10n.t.onboardingScreen38,
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(height: 3),
                           Text(
                             L10n.t.onboardingScreen39,
-                            style: TextStyle(fontSize: 12, color: Colors.black54),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black54,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey),
+                    const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 16,
+                      color: Colors.grey,
+                    ),
                   ],
                 ),
               ),
@@ -754,55 +806,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ),
           const SizedBox(height: 12),
 
-          // Action 2: Try with sample demo data
-          Card(
-            elevation: 1.5,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(14),
-              onTap: () => _finishOnboarding(seedData: true),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: AppColors.warningAmber.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.science_rounded,
-                        color: AppColors.warningAmber,
-                        size: 28,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            L10n.t.onboardingScreen40,
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 3),
-                          Text(
-                            L10n.t.onboardingScreen41,
-                            style: TextStyle(fontSize: 12, color: Colors.black54),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // Action 3: Skip to home
+          // Action 2: Skip to home
           TextButton(
             onPressed: () => _finishOnboarding(),
             child: Text(

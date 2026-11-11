@@ -113,11 +113,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customerPhone => 'Mobile Number';
 
   @override
-  String get customerPhoneHint => '010xxxxxxxx';
+  String get customerPhoneHint => '+2010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid =>
-      'Invalid mobile number (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'Enter a valid phone number';
 
   @override
   String get customerNotes => 'Notes';
@@ -2318,7 +2317,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shopProfileBottomSheet6 => 'Shop phone';
 
   @override
-  String get shopProfileBottomSheet7 => 'e.g. 010xxxxxxxx';
+  String get shopProfileBottomSheet7 => 'e.g. +2010xxxxxxxx';
 
   @override
   String get shopProfileBottomSheet8 => 'Shop address';
@@ -2360,6 +2359,76 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cloudAccountButton3 => 'Sign in with Google';
+
+  @override
+  String get cloudSyncRunning => 'Syncing…';
+
+  @override
+  String get emailAuthTitleLogin => 'Sign in with email';
+
+  @override
+  String get emailAuthTitleRegister => 'Create an email account';
+
+  @override
+  String get emailAuthName => 'Name';
+
+  @override
+  String get emailAuthNameRequired => 'Enter your name';
+
+  @override
+  String get emailAuthEmail => 'Email address';
+
+  @override
+  String get emailAuthPassword => 'Password';
+
+  @override
+  String get emailAuthInvalidEmail => 'Enter a valid email address';
+
+  @override
+  String get emailAuthShortPassword => 'Password must be at least 8 characters';
+
+  @override
+  String get emailAuthGoToRegister => 'New here? Create an account';
+
+  @override
+  String get emailAuthGoToLogin => 'Already have an account? Sign in';
+
+  @override
+  String get emailAuthRegister => 'Create account';
+
+  @override
+  String get emailAuthLogin => 'Sign in with email';
+
+  @override
+  String get emailAuthCancel => 'Cancel';
+
+  @override
+  String get emailAuthSigningIn => 'Signing in…';
+
+  @override
+  String get accountSwitchTitle => 'Switch account';
+
+  @override
+  String get accountSwitchWarning =>
+      'Shop data on this phone will be removed when you switch accounts. Data from the new account will then be downloaded from the cloud.';
+
+  @override
+  String get accountSwitchUnbackedWarning =>
+      'Some data on this phone is not in the latest backup. Back it up before switching. If you continue, local data will be removed and only cloud-backed data can be restored.';
+
+  @override
+  String get accountSwitchCancel => 'Cancel switch';
+
+  @override
+  String get accountSwitchContinue => 'Continue and clear data';
+
+  @override
+  String get accountSwitchChooseMethod =>
+      'Choose how to sign in to the new account';
+
+  @override
+  String get accountSwitchFileCleanupWarning =>
+      'The account was switched, but some local image files could not be deleted.';
 
   @override
   String get cloudBackupCard1 => 'One moment…';
@@ -2499,10 +2568,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingScreen1 => 'My shop';
 
   @override
-  String get onboardingScreen2 =>
-      'Demo customers were added so you can try the app. You can delete them any time';
-
-  @override
   String get onboardingScreen3 => 'Setting up Kashkool';
 
   @override
@@ -2627,29 +2692,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Add a customer and start recording debts and payments right away';
 
   @override
-  String get onboardingScreen40 => 'Try with demo data first 💡';
-
-  @override
-  String get onboardingScreen41 =>
-      'Adds two demo customers with sample balances to explore Kashkool (delete them with one tap)';
-
-  @override
   String get onboardingScreen42 => 'Skip to the home screen';
-
-  @override
-  String get shopRepository1 => 'Ahmed Mohamed (demo)';
-
-  @override
-  String get shopRepository2 => 'Household shopping';
-
-  @override
-  String get shopRepository3 => 'Mahmoud Ibrahim (demo)';
-
-  @override
-  String get shopRepository4 => 'Start-of-month stock';
-
-  @override
-  String get shopRepository5 => 'Cash payment on account';
 
   @override
   String get supplierWithBalance1 => 'Saturday';
@@ -2959,7 +3002,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cloudApi4 => 'The server took too long, please try again';
 
   @override
-  String get cloudApi5 => 'Your session expired, sign in with Google again';
+  String get cloudApi5 => 'Your session expired, sign in again';
 
   @override
   String get cloudApi6 => 'This shop belongs to another Google account';
@@ -2971,7 +3014,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cloudApi8 => 'Too many attempts, wait a bit and try again';
 
   @override
-  String get cloudApi9 => 'Sign in with Google again';
+  String get cloudApi9 => 'Sign in again';
 
   @override
   String get cloudApi10 => 'Google sign-in isn\'t set up on the server';
@@ -2983,6 +3026,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String cloudApi12(Object code) {
     return 'Something went wrong ($code)';
   }
+
+  @override
+  String get cloudApi13 => 'This email address is already in use';
+
+  @override
+  String get cloudApi14 => 'Email or password is incorrect';
 
   @override
   String get cloudBackupService1 => 'Google sign-in isn\'t available';

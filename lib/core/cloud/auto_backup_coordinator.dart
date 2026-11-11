@@ -9,7 +9,14 @@ import 'cloud_config.dart';
 import 'cloud_providers.dart';
 import '../../l10n/l10n.dart';
 
-enum AutoBackupState { idle, waitingForInternet, uploading, upToDate, failed }
+enum AutoBackupState {
+  idle,
+  waitingForInternet,
+  syncing,
+  uploading,
+  upToDate,
+  failed,
+}
 
 class AutoBackupStatus {
   final AutoBackupState state;
@@ -18,7 +25,9 @@ class AutoBackupStatus {
 }
 
 /// What the automatic backup is doing right now (shown in the cloud card).
-final autoBackupStatusProvider = StateProvider<AutoBackupStatus>((ref) => const AutoBackupStatus(AutoBackupState.idle));
+final autoBackupStatusProvider = StateProvider<AutoBackupStatus>(
+  (ref) => const AutoBackupStatus(AutoBackupState.idle),
+);
 
 /// Start once from main(): `ref.read(autoBackupCoordinatorProvider)`.
 final autoBackupCoordinatorProvider = Provider<AutoBackupCoordinator>((ref) {
@@ -33,7 +42,7 @@ final autoBackupCoordinatorProvider = Provider<AutoBackupCoordinator>((ref) {
 /// - 30 seconds after any change in the database,
 /// - when the app is opened or brought back to the front,
 /// - every 30 minutes while the app is open.
-/// Only runs when the user is signed in with Google.
+/// Only runs when the user is signed in to a cloud account.
 class AutoBackupCoordinator {
   final Ref _ref;
   AutoBackupCoordinator(this._ref);
@@ -57,21 +66,33 @@ class AutoBackupCoordinator {
     if (!CloudConfig.isConfigured) return; // cloud not set up in this build
     try {
       final connectivity = Connectivity();
-      connectivity.checkConnectivity().then((r) => _online = _isOnline(r)).catchError((_) => true);
-      _subs.add(connectivity.onConnectivityChanged.listen((results) {
-        final wasOnline = _online;
-        _online = _isOnline(results);
-        if (_online && !wasOnline) {
-          schedule(_afterReconnect);
-        } else if (!_online) {
-          _setStatus(const AutoBackupStatus(AutoBackupState.waitingForInternet));
-        }
-      }));
+      connectivity
+          .checkConnectivity()
+          .then((r) => _online = _isOnline(r))
+          .catchError((_) => true);
+      _subs.add(
+        connectivity.onConnectivityChanged.listen((results) {
+          final wasOnline = _online;
+          _online = _isOnline(results);
+          if (_online && !wasOnline) {
+            schedule(_afterReconnect);
+          } else if (!_online) {
+            _setStatus(
+              const AutoBackupStatus(AutoBackupState.waitingForInternet),
+            );
+          }
+        }),
+      );
     } catch (e) {
       debugPrint('AutoBackup: connectivity unavailable ($e)');
     }
 
-    _subs.add(_ref.read(databaseProvider).tableUpdates().listen((_) => schedule(_afterChange)));
+    _subs.add(
+      _ref
+          .read(databaseProvider)
+          .tableUpdates()
+          .listen((_) => schedule(_afterChange)),
+    );
 
     try {
       _lifecycle = AppLifecycleListener(onResume: () => schedule(_afterResume));
@@ -103,23 +124,41 @@ class AutoBackupCoordinator {
     }
     final session = await _ref.read(cloudSessionStoreProvider).read();
     if (session == null) return; // not signed in: nothing to do
+    final backupService = _ref.read(cloudBackupServiceProvider);
+    if (await backupService.accountTransitionPending() ||
+        !await backupService.accountMatches(session)) {
+      return;
+    }
     if (!_online) {
       _setStatus(const AutoBackupStatus(AutoBackupState.waitingForInternet));
       return;
     }
 
     _running = true;
-    _setStatus(const AutoBackupStatus(AutoBackupState.uploading));
     try {
-      final result = await _ref.read(cloudBackupServiceProvider).backupNow();
-      _setStatus(AutoBackupStatus(
-        AutoBackupState.upToDate,
-        result.rejected > 0 ? L10n.t.autoBackupCoordinator1(result.rejected) : null,
-      ));
+      _setStatus(const AutoBackupStatus(AutoBackupState.syncing));
+      await backupService.restoreAccountShop();
+      if (_disposed) return;
+      _setStatus(const AutoBackupStatus(AutoBackupState.uploading));
+      final result = await backupService.backupNow();
+      _setStatus(
+        AutoBackupStatus(
+          AutoBackupState.upToDate,
+          result.rejected > 0
+              ? L10n.t.autoBackupCoordinator1(result.rejected)
+              : null,
+        ),
+      );
       _ref.invalidate(cloudSessionProvider);
     } on CloudApiException catch (e) {
+      if (e.code == 'account_transition') return;
       final offline = e.code == 'network' || e.code == 'timeout';
-      _setStatus(AutoBackupStatus(offline ? AutoBackupState.waitingForInternet : AutoBackupState.failed, e.message));
+      _setStatus(
+        AutoBackupStatus(
+          offline ? AutoBackupState.waitingForInternet : AutoBackupState.failed,
+          e.message,
+        ),
+      );
       if (e.code == 'signed_out') {
         _ref.invalidate(cloudSessionProvider);
       } else {
@@ -127,7 +166,9 @@ class AutoBackupCoordinator {
       }
     } catch (e) {
       debugPrint('AutoBackup failed: $e');
-      _setStatus(AutoBackupStatus(AutoBackupState.failed, L10n.t.autoBackupCoordinator2));
+      _setStatus(
+        AutoBackupStatus(AutoBackupState.failed, L10n.t.autoBackupCoordinator2),
+      );
       schedule(_retryAfterFailure);
     } finally {
       _running = false;

@@ -66,6 +66,10 @@ export async function ensureIndexes(db) {
       { unique: true, partialFilterExpression: { googleSub: { $type: 'string' } } },
     ),
     db.collection('users').createIndex({ email: 1 }),
+    db.collection('users').createIndex(
+      { email: 1 },
+      { unique: true, partialFilterExpression: { passwordHash: { $type: 'string' } } },
+    ),
     db.collection('refresh_tokens').createIndex({ tokenHash: 1 }, { unique: true }),
     db.collection('refresh_tokens').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
     db.collection('shops').createIndex({ id: 1 }, { unique: true }),

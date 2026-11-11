@@ -32,6 +32,50 @@ test('login, /me, refresh token rotation, logout', async () => {
   await api().post('/v1/auth/refresh').send({ refreshToken: refreshed.body.refreshToken }).expect(401);
 });
 
+test('email registration stores a password hash and email login issues tokens', async () => {
+  const registered = await api().post('/v1/auth/email/register').send({
+    email: '  owner@EXAMPLE.com ',
+    password: 'correct horse battery',
+    name: 'Owner',
+  }).expect(201);
+  assert.equal(registered.body.user.email, 'owner@example.com');
+  assert.ok(registered.body.accessToken);
+  assert.ok(registered.body.refreshToken);
+
+  const stored = await db.collection('users').findOne({ email: 'owner@example.com' });
+  assert.notEqual(stored.passwordHash, 'correct horse battery');
+  assert.ok(stored.passwordSalt);
+
+  const login = await api().post('/v1/auth/email/login').send({
+    email: 'OWNER@example.com',
+    password: 'correct horse battery',
+  }).expect(200);
+  const me = await api().get('/v1/me').set(auth(login.body.accessToken)).expect(200);
+  assert.equal(me.body.user.email, 'owner@example.com');
+});
+
+test('email login rejects incorrect credentials without revealing account existence', async () => {
+  await api().post('/v1/auth/email/register').send({
+    email: 'owner@example.com',
+    password: 'correct horse battery',
+  }).expect(201);
+
+  const wrongPassword = await api().post('/v1/auth/email/login').send({
+    email: 'owner@example.com',
+    password: 'wrong password',
+  }).expect(401);
+  const missingAccount = await api().post('/v1/auth/email/login').send({
+    email: 'missing@example.com',
+    password: 'wrong password',
+  }).expect(401);
+  assert.equal(wrongPassword.body.error, missingAccount.body.error);
+
+  await api().post('/v1/auth/email/register').send({
+    email: 'owner@example.com',
+    password: 'another password',
+  }).expect(409);
+});
+
 test('shop registration is idempotent for the owner and blocked for others', async () => {
   const a = await login('a@test.com');
   const b = await login('b@test.com');

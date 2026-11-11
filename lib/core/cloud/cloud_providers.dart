@@ -5,11 +5,43 @@ import 'cloud_backup_service.dart';
 import 'cloud_session_store.dart';
 import 'google_auth_service.dart';
 
-final cloudSessionStoreProvider = Provider<CloudSessionStore>((ref) => CloudSessionStore());
+enum CloudAuthStatus { initial, loading, authenticated, unauthenticated, error }
 
-final cloudApiProvider = Provider<CloudApi>((ref) => CloudApi(ref.watch(cloudSessionStoreProvider)));
+class CloudAuthState {
+  final CloudAuthStatus status;
+  final String? message;
 
-final googleAuthServiceProvider = Provider<GoogleAuthService>((ref) => GoogleAuthService());
+  const CloudAuthState(this.status, [this.message]);
+}
+
+class CloudAuthController extends StateNotifier<CloudAuthState> {
+  CloudAuthController() : super(const CloudAuthState(CloudAuthStatus.initial));
+
+  void setLoading() => state = const CloudAuthState(CloudAuthStatus.loading);
+  void setAuthenticated() =>
+      state = const CloudAuthState(CloudAuthStatus.authenticated);
+  void setUnauthenticated() =>
+      state = const CloudAuthState(CloudAuthStatus.unauthenticated);
+  void setError(String message) =>
+      state = CloudAuthState(CloudAuthStatus.error, message);
+}
+
+final cloudAuthStateProvider =
+    StateNotifierProvider<CloudAuthController, CloudAuthState>(
+      (ref) => CloudAuthController(),
+    );
+
+final cloudSessionStoreProvider = Provider<CloudSessionStore>(
+  (ref) => CloudSessionStore(),
+);
+
+final cloudApiProvider = Provider<CloudApi>(
+  (ref) => CloudApi(ref.watch(cloudSessionStoreProvider)),
+);
+
+final googleAuthServiceProvider = Provider<GoogleAuthService>(
+  (ref) => GoogleAuthService(),
+);
 
 final cloudBackupServiceProvider = Provider<CloudBackupService>((ref) {
   return CloudBackupService(

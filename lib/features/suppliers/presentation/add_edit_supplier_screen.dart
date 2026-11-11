@@ -17,7 +17,8 @@ class AddEditSupplierScreen extends ConsumerStatefulWidget {
   bool get isEditing => supplier != null;
 
   @override
-  ConsumerState<AddEditSupplierScreen> createState() => _AddEditSupplierScreenState();
+  ConsumerState<AddEditSupplierScreen> createState() =>
+      _AddEditSupplierScreenState();
 }
 
 class _AddEditSupplierScreenState extends ConsumerState<AddEditSupplierScreen> {
@@ -153,7 +154,10 @@ class _AddEditSupplierScreenState extends ConsumerState<AddEditSupplierScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.warning_amber_rounded, color: AppColors.warningAmber),
+                        const Icon(
+                          Icons.warning_amber_rounded,
+                          color: AppColors.warningAmber,
+                        ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
@@ -215,7 +219,7 @@ class _AddEditSupplierScreenState extends ConsumerState<AddEditSupplierScreen> {
                   validator: (val) {
                     final text = val?.trim() ?? '';
                     if (text.isEmpty) return null;
-                    if (!PhoneUtils.isValidEgyptianMobile(text)) {
+                    if (!PhoneUtils.isValidPhone(text)) {
                       return l10n.customerPhoneInvalid;
                     }
                     return null;
@@ -274,7 +278,10 @@ class _AddEditSupplierScreenState extends ConsumerState<AddEditSupplierScreen> {
                       ? const SizedBox(
                           height: 24,
                           width: 24,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.5,
+                          ),
                         )
                       : Text(
                           l10n.save,

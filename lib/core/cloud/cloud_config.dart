@@ -13,14 +13,20 @@ abstract final class CloudConfig {
     'KASHKOOL_API_URL',
     defaultValue: 'https://backend-gamma-ten-87.vercel.app',
   );
+
   /// Web OAuth client ID (Google Cloud project "whatsapp-b25d2"). Client IDs are public, not secrets.
   static const String googleServerClientId = String.fromEnvironment(
     'GOOGLE_SERVER_CLIENT_ID',
-    defaultValue: '614449752265-j63irue74mr2n73ingedj9ps3j9nm6p7.apps.googleusercontent.com',
+    defaultValue:
+        '614449752265-j63irue74mr2n73ingedj9ps3j9nm6p7.apps.googleusercontent.com',
   );
 
-  static bool get isConfigured => apiBaseUrl.isNotEmpty && googleServerClientId.isNotEmpty;
+  static bool get isConfigured => apiBaseUrl.isNotEmpty;
+  static bool get googleSignInConfigured =>
+      isConfigured && googleServerClientId.isNotEmpty;
 
   /// Base URL without a trailing slash.
-  static String get baseUrl => apiBaseUrl.endsWith('/') ? apiBaseUrl.substring(0, apiBaseUrl.length - 1) : apiBaseUrl;
+  static String get baseUrl => apiBaseUrl.endsWith('/')
+      ? apiBaseUrl.substring(0, apiBaseUrl.length - 1)
+      : apiBaseUrl;
 }

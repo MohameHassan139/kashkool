@@ -318,13 +318,13 @@ abstract class AppLocalizations {
   /// No description provided for @customerPhoneHint.
   ///
   /// In ar_EG, this message translates to:
-  /// **'010xxxxxxxx'**
+  /// **'+2010xxxxxxxx'**
   String get customerPhoneHint;
 
   /// No description provided for @customerPhoneInvalid.
   ///
   /// In ar_EG, this message translates to:
-  /// **'رقم الموبايل غير صحيح (010, 011, 012, 015)'**
+  /// **'رقم التليفون غير صحيح'**
   String get customerPhoneInvalid;
 
   /// No description provided for @customerNotes.
@@ -4159,7 +4159,7 @@ abstract class AppLocalizations {
   /// No description provided for @shopProfileBottomSheet7.
   ///
   /// In ar_EG, this message translates to:
-  /// **'مثلاً: 010xxxxxxxx'**
+  /// **'مثلاً: +2010xxxxxxxx'**
   String get shopProfileBottomSheet7;
 
   /// No description provided for @shopProfileBottomSheet8.
@@ -4239,6 +4239,138 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'سجّل دخول بحساب جوجل'**
   String get cloudAccountButton3;
+
+  /// No description provided for @cloudSyncRunning.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جاري المزامنة…'**
+  String get cloudSyncRunning;
+
+  /// No description provided for @emailAuthTitleLogin.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل الدخول بالبريد الإلكتروني'**
+  String get emailAuthTitleLogin;
+
+  /// No description provided for @emailAuthTitleRegister.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إنشاء حساب بالبريد الإلكتروني'**
+  String get emailAuthTitleRegister;
+
+  /// No description provided for @emailAuthName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الاسم'**
+  String get emailAuthName;
+
+  /// No description provided for @emailAuthNameRequired.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب اسمك'**
+  String get emailAuthNameRequired;
+
+  /// No description provided for @emailAuthEmail.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البريد الإلكتروني'**
+  String get emailAuthEmail;
+
+  /// No description provided for @emailAuthPassword.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كلمة المرور'**
+  String get emailAuthPassword;
+
+  /// No description provided for @emailAuthInvalidEmail.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب بريدًا إلكترونيًا صحيحًا'**
+  String get emailAuthInvalidEmail;
+
+  /// No description provided for @emailAuthShortPassword.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كلمة المرور لازم تكون 8 أحرف على الأقل'**
+  String get emailAuthShortPassword;
+
+  /// No description provided for @emailAuthGoToRegister.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مستخدم جديد؟ أنشئ حسابًا'**
+  String get emailAuthGoToRegister;
+
+  /// No description provided for @emailAuthGoToLogin.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لديك حساب؟ سجّل الدخول'**
+  String get emailAuthGoToLogin;
+
+  /// No description provided for @emailAuthRegister.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إنشاء حساب'**
+  String get emailAuthRegister;
+
+  /// No description provided for @emailAuthLogin.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل الدخول بالبريد'**
+  String get emailAuthLogin;
+
+  /// No description provided for @emailAuthCancel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إلغاء'**
+  String get emailAuthCancel;
+
+  /// No description provided for @emailAuthSigningIn.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جارٍ تسجيل الدخول…'**
+  String get emailAuthSigningIn;
+
+  /// No description provided for @accountSwitchTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تبديل الحساب'**
+  String get accountSwitchTitle;
+
+  /// No description provided for @accountSwitchWarning.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيانات المحل الموجودة على هذا الجهاز هتتمسح عند تبديل الحساب، وبعدها هنحمّل بيانات الحساب الجديد من السحابة.'**
+  String get accountSwitchWarning;
+
+  /// No description provided for @accountSwitchUnbackedWarning.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'في بيانات على الجهاز مش موجودة في آخر نسخة احتياطية. اعمل نسخة قبل التبديل؛ لو كملت، هتتمسح البيانات المحلية ومش هتقدر تسترجع غير اللي اتنسخ للسحابة.'**
+  String get accountSwitchUnbackedWarning;
+
+  /// No description provided for @accountSwitchCancel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إلغاء التبديل'**
+  String get accountSwitchCancel;
+
+  /// No description provided for @accountSwitchContinue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'متابعة ومسح البيانات'**
+  String get accountSwitchContinue;
+
+  /// No description provided for @accountSwitchChooseMethod.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اختار طريقة تسجيل الدخول للحساب الجديد'**
+  String get accountSwitchChooseMethod;
+
+  /// No description provided for @accountSwitchFileCleanupWarning.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الحساب اتبدّل، لكن بعض ملفات الصور المحلية ما اتمسحتش.'**
+  String get accountSwitchFileCleanupWarning;
 
   /// No description provided for @cloudBackupCard1.
   ///
@@ -4474,12 +4606,6 @@ abstract class AppLocalizations {
   /// **'محلي'**
   String get onboardingScreen1;
 
-  /// No description provided for @onboardingScreen2.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'تمت إضافة عملاء تجريبيين لتجربة التطبيق، يمكنك حذفهم في أي وقت'**
-  String get onboardingScreen2;
-
   /// No description provided for @onboardingScreen3.
   ///
   /// In ar_EG, this message translates to:
@@ -4702,53 +4828,11 @@ abstract class AppLocalizations {
   /// **'سجل أول عميل وابدأ تدوين الديون والدفعات مباشرة'**
   String get onboardingScreen39;
 
-  /// No description provided for @onboardingScreen40.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'جرب ببيانات تجريبية أولاً 💡'**
-  String get onboardingScreen40;
-
-  /// No description provided for @onboardingScreen41.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'إضافة عميلين وحسابات تجريبية لاكتشاف مميزات كشكول (يمكن حذفهم بضغطة زر)'**
-  String get onboardingScreen41;
-
   /// No description provided for @onboardingScreen42.
   ///
   /// In ar_EG, this message translates to:
   /// **'تخطي والذهاب إلى الشاشة الرئيسية'**
   String get onboardingScreen42;
-
-  /// No description provided for @shopRepository1.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'أحمد محمد (تجريبي)'**
-  String get shopRepository1;
-
-  /// No description provided for @shopRepository2.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'مشتريات طلبات منزلية'**
-  String get shopRepository2;
-
-  /// No description provided for @shopRepository3.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'محمود إبراهيم (تجريبي)'**
-  String get shopRepository3;
-
-  /// No description provided for @shopRepository4.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'بضاعة أول الشهر'**
-  String get shopRepository4;
-
-  /// No description provided for @shopRepository5.
-  ///
-  /// In ar_EG, this message translates to:
-  /// **'دفعة نقدية على الحساب'**
-  String get shopRepository5;
 
   /// No description provided for @supplierWithBalance1.
   ///
@@ -5281,7 +5365,7 @@ abstract class AppLocalizations {
   /// No description provided for @cloudApi5.
   ///
   /// In ar_EG, this message translates to:
-  /// **'انتهت صلاحية الدخول، سجّل دخول بحساب جوجل تاني'**
+  /// **'انتهت صلاحية الدخول، سجّل دخول تاني'**
   String get cloudApi5;
 
   /// No description provided for @cloudApi6.
@@ -5305,7 +5389,7 @@ abstract class AppLocalizations {
   /// No description provided for @cloudApi9.
   ///
   /// In ar_EG, this message translates to:
-  /// **'سجّل دخول بحساب جوجل تاني'**
+  /// **'سجّل دخول تاني'**
   String get cloudApi9;
 
   /// No description provided for @cloudApi10.
@@ -5325,6 +5409,18 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'حصلت مشكلة ({code})'**
   String cloudApi12(Object code);
+
+  /// No description provided for @cloudApi13.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البريد الإلكتروني مستخدم بالفعل'**
+  String get cloudApi13;
+
+  /// No description provided for @cloudApi14.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البريد الإلكتروني أو كلمة المرور غير صحيحة'**
+  String get cloudApi14;
 
   /// No description provided for @cloudBackupService1.
   ///

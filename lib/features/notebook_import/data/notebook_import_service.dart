@@ -38,12 +38,12 @@ class ImportRow {
   });
 
   ImportRow withPhotos(List<String> paths) => ImportRow(
-        name: name,
-        phone: phone,
-        amountPiasters: amountPiasters,
-        customerOwes: customerOwes,
-        photoPaths: List.unmodifiable(paths),
-      );
+    name: name,
+    phone: phone,
+    amountPiasters: amountPiasters,
+    customerOwes: customerOwes,
+    photoPaths: List.unmodifiable(paths),
+  );
 }
 
 /// Result of checking a typed row.
@@ -52,9 +52,7 @@ class RowCheck {
   final String? error;
   const RowCheck.ok(this.row) : error = null;
   const RowCheck.error(this.error) : row = null;
-  const RowCheck.empty()
-      : row = null,
-        error = null;
+  const RowCheck.empty() : row = null, error = null;
   bool get isEmpty => row == null && error == null;
 }
 
@@ -62,7 +60,11 @@ class ImportSummary {
   final int newCustomers;
   final int existingCustomers;
   final int totalPiasters;
-  const ImportSummary(this.newCustomers, this.existingCustomers, this.totalPiasters);
+  const ImportSummary(
+    this.newCustomers,
+    this.existingCustomers,
+    this.totalPiasters,
+  );
 }
 
 /// Moves a paper notebook ("الكشكول") into the app quickly, without AI:
@@ -75,8 +77,13 @@ class NotebookImportService {
   final InstallmentRepository _installments;
   final CustomerPhotoRepository _photos;
 
-  NotebookImportService(this._db, this._customers, this._transactions, this._installments, [CustomerPhotoRepository? photos])
-      : _photos = photos ?? CustomerPhotoRepository(_db);
+  NotebookImportService(
+    this._db,
+    this._customers,
+    this._transactions,
+    this._installments, [
+    CustomerPhotoRepository? photos,
+  ]) : _photos = photos ?? CustomerPhotoRepository(_db);
 
   /// Validates one line. Empty lines are ignored (not errors).
   /// A line with photos but no name is an error, so the photos are not lost silently.
@@ -90,14 +97,21 @@ class NotebookImportService {
     final trimmedName = name.trim();
     final trimmedPhone = phone.trim();
     final trimmedAmount = amount.trim();
-    if (trimmedName.isEmpty && trimmedPhone.isEmpty && trimmedAmount.isEmpty && !hasPhotos) return const RowCheck.empty();
-    if (trimmedName.length < 2) return RowCheck.error(L10n.t.notebookImportService3);
-    if (trimmedName.length > 60) return RowCheck.error(L10n.t.notebookImportService4);
+    if (trimmedName.isEmpty &&
+        trimmedPhone.isEmpty &&
+        trimmedAmount.isEmpty &&
+        !hasPhotos)
+      return const RowCheck.empty();
+    if (trimmedName.length < 2)
+      return RowCheck.error(L10n.t.notebookImportService3);
+    if (trimmedName.length > 60)
+      return RowCheck.error(L10n.t.notebookImportService4);
 
     String? normalizedPhone;
     if (trimmedPhone.isNotEmpty) {
-      normalizedPhone = PhoneUtils.normalizeEgyptianMobile(trimmedPhone);
-      if (normalizedPhone == null) return RowCheck.error(L10n.t.oldInstallmentImportScreen18);
+      normalizedPhone = PhoneUtils.normalizePhone(trimmedPhone);
+      if (normalizedPhone == null)
+        return RowCheck.error(L10n.t.oldInstallmentImportScreen18);
     }
 
     var piasters = 0;
@@ -105,12 +119,14 @@ class NotebookImportService {
       piasters = MoneyUtils.toPiasters(trimmedAmount, fallback: -1);
       if (piasters < 0) return RowCheck.error(L10n.t.notebookImportService5);
     }
-    return RowCheck.ok(ImportRow(
-      name: trimmedName,
-      phone: normalizedPhone,
-      amountPiasters: piasters,
-      customerOwes: customerOwes,
-    ));
+    return RowCheck.ok(
+      ImportRow(
+        name: trimmedName,
+        phone: normalizedPhone,
+        amountPiasters: piasters,
+        customerOwes: customerOwes,
+      ),
+    );
   }
 
   /// Existing (not deleted) customer with the same phone or the same name (Arabic-normalized).
@@ -134,7 +150,8 @@ class NotebookImportService {
     await _db.transaction(() async {
       final idsInBatch = <String, String>{};
       for (final row in rows) {
-        final key = row.phone ?? 'name:${ArabicSearchUtils.normalize(row.name)}';
+        final key =
+            row.phone ?? 'name:${ArabicSearchUtils.normalize(row.name)}';
         var customerId = idsInBatch[key];
         if (customerId == null) {
           final match = await findExisting(row.name, row.phone);
@@ -142,23 +159,36 @@ class NotebookImportService {
             customerId = match.id;
             existing++;
           } else {
-            customerId = await _customers.addCustomer(name: row.name, phone: row.phone);
+            customerId = await _customers.addCustomer(
+              name: row.name,
+              phone: row.phone,
+            );
             created++;
           }
           idsInBatch[key] = customerId;
-          if (row.phone != null) idsInBatch['name:${ArabicSearchUtils.normalize(row.name)}'] = customerId;
+          if (row.phone != null)
+            idsInBatch['name:${ArabicSearchUtils.normalize(row.name)}'] =
+                customerId;
         }
 
-        await _photos.addPhotos(customerId, pagePhotos, note: kNotebookPageNote);
+        await _photos.addPhotos(
+          customerId,
+          pagePhotos,
+          note: kNotebookPageNote,
+        );
         await _photos.addPhotos(customerId, row.photoPaths);
 
         // The balance row keeps one photo as a quick reference in the ledger.
-        final photoPath = row.photoPaths.isNotEmpty ? row.photoPaths.first : (pagePhotos.isEmpty ? null : pagePhotos.first);
+        final photoPath = row.photoPaths.isNotEmpty
+            ? row.photoPaths.first
+            : (pagePhotos.isEmpty ? null : pagePhotos.first);
         if (row.amountPiasters > 0) {
           await _transactions.addTransaction(
             partyType: PartyType.customer,
             partyId: customerId,
-            type: row.customerOwes ? TransactionType.debt : TransactionType.payment,
+            type: row.customerOwes
+                ? TransactionType.debt
+                : TransactionType.payment,
             amountPiasters: row.amountPiasters,
             // "Other" keeps an old credit out of today's cash drawer.
             method: row.customerOwes ? null : PaymentMethod.other,
@@ -208,7 +238,9 @@ class NotebookImportService {
         startDate: nextDueDate,
         guarantorName: guarantorName,
         guarantorPhone: guarantorPhone,
-        notes: L10n.t.notebookImportService9(MoneyUtils.formatMoney(paidPiasters)),
+        notes: L10n.t.notebookImportService9(
+          MoneyUtils.formatMoney(paidPiasters),
+        ),
         photoPath: photoPath,
         // Don't post the full price + a "down payment" collected today (that would show up in
         // today's cash drawer). Post only the remaining amount below.
@@ -219,16 +251,24 @@ class NotebookImportService {
         partyId: customerId,
         type: TransactionType.debt,
         amountPiasters: remaining,
-        note: L10n.t.notebookImportService10(itemDescription.trim(), MoneyUtils.formatMoney(totalPricePiasters)),
+        note: L10n.t.notebookImportService10(
+          itemDescription.trim(),
+          MoneyUtils.formatMoney(totalPricePiasters),
+        ),
         photoPath: photoPath,
       );
-      await _photos.addPhotos(customerId, photoPaths, note: L10n.t.notebookImportService11(itemDescription.trim()));
+      await _photos.addPhotos(
+        customerId,
+        photoPaths,
+        note: L10n.t.notebookImportService11(itemDescription.trim()),
+      );
     });
     return planId;
   }
 
   /// Installment amount preview (the last installment absorbs any remainder).
-  static int perInstallment(int remainingPiasters, int count) => count < 1 ? 0 : remainingPiasters ~/ count;
+  static int perInstallment(int remainingPiasters, int count) =>
+      count < 1 ? 0 : remainingPiasters ~/ count;
 }
 
 final notebookImportServiceProvider = Provider<NotebookImportService>((ref) {

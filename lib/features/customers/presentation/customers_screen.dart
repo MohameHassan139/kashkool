@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/cloud/auto_backup_coordinator.dart';
+import '../../../core/cloud/cloud_api.dart';
+import '../../../core/cloud/cloud_providers.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../onboarding/data/shop_repository.dart';
@@ -42,6 +45,40 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
     ref.read(customerSearchQueryProvider.notifier).state = '';
   }
 
+  Future<void> _refreshCloudData() async {
+    final session = await ref.read(cloudSessionStoreProvider).read();
+    if (session == null) return;
+
+    final status = ref.read(autoBackupStatusProvider.notifier);
+    status.state = const AutoBackupStatus(AutoBackupState.syncing);
+    try {
+      await ref.read(cloudBackupServiceProvider).restoreAccountShop();
+      status.state = const AutoBackupStatus(AutoBackupState.upToDate);
+    } on CloudApiException catch (error) {
+      final offline = error.code == 'network' || error.code == 'timeout';
+      status.state = AutoBackupStatus(
+        offline ? AutoBackupState.waitingForInternet : AutoBackupState.failed,
+        error.message,
+      );
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(error.message)));
+      }
+    } catch (error, stackTrace) {
+      debugPrint('Cloud refresh failed: $error\n$stackTrace');
+      status.state = AutoBackupStatus(
+        AutoBackupState.failed,
+        L10n.t.cloudBackupCard2,
+      );
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(L10n.t.cloudBackupCard2)));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -75,12 +112,16 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
           // Quick Privacy Mode Toggle
           IconButton(
             icon: Icon(
-              privacyMode ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+              privacyMode
+                  ? Icons.visibility_off_rounded
+                  : Icons.visibility_rounded,
               color: privacyMode ? AppColors.warningAmber : null,
             ),
             tooltip: L10n.t.customersScreen2,
             onPressed: () async {
-              await ref.read(settingsRepositoryProvider).setPrivacyMode(!privacyMode);
+              await ref
+                  .read(settingsRepositoryProvider)
+                  .setPrivacyMode(!privacyMode);
             },
           ),
           // Sort Options Menu
@@ -98,7 +139,9 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   children: [
                     Icon(
                       Icons.trending_down_rounded,
-                      color: activeSort == CustomerSort.highestBalance ? theme.colorScheme.primary : null,
+                      color: activeSort == CustomerSort.highestBalance
+                          ? theme.colorScheme.primary
+                          : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortHighestDebt),
@@ -111,7 +154,9 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   children: [
                     Icon(
                       Icons.sort_by_alpha_rounded,
-                      color: activeSort == CustomerSort.name ? theme.colorScheme.primary : null,
+                      color: activeSort == CustomerSort.name
+                          ? theme.colorScheme.primary
+                          : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortName),
@@ -124,7 +169,9 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   children: [
                     Icon(
                       Icons.schedule_rounded,
-                      color: activeSort == CustomerSort.lastActivity ? theme.colorScheme.primary : null,
+                      color: activeSort == CustomerSort.lastActivity
+                          ? theme.colorScheme.primary
+                          : null,
                     ),
                     const SizedBox(width: 8),
                     Text(l10n.sortLastActivity),
@@ -162,7 +209,10 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                         onPressed: _clearSearch,
                       )
                     : null,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
               ),
             ),
           ),
@@ -177,7 +227,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   label: Text(l10n.filterAll),
                   selected: activeFilter == CustomerFilter.all,
                   onSelected: (_) {
-                    ref.read(customerFilterProvider.notifier).state = CustomerFilter.all;
+                    ref.read(customerFilterProvider.notifier).state =
+                        CustomerFilter.all;
                   },
                 ),
                 const SizedBox(width: 8),
@@ -185,7 +236,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   label: Text(l10n.filterHasDebt),
                   selected: activeFilter == CustomerFilter.hasDebt,
                   onSelected: (_) {
-                    ref.read(customerFilterProvider.notifier).state = CustomerFilter.hasDebt;
+                    ref.read(customerFilterProvider.notifier).state =
+                        CustomerFilter.hasDebt;
                   },
                 ),
                 const SizedBox(width: 8),
@@ -193,7 +245,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   label: Text(l10n.filterSettled),
                   selected: activeFilter == CustomerFilter.settled,
                   onSelected: (_) {
-                    ref.read(customerFilterProvider.notifier).state = CustomerFilter.settled;
+                    ref.read(customerFilterProvider.notifier).state =
+                        CustomerFilter.settled;
                   },
                 ),
                 const SizedBox(width: 8),
@@ -201,7 +254,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                   label: Text(l10n.filterLate),
                   selected: activeFilter == CustomerFilter.late,
                   onSelected: (_) {
-                    ref.read(customerFilterProvider.notifier).state = CustomerFilter.late;
+                    ref.read(customerFilterProvider.notifier).state =
+                        CustomerFilter.late;
                   },
                 ),
               ],
@@ -212,66 +266,94 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
 
           // Customers List
           Expanded(
-            child: customersAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text(err.toString())),
-              data: (customers) {
-                if (customers.isEmpty) {
-                  final isSearching = _searchController.text.trim().isNotEmpty ||
-                      activeFilter != CustomerFilter.all;
+            child: RefreshIndicator(
+              onRefresh: _refreshCloudData,
+              child: customersAsync.when(
+                loading: () => ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: const [
+                    SizedBox(
+                      height: 240,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  ],
+                ),
+                error: (err, stack) => ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    SizedBox(
+                      height: 240,
+                      child: Center(child: Text(err.toString())),
+                    ),
+                  ],
+                ),
+                data: (customers) {
+                  if (customers.isEmpty) {
+                    final isSearching =
+                        _searchController.text.trim().isNotEmpty ||
+                        activeFilter != CustomerFilter.all;
 
-                  return Center(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            isSearching ? Icons.person_search_rounded : Icons.menu_book_rounded,
-                            size: 56,
-                            color: theme.disabledColor,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            isSearching ? l10n.noSearchResults : l10n.noCustomersTitle,
-                            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 6),
-                          if (!isSearching)
+                    return Center(
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              isSearching
+                                  ? Icons.person_search_rounded
+                                  : Icons.menu_book_rounded,
+                              size: 56,
+                              color: theme.disabledColor,
+                            ),
+                            const SizedBox(height: 12),
                             Text(
-                              l10n.noCustomersSubtitle,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
+                              isSearching
+                                  ? l10n.noSearchResults
+                                  : l10n.noCustomersTitle,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center,
                             ),
-                        ],
+                            const SizedBox(height: 6),
+                            if (!isSearching)
+                              Text(
+                                l10n.noCustomersSubtitle,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
-
-                return ListView.builder(
-                  itemCount: customers.length,
-                  padding: const EdgeInsets.only(bottom: 88, top: 4),
-                  itemBuilder: (ctx, index) {
-                    final item = customers[index];
-                    return CustomerListItem(
-                      item: item,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => CustomerDetailsScreen(
-                              customerId: item.customer.id,
-                            ),
-                          ),
-                        );
-                      },
                     );
-                  },
-                );
-              },
+                  }
+
+                  return ListView.builder(
+                    itemCount: customers.length,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(bottom: 88, top: 4),
+                    itemBuilder: (ctx, index) {
+                      final item = customers[index];
+                      return CustomerListItem(
+                        item: item,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) => CustomerDetailsScreen(
+                                customerId: item.customer.id,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -284,9 +366,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         ),
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (ctx) => const AddEditCustomerScreen(),
-            ),
+            MaterialPageRoute(builder: (ctx) => const AddEditCustomerScreen()),
           );
         },
       ),

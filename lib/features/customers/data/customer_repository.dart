@@ -54,13 +54,16 @@ class CustomerRepository {
 
           // Debt adds to what customer owes (+), Payment reduces it (-)
           if (transaction.type == TransactionType.debt) {
-            balanceMap[customer.id] = (balanceMap[customer.id] ?? 0) + transaction.amountPiasters;
+            balanceMap[customer.id] =
+                (balanceMap[customer.id] ?? 0) + transaction.amountPiasters;
           } else {
-            balanceMap[customer.id] = (balanceMap[customer.id] ?? 0) - transaction.amountPiasters;
+            balanceMap[customer.id] =
+                (balanceMap[customer.id] ?? 0) - transaction.amountPiasters;
           }
 
           final currentLast = lastActivityMap[customer.id];
-          if (currentLast == null || transaction.occurredAt.isAfter(currentLast)) {
+          if (currentLast == null ||
+              transaction.occurredAt.isAfter(currentLast)) {
             lastActivityMap[customer.id] = transaction.occurredAt;
           }
         }
@@ -89,7 +92,8 @@ class CustomerRepository {
         final q = query.trim();
         list = list.where((item) {
           final nameMatch = ArabicSearchUtils.matches(item.customer.name, q);
-          final phoneMatch = item.customer.phone != null && item.customer.phone!.contains(q);
+          final phoneMatch =
+              item.customer.phone != null && item.customer.phone!.contains(q);
           return nameMatch || phoneMatch;
         }).toList();
       }
@@ -105,7 +109,9 @@ class CustomerRepository {
           list = list.where((item) => item.balancePiasters == 0).toList();
           break;
         case CustomerFilter.late:
-          list = list.where((item) => item.rating.badge == RatingBadge.late).toList();
+          list = list
+              .where((item) => item.rating.badge == RatingBadge.late)
+              .toList();
           break;
       }
 
@@ -115,8 +121,11 @@ class CustomerRepository {
           list.sort((a, b) => b.balancePiasters.compareTo(a.balancePiasters));
           break;
         case CustomerSort.name:
-          list.sort((a, b) => ArabicSearchUtils.normalize(a.customer.name)
-              .compareTo(ArabicSearchUtils.normalize(b.customer.name)));
+          list.sort(
+            (a, b) => ArabicSearchUtils.normalize(
+              a.customer.name,
+            ).compareTo(ArabicSearchUtils.normalize(b.customer.name)),
+          );
           break;
         case CustomerSort.lastActivity:
           list.sort((a, b) {
@@ -161,10 +170,12 @@ class CustomerRepository {
   /// Watches full transaction history for a customer, newest first.
   Stream<List<Transaction>> watchCustomerTransactions(String customerId) {
     return (_db.select(_db.transactions)
-          ..where((t) =>
-              t.partyId.equals(customerId) &
-              t.partyType.equalsValue(PartyType.customer) &
-              t.deletedAt.isNull())
+          ..where(
+            (t) =>
+                t.partyId.equals(customerId) &
+                t.partyType.equalsValue(PartyType.customer) &
+                t.deletedAt.isNull(),
+          )
           ..orderBy([(t) => OrderingTerm.desc(t.occurredAt)]))
         .watch();
   }
@@ -181,11 +192,13 @@ class CustomerRepository {
       throw ArgumentError('Customer name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalizePhone(phone);
     final id = _uuid.v4();
     final now = DateTime.now();
 
-    await _db.into(_db.customers).insert(
+    await _db
+        .into(_db.customers)
+        .insert(
           CustomersCompanion.insert(
             id: id,
             name: trimmedName,
@@ -213,7 +226,7 @@ class CustomerRepository {
       throw ArgumentError('Customer name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalizePhone(phone);
     final now = DateTime.now();
 
     await (_db.update(_db.customers)..where((c) => c.id.equals(id))).write(
@@ -231,10 +244,7 @@ class CustomerRepository {
   Future<void> deleteCustomer(String id) async {
     final now = DateTime.now();
     await (_db.update(_db.customers)..where((c) => c.id.equals(id))).write(
-      CustomersCompanion(
-        deletedAt: Value(now),
-        updatedAt: Value(now),
-      ),
+      CustomersCompanion(deletedAt: Value(now), updatedAt: Value(now)),
     );
   }
 
@@ -244,17 +254,19 @@ class CustomerRepository {
     String? phone,
     String? excludeCustomerId,
   }) async {
-    final activeCustomers = await (_db.select(_db.customers)
-          ..where((c) => c.deletedAt.isNull()))
-        .get();
+    final activeCustomers = await (_db.select(
+      _db.customers,
+    )..where((c) => c.deletedAt.isNull())).get();
 
     final normalizedTargetName = ArabicSearchUtils.normalize(name);
-    final normalizedTargetPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedTargetPhone = PhoneUtils.normalizePhone(phone);
 
     for (final c in activeCustomers) {
       if (excludeCustomerId != null && c.id == excludeCustomerId) continue;
 
-      if (normalizedTargetPhone != null && c.phone != null && c.phone == normalizedTargetPhone) {
+      if (normalizedTargetPhone != null &&
+          c.phone != null &&
+          c.phone == normalizedTargetPhone) {
         return c;
       }
 

@@ -61,7 +61,6 @@ Presents 5 clear visual cards with touch targets $\ge 56$dp:
 ### Step 4: First action (ابدأ أول خطوة)
 - Choice of:
   - **"+ ضيف أول عميل"**: Directly opens 02 Add Customer.
-  - **"جرب ببيانات تجريبية"**: Seeds 2 dummy customers with a debt and payment so the user instantly sees how the app works, with a 1-tap button to clear test data.
   - **"تخطي إلى الرئيسية"**: Lands on the Customers tab.
 
 ---

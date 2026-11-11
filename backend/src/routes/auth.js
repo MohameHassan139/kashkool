@@ -6,14 +6,20 @@ import { getDb } from '../db.js';
 import { requireAuth } from '../middleware/auth.js';
 import { verifyGoogleIdToken } from '../services/google.js';
 import { issueTokens, revokeRefreshToken, rotateRefreshToken } from '../services/tokens.js';
+import { hashPassword, verifyPassword } from '../services/password.js';
 import { deleteShopData } from '../services/shopData.js';
-import { asyncHandler, badRequest, notFound, parseBody } from '../utils/http.js';
+import { asyncHandler, badRequest, conflict, HttpError, notFound, parseBody } from '../utils/http.js';
 import { rateLimit } from '../utils/rateLimit.js';
 
 export const authRouter = Router();
 const authLimiter = rateLimit({ windowMs: 15 * 60_000, max: 30 });
+const emailAuthLimiter = rateLimit({ windowMs: 15 * 60_000, max: 10 });
 
 const publicUser = (u) => ({ id: u.id, email: u.email, name: u.name, createdAt: u.createdAt });
+const emailPasswordSchema = z.object({
+  email: z.string().trim().email().max(254).transform((email) => email.toLowerCase()),
+  password: z.string().min(8).max(128),
+});
 
 async function upsertUser(db, { googleSub, email, name }) {
   const now = new Date();
@@ -40,6 +46,54 @@ authRouter.post(
     const user = await upsertUser(db, profile);
     const tokens = await issueTokens(db, user.id, body.deviceLabel);
     res.json({ user: publicUser(user), ...tokens });
+  }),
+);
+
+authRouter.post(
+  '/v1/auth/email/register',
+  emailAuthLimiter,
+  asyncHandler(async (req, res) => {
+    const body = parseBody(emailPasswordSchema.extend({ name: z.string().trim().min(1).max(80).optional() }), req.body);
+    const db = await getDb();
+    if (await db.collection('users').findOne({ email: body.email })) {
+      throw conflict('email_already_registered', 'An account already uses this email');
+    }
+
+    const now = new Date();
+    const credentials = await hashPassword(body.password);
+    const user = {
+      id: randomUUID(),
+      email: body.email,
+      name: body.name ?? null,
+      googleSub: null,
+      ...credentials,
+      createdAt: now,
+      lastLoginAt: now,
+      trialUsedAt: null,
+      deletedAt: null,
+    };
+    try {
+      await db.collection('users').insertOne(user);
+    } catch (error) {
+      if (error?.code === 11000) throw conflict('email_already_registered', 'An account already uses this email');
+      throw error;
+    }
+    res.status(201).json({ user: publicUser(user), ...(await issueTokens(db, user.id, 'email')) });
+  }),
+);
+
+authRouter.post(
+  '/v1/auth/email/login',
+  emailAuthLimiter,
+  asyncHandler(async (req, res) => {
+    const body = parseBody(emailPasswordSchema, req.body);
+    const db = await getDb();
+    const user = await db.collection('users').findOne({ email: body.email, deletedAt: null });
+    if (!user?.passwordHash || !user.passwordSalt || !(await verifyPassword(body.password, user.passwordSalt, user.passwordHash))) {
+      throw new HttpError(401, 'invalid_credentials', 'Invalid email or password');
+    }
+    await db.collection('users').updateOne({ id: user.id }, { $set: { lastLoginAt: new Date() } });
+    res.json({ user: publicUser(user), ...(await issueTokens(db, user.id, 'email')) });
   }),
 );
 

@@ -113,10 +113,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get customerPhone => 'رقم الهاتف المحمول';
 
   @override
-  String get customerPhoneHint => '010xxxxxxxx';
+  String get customerPhoneHint => '+2010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid => 'رقم الهاتف غير صحيح (010، 011، 012، 015)';
+  String get customerPhoneInvalid => 'رقم الهاتف غير صحيح';
 
   @override
   String get customerNotes => 'ملاحظات';
@@ -2304,7 +2304,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get shopProfileBottomSheet6 => 'رقم هاتف المحل';
 
   @override
-  String get shopProfileBottomSheet7 => 'مثلًا: 010xxxxxxxx';
+  String get shopProfileBottomSheet7 => 'مثلًا: +2010xxxxxxxx';
 
   @override
   String get shopProfileBottomSheet8 => 'عنوان المحل';
@@ -2346,6 +2346,76 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cloudAccountButton3 => 'سجّل الدخول بحساب جوجل';
+
+  @override
+  String get cloudSyncRunning => 'جاري المزامنة…';
+
+  @override
+  String get emailAuthTitleLogin => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthTitleRegister => 'إنشاء حساب بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthName => 'الاسم';
+
+  @override
+  String get emailAuthNameRequired => 'اكتب اسمك';
+
+  @override
+  String get emailAuthEmail => 'البريد الإلكتروني';
+
+  @override
+  String get emailAuthPassword => 'كلمة المرور';
+
+  @override
+  String get emailAuthInvalidEmail => 'اكتب بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get emailAuthShortPassword => 'كلمة المرور لازم تكون 8 أحرف على الأقل';
+
+  @override
+  String get emailAuthGoToRegister => 'مستخدم جديد؟ أنشئ حسابًا';
+
+  @override
+  String get emailAuthGoToLogin => 'لديك حساب؟ سجّل الدخول';
+
+  @override
+  String get emailAuthRegister => 'إنشاء حساب';
+
+  @override
+  String get emailAuthLogin => 'تسجيل الدخول بالبريد';
+
+  @override
+  String get emailAuthCancel => 'إلغاء';
+
+  @override
+  String get emailAuthSigningIn => 'جارٍ تسجيل الدخول…';
+
+  @override
+  String get accountSwitchTitle => 'تبديل الحساب';
+
+  @override
+  String get accountSwitchWarning =>
+      'بيانات المحل الموجودة على هذا الجهاز هتتمسح عند تبديل الحساب، وبعدها هنحمّل بيانات الحساب الجديد من السحابة.';
+
+  @override
+  String get accountSwitchUnbackedWarning =>
+      'في بيانات على الجهاز مش موجودة في آخر نسخة احتياطية. اعمل نسخة قبل التبديل؛ لو كملت، هتتمسح البيانات المحلية ومش هتقدر تسترجع غير اللي اتنسخ للسحابة.';
+
+  @override
+  String get accountSwitchCancel => 'إلغاء التبديل';
+
+  @override
+  String get accountSwitchContinue => 'متابعة ومسح البيانات';
+
+  @override
+  String get accountSwitchChooseMethod =>
+      'اختار طريقة تسجيل الدخول للحساب الجديد';
+
+  @override
+  String get accountSwitchFileCleanupWarning =>
+      'الحساب اتبدّل، لكن بعض ملفات الصور المحلية ما اتمسحتش.';
 
   @override
   String get cloudBackupCard1 => 'لحظة…';
@@ -2485,10 +2555,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboardingScreen1 => 'محلي';
 
   @override
-  String get onboardingScreen2 =>
-      'أُضيف عملاء تجريبيون لتجربة التطبيق، ويمكنك حذفهم في أي وقت';
-
-  @override
   String get onboardingScreen3 => 'إعداد كشكول لأول مرة';
 
   @override
@@ -2610,29 +2676,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'سجّل أول عميل وابدأ تدوين الديون والدفعات مباشرة';
 
   @override
-  String get onboardingScreen40 => 'جرّب ببيانات تجريبية أولًا 💡';
-
-  @override
-  String get onboardingScreen41 =>
-      'إضافة عميلين وحسابات تجريبية لاكتشاف مميزات كشكول (يمكن حذفهم بضغطة زر)';
-
-  @override
   String get onboardingScreen42 => 'تخطَّ وانتقل إلى الشاشة الرئيسية';
-
-  @override
-  String get shopRepository1 => 'أحمد محمد (تجريبي)';
-
-  @override
-  String get shopRepository2 => 'مشتريات طلبات منزلية';
-
-  @override
-  String get shopRepository3 => 'محمود إبراهيم (تجريبي)';
-
-  @override
-  String get shopRepository4 => 'بضاعة أول الشهر';
-
-  @override
-  String get shopRepository5 => 'دفعة نقدية على الحساب';
 
   @override
   String get supplierWithBalance1 => 'السبت';
@@ -2964,6 +3008,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String cloudApi12(Object code) {
     return 'حدثت مشكلة ($code)';
   }
+
+  @override
+  String get cloudApi13 => 'البريد الإلكتروني مستخدم بالفعل';
+
+  @override
+  String get cloudApi14 => 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
 
   @override
   String get cloudBackupService1 => 'تسجيل الدخول بجوجل غير متاح';
@@ -3313,11 +3363,10 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get customerPhone => 'رقم الموبايل';
 
   @override
-  String get customerPhoneHint => '010xxxxxxxx';
+  String get customerPhoneHint => '+2010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid =>
-      'رقم الموبايل غير صحيح (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'رقم التليفون غير صحيح';
 
   @override
   String get customerNotes => 'ملاحظات';
@@ -5507,7 +5556,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get shopProfileBottomSheet6 => 'رقم هاتف المحل';
 
   @override
-  String get shopProfileBottomSheet7 => 'مثلاً: 010xxxxxxxx';
+  String get shopProfileBottomSheet7 => 'مثلاً: +2010xxxxxxxx';
 
   @override
   String get shopProfileBottomSheet8 => 'عنوان المحل';
@@ -5549,6 +5598,76 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
 
   @override
   String get cloudAccountButton3 => 'سجّل دخول بحساب جوجل';
+
+  @override
+  String get cloudSyncRunning => 'جاري المزامنة…';
+
+  @override
+  String get emailAuthTitleLogin => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthTitleRegister => 'إنشاء حساب بالبريد الإلكتروني';
+
+  @override
+  String get emailAuthName => 'الاسم';
+
+  @override
+  String get emailAuthNameRequired => 'اكتب اسمك';
+
+  @override
+  String get emailAuthEmail => 'البريد الإلكتروني';
+
+  @override
+  String get emailAuthPassword => 'كلمة المرور';
+
+  @override
+  String get emailAuthInvalidEmail => 'اكتب بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get emailAuthShortPassword => 'كلمة المرور لازم تكون 8 أحرف على الأقل';
+
+  @override
+  String get emailAuthGoToRegister => 'مستخدم جديد؟ أنشئ حسابًا';
+
+  @override
+  String get emailAuthGoToLogin => 'لديك حساب؟ سجّل الدخول';
+
+  @override
+  String get emailAuthRegister => 'إنشاء حساب';
+
+  @override
+  String get emailAuthLogin => 'تسجيل الدخول بالبريد';
+
+  @override
+  String get emailAuthCancel => 'إلغاء';
+
+  @override
+  String get emailAuthSigningIn => 'جارٍ تسجيل الدخول…';
+
+  @override
+  String get accountSwitchTitle => 'تبديل الحساب';
+
+  @override
+  String get accountSwitchWarning =>
+      'بيانات المحل الموجودة على هذا الجهاز هتتمسح عند تبديل الحساب، وبعدها هنحمّل بيانات الحساب الجديد من السحابة.';
+
+  @override
+  String get accountSwitchUnbackedWarning =>
+      'في بيانات على الجهاز مش موجودة في آخر نسخة احتياطية. اعمل نسخة قبل التبديل؛ لو كملت، هتتمسح البيانات المحلية ومش هتقدر تسترجع غير اللي اتنسخ للسحابة.';
+
+  @override
+  String get accountSwitchCancel => 'إلغاء التبديل';
+
+  @override
+  String get accountSwitchContinue => 'متابعة ومسح البيانات';
+
+  @override
+  String get accountSwitchChooseMethod =>
+      'اختار طريقة تسجيل الدخول للحساب الجديد';
+
+  @override
+  String get accountSwitchFileCleanupWarning =>
+      'الحساب اتبدّل، لكن بعض ملفات الصور المحلية ما اتمسحتش.';
 
   @override
   String get cloudBackupCard1 => 'لحظة…';
@@ -5687,10 +5806,6 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get onboardingScreen1 => 'محلي';
 
   @override
-  String get onboardingScreen2 =>
-      'تمت إضافة عملاء تجريبيين لتجربة التطبيق، يمكنك حذفهم في أي وقت';
-
-  @override
   String get onboardingScreen3 => 'تهيئة كشكول لأول مرة';
 
   @override
@@ -5813,29 +5928,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
       'سجل أول عميل وابدأ تدوين الديون والدفعات مباشرة';
 
   @override
-  String get onboardingScreen40 => 'جرب ببيانات تجريبية أولاً 💡';
-
-  @override
-  String get onboardingScreen41 =>
-      'إضافة عميلين وحسابات تجريبية لاكتشاف مميزات كشكول (يمكن حذفهم بضغطة زر)';
-
-  @override
   String get onboardingScreen42 => 'تخطي والذهاب إلى الشاشة الرئيسية';
-
-  @override
-  String get shopRepository1 => 'أحمد محمد (تجريبي)';
-
-  @override
-  String get shopRepository2 => 'مشتريات طلبات منزلية';
-
-  @override
-  String get shopRepository3 => 'محمود إبراهيم (تجريبي)';
-
-  @override
-  String get shopRepository4 => 'بضاعة أول الشهر';
-
-  @override
-  String get shopRepository5 => 'دفعة نقدية على الحساب';
 
   @override
   String get supplierWithBalance1 => 'السبت';
@@ -6143,7 +6236,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get cloudApi4 => 'السيرفر اتأخر في الرد، جرّب تاني';
 
   @override
-  String get cloudApi5 => 'انتهت صلاحية الدخول، سجّل دخول بحساب جوجل تاني';
+  String get cloudApi5 => 'انتهت صلاحية الدخول، سجّل دخول تاني';
 
   @override
   String get cloudApi6 => 'المحل ده متسجل على حساب جوجل تاني';
@@ -6155,7 +6248,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get cloudApi8 => 'محاولات كتير، استنى شوية وجرّب تاني';
 
   @override
-  String get cloudApi9 => 'سجّل دخول بحساب جوجل تاني';
+  String get cloudApi9 => 'سجّل دخول تاني';
 
   @override
   String get cloudApi10 => 'تسجيل الدخول بجوجل مش متظبط على السيرفر';
@@ -6167,6 +6260,12 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String cloudApi12(Object code) {
     return 'حصلت مشكلة ($code)';
   }
+
+  @override
+  String get cloudApi13 => 'البريد الإلكتروني مستخدم بالفعل';
+
+  @override
+  String get cloudApi14 => 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
 
   @override
   String get cloudBackupService1 => 'تسجيل الدخول بجوجل مش متاح';

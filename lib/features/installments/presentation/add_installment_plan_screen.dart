@@ -20,10 +20,12 @@ class AddInstallmentPlanScreen extends ConsumerStatefulWidget {
   const AddInstallmentPlanScreen({super.key, this.initialCustomerId});
 
   @override
-  ConsumerState<AddInstallmentPlanScreen> createState() => _AddInstallmentPlanScreenState();
+  ConsumerState<AddInstallmentPlanScreen> createState() =>
+      _AddInstallmentPlanScreenState();
 }
 
-class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScreen> {
+class _AddInstallmentPlanScreenState
+    extends ConsumerState<AddInstallmentPlanScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? _selectedCustomerId;
@@ -85,7 +87,9 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
   }
 
   List<GeneratedInstallment> get _previewSchedule {
-    if (_totalPricePiasters <= 0 || _installmentCount <= 0 || _downPaymentPiasters >= _totalPricePiasters) {
+    if (_totalPricePiasters <= 0 ||
+        _installmentCount <= 0 ||
+        _downPaymentPiasters >= _totalPricePiasters) {
       return [];
     }
     try {
@@ -103,7 +107,10 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
   Future<void> _pickPhoto() async {
     final picker = ImagePicker();
-    final image = await picker.pickImage(source: ImageSource.camera, imageQuality: 85);
+    final image = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 85,
+    );
     if (image != null) {
       setState(() => _capturedPhotoPath = image.path);
     }
@@ -160,10 +167,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
       if (mounted) {
         Navigator.pop(context, true);
-        AppGlassToast.showSuccess(
-          context,
-          L10n.t.addInstallmentPlanScreen11,
-        );
+        AppGlassToast.showSuccess(context, L10n.t.addInstallmentPlanScreen11);
       }
     } catch (e) {
       if (mounted) {
@@ -182,7 +186,10 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(L10n.t.installmentsScreen14, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          L10n.t.installmentsScreen14,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -190,7 +197,12 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
           padding: const EdgeInsets.all(16),
           children: [
             // 1. Customer Selection
-            Text(L10n.t.oldInstallmentImportScreen13, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              L10n.t.oldInstallmentImportScreen13,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 8),
             customersAsync.when(
               loading: () => const LinearProgressIndicator(),
@@ -214,14 +226,20 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     );
                   }).toList(),
                   onChanged: (val) => setState(() => _selectedCustomerId = val),
-                  validator: (val) => val == null ? L10n.t.addInstallmentPlanScreen15 : null,
+                  validator: (val) =>
+                      val == null ? L10n.t.addInstallmentPlanScreen15 : null,
                 );
               },
             ),
             const SizedBox(height: 20),
 
             // 2. Merchandise / Item Details
-            Text(L10n.t.addInstallmentPlanScreen16, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              L10n.t.addInstallmentPlanScreen16,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 8),
 
             TextFormField(
@@ -232,7 +250,9 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 prefixIcon: Icon(Icons.shopping_bag_outlined),
                 border: OutlineInputBorder(),
               ),
-              validator: (val) => (val == null || val.trim().length < 2) ? L10n.t.addInstallmentPlanScreen19 : null,
+              validator: (val) => (val == null || val.trim().length < 2)
+                  ? L10n.t.addInstallmentPlanScreen19
+                  : null,
             ),
             const SizedBox(height: 8),
 
@@ -263,8 +283,14 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 Expanded(
                   child: TextFormField(
                     controller: _totalPriceController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d*\.?\d{0,2}'),
+                      ),
+                    ],
                     onChanged: (_) => setState(() {}),
                     decoration: InputDecoration(
                       labelText: L10n.t.addInstallmentPlanScreen20,
@@ -274,7 +300,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     ),
                     validator: (val) {
                       final numVal = double.tryParse(val ?? '');
-                      if (numVal == null || numVal <= 0) return L10n.t.addInstallmentPlanScreen22;
+                      if (numVal == null || numVal <= 0)
+                        return L10n.t.addInstallmentPlanScreen22;
                       return null;
                     },
                   ),
@@ -283,8 +310,14 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 Expanded(
                   child: TextFormField(
                     controller: _downPaymentController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d*\.?\d{0,2}'),
+                      ),
+                    ],
                     onChanged: (_) => setState(() {}),
                     decoration: InputDecoration(
                       labelText: L10n.t.addInstallmentPlanScreen23,
@@ -303,7 +336,9 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.5,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -313,8 +348,14 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        MoneyUtils.formatMoney(_totalPricePiasters - _downPaymentPiasters),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryGreen),
+                        MoneyUtils.formatMoney(
+                          _totalPricePiasters - _downPaymentPiasters,
+                        ),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: AppColors.primaryGreen,
+                        ),
                       ),
                     ),
                   ],
@@ -323,7 +364,12 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             const SizedBox(height: 20),
 
             // 3. Installment Duration & Frequency
-            Text(L10n.t.addInstallmentPlanScreen25, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              L10n.t.addInstallmentPlanScreen25,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 8),
 
             // Number of installments quick chips
@@ -335,7 +381,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                   label: Text(L10n.t.addInstallmentPlanScreen26(count)),
                   selected: isSelected,
                   onSelected: (val) {
-                    if (val) setState(() => _countController.text = count.toString());
+                    if (val)
+                      setState(() => _countController.text = count.toString());
                   },
                 );
               }).toList(),
@@ -357,7 +404,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     ),
                     validator: (val) {
                       final n = int.tryParse(val ?? '');
-                      if (n == null || n <= 0) return L10n.t.addInstallmentPlanScreen28;
+                      if (n == null || n <= 0)
+                        return L10n.t.addInstallmentPlanScreen28;
                       return null;
                     },
                   ),
@@ -371,8 +419,14 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                       border: OutlineInputBorder(),
                     ),
                     items: [
-                      DropdownMenuItem(value: InstallmentFrequency.monthly, child: Text(L10n.t.oldInstallmentImportScreen32)),
-                      DropdownMenuItem(value: InstallmentFrequency.weekly, child: Text(L10n.t.oldInstallmentImportScreen33)),
+                      DropdownMenuItem(
+                        value: InstallmentFrequency.monthly,
+                        child: Text(L10n.t.oldInstallmentImportScreen32),
+                      ),
+                      DropdownMenuItem(
+                        value: InstallmentFrequency.weekly,
+                        child: Text(L10n.t.oldInstallmentImportScreen33),
+                      ),
                     ],
                     onChanged: (val) {
                       if (val != null) setState(() => _frequency = val);
@@ -386,7 +440,10 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             // First due date picker
             ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: const Icon(Icons.event_rounded, color: AppColors.primaryGreen),
+              leading: const Icon(
+                Icons.event_rounded,
+                color: AppColors.primaryGreen,
+              ),
               title: Text(L10n.t.addInstallmentPlanScreen30),
               subtitle: Text(dateFmt.format(_startDate)),
               trailing: OutlinedButton(
@@ -397,7 +454,12 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             const SizedBox(height: 20),
 
             // 4. Guarantor & Security Details
-            Text(L10n.t.addInstallmentPlanScreen32, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              L10n.t.addInstallmentPlanScreen32,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 8),
 
             TextFormField(
@@ -422,7 +484,9 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 border: OutlineInputBorder(),
               ),
               validator: (val) {
-                if (val != null && val.trim().isNotEmpty && PhoneUtils.normalizeEgyptianMobile(val) == null) {
+                if (val != null &&
+                    val.trim().isNotEmpty &&
+                    !PhoneUtils.isValidPhone(val)) {
                   return L10n.t.addInstallmentPlanScreen35;
                 }
                 return null;
@@ -434,8 +498,16 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.camera_alt_outlined),
-              title: Text(_capturedPhotoPath != null ? L10n.t.addInstallmentPlanScreen36 : L10n.t.addInstallmentPlanScreen37),
-              subtitle: Text(_capturedPhotoPath != null ? L10n.t.addInstallmentPlanScreen38 : L10n.t.addInstallmentPlanScreen39),
+              title: Text(
+                _capturedPhotoPath != null
+                    ? L10n.t.addInstallmentPlanScreen36
+                    : L10n.t.addInstallmentPlanScreen37,
+              ),
+              subtitle: Text(
+                _capturedPhotoPath != null
+                    ? L10n.t.addInstallmentPlanScreen38
+                    : L10n.t.addInstallmentPlanScreen39,
+              ),
               trailing: ElevatedButton.icon(
                 icon: const Icon(Icons.add_a_photo_outlined, size: 18),
                 label: Text(L10n.t.addInstallmentPlanScreen40),
@@ -471,7 +543,9 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                   Expanded(
                     child: Text(
                       L10n.t.addInstallmentPlanScreen44(schedule.length),
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -480,8 +554,13 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      L10n.t.addInstallmentPlanScreen45(MoneyUtils.formatMoney(schedule.first.amountPiasters)),
-                      style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryGreen),
+                      L10n.t.addInstallmentPlanScreen45(
+                        MoneyUtils.formatMoney(schedule.first.amountPiasters),
+                      ),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryGreen,
+                      ),
                     ),
                   ),
                 ],
@@ -504,7 +583,13 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                       leading: CircleAvatar(
                         radius: 14,
                         backgroundColor: theme.colorScheme.primaryContainer,
-                        child: Text('${item.index}', style: TextStyle(fontSize: 12, color: theme.colorScheme.primary)),
+                        child: Text(
+                          '${item.index}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
                       ),
                       title: Text(dateFmt.format(item.dueDate)),
                       trailing: Text(
@@ -524,12 +609,20 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 backgroundColor: AppColors.primaryGreen,
                 foregroundColor: Colors.white,
                 minimumSize: const Size.fromHeight(56),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               onPressed: _isSaving ? null : _savePlan,
               child: _isSaving
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text(L10n.t.addInstallmentPlanScreen46, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  : Text(
+                      L10n.t.addInstallmentPlanScreen46,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
             const SizedBox(height: 32),
           ],
