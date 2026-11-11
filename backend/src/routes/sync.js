@@ -127,6 +127,12 @@ syncRouter.post(
               serverUpdatedAt: now,
             };
             if (doc.deletedAt === undefined) doc.deletedAt = null;
+            if (w.collection === 'cash_days' && doc.date) {
+              await coll.deleteMany({ shopId, date: doc.date, id: { $ne: doc.id } }, { session });
+            }
+            if (w.collection === 'settings' && doc.key) {
+              await coll.deleteMany({ shopId, key: doc.key, id: { $ne: doc.id } }, { session });
+            }
             await coll.insertOne(doc, { session });
             results[w.index] = { ...results[w.index], status: 'inserted' };
           } else {

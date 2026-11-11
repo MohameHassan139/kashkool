@@ -65,7 +65,8 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
     } on CloudApiException catch (e) {
       if (e.code != 'canceled') _snack(e.message, color: AppColors.debtRed);
       return null;
-    } catch (_) {
+    } catch (e, st) {
+      debugPrint('CloudBackupCard error: $e\n$st');
       _snack(L10n.t.cloudBackupCard2, color: AppColors.debtRed);
       return null;
     } finally {
@@ -87,7 +88,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
   }
 
   Future<void> _backup() async {
-    final result = await _run((p) => _service.backupNow(onProgress: p));
+    final result = await _run((p) => _service.syncWithCloud(onProgress: p));
     if (result == null || !mounted) return;
     if (result.rejected > 0) {
       await showDialog<void>(

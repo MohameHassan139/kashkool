@@ -98,7 +98,8 @@ class CloudBackupService {
             updatedAt: Value(now),
           ));
 
-      await _db.into(_db.appSettings).insertOnConflictUpdate(AppSettingsCompanion(
+      await (_db.delete(_db.appSettings)..where((s) => s.key.equals('active_shop_id'))).go();
+      await _db.into(_db.appSettings).insert(AppSettingsCompanion(
             id: const Value('setting-active_shop_id'),
             key: const Value('active_shop_id'),
             value: Value(cloudShopId),
@@ -341,29 +342,42 @@ class CloudBackupService {
           keptLocal++;
           continue;
         }
-        switch (collection) {
-          case 'customers':
-            await _db.into(_db.customers).insertOnConflictUpdate(row as Customer);
-          case 'suppliers':
-            await _db.into(_db.suppliers).insertOnConflictUpdate(row as Supplier);
-          case 'transactions':
-            await _db.into(_db.transactions).insertOnConflictUpdate(row as Transaction);
-          case 'installment_plans':
-            await _db.into(_db.installmentPlans).insertOnConflictUpdate(row as InstallmentPlan);
-          case 'installments':
-            await _db.into(_db.installments).insertOnConflictUpdate(row as Installment);
-          case 'cash_days':
-            await _db.into(_db.cashDays).insertOnConflictUpdate(row as CashDay);
-          case 'expenses':
-            await _db.into(_db.expenses).insertOnConflictUpdate(row as Expense);
-          case 'settings':
-            await _db.into(_db.appSettings).insertOnConflictUpdate(row as AppSetting);
+        try {
+          switch (collection) {
+            case 'customers':
+              await _db.into(_db.customers).insertOnConflictUpdate(row as Customer);
+            case 'suppliers':
+              await _db.into(_db.suppliers).insertOnConflictUpdate(row as Supplier);
+            case 'transactions':
+              await _db.into(_db.transactions).insertOnConflictUpdate(row as Transaction);
+            case 'installment_plans':
+              await _db.into(_db.installmentPlans).insertOnConflictUpdate(row as InstallmentPlan);
+            case 'installments':
+              await _db.into(_db.installments).insertOnConflictUpdate(row as Installment);
+            case 'cash_days':
+              final cashDay = row as CashDay;
+              await (_db.delete(_db.cashDays)
+                    ..where((c) => c.date.equals(cashDay.date) & c.id.equals(cashDay.id).not()))
+                  .go();
+              await _db.into(_db.cashDays).insertOnConflictUpdate(cashDay);
+            case 'expenses':
+              await _db.into(_db.expenses).insertOnConflictUpdate(row as Expense);
+            case 'settings':
+              final setting = row as AppSetting;
+              await (_db.delete(_db.appSettings)
+                    ..where((s) => s.key.equals(setting.key) & s.id.equals(setting.id).not()))
+                  .go();
+              await _db.into(_db.appSettings).insertOnConflictUpdate(setting);
+          }
+          written++;
+        } catch (e) {
+          // If a single row fails due to corrupted data, keep processing the rest
         }
-        written++;
       }
 
       for (final entry in {'active_shop_id': shopId, 'onboarding_completed': 'true'}.entries) {
-        await _db.into(_db.appSettings).insertOnConflictUpdate(AppSettingsCompanion(
+        await (_db.delete(_db.appSettings)..where((s) => s.key.equals(entry.key))).go();
+        await _db.into(_db.appSettings).insert(AppSettingsCompanion(
               id: Value('setting-${entry.key}'),
               key: Value(entry.key),
               value: Value(entry.value),

@@ -161,7 +161,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       if (mounted && e.code != 'canceled') {
         AppGlassToast.showError(context, e.message);
       }
-    } catch (_) {
+    } catch (e, st) {
+      debugPrint('Google Sign In Error: $e\n$st');
       if (mounted) {
         AppGlassToast.showError(context, L10n.t.cloudBackupCard2);
       }
