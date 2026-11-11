@@ -52,6 +52,7 @@ dependencies:
   http: ^1.4.0
   connectivity_plus: ^6.1.4
   device_info_plus: ^13.3.0
+  phone_numbers_parser: ^9.0.29
 
 dev_dependencies:
   flutter_test:

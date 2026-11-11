@@ -1,4 +1,8 @@
-/// Utilities for Egyptian phone numbers and WhatsApp formatting.
+import 'package:phone_numbers_parser/phone_numbers_parser.dart';
+
+/// Utilities for phone numbers parsing, validation, normalization, and WhatsApp formatting.
+/// Supports both Egyptian local numbers (entered with or without country code) and
+/// international numbers.
 abstract final class PhoneUtils {
   static const Map<String, String> _arabicDigits = {
     '٠': '0',
@@ -27,66 +31,134 @@ abstract final class PhoneUtils {
     return cleaned.replaceAll(RegExp(r'[^0-9]'), '');
   }
 
-  /// Normalizes any valid Egyptian mobile phone number into the standard 11-digit local format: `01XXXXXXXXX`.
+  /// Parses a phone string into a [PhoneNumber] object.
   ///
-  /// Handles formats like:
-  /// - `01012345678` -> `01012345678`
-  /// - `+201012345678` -> `01012345678`
-  /// - `00201012345678` -> `01012345678`
-  /// - `201012345678` -> `01012345678`
-  /// - `010 1234 5678` -> `01012345678`
-  /// - `٠١٠١٢٣٤٥٦٧٨` -> `01012345678`
+  /// - Supports Arabic numerals (`٠١٠...`).
+  /// - Automatically interprets local numbers without country code as Egyptian numbers (`IsoCode.EG`).
+  /// - Handles numbers with international prefixes (`+20`, `0020`, `+966`, `00966`, etc.).
+  /// - Handles Egyptian mobile numbers entered as 10 digits (`1012345678`) by prepending `0`.
+  /// - Handles international numbers entered without `+` (e.g. `966501234567`).
   ///
-  /// Returns `null` if the input is not a valid Egyptian mobile number.
-  static String? normalizeEgyptianMobile(String? input) {
-    if (input == null) return null;
-    var digits = cleanDigits(input);
+  /// Returns `null` if the input is empty or cannot be parsed.
+  static PhoneNumber? parse(String? input) {
+    if (input == null || input.trim().isEmpty) return null;
 
-    if (digits.isEmpty) return null;
+    var cleaned = input.trim();
+    _arabicDigits.forEach((ar, en) {
+      cleaned = cleaned.replaceAll(ar, en);
+    });
 
-    // Handle international prefixes
-    if (digits.startsWith('0020')) {
-      digits = digits.substring(4);
-    } else if (digits.startsWith('20') && digits.length == 12) {
-      digits = digits.substring(2);
+    final hasPlus = cleaned.startsWith('+');
+    cleaned = cleaned.replaceAll(RegExp(r'[^0-9]'), '');
+    if (cleaned.isEmpty) return null;
+    if (hasPlus) cleaned = '+$cleaned';
+
+    if (cleaned.startsWith('00')) {
+      cleaned = '+${cleaned.substring(2)}';
     }
 
-    // Ensure leading 0 if 10 digits starting with 10, 11, 12, 15
-    if (digits.length == 10 && (digits.startsWith('10') || digits.startsWith('11') || digits.startsWith('12') || digits.startsWith('15'))) {
-      digits = '0$digits';
-    }
+    try {
+      if (cleaned.startsWith('+')) {
+        final p = PhoneNumber.parse(cleaned);
+        if (p.isValid()) return p;
+      }
 
-    if (digits.length != 11) {
+      // Handle Egyptian mobile without leading 0 (e.g. 1012345678)
+      if (cleaned.length == 10 &&
+          (cleaned.startsWith('10') ||
+              cleaned.startsWith('11') ||
+              cleaned.startsWith('12') ||
+              cleaned.startsWith('15'))) {
+        cleaned = '0$cleaned';
+      }
+
+      // Handle Egyptian number starting with 20 (e.g. 201012345678)
+      if (cleaned.length == 12 && cleaned.startsWith('201')) {
+        cleaned = '0${cleaned.substring(2)}';
+      }
+
+      // Parse with Egypt as destination country
+      final egPhone = PhoneNumber.parse(cleaned, destinationCountry: IsoCode.EG);
+      if (egPhone.isValid()) return egPhone;
+
+      // If not valid as Egyptian and does not start with 0, try parsing as international (+...)
+      if (!cleaned.startsWith('0')) {
+        final intlPhone = PhoneNumber.parse('+$cleaned');
+        if (intlPhone.isValid()) return intlPhone;
+      }
+
+      return egPhone;
+    } catch (_) {
       return null;
     }
-
-    final prefix = digits.substring(0, 3);
-    if (!validPrefixes.contains(prefix)) {
-      return null;
-    }
-
-    return digits;
   }
 
-  /// Checks whether the given phone string is a valid Egyptian mobile number.
+  /// Checks whether the given phone string is a valid real phone number
+  /// (Egyptian or international).
+  static bool isValid(String? input) {
+    final p = parse(input);
+    return p != null && p.isValid();
+  }
+
+  /// Alias for backward compatibility: checks whether the input is a valid phone number.
   static bool isValidEgyptianMobile(String? input) {
-    return normalizeEgyptianMobile(input) != null;
+    return isValid(input);
   }
 
-  /// Converts a phone number to WhatsApp international format (`201XXXXXXXXX` without `+`).
+  /// Normalizes a valid phone number for database storage.
   ///
-  /// Returns `null` if the number is not a valid Egyptian mobile number.
-  static String? toWhatsAppFormat(String? input) {
-    final local = normalizeEgyptianMobile(input);
-    if (local == null) return null;
-    // Strip leading '0' and prepend Egypt country code '20'
-    return '20${local.substring(1)}';
+  /// - For Egyptian numbers: returns standard Egyptian format (`01XXXXXXXXX` for mobile, `0XXXXXXXX` for landlines).
+  /// - For International numbers: returns standard E.164 format (`+<countryCode><nsn>`, e.g. `+966501234567`).
+  ///
+  /// Returns `null` if the input is not a valid phone number.
+  static String? normalize(String? input) {
+    final p = parse(input);
+    if (p == null || !p.isValid()) return null;
+
+    if (p.isoCode == IsoCode.EG) {
+      return '0${p.nsn}';
+    }
+
+    return '+${p.countryCode}${p.nsn}';
   }
 
-  /// Formats the phone number for readable display in the UI: `010 1234 5678`.
+  /// Backward-compatible alias for [normalize].
+  static String? normalizeEgyptianMobile(String? input) {
+    return normalize(input);
+  }
+
+  /// Converts a phone number to WhatsApp format for `wa.me/<digits>` links
+  /// (country code + national number without `+`, spaces, or leading zeros).
+  ///
+  /// - Egyptian `01012345678` -> `201012345678`
+  /// - Saudi `+966501234567` -> `966501234567`
+  ///
+  /// Returns `null` if the number is not a valid phone number.
+  static String? toWhatsAppFormat(String? input) {
+    final p = parse(input);
+    if (p == null || !p.isValid()) return null;
+    return '${p.countryCode}${p.nsn}';
+  }
+
+  /// Formats the phone number for readable display in the UI.
+  ///
+  /// - Egyptian mobile: `010 1234 5678`
+  /// - International: `+966 50 123 4567`
   static String formatDisplay(String? input) {
-    final normalized = normalizeEgyptianMobile(input);
-    if (normalized == null) return input?.trim() ?? '';
-    return '${normalized.substring(0, 3)} ${normalized.substring(3, 7)} ${normalized.substring(7)}';
+    if (input == null || input.trim().isEmpty) return '';
+    final p = parse(input);
+    if (p == null || !p.isValid()) return input.trim();
+
+    if (p.isoCode == IsoCode.EG &&
+        p.nsn.length == 10 &&
+        (p.nsn.startsWith('10') ||
+            p.nsn.startsWith('11') ||
+            p.nsn.startsWith('12') ||
+            p.nsn.startsWith('15'))) {
+      final local = '0${p.nsn}';
+      return '${local.substring(0, 3)} ${local.substring(3, 7)} ${local.substring(7)}';
+    }
+
+    return p.international;
   }
 }

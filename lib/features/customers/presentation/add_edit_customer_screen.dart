@@ -216,7 +216,7 @@ class _AddEditCustomerScreenState extends ConsumerState<AddEditCustomerScreen> {
                 validator: (val) {
                   final text = val?.trim() ?? '';
                   if (text.isEmpty) return null; // phone is optional
-                  if (!PhoneUtils.isValidEgyptianMobile(text)) {
+                  if (!PhoneUtils.isValid(text)) {
                     return l10n.customerPhoneInvalid;
                   }
                   return null;

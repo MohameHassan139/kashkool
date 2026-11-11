@@ -414,7 +414,9 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
             TextFormField(
               controller: _guarantorPhoneController,
               keyboardType: TextInputType.phone,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩ +-]')),
+              ],
               decoration: InputDecoration(
                 labelText: L10n.t.addInstallmentPlanScreen34,
                 hintText: '010xxxxxxxx',
@@ -422,7 +424,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                 border: OutlineInputBorder(),
               ),
               validator: (val) {
-                if (val != null && val.trim().isNotEmpty && PhoneUtils.normalizeEgyptianMobile(val) == null) {
+                if (val != null && val.trim().isNotEmpty && !PhoneUtils.isValid(val)) {
                   return L10n.t.addInstallmentPlanScreen35;
                 }
                 return null;

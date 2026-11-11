@@ -10,6 +10,7 @@ import '../../../core/utils/battery_optimization_helper.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../../customers/presentation/add_edit_customer_screen.dart';
 import '../data/shop_repository.dart';
+import '../../../core/utils/phone.dart';
 import '../../../l10n/l10n.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -78,9 +79,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final name = _nameController.text.trim().isEmpty
         ? L10n.t.onboardingScreen1
         : _nameController.text.trim();
-    final phone = _phoneController.text.trim().isEmpty
-        ? null
-        : _phoneController.text.trim();
+    final rawPhone = _phoneController.text.trim();
+    final phone = rawPhone.isEmpty ? null : (PhoneUtils.normalize(rawPhone) ?? rawPhone);
 
     await repo.createOrUpdateShop(
       name: name,
@@ -521,6 +521,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 filled: true,
                 fillColor: Colors.white,
               ),
+              validator: (val) {
+                final text = val?.trim() ?? '';
+                if (text.isEmpty) return null;
+                if (!PhoneUtils.isValid(text)) {
+                  return L10n.t.customerPhoneInvalid;
+                }
+                return null;
+              },
             ),
           ],
         ),

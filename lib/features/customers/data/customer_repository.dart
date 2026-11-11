@@ -181,7 +181,7 @@ class CustomerRepository {
       throw ArgumentError('Customer name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalize(phone);
     final id = _uuid.v4();
     final now = DateTime.now();
 
@@ -213,7 +213,7 @@ class CustomerRepository {
       throw ArgumentError('Customer name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalize(phone);
     final now = DateTime.now();
 
     await (_db.update(_db.customers)..where((c) => c.id.equals(id))).write(
@@ -249,7 +249,7 @@ class CustomerRepository {
         .get();
 
     final normalizedTargetName = ArabicSearchUtils.normalize(name);
-    final normalizedTargetPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedTargetPhone = PhoneUtils.normalize(phone);
 
     for (final c in activeCustomers) {
       if (excludeCustomerId != null && c.id == excludeCustomerId) continue;

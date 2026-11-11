@@ -96,7 +96,7 @@ class NotebookImportService {
 
     String? normalizedPhone;
     if (trimmedPhone.isNotEmpty) {
-      normalizedPhone = PhoneUtils.normalizeEgyptianMobile(trimmedPhone);
+      normalizedPhone = PhoneUtils.normalize(trimmedPhone);
       if (normalizedPhone == null) return RowCheck.error(L10n.t.oldInstallmentImportScreen18);
     }
 

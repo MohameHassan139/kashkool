@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../shared/widgets/glass_toast.dart';
 import '../../../onboarding/data/shop_repository.dart';
 import '../../data/settings_repository.dart';
+import '../../../../core/utils/phone.dart';
 import '../../../../l10n/l10n.dart';
 
 /// Modal bottom sheet allowing the shopkeeper to edit their shop name, address, phone, logo, and payment info.
@@ -97,16 +98,19 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
     final repo = ref.read(settingsRepositoryProvider);
     final shopRepo = ref.read(shopRepositoryProvider);
 
+    final rawPhone = _phoneController.text.trim();
+    final normalizedPhone = rawPhone.isNotEmpty ? (PhoneUtils.normalize(rawPhone) ?? rawPhone) : null;
+
     await shopRepo.createOrUpdateShop(
       name: _nameController.text.trim(),
       shopType: _tradeType,
-      phone: _phoneController.text.trim().isNotEmpty ? _phoneController.text.trim() : null,
+      phone: normalizedPhone,
       address: _addressController.text.trim().isNotEmpty ? _addressController.text.trim() : null,
       enableInstallments: _enableInstallments,
     );
 
     await repo.setShopName(_nameController.text.trim());
-    await repo.setShopPhone(_phoneController.text.trim());
+    await repo.setShopPhone(normalizedPhone ?? '');
     await repo.setShopAddress(_addressController.text.trim());
     await repo.setShopInstaPay(_instaPayController.text.trim());
     await repo.setShopWallet(_walletController.text.trim());
@@ -234,6 +238,14 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                   hintText: L10n.t.shopProfileBottomSheet7,
                   prefixIcon: Icon(Icons.phone_outlined),
                 ),
+                validator: (val) {
+                  final text = val?.trim() ?? '';
+                  if (text.isEmpty) return null;
+                  if (!PhoneUtils.isValid(text)) {
+                    return L10n.t.customerPhoneInvalid;
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
 

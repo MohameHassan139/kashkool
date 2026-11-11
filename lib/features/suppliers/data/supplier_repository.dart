@@ -195,7 +195,7 @@ class SupplierRepository {
       throw ArgumentError('Supplier name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalize(phone);
     final id = _uuid.v4();
     final now = DateTime.now();
 
@@ -229,7 +229,7 @@ class SupplierRepository {
       throw ArgumentError('Supplier name must be between 2 and 60 characters');
     }
 
-    final normalizedPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedPhone = PhoneUtils.normalize(phone);
     final now = DateTime.now();
 
     await (_db.update(_db.suppliers)..where((s) => s.id.equals(id))).write(
@@ -266,7 +266,7 @@ class SupplierRepository {
         .get();
 
     final normalizedTargetName = ArabicSearchUtils.normalize(name);
-    final normalizedTargetPhone = PhoneUtils.normalizeEgyptianMobile(phone);
+    final normalizedTargetPhone = PhoneUtils.normalize(phone);
 
     for (final s in activeSuppliers) {
       if (excludeSupplierId != null && s.id == excludeSupplierId) continue;

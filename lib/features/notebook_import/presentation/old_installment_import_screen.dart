@@ -247,7 +247,7 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
                 keyboardType: TextInputType.phone,
                 textDirection: TextDirection.ltr,
                 decoration: InputDecoration(labelText: L10n.t.oldInstallmentImportScreen17),
-                validator: (v) => (v != null && v.trim().isNotEmpty && !PhoneUtils.isValidEgyptianMobile(v)) ? L10n.t.oldInstallmentImportScreen18 : null,
+                validator: (v) => (v != null && v.trim().isNotEmpty && !PhoneUtils.isValid(v)) ? L10n.t.oldInstallmentImportScreen18 : null,
               ),
             ],
             const SizedBox(height: 20),
