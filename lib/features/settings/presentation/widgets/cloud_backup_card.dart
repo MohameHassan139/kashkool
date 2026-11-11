@@ -119,30 +119,14 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       return;
     }
 
-    Map<String, dynamic>? shop = shops.first;
-    if (shops.length > 1) {
-      shop = await showDialog<Map<String, dynamic>>(
-        context: context,
-        builder: (ctx) => SimpleDialog(
-          title: Text(L10n.t.cloudBackupCard11),
-          children: [
-            for (final s in shops)
-              SimpleDialogOption(
-                onPressed: () => Navigator.pop(ctx, s),
-                child: Text('${s['name']}${s['role'] == 'employee' ? L10n.t.cloudBackupCard12 : ''}'),
-              ),
-          ],
-        ),
-      );
-      if (shop == null || !mounted) return;
-    }
+    final shop = shops.first;
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(L10n.t.cloudBackupCard13),
         content: Text(
-          '${L10n.t.cloudBackupCard14(shop!['name'])}${L10n.t.cloudBackupCard15}',
+          '${L10n.t.cloudBackupCard14(shop['name'])}${L10n.t.cloudBackupCard15}',
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
@@ -155,7 +139,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
     );
     if (confirmed != true || !mounted) return;
 
-    final result = await _run((p) => _service.restore(shop!, onProgress: p));
+    final result = await _run((p) => _service.restore(shop, onProgress: p));
     if (result == null || !mounted) return;
     await showDialog<void>(
       context: context,
@@ -194,6 +178,30 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
     await _run((p) => _service.signOut());
   }
 
+  Future<void> _deleteAccount() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(L10n.t.cloudDeleteAccountConfirmTitle),
+        content: Text(L10n.t.cloudDeleteAccountConfirmBody),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: TextButton.styleFrom(foregroundColor: AppColors.debtRed),
+            child: Text(L10n.t.cloudDeleteAccountConfirmButton),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    final done = await _run((p) async {
+      await _service.deleteAccount();
+      return true;
+    });
+    if (done == true && mounted) AppGlassToast.showSuccess(context, L10n.t.cloudDeleteAccountDone);
+  }
+
   @override
   Widget build(BuildContext context) {
     final session = ref.watch(cloudSessionProvider).valueOrNull;
@@ -224,21 +232,26 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
             backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.12),
             child: const Icon(Icons.cloud_upload_rounded, color: AppColors.primaryBlue),
           ),
-          title: Text(L10n.t.cloudBackupCard26, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          title: Text(L10n.t.cloudBackupCard26, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           subtitle: Text(
             L10n.t.cloudBackupCard27,
-            style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+            style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
           ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: SizedBox(
             width: double.infinity,
-            child: OutlinedButton.icon(
+            child: ElevatedButton.icon(
               onPressed: _busy ? null : _signIn,
-              icon: const Icon(Icons.account_circle_rounded),
-              label: Text(L10n.t.cloudAccountButton3, style: TextStyle(fontWeight: FontWeight.bold)),
-              style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(52)),
+              icon: const Icon(Icons.account_circle_rounded, size: 22),
+              label: Text(L10n.t.authSignInWithGoogle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                backgroundColor: AppColors.primaryBlue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
             ),
           ),
         ),
@@ -292,8 +305,16 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       ListTile(
         enabled: !_busy,
         leading: const Icon(Icons.logout_rounded, color: AppColors.neutralGrey),
-        title: Text(L10n.t.cloudBackupCard38, style: TextStyle(fontSize: 14)),
+        title: Text(L10n.t.cloudBackupCard38, style: const TextStyle(fontSize: 14)),
         onTap: _signOut,
+      ),
+      const Divider(height: 1),
+      ListTile(
+        enabled: !_busy,
+        leading: const Icon(Icons.delete_forever_rounded, color: AppColors.debtRed),
+        title: Text(L10n.t.cloudDeleteAccountTitle, style: const TextStyle(fontSize: 14, color: AppColors.debtRed)),
+        subtitle: Text(L10n.t.cloudDeleteAccountSubtitle, style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+        onTap: _deleteAccount,
       ),
     ];
   }

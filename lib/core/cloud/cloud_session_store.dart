@@ -113,8 +113,12 @@ class MemoryCloudSessionStore extends CloudSessionStore {
 
   @override
   Future<CloudSession?> read() async => _session;
+
   @override
-  Future<void> write(CloudSession session) async => _session = session;
+  Future<void> write(CloudSession session) async {
+    _session = session;
+  }
+
   @override
   Future<void> clear() async => _session = null;
 }

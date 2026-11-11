@@ -22,6 +22,8 @@ void main() {
     // Verify Onboarding Wizard is displayed
     expect(find.text('تهيئة كشكول لأول مرة'), findsOneWidget);
     expect(find.text('أهلاً بك في كشكول! 👋'), findsOneWidget);
+    await tester.tap(find.text('المتابعة كضيف (بدون حساب)'));
+    await tester.pumpAndSettle();
     expect(find.text('متابعة نوع النشاط'), findsOneWidget);
 
     await testDb.close();

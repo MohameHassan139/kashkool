@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../db/app_database.dart';
@@ -38,9 +38,9 @@ class AutoBackupCoordinator {
   final Ref _ref;
   AutoBackupCoordinator(this._ref);
 
-  static const _afterChange = Duration(seconds: 30);
-  static const _afterReconnect = Duration(seconds: 5);
-  static const _afterResume = Duration(seconds: 3);
+  static const _afterChange = Duration(seconds: 3);
+  static const _afterReconnect = Duration(seconds: 3);
+  static const _afterResume = Duration(seconds: 2);
   static const _retryAfterFailure = Duration(minutes: 5);
   static const _periodic = Duration(minutes: 30);
 
@@ -55,6 +55,7 @@ class AutoBackupCoordinator {
 
   void start() {
     if (!CloudConfig.isConfigured) return; // cloud not set up in this build
+    if (Platform.environment.containsKey('FLUTTER_TEST')) return;
     try {
       final connectivity = Connectivity();
       connectivity.checkConnectivity().then((r) => _online = _isOnline(r)).catchError((_) => true);
@@ -111,7 +112,7 @@ class AutoBackupCoordinator {
     _running = true;
     _setStatus(const AutoBackupStatus(AutoBackupState.uploading));
     try {
-      final result = await _ref.read(cloudBackupServiceProvider).backupNow();
+      final result = await _ref.read(cloudBackupServiceProvider).syncWithCloud();
       _setStatus(AutoBackupStatus(
         AutoBackupState.upToDate,
         result.rejected > 0 ? L10n.t.autoBackupCoordinator1(result.rejected) : null,

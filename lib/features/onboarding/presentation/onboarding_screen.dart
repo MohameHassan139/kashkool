@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/cloud/cloud_api.dart';
+import '../../../core/cloud/cloud_providers.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/utils/battery_optimization_helper.dart';
@@ -21,13 +24,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _formKey = GlobalKey<FormState>();
 
   int _currentPage = 0;
-  final int _totalPages = 4;
+  final int _totalPages = 5;
 
   // Form State
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   String _selectedTradeType = 'grocery';
   bool _enableInstallments = false;
+  bool _isGoogleSigningIn = false;
 
   // Step 3 State
   bool _notificationGranted = false;
@@ -119,9 +123,64 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
   }
 
+  Future<void> _onGoogleSignInPressed() async {
+    if (_isGoogleSigningIn) return;
+    setState(() => _isGoogleSigningIn = true);
+
+    try {
+      final cloudService = ref.read(cloudBackupServiceProvider);
+      final session = await cloudService.signIn();
+      if (!mounted) return;
+
+      AppGlassToast.showSuccess(context, L10n.t.cloudBackupCard4(session.email));
+
+      // Check if user has cloud shops
+      final shops = await cloudService.listCloudShops();
+      if (shops.isNotEmpty && mounted) {
+        // User has existing shop on the cloud! Restore and finish
+        final shop = shops.first;
+        await cloudService.restore(shop);
+        final repo = ref.read(shopRepositoryProvider);
+        await repo.setOnboardingCompleted(true);
+        if (mounted) {
+          AppGlassToast.showSuccess(context, L10n.t.cloudBackupCard17);
+          context.go('/');
+        }
+        return;
+      }
+
+      // If no existing shop on cloud, advance to setup shop name
+      if (mounted) {
+        unawaited(_pageController.animateToPage(
+          1,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ));
+      }
+    } on CloudApiException catch (e) {
+      if (mounted && e.code != 'canceled') {
+        AppGlassToast.showError(context, e.message);
+      }
+    } catch (_) {
+      if (mounted) {
+        AppGlassToast.showError(context, L10n.t.cloudBackupCard2);
+      }
+    } finally {
+      if (mounted) setState(() => _isGoogleSigningIn = false);
+    }
+  }
+
+  void _onGuestPressed() {
+    unawaited(_pageController.animateToPage(
+      1,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    ));
+  }
+
   void _nextPage() {
     FocusScope.of(context).unfocus();
-    if (_currentPage == 0) {
+    if (_currentPage == 1) {
       if (!_formKey.currentState!.validate()) return;
     }
 
@@ -151,7 +210,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       appBar: AppBar(
         title: Text(
           L10n.t.onboardingScreen3,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         leading: _currentPage > 0
@@ -193,6 +252,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (page) => setState(() => _currentPage = page),
                 children: [
+                  _buildStep0AccountChoice(),
                   _buildStep1ShopIdentity(),
                   _buildStep2TradeType(),
                   _buildStep3NotificationsAndBattery(),
@@ -202,7 +262,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ),
 
             // Bottom Buttons (Steps 1 to 3)
-            if (_currentPage < _totalPages - 1)
+            if (_currentPage > 0 && _currentPage < _totalPages - 1)
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SizedBox(
@@ -219,12 +279,168 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       elevation: 2,
                     ),
                     child: Text(
-                      _currentPage == 0 ? L10n.t.onboardingScreen4 : L10n.t.ratingExplanationBottomSheet6,
+                      _currentPage == 1 ? L10n.t.onboardingScreen4 : L10n.t.ratingExplanationBottomSheet6,
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // -------------------------------------------------------------
+  // STEP 0: Account Choice (First Time Question)
+  // -------------------------------------------------------------
+  Widget _buildStep0AccountChoice() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 12),
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.menu_book_rounded,
+                size: 56,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+          ),
+          const SizedBox(height: 22),
+          Text(
+            L10n.t.authFirstTimeTitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Cairo',
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            L10n.t.authFirstTimeQuestion,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15,
+              color: isDark ? Colors.grey[400] : Colors.grey[600],
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 28),
+
+          // Option 1: Sign in with Google
+          _buildChoiceCard(
+            title: L10n.t.authSignInWithGoogle,
+            subtitle: L10n.t.authSignInWithGoogleSubtitle,
+            icon: Icons.account_circle_rounded,
+            iconColor: AppColors.primaryBlue,
+            iconBgColor: AppColors.primaryBlue.withValues(alpha: 0.12),
+            isLoading: _isGoogleSigningIn,
+            onTap: _onGoogleSignInPressed,
+          ),
+          const SizedBox(height: 16),
+
+          // Option 2: Continue as guest (offline)
+          _buildChoiceCard(
+            title: L10n.t.authContinueGuest,
+            subtitle: L10n.t.authContinueGuestSubtitle,
+            icon: Icons.phone_android_rounded,
+            iconColor: isDark ? Colors.grey[300]! : AppColors.primaryNavy,
+            iconBgColor: isDark ? const Color(0xFF334155) : const Color(0xFFF1F5F9),
+            onTap: _onGuestPressed,
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChoiceCard({
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color iconColor,
+    required Color iconBgColor,
+    required VoidCallback onTap,
+    bool isLoading = false,
+  }) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return InkWell(
+      onTap: isLoading ? null : onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isDark ? const Color(0xFF1E293B) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isDark ? const Color(0xFF334155) : Colors.grey[200]!,
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: iconBgColor,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: iconColor, size: 28),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Cairo',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isDark ? Colors.grey[400] : Colors.grey[600],
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            isLoading
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.chevron_left_rounded, color: AppColors.neutralGrey),
           ],
         ),
       ),
@@ -736,12 +952,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         children: [
                           Text(
                             L10n.t.onboardingScreen38,
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Text(
                             L10n.t.onboardingScreen39,
-                            style: TextStyle(fontSize: 12, color: Colors.black54),
+                            style: const TextStyle(fontSize: 12, color: Colors.black54),
                           ),
                         ],
                       ),
@@ -752,62 +968,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
 
-          // Action 2: Try with sample demo data
-          Card(
-            elevation: 1.5,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(14),
-              onTap: () => _finishOnboarding(seedData: true),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: AppColors.warningAmber.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.science_rounded,
-                        color: AppColors.warningAmber,
-                        size: 28,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            L10n.t.onboardingScreen40,
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 3),
-                          Text(
-                            L10n.t.onboardingScreen41,
-                            style: TextStyle(fontSize: 12, color: Colors.black54),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // Action 3: Skip to home
+          // Action 2: Skip to home
           TextButton(
             onPressed: () => _finishOnboarding(),
             child: Text(
               L10n.t.onboardingScreen42,
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+              style: const TextStyle(color: Colors.grey, fontSize: 14),
             ),
           ),
         ],

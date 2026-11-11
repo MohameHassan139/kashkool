@@ -50,9 +50,26 @@ shopsRouter.post(
       req.body,
     );
     const db = await getDb();
+
+    // 1 Account = 1 Shop rule:
+    // If the user already owns an active shop, return their existing shop.
+    const userOwnedShop = await db.collection('shops').findOne({ ownerUserId: req.userId, deletedAt: null });
+    if (userOwnedShop) {
+      return res.json({ shop: publicShop(userOwnedShop), created: false });
+    }
+
+    // If the user is already a member of an active shop, return that shop.
+    const userMember = await db.collection('members').findOne({ userId: req.userId, active: { $ne: false } });
+    if (userMember) {
+      const memberShop = await db.collection('shops').findOne({ id: userMember.shopId, deletedAt: null });
+      if (memberShop) {
+        return res.json({ shop: publicShop(memberShop), created: false });
+      }
+    }
+
     const existing = await db.collection('shops').findOne({ id: body.id });
     if (existing) {
-      const member = await db.collection('members').findOne({ shopId: body.id, userId: req.userId, role: 'owner' });
+      const member = await db.collection('members').findOne({ shopId: body.id, userId: req.userId, active: { $ne: false } });
       if (!member) throw conflict('shop_id_taken', 'This shop is registered to another account');
       return res.json({ shop: publicShop(existing), created: false });
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">काशकूल</string>
     <string name="widget_small_label">काशकूल - आपका बकाया</string>
     <string name="widget_medium_label">काशकूल - आज का सारांश</string>
     <string name="widget_small_description">ग्राहकों पर आपका कुल बकाया</string>

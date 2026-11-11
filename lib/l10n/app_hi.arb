@@ -928,5 +928,11 @@
   "pinLockScreen11": "मिटाएँ",
   "securityService1": "काशकूल खोलने के लिए पहचान की पुष्टि करें",
   "settingsLanguageTitle": "भाषा",
-  "settingsLanguageSystem": "फ़ोन की भाषा (ऑटो)"
+  "settingsLanguageSystem": "फ़ोन की भाषा (ऑटो)",
+  "cloudDeleteAccountTitle": "क्लाउड अकाउंट हटाएँ",
+  "cloudDeleteAccountSubtitle": "क्लाउड बैकअप और अकाउंट हमेशा के लिए हटाता है — फ़ोन का डेटा रहेगा",
+  "cloudDeleteAccountConfirmTitle": "अकाउंट हमेशा के लिए हटाएँ?",
+  "cloudDeleteAccountConfirmBody": "हम आपका अकाउंट और आपकी दुकानों के सारे क्लाउड बैकअप हटा देंगे। यह वापस नहीं होगा। इस फ़ोन का डेटा वैसा ही रहेगा।",
+  "cloudDeleteAccountConfirmButton": "हमेशा के लिए हटाएँ",
+  "cloudDeleteAccountDone": "आपका क्लाउड अकाउंट हटा दिया गया"
 }

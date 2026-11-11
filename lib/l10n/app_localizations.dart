@@ -5721,6 +5721,276 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'لغة الموبايل (تلقائي)'**
   String get settingsLanguageSystem;
+
+  /// No description provided for @cloudDeleteAccountTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'احذف حسابي على السحابة'**
+  String get cloudDeleteAccountTitle;
+
+  /// No description provided for @cloudDeleteAccountSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيمسح نسخ السحابة وحسابك نهائي — بياناتك على الموبايل مش هتتمسح'**
+  String get cloudDeleteAccountSubtitle;
+
+  /// No description provided for @cloudDeleteAccountConfirmTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تمسح حسابك نهائي؟'**
+  String get cloudDeleteAccountConfirmTitle;
+
+  /// No description provided for @cloudDeleteAccountConfirmBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'هنمسح حسابك وكل النسخ اللي على السحابة للمحلات اللي إنت صاحبها، ومش هينفع نرجّعهم. البيانات اللي على الموبايل ده هتفضل زي ما هي.'**
+  String get cloudDeleteAccountConfirmBody;
+
+  /// No description provided for @cloudDeleteAccountConfirmButton.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'امسح نهائي'**
+  String get cloudDeleteAccountConfirmButton;
+
+  /// No description provided for @cloudDeleteAccountDone.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اتمسح حسابك من السحابة'**
+  String get cloudDeleteAccountDone;
+
+  /// No description provided for @authFirstTimeTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أهلاً بك في كشكول! 👋'**
+  String get authFirstTimeTitle;
+
+  /// No description provided for @authFirstTimeQuestion.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'هل عندك حساب بالفعل ولا مستخدم جديد؟'**
+  String get authFirstTimeQuestion;
+
+  /// No description provided for @authHaveAccount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عندي حساب بالفعل'**
+  String get authHaveAccount;
+
+  /// No description provided for @authHaveAccountSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً'**
+  String get authHaveAccountSubtitle;
+
+  /// No description provided for @authNewUser.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مستخدم جديد'**
+  String get authNewUser;
+
+  /// No description provided for @authNewUserSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة'**
+  String get authNewUserSubtitle;
+
+  /// No description provided for @authContinueGuest.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المتابعة كضيف (بدون حساب)'**
+  String get authContinueGuest;
+
+  /// No description provided for @authContinueGuestSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'استخدم التطبيق محلياً بدون إنترنت خالص'**
+  String get authContinueGuestSubtitle;
+
+  /// No description provided for @authLogin.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل الدخول'**
+  String get authLogin;
+
+  /// No description provided for @authRegister.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إنشاء حساب جديد'**
+  String get authRegister;
+
+  /// No description provided for @authEmail.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البريد الإلكتروني'**
+  String get authEmail;
+
+  /// No description provided for @authPassword.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كلمة المرور'**
+  String get authPassword;
+
+  /// No description provided for @authPasswordConfirm.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تأكيد كلمة المرور'**
+  String get authPasswordConfirm;
+
+  /// No description provided for @authNameOptional.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الاسم (اختياري)'**
+  String get authNameOptional;
+
+  /// No description provided for @authLoginButton.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل الدخول'**
+  String get authLoginButton;
+
+  /// No description provided for @authRegisterButton.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إنشاء حساب'**
+  String get authRegisterButton;
+
+  /// No description provided for @authOrGoogle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أو المتابعة بحساب Google'**
+  String get authOrGoogle;
+
+  /// No description provided for @authSignInWithGoogle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل الدخول بحساب Google'**
+  String get authSignInWithGoogle;
+
+  /// No description provided for @authSignInWithGoogleSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مزامنة سحابية واسترجاع بيانات محلك تلقائياً'**
+  String get authSignInWithGoogleSubtitle;
+
+  /// No description provided for @authSwitchAccount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تبديل الحساب'**
+  String get authSwitchAccount;
+
+  /// No description provided for @authSwitchAccountSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اختر حساباً آخر أو سجّل دخول بحساب جديد'**
+  String get authSwitchAccountSubtitle;
+
+  /// No description provided for @authAddAccount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'+ تسجيل الدخول بحساب آخر'**
+  String get authAddAccount;
+
+  /// No description provided for @authCurrentAccount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الحساب النشط حالياً'**
+  String get authCurrentAccount;
+
+  /// No description provided for @authPasswordsDontMatch.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كلمتا المرور غير متطابقتين'**
+  String get authPasswordsDontMatch;
+
+  /// No description provided for @authPasswordTooShort.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كلمة المرور لازم تكون 6 أحرف على الأقل'**
+  String get authPasswordTooShort;
+
+  /// No description provided for @authInvalidEmail.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب بريد إلكتروني صحيح'**
+  String get authInvalidEmail;
+
+  /// No description provided for @authLoginSuccess.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم تسجيل الدخول بنجاح 🎉'**
+  String get authLoginSuccess;
+
+  /// No description provided for @authRegisterSuccess.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم إنشاء الحساب بنجاح 🎉'**
+  String get authRegisterSuccess;
+
+  /// No description provided for @authSwitchedTo.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم التبديل إلى حساب: {email}'**
+  String authSwitchedTo(Object email);
+
+  /// No description provided for @cloudApiEmailTaken.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البريد ده مسجل قبل كده، جرّب تسجّل دخول'**
+  String get cloudApiEmailTaken;
+
+  /// No description provided for @cloudApiInvalidCredentials.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البريد أو كلمة المرور مش صحيحة'**
+  String get cloudApiInvalidCredentials;
+
+  /// No description provided for @authBackupBeforeSwitchTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيه: بيانات غير محفوظة!'**
+  String get authBackupBeforeSwitchTitle;
+
+  /// No description provided for @authBackupBeforeSwitchBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.'**
+  String get authBackupBeforeSwitchBody;
+
+  /// No description provided for @authBackupFirst.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اعمل نسخة احتياطية أولاً'**
+  String get authBackupFirst;
+
+  /// No description provided for @authSwitchWithoutBackup.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تبديل ومسح البيانات المحلية'**
+  String get authSwitchWithoutBackup;
+
+  /// No description provided for @authFetchingData.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جاري جلب بياناتك من السحابة…'**
+  String get authFetchingData;
+
+  /// No description provided for @authEmailLoginButton.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل الدخول بالبريد الإلكتروني'**
+  String get authEmailLoginButton;
+
+  /// No description provided for @authEmailRegisterButton.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إنشاء حساب جديد بالبريد'**
+  String get authEmailRegisterButton;
+
+  /// No description provided for @authWipingData.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جاري مسح البيانات المحلية وتبديل الحساب…'**
+  String get authWipingData;
 }
 
 class _AppLocalizationsDelegate

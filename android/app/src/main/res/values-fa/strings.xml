@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">کشکول</string>
     <string name="widget_small_label">کشکول - طلب شما</string>
     <string name="widget_medium_label">کشکول - خلاصه امروز</string>
     <string name="widget_small_description">مجموع طلب شما از مشتریان</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">كشكول</string>
     <string name="widget_small_label">كشكول - ليك عند الناس</string>
     <string name="widget_medium_label">كشكول - ملخص اليوم</string>
     <string name="widget_small_description">إجمالي الفلوس اللي ليك عند العملاء</string>

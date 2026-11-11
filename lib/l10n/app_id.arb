@@ -928,5 +928,11 @@
   "pinLockScreen11": "Hapus",
   "securityService1": "Konfirmasi identitas untuk membuka Kashkool",
   "settingsLanguageTitle": "Bahasa",
-  "settingsLanguageSystem": "Bahasa HP (otomatis)"
+  "settingsLanguageSystem": "Bahasa HP (otomatis)",
+  "cloudDeleteAccountTitle": "Hapus akun cloud saya",
+  "cloudDeleteAccountSubtitle": "Menghapus permanen cadangan cloud dan akun — data di HP tetap ada",
+  "cloudDeleteAccountConfirmTitle": "Hapus akun secara permanen?",
+  "cloudDeleteAccountConfirmBody": "Kami akan menghapus akun Anda dan semua cadangan cloud toko milik Anda. Ini tidak bisa dibatalkan. Data di HP ini tetap ada.",
+  "cloudDeleteAccountConfirmButton": "Hapus permanen",
+  "cloudDeleteAccountDone": "Akun cloud Anda telah dihapus"
 }

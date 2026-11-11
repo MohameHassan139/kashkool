@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Kashkool</string>
     <string name="widget_small_label">Kashkool - Piutang</string>
     <string name="widget_medium_label">Kashkool - Hari ini</string>
     <string name="widget_small_description">Total piutang dari pelanggan</string>

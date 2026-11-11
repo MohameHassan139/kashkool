@@ -928,5 +928,11 @@
   "pinLockScreen11": "پاک کردن",
   "securityService1": "برای باز کردن کشکول هویت خود را تأیید کنید",
   "settingsLanguageTitle": "زبان",
-  "settingsLanguageSystem": "زبان گوشی (خودکار)"
+  "settingsLanguageSystem": "زبان گوشی (خودکار)",
+  "cloudDeleteAccountTitle": "حذف حساب ابری من",
+  "cloudDeleteAccountSubtitle": "پشتیبان‌های ابری و حساب را برای همیشه حذف می‌کند — داده‌های گوشی می‌ماند",
+  "cloudDeleteAccountConfirmTitle": "حساب برای همیشه حذف شود؟",
+  "cloudDeleteAccountConfirmBody": "حساب شما و همه پشتیبان‌های ابری مغازه‌هایتان حذف می‌شود و قابل بازگشت نیست. داده‌های این گوشی همان‌طور می‌ماند.",
+  "cloudDeleteAccountConfirmButton": "حذف دائمی",
+  "cloudDeleteAccountDone": "حساب ابری شما حذف شد"
 }

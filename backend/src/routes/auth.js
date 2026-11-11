@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { randomUUID } from 'node:crypto';
+import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypto';
 import { z } from 'zod';
 import { config } from '../config.js';
 import { getDb } from '../db.js';
@@ -7,13 +7,27 @@ import { requireAuth } from '../middleware/auth.js';
 import { verifyGoogleIdToken } from '../services/google.js';
 import { issueTokens, revokeRefreshToken, rotateRefreshToken } from '../services/tokens.js';
 import { deleteShopData } from '../services/shopData.js';
-import { asyncHandler, badRequest, notFound, parseBody } from '../utils/http.js';
+import { asyncHandler, badRequest, conflict, notFound, parseBody, unauthorized } from '../utils/http.js';
 import { rateLimit } from '../utils/rateLimit.js';
 
 export const authRouter = Router();
 const authLimiter = rateLimit({ windowMs: 15 * 60_000, max: 30 });
 
 const publicUser = (u) => ({ id: u.id, email: u.email, name: u.name, createdAt: u.createdAt });
+
+function hashPassword(password) {
+  const salt = randomBytes(16).toString('hex');
+  const hash = scryptSync(password, salt, 64).toString('hex');
+  return { hash, salt };
+}
+
+function verifyPassword(password, hash, salt) {
+  if (!password || !hash || !salt) return false;
+  const computed = scryptSync(password, salt, 64);
+  const stored = Buffer.from(hash, 'hex');
+  if (computed.length !== stored.length) return false;
+  return timingSafeEqual(computed, stored);
+}
 
 async function upsertUser(db, { googleSub, email, name }) {
   const now = new Date();
@@ -28,6 +42,72 @@ async function upsertUser(db, { googleSub, email, name }) {
   );
   return user;
 }
+
+/** Standard Email + Password Register */
+authRouter.post(
+  '/v1/auth/register',
+  authLimiter,
+  asyncHandler(async (req, res) => {
+    const body = parseBody(
+      z.object({
+        email: z.string().email().max(120),
+        password: z.string().min(6).max(128),
+        name: z.string().trim().max(80).optional(),
+        deviceLabel: z.string().max(80).optional(),
+      }),
+      req.body,
+    );
+    const email = body.email.toLowerCase().trim();
+    const db = await getDb();
+    const existing = await db.collection('users').findOne({ email, deletedAt: null });
+    if (existing) {
+      throw conflict('email_taken', 'Email is already registered');
+    }
+    const { hash, salt } = hashPassword(body.password);
+    const now = new Date();
+    const user = {
+      id: randomUUID(),
+      email,
+      name: body.name?.trim() || null,
+      passwordHash: hash,
+      passwordSalt: salt,
+      googleSub: null,
+      createdAt: now,
+      lastLoginAt: now,
+      trialUsedAt: null,
+      deletedAt: null,
+    };
+    await db.collection('users').insertOne(user);
+    const tokens = await issueTokens(db, user.id, body.deviceLabel);
+    res.status(201).json({ user: publicUser(user), ...tokens });
+  }),
+);
+
+/** Standard Email + Password Login */
+authRouter.post(
+  '/v1/auth/login',
+  authLimiter,
+  asyncHandler(async (req, res) => {
+    const body = parseBody(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(1),
+        deviceLabel: z.string().max(80).optional(),
+      }),
+      req.body,
+    );
+    const email = body.email.toLowerCase().trim();
+    const db = await getDb();
+    const user = await db.collection('users').findOne({ email, deletedAt: null });
+    if (!user || !user.passwordHash || !verifyPassword(body.password, user.passwordHash, user.passwordSalt)) {
+      throw badRequest('invalid_credentials', 'Invalid email or password');
+    }
+    const now = new Date();
+    await db.collection('users').updateOne({ id: user.id }, { $set: { lastLoginAt: now } });
+    const tokens = await issueTokens(db, user.id, body.deviceLabel);
+    res.json({ user: publicUser(user), ...tokens });
+  }),
+);
 
 /** Google Sign-In: the app sends the ID token it got from Google. */
 authRouter.post(

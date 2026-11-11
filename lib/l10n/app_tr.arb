@@ -928,5 +928,11 @@
   "pinLockScreen11": "Sil",
   "securityService1": "Kashkool''u açmak için kimliğinizi doğrulayın",
   "settingsLanguageTitle": "Dil",
-  "settingsLanguageSystem": "Telefon dili (otomatik)"
+  "settingsLanguageSystem": "Telefon dili (otomatik)",
+  "cloudDeleteAccountTitle": "Bulut hesabımı sil",
+  "cloudDeleteAccountSubtitle": "Bulut yedeklerinizi ve hesabınızı kalıcı olarak siler — telefondaki veriler kalır",
+  "cloudDeleteAccountConfirmTitle": "Hesabınız kalıcı olarak silinsin mi?",
+  "cloudDeleteAccountConfirmBody": "Hesabınızı ve sahibi olduğunuz dükkânların tüm bulut yedeklerini sileceğiz. Bu geri alınamaz. Bu telefondaki veriler olduğu gibi kalır.",
+  "cloudDeleteAccountConfirmButton": "Kalıcı olarak sil",
+  "cloudDeleteAccountDone": "Bulut hesabınız silindi"
 }

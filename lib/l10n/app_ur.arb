@@ -928,5 +928,11 @@
   "pinLockScreen11": "مٹائیں",
   "securityService1": "کشکول کھولنے کے لیے شناخت کی تصدیق کریں",
   "settingsLanguageTitle": "زبان",
-  "settingsLanguageSystem": "فون کی زبان (خودکار)"
+  "settingsLanguageSystem": "فون کی زبان (خودکار)",
+  "cloudDeleteAccountTitle": "کلاؤڈ اکاؤنٹ حذف کریں",
+  "cloudDeleteAccountSubtitle": "کلاؤڈ بیک اپ اور اکاؤنٹ ہمیشہ کے لیے حذف — فون کا ڈیٹا رہے گا",
+  "cloudDeleteAccountConfirmTitle": "اکاؤنٹ ہمیشہ کے لیے حذف کریں؟",
+  "cloudDeleteAccountConfirmBody": "ہم آپ کا اکاؤنٹ اور آپ کی دکانوں کے تمام کلاؤڈ بیک اپ حذف کر دیں گے۔ یہ واپس نہیں ہو سکتا۔ اس فون کا ڈیٹا ویسا ہی رہے گا۔",
+  "cloudDeleteAccountConfirmButton": "ہمیشہ کے لیے حذف کریں",
+  "cloudDeleteAccountDone": "آپ کا کلاؤڈ اکاؤنٹ حذف ہو گیا"
 }

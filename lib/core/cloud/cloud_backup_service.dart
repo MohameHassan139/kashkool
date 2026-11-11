@@ -60,6 +60,11 @@ class CloudBackupService {
     await _google?.signOut();
   }
 
+  Future<void> deleteAccount() async {
+    await _api.deleteAccount();
+    await _google?.signOut();
+  }
+
   // ---------- backup ----------
 
   Future<Shop> _activeShop() async {
@@ -71,6 +76,54 @@ class CloudBackupService {
     final first = await (_db.select(_db.shops)..where((s) => s.deletedAt.isNull())..limit(1)).getSingleOrNull();
     if (first == null) throw CloudApiException('no_shop', L10n.t.cloudBackupService2);
     return first;
+  }
+
+  /// Migrates local SQLite database tables to use the account's single cloud shopId.
+  Future<Shop> adoptCloudShopId(Shop localShop, String cloudShopId) async {
+    if (localShop.id == cloudShopId) return localShop;
+    final now = DateTime.now();
+    await _db.transaction(() async {
+      await _db.into(_db.shops).insertOnConflictUpdate(ShopsCompanion(
+            id: Value(cloudShopId),
+            shopId: Value(cloudShopId),
+            deviceId: Value(localShop.deviceId),
+            createdBy: Value(localShop.createdBy),
+            name: Value(localShop.name),
+            shopType: Value(localShop.shopType),
+            phone: Value(localShop.phone),
+            address: Value(localShop.address),
+            currency: const Value('EGP'),
+            enableInstallments: Value(localShop.enableInstallments),
+            createdAt: Value(localShop.createdAt),
+            updatedAt: Value(now),
+          ));
+
+      await _db.into(_db.appSettings).insertOnConflictUpdate(AppSettingsCompanion(
+            id: const Value('setting-active_shop_id'),
+            key: const Value('active_shop_id'),
+            value: Value(cloudShopId),
+            createdAt: Value(now),
+            updatedAt: Value(now),
+          ));
+
+      await (_db.update(_db.customers)..where((c) => c.shopId.equals(localShop.id)))
+          .write(CustomersCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.suppliers)..where((s) => s.shopId.equals(localShop.id)))
+          .write(SuppliersCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.transactions)..where((t) => t.shopId.equals(localShop.id)))
+          .write(TransactionsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.installmentPlans)..where((p) => p.shopId.equals(localShop.id)))
+          .write(InstallmentPlansCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.installments)..where((i) => i.shopId.equals(localShop.id)))
+          .write(InstallmentsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.cashDays)..where((c) => c.shopId.equals(localShop.id)))
+          .write(CashDaysCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.expenses)..where((e) => e.shopId.equals(localShop.id)))
+          .write(ExpensesCompanion(shopId: Value(cloudShopId)));
+      await (_db.delete(_db.shops)..where((s) => s.id.equals(localShop.id))).go();
+    });
+
+    return await _activeShop();
   }
 
   Future<String?> _setting(String key) async {
@@ -115,8 +168,8 @@ class CloudBackupService {
     if (session == null) throw CloudApiException('signed_out', L10n.t.cloudApi2, statusCode: 401);
 
     onProgress?.call(L10n.t.cloudBackupService3, null);
-    final shop = await _activeShop();
-    await _api.registerShop(
+    var shop = await _activeShop();
+    final registered = await _api.registerShop(
       id: shop.id,
       name: shop.name,
       type: shop.shopType,
@@ -124,6 +177,11 @@ class CloudBackupService {
       address: shop.address,
       shopCode: await _setting('growth_shop_referral_code'),
     );
+
+    final cloudShopId = registered['id'] as String?;
+    if (cloudShopId != null && cloudShopId.isNotEmpty && shop.id != cloudShopId) {
+      shop = await adoptCloudShopId(shop, cloudShopId);
+    }
 
     final startedAt = DateTime.now();
     final incremental = !full && session.linkedShopId == shop.id && session.lastBackupStartedAt != null;
@@ -155,6 +213,20 @@ class CloudBackupService {
     await _store.write(latest.copyWith(linkedShopId: shop.id, lastBackupAt: DateTime.now(), lastBackupStartedAt: startedAt));
     onProgress?.call(L10n.t.cloudBackupService5, 1);
     return BackupResult(uploaded, unchanged, rejected, reasons);
+  }
+
+  /// Full two-way synchronization:
+  /// 1. PUSH: uploads local changes via POST /v1/shops/:shopId/sync/push
+  /// 2. PULL: downloads server updates via GET /v1/shops/:shopId/sync/pull and saves them to local Drift DB.
+  Future<BackupResult> syncWithCloud({CloudProgress? onProgress}) async {
+    final pushResult = await backupNow(onProgress: onProgress);
+    try {
+      final shop = await _activeShop();
+      await restore({'id': shop.id, 'name': shop.name, 'type': shop.shopType}, onProgress: onProgress);
+    } catch (_) {
+      // Pull failed (e.g. offline or timeout), keep local changes.
+    }
+    return pushResult;
   }
 
   // ---------- restore ----------
@@ -317,5 +389,51 @@ class CloudBackupService {
     final query = _db.selectOnly(table)..addColumns([id, updatedAt]);
     final rows = await query.get();
     return {for (final r in rows) r.read(id)!: r.read(updatedAt)!};
+  }
+
+  /// Checks if there are local rows created or updated after the last cloud backup.
+  Future<bool> hasUnbackedChanges() async {
+    final session = await _store.read();
+    if (session == null) return false;
+    final lastTime = session.lastBackupAt ?? session.lastBackupStartedAt;
+    if (lastTime == null) {
+      final hasCust = (await (_db.select(_db.customers)..limit(1)).get()).isNotEmpty;
+      final hasTx = (await (_db.select(_db.transactions)..limit(1)).get()).isNotEmpty;
+      return hasCust || hasTx;
+    }
+
+    Future<bool> tableChanged<T extends Table, D extends DataClass>(
+      TableInfo<T, D> table,
+      GeneratedColumn<DateTime> updatedAt,
+    ) async {
+      final changed = await (_db.select(table)..where((_) => updatedAt.isBiggerThanValue(lastTime))..limit(1)).get();
+      return changed.isNotEmpty;
+    }
+
+    if (await tableChanged(_db.customers, _db.customers.updatedAt)) return true;
+    if (await tableChanged(_db.suppliers, _db.suppliers.updatedAt)) return true;
+    if (await tableChanged(_db.transactions, _db.transactions.updatedAt)) return true;
+    if (await tableChanged(_db.installmentPlans, _db.installmentPlans.updatedAt)) return true;
+    if (await tableChanged(_db.installments, _db.installments.updatedAt)) return true;
+    if (await tableChanged(_db.cashDays, _db.cashDays.updatedAt)) return true;
+    if (await tableChanged(_db.expenses, _db.expenses.updatedAt)) return true;
+    return false;
+  }
+
+  /// Restores the user's shop from the cloud after login.
+  /// If cloud shops exist, it restores the shop and returns the result.
+  Future<RestoreResult?> restoreUserShopOnLogin({CloudProgress? onProgress}) async {
+    try {
+      final shops = await listCloudShops();
+      if (shops.isEmpty) return null;
+      final session = await _store.read();
+      final shop = shops.firstWhere(
+        (s) => s['id'] == session?.linkedShopId,
+        orElse: () => shops.first,
+      );
+      return await restore(shop, onProgress: onProgress);
+    } catch (_) {
+      return null;
+    }
   }
 }

@@ -111,6 +111,10 @@ class CloudApi {
         return L10n.t.cloudApi9;
       case 'google_not_configured':
         return L10n.t.cloudApi10;
+      case 'email_taken':
+        return L10n.t.cloudApiEmailTaken;
+      case 'invalid_credentials':
+        return L10n.t.cloudApiInvalidCredentials;
     }
     if (status >= 500) return L10n.t.cloudApi11;
     return L10n.t.cloudApi12(code);
@@ -146,6 +150,13 @@ class CloudApi {
         // Signing out locally still works offline.
       }
     }
+    await _store.clear();
+  }
+
+  /// Permanently deletes the account and the cloud data of the shops it owns (Google Play
+  /// account-deletion requirement). Data on this phone is not touched.
+  Future<void> deleteAccount() async {
+    await _send('DELETE', '/v1/me', body: {'confirm': 'DELETE'});
     await _store.clear();
   }
 

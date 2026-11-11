@@ -8,7 +8,7 @@ import 'package:kashkool/core/db/app_database.dart';
 
 /// Fake backend that keeps pushed records in memory (like the real server's sync API).
 class FakeCloudApi extends CloudApi {
-  FakeCloudApi(CloudSessionStore store) : super(store, baseUrl: 'https://api.test');
+  FakeCloudApi(super.store) : super(baseUrl: 'https://api.test');
 
   final Map<String, Map<String, dynamic>> server = {};
   final List<List<Map<String, dynamic>>> pushedBatches = [];
@@ -53,7 +53,7 @@ class FakeCloudApi extends CloudApi {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> listShops() async => [if (registered != null) registered!];
+  Future<List<Map<String, dynamic>>> listShops() async => [?registered];
 }
 
 Future<void> seed(AppDatabase db) async {
@@ -207,5 +207,37 @@ void main() {
       CloudBackupService(db, api, store).backupNow(),
       throwsA(isA<CloudApiException>().having((e) => e.code, 'code', 'signed_out')),
     );
+  });
+
+  test('store persists and clears session', () async {
+    const s1 = CloudSession(accessToken: 'a1', refreshToken: 'r1', userId: 'u1', email: 'one@test.com');
+    await store.write(s1);
+    expect((await store.read())?.userId, 'u1');
+    expect((await store.read())?.email, 'one@test.com');
+
+    await store.clear();
+    expect(await store.read(), isNull);
+  });
+
+  test('hasUnbackedChanges detects unbacked local data', () async {
+    final service = CloudBackupService(db, api, store);
+    // Before backup, has unbacked changes
+    expect(await service.hasUnbackedChanges(), isTrue);
+
+    // After backupNow, changes are uploaded
+    await service.backupNow();
+    expect(await service.hasUnbackedChanges(), isFalse);
+
+    // Add a new transaction
+    await db.into(db.transactions).insert(TransactionsCompanion.insert(
+          id: 't2',
+          partyType: PartyType.customer,
+          partyId: 'c1',
+          type: TransactionType.payment,
+          amountPiasters: 5000,
+          occurredAt: Value(DateTime.now()),
+          updatedAt: Value(DateTime.now().add(const Duration(minutes: 5))),
+        ));
+    expect(await service.hasUnbackedChanges(), isTrue);
   });
 }

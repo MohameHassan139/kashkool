@@ -95,11 +95,10 @@ test('owner invites an employee; employee joins with default permissions', async
 test('trial can be used once per account', async () => {
   const a = await login('a@test.com');
   await createShop(a.token, 'shop-1');
-  await createShop(a.token, 'shop-2');
   const t = await api().post('/v1/shops/shop-1/trial').set(auth(a.token)).expect(200);
   assert.equal(t.body.entitlement.tier, 'installments_pro');
   assert.equal(t.body.entitlement.source, 'trial');
-  await api().post('/v1/shops/shop-2/trial').set(auth(a.token)).expect(409);
+  await api().post('/v1/shops/shop-1/trial').set(auth(a.token)).expect(409);
 });
 
 test('account deletion removes owned shops and their data', async () => {
@@ -122,4 +121,51 @@ test('several dev users and shops without a code can coexist (unique indexes)', 
   const dup = await createShop(d.token, 'shop-d', { shopCode: 'ZZZZ99' });
   assert.equal(dup.status, 201);
   assert.equal(dup.body.shop.shopCode, null, 'taken code is skipped, not an error');
+});
+
+test('email password registration and login flow', async () => {
+  // 1. Validation errors
+  await api().post('/v1/auth/register').send({ email: 'bad-email', password: '123' }).expect(400);
+  await api().post('/v1/auth/register').send({ email: 'valid@test.com', password: '123' }).expect(400); // min 6
+
+  // 2. Register successfully
+  const reg = await api().post('/v1/auth/register').send({
+    email: 'normal@test.com',
+    password: 'password123',
+    name: 'Ahmed Normal',
+  }).expect(201);
+  assert.equal(reg.body.user.email, 'normal@test.com');
+  assert.equal(reg.body.user.name, 'Ahmed Normal');
+  assert.ok(reg.body.accessToken);
+  assert.ok(reg.body.refreshToken);
+
+  // 3. Duplicate register rejected
+  await api().post('/v1/auth/register').send({
+    email: 'normal@test.com',
+    password: 'password456',
+  }).expect(409);
+
+  // 4. Login with wrong password
+  await api().post('/v1/auth/login').send({
+    email: 'normal@test.com',
+    password: 'wrongpassword',
+  }).expect(400);
+
+  // 5. Login with non-existent email
+  await api().post('/v1/auth/login').send({
+    email: 'nobody@test.com',
+    password: 'anypassword',
+  }).expect(400);
+
+  // 6. Login successfully
+  const loggedIn = await api().post('/v1/auth/login').send({
+    email: 'Normal@test.com', // case insensitive check
+    password: 'password123',
+  }).expect(200);
+  assert.equal(loggedIn.body.user.email, 'normal@test.com');
+  assert.ok(loggedIn.body.accessToken);
+
+  // 7. Access /v1/me with token
+  const me = await api().get('/v1/me').set(auth(loggedIn.body.accessToken)).expect(200);
+  assert.equal(me.body.user.name, 'Ahmed Normal');
 });

@@ -3223,4 +3223,152 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsLanguageSystem => 'Phone language (automatic)';
+
+  @override
+  String get cloudDeleteAccountTitle => 'Delete my cloud account';
+
+  @override
+  String get cloudDeleteAccountSubtitle =>
+      'Permanently deletes your cloud backups and account — data on this phone stays';
+
+  @override
+  String get cloudDeleteAccountConfirmTitle =>
+      'Delete your account permanently?';
+
+  @override
+  String get cloudDeleteAccountConfirmBody =>
+      'We\'ll delete your account and all cloud backups of the shops you own. This can\'t be undone. Data on this phone stays as it is.';
+
+  @override
+  String get cloudDeleteAccountConfirmButton => 'Delete permanently';
+
+  @override
+  String get cloudDeleteAccountDone => 'Your cloud account was deleted';
+
+  @override
+  String get authFirstTimeTitle => 'Welcome to Kashkool! 👋';
+
+  @override
+  String get authFirstTimeQuestion =>
+      'Do you already have an account or are you a new user?';
+
+  @override
+  String get authHaveAccount => 'I have an account';
+
+  @override
+  String get authHaveAccountSubtitle =>
+      'Sign in and we will restore all your shop data immediately';
+
+  @override
+  String get authNewUser => 'New user';
+
+  @override
+  String get authNewUserSubtitle =>
+      'Start a new ledger and set up your shop step by step';
+
+  @override
+  String get authContinueGuest => 'Continue as guest (offline)';
+
+  @override
+  String get authContinueGuestSubtitle =>
+      'Use the app completely locally without internet';
+
+  @override
+  String get authLogin => 'Sign In';
+
+  @override
+  String get authRegister => 'Create Account';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authPassword => 'Password';
+
+  @override
+  String get authPasswordConfirm => 'Confirm Password';
+
+  @override
+  String get authNameOptional => 'Full Name (Optional)';
+
+  @override
+  String get authLoginButton => 'Sign In';
+
+  @override
+  String get authRegisterButton => 'Create Account';
+
+  @override
+  String get authOrGoogle => 'Or continue with Google';
+
+  @override
+  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+
+  @override
+  String get authSignInWithGoogleSubtitle =>
+      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+
+  @override
+  String get authSwitchAccount => 'Switch Account';
+
+  @override
+  String get authSwitchAccountSubtitle =>
+      'Pick another account or log in with a new one';
+
+  @override
+  String get authAddAccount => '+ Log in with another account';
+
+  @override
+  String get authCurrentAccount => 'Currently Active';
+
+  @override
+  String get authPasswordsDontMatch => 'Passwords do not match';
+
+  @override
+  String get authPasswordTooShort => 'Password must be at least 6 characters';
+
+  @override
+  String get authInvalidEmail => 'Please enter a valid email address';
+
+  @override
+  String get authLoginSuccess => 'Signed in successfully 🎉';
+
+  @override
+  String get authRegisterSuccess => 'Account created successfully 🎉';
+
+  @override
+  String authSwitchedTo(Object email) {
+    return 'Switched to account: $email';
+  }
+
+  @override
+  String get cloudApiEmailTaken =>
+      'This email is already registered, please sign in';
+
+  @override
+  String get cloudApiInvalidCredentials => 'Invalid email or password';
+
+  @override
+  String get authBackupBeforeSwitchTitle => 'Warning: Unsaved data!';
+
+  @override
+  String get authBackupBeforeSwitchBody =>
+      'There are unsaved local changes that have not been backed up to the cloud for this account. If you switch accounts now, local data will be wiped and cannot be recovered unless backed up first.';
+
+  @override
+  String get authBackupFirst => 'Back up first';
+
+  @override
+  String get authSwitchWithoutBackup => 'Switch & wipe local data';
+
+  @override
+  String get authFetchingData => 'Fetching your data from the cloud…';
+
+  @override
+  String get authEmailLoginButton => 'Sign in with Email';
+
+  @override
+  String get authEmailRegisterButton => 'Create account with Email';
+
+  @override
+  String get authWipingData => 'Wiping local data and switching account…';
 }

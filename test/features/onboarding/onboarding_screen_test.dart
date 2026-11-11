@@ -30,14 +30,23 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // 1. Step 1: Shop Identity
+    // 0. Step 0: Account Choice
     expect(find.text('تهيئة كشكول لأول مرة'), findsOneWidget);
-    expect(find.text('أهلاً بك في كشكول! 👋'), findsOneWidget);
+    expect(find.text('أهلاً بك في كشكول! 👋'), findsWidgets);
+    expect(find.text('هل عندك حساب بالفعل ولا مستخدم جديد؟'), findsOneWidget);
+    expect(find.text('المتابعة كضيف (بدون حساب)'), findsOneWidget);
+
+    // Tap guest to proceed with local setup
+    await tester.tap(find.text('المتابعة كضيف (بدون حساب)'));
+    await tester.pumpAndSettle();
+
+    // 1. Step 1: Shop Identity
+    expect(find.text('أهلاً بك في كشكول! 👋'), findsWidgets);
 
     // Try submitting with empty name
-    await tester.tap(find.text('متابعة نوع النشاط'));
+    await tester.tap(find.text(L10n.t.onboardingScreen4));
     await tester.pumpAndSettle();
-    expect(find.text('يرجى كتابة اسم المحل (حرفين على الأقل)'), findsOneWidget);
+    expect(find.text(L10n.t.onboardingScreen9), findsOneWidget);
 
     // Enter valid shop name
     final nameField = find.byType(TextFormField).first;
@@ -45,7 +54,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Advance to Step 2
-    await tester.tap(find.text('متابعة نوع النشاط'));
+    await tester.tap(find.text(L10n.t.onboardingScreen4));
     await tester.pumpAndSettle();
 
     // 2. Step 2: Trade Type

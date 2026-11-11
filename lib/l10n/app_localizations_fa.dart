@@ -3186,4 +3186,148 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get settingsLanguageSystem => 'زبان گوشی (خودکار)';
+
+  @override
+  String get cloudDeleteAccountTitle => 'حذف حساب ابری من';
+
+  @override
+  String get cloudDeleteAccountSubtitle =>
+      'پشتیبان‌های ابری و حساب را برای همیشه حذف می‌کند — داده‌های گوشی می‌ماند';
+
+  @override
+  String get cloudDeleteAccountConfirmTitle => 'حساب برای همیشه حذف شود؟';
+
+  @override
+  String get cloudDeleteAccountConfirmBody =>
+      'حساب شما و همه پشتیبان‌های ابری مغازه‌هایتان حذف می‌شود و قابل بازگشت نیست. داده‌های این گوشی همان‌طور می‌ماند.';
+
+  @override
+  String get cloudDeleteAccountConfirmButton => 'حذف دائمی';
+
+  @override
+  String get cloudDeleteAccountDone => 'حساب ابری شما حذف شد';
+
+  @override
+  String get authFirstTimeTitle => 'أهلاً بك في كشكول! 👋';
+
+  @override
+  String get authFirstTimeQuestion => 'هل عندك حساب بالفعل ولا مستخدم جديد؟';
+
+  @override
+  String get authHaveAccount => 'عندي حساب بالفعل';
+
+  @override
+  String get authHaveAccountSubtitle =>
+      'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
+
+  @override
+  String get authNewUser => 'مستخدم جديد';
+
+  @override
+  String get authNewUserSubtitle => 'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة';
+
+  @override
+  String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
+
+  @override
+  String get authContinueGuestSubtitle =>
+      'استخدم التطبيق محلياً بدون إنترنت خالص';
+
+  @override
+  String get authLogin => 'تسجيل الدخول';
+
+  @override
+  String get authRegister => 'إنشاء حساب جديد';
+
+  @override
+  String get authEmail => 'البريد الإلكتروني';
+
+  @override
+  String get authPassword => 'كلمة المرور';
+
+  @override
+  String get authPasswordConfirm => 'تأكيد كلمة المرور';
+
+  @override
+  String get authNameOptional => 'الاسم (اختياري)';
+
+  @override
+  String get authLoginButton => 'تسجيل الدخول';
+
+  @override
+  String get authRegisterButton => 'إنشاء حساب';
+
+  @override
+  String get authOrGoogle => 'أو المتابعة بحساب Google';
+
+  @override
+  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+
+  @override
+  String get authSignInWithGoogleSubtitle =>
+      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+
+  @override
+  String get authSwitchAccount => 'تبديل الحساب';
+
+  @override
+  String get authSwitchAccountSubtitle =>
+      'اختر حساباً آخر أو سجّل دخول بحساب جديد';
+
+  @override
+  String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
+
+  @override
+  String get authCurrentAccount => 'الحساب النشط حالياً';
+
+  @override
+  String get authPasswordsDontMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get authPasswordTooShort => 'كلمة المرور لازم تكون 6 أحرف على الأقل';
+
+  @override
+  String get authInvalidEmail => 'اكتب بريد إلكتروني صحيح';
+
+  @override
+  String get authLoginSuccess => 'تم تسجيل الدخول بنجاح 🎉';
+
+  @override
+  String get authRegisterSuccess => 'تم إنشاء الحساب بنجاح 🎉';
+
+  @override
+  String authSwitchedTo(Object email) {
+    return 'تم التبديل إلى حساب: $email';
+  }
+
+  @override
+  String get cloudApiEmailTaken => 'البريد ده مسجل قبل كده، جرّب تسجّل دخول';
+
+  @override
+  String get cloudApiInvalidCredentials => 'البريد أو كلمة المرور مش صحيحة';
+
+  @override
+  String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
+
+  @override
+  String get authBackupBeforeSwitchBody =>
+      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
+
+  @override
+  String get authBackupFirst => 'اعمل نسخة احتياطية أولاً';
+
+  @override
+  String get authSwitchWithoutBackup => 'تبديل ومسح البيانات المحلية';
+
+  @override
+  String get authFetchingData => 'جاري جلب بياناتك من السحابة…';
+
+  @override
+  String get authEmailLoginButton => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get authEmailRegisterButton => 'إنشاء حساب جديد بالبريد';
+
+  @override
+  String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
 }

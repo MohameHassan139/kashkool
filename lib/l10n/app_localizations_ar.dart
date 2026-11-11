@@ -3202,6 +3202,151 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsLanguageSystem => 'لغة الهاتف (تلقائي)';
+
+  @override
+  String get cloudDeleteAccountTitle => 'احذف حسابي على السحابة';
+
+  @override
+  String get cloudDeleteAccountSubtitle =>
+      'يحذف نسخ السحابة وحسابك نهائيًا — لن تُحذف بياناتك على الهاتف';
+
+  @override
+  String get cloudDeleteAccountConfirmTitle => 'حذف حسابك نهائيًا؟';
+
+  @override
+  String get cloudDeleteAccountConfirmBody =>
+      'سنحذف حسابك وكل النسخ الموجودة على السحابة للمحلات التي تملكها، ولا يمكن استرجاعها. ستبقى البيانات الموجودة على هذا الهاتف كما هي.';
+
+  @override
+  String get cloudDeleteAccountConfirmButton => 'احذف نهائيًا';
+
+  @override
+  String get cloudDeleteAccountDone => 'تم حذف حسابك من السحابة';
+
+  @override
+  String get authFirstTimeTitle => 'أهلاً بك في كشكول! 👋';
+
+  @override
+  String get authFirstTimeQuestion => 'هل لديك حساب بالفعل أم أنت مستخدم جديد؟';
+
+  @override
+  String get authHaveAccount => 'لدي حساب بالفعل';
+
+  @override
+  String get authHaveAccountSubtitle =>
+      'سجّل دخولك وسيتم استرجاع كافة بيانات محلك فوراً';
+
+  @override
+  String get authNewUser => 'مستخدم جديد';
+
+  @override
+  String get authNewUserSubtitle => 'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة';
+
+  @override
+  String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
+
+  @override
+  String get authContinueGuestSubtitle =>
+      'استخدم التطبيق محلياً بدون إنترنت تماماً';
+
+  @override
+  String get authLogin => 'تسجيل الدخول';
+
+  @override
+  String get authRegister => 'إنشاء حساب جديد';
+
+  @override
+  String get authEmail => 'البريد الإلكتروني';
+
+  @override
+  String get authPassword => 'كلمة المرور';
+
+  @override
+  String get authPasswordConfirm => 'تأكيد كلمة المرور';
+
+  @override
+  String get authNameOptional => 'الاسم الكامل (اختياري)';
+
+  @override
+  String get authLoginButton => 'تسجيل الدخول';
+
+  @override
+  String get authRegisterButton => 'إنشاء الحساب';
+
+  @override
+  String get authOrGoogle => 'أو المتابعة بحساب Google';
+
+  @override
+  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+
+  @override
+  String get authSignInWithGoogleSubtitle =>
+      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+
+  @override
+  String get authSwitchAccount => 'تبديل الحساب';
+
+  @override
+  String get authSwitchAccountSubtitle =>
+      'اختر حساباً آخر أو سجّل الدخول بحساب جديد';
+
+  @override
+  String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
+
+  @override
+  String get authCurrentAccount => 'الحساب النشط حالياً';
+
+  @override
+  String get authPasswordsDontMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get authPasswordTooShort => 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+
+  @override
+  String get authInvalidEmail => 'يرجى كتابة بريد إلكتروني صحيح';
+
+  @override
+  String get authLoginSuccess => 'تم تسجيل الدخول بنجاح 🎉';
+
+  @override
+  String get authRegisterSuccess => 'تم إنشاء الحساب بنجاح 🎉';
+
+  @override
+  String authSwitchedTo(Object email) {
+    return 'تم التبديل إلى حساب: $email';
+  }
+
+  @override
+  String get cloudApiEmailTaken => 'هذا البريد مسجل مسبقاً، يرجى تسجيل الدخول';
+
+  @override
+  String get cloudApiInvalidCredentials =>
+      'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+
+  @override
+  String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
+
+  @override
+  String get authBackupBeforeSwitchBody =>
+      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. إذا قمت بتبديل الحساب الآن، سيتم مسح البيانات المحلية ولن تتمكن من استرجاعها إلا إذا قمت بعمل نسخة احتياطية أولاً.';
+
+  @override
+  String get authBackupFirst => 'أخذ نسخة احتياطية أولاً';
+
+  @override
+  String get authSwitchWithoutBackup => 'تبديل ومسح البيانات المحلية';
+
+  @override
+  String get authFetchingData => 'جاري جلب بياناتك من السحابة…';
+
+  @override
+  String get authEmailLoginButton => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get authEmailRegisterButton => 'إنشاء حساب جديد بالبريد';
+
+  @override
+  String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
 }
 
 /// The translations for Arabic, as used in Egypt (`ar_EG`).
@@ -6405,4 +6550,148 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
 
   @override
   String get settingsLanguageSystem => 'لغة الموبايل (تلقائي)';
+
+  @override
+  String get cloudDeleteAccountTitle => 'احذف حسابي على السحابة';
+
+  @override
+  String get cloudDeleteAccountSubtitle =>
+      'بيمسح نسخ السحابة وحسابك نهائي — بياناتك على الموبايل مش هتتمسح';
+
+  @override
+  String get cloudDeleteAccountConfirmTitle => 'تمسح حسابك نهائي؟';
+
+  @override
+  String get cloudDeleteAccountConfirmBody =>
+      'هنمسح حسابك وكل النسخ اللي على السحابة للمحلات اللي إنت صاحبها، ومش هينفع نرجّعهم. البيانات اللي على الموبايل ده هتفضل زي ما هي.';
+
+  @override
+  String get cloudDeleteAccountConfirmButton => 'امسح نهائي';
+
+  @override
+  String get cloudDeleteAccountDone => 'اتمسح حسابك من السحابة';
+
+  @override
+  String get authFirstTimeTitle => 'أهلاً بك في كشكول! 👋';
+
+  @override
+  String get authFirstTimeQuestion => 'هل عندك حساب بالفعل ولا مستخدم جديد؟';
+
+  @override
+  String get authHaveAccount => 'عندي حساب بالفعل';
+
+  @override
+  String get authHaveAccountSubtitle =>
+      'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
+
+  @override
+  String get authNewUser => 'مستخدم جديد';
+
+  @override
+  String get authNewUserSubtitle => 'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة';
+
+  @override
+  String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
+
+  @override
+  String get authContinueGuestSubtitle =>
+      'استخدم التطبيق محلياً بدون إنترنت خالص';
+
+  @override
+  String get authLogin => 'تسجيل الدخول';
+
+  @override
+  String get authRegister => 'إنشاء حساب جديد';
+
+  @override
+  String get authEmail => 'البريد الإلكتروني';
+
+  @override
+  String get authPassword => 'كلمة المرور';
+
+  @override
+  String get authPasswordConfirm => 'تأكيد كلمة المرور';
+
+  @override
+  String get authNameOptional => 'الاسم (اختياري)';
+
+  @override
+  String get authLoginButton => 'تسجيل الدخول';
+
+  @override
+  String get authRegisterButton => 'إنشاء حساب';
+
+  @override
+  String get authOrGoogle => 'أو المتابعة بحساب Google';
+
+  @override
+  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+
+  @override
+  String get authSignInWithGoogleSubtitle =>
+      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+
+  @override
+  String get authSwitchAccount => 'تبديل الحساب';
+
+  @override
+  String get authSwitchAccountSubtitle =>
+      'اختر حساباً آخر أو سجّل دخول بحساب جديد';
+
+  @override
+  String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
+
+  @override
+  String get authCurrentAccount => 'الحساب النشط حالياً';
+
+  @override
+  String get authPasswordsDontMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get authPasswordTooShort => 'كلمة المرور لازم تكون 6 أحرف على الأقل';
+
+  @override
+  String get authInvalidEmail => 'اكتب بريد إلكتروني صحيح';
+
+  @override
+  String get authLoginSuccess => 'تم تسجيل الدخول بنجاح 🎉';
+
+  @override
+  String get authRegisterSuccess => 'تم إنشاء الحساب بنجاح 🎉';
+
+  @override
+  String authSwitchedTo(Object email) {
+    return 'تم التبديل إلى حساب: $email';
+  }
+
+  @override
+  String get cloudApiEmailTaken => 'البريد ده مسجل قبل كده، جرّب تسجّل دخول';
+
+  @override
+  String get cloudApiInvalidCredentials => 'البريد أو كلمة المرور مش صحيحة';
+
+  @override
+  String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
+
+  @override
+  String get authBackupBeforeSwitchBody =>
+      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
+
+  @override
+  String get authBackupFirst => 'اعمل نسخة احتياطية أولاً';
+
+  @override
+  String get authSwitchWithoutBackup => 'تبديل ومسح البيانات المحلية';
+
+  @override
+  String get authFetchingData => 'جاري جلب بياناتك من السحابة…';
+
+  @override
+  String get authEmailLoginButton => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get authEmailRegisterButton => 'إنشاء حساب جديد بالبريد';
+
+  @override
+  String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
 }

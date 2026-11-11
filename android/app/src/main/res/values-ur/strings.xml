@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">کشکول</string>
     <string name="widget_small_label">کشکول - آپ کا بقایا</string>
     <string name="widget_medium_label">کشکول - آج کا خلاصہ</string>
     <string name="widget_small_description">گاہکوں پر آپ کا کل بقایا</string>

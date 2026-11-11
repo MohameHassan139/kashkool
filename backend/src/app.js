@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import { adminRouter } from './routes/admin.js';
 import { authRouter } from './routes/auth.js';
 import { miscRouter } from './routes/misc.js';
+import { publicPagesRouter } from './routes/publicPages.js';
 import { shopsRouter } from './routes/shops.js';
 import { statementLinksRouter } from './routes/statementLinks.js';
 import { subscriptionsRouter } from './routes/subscriptions.js';
@@ -17,6 +18,7 @@ export function createApp() {
   app.use(express.json({ limit: '2mb' }));
 
   app.use(miscRouter);
+  app.use(publicPagesRouter);
   app.use(authRouter);
   app.use(shopsRouter);
   app.use(syncRouter);

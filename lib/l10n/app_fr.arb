@@ -928,5 +928,11 @@
   "pinLockScreen11": "Effacer",
   "securityService1": "Confirmez votre identité pour ouvrir Kashkool",
   "settingsLanguageTitle": "Langue",
-  "settingsLanguageSystem": "Langue du téléphone (auto)"
+  "settingsLanguageSystem": "Langue du téléphone (auto)",
+  "cloudDeleteAccountTitle": "Supprimer mon compte cloud",
+  "cloudDeleteAccountSubtitle": "Supprime définitivement vos sauvegardes cloud et votre compte — les données du téléphone restent",
+  "cloudDeleteAccountConfirmTitle": "Supprimer définitivement votre compte ?",
+  "cloudDeleteAccountConfirmBody": "Nous supprimerons votre compte et toutes les sauvegardes cloud de vos boutiques. C''est irréversible. Les données de ce téléphone restent intactes.",
+  "cloudDeleteAccountConfirmButton": "Supprimer définitivement",
+  "cloudDeleteAccountDone": "Votre compte cloud a été supprimé"
 }

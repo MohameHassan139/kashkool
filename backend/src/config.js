@@ -52,6 +52,8 @@ export const config = {
 
   /** Google emails allowed into the admin dashboard (/admin), comma-separated. */
   adminEmails: list(process.env.ADMIN_EMAILS).map((e) => e.toLowerCase()),
+  // Shown on the public privacy and account-deletion pages (Google Play requires a contact).
+  supportEmail: (process.env.SUPPORT_EMAIL || '').trim(),
   adminSessionHours: 8,
 
   /** Monthly prices (EGP) used to estimate revenue in the admin dashboard. */

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/cloud/cloud_providers.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../onboarding/data/shop_repository.dart';
@@ -212,66 +213,75 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
 
           // Customers List
           Expanded(
-            child: customersAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text(err.toString())),
-              data: (customers) {
-                if (customers.isEmpty) {
-                  final isSearching = _searchController.text.trim().isNotEmpty ||
-                      activeFilter != CustomerFilter.all;
+            child: RefreshIndicator(
+              onRefresh: () async {
+                try {
+                  await ref.read(cloudBackupServiceProvider).syncWithCloud();
+                } catch (_) {}
+              },
+              child: customersAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (err, stack) => Center(child: Text(err.toString())),
+                data: (customers) {
+                  if (customers.isEmpty) {
+                    final isSearching = _searchController.text.trim().isNotEmpty ||
+                        activeFilter != CustomerFilter.all;
 
-                  return Center(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            isSearching ? Icons.person_search_rounded : Icons.menu_book_rounded,
-                            size: 56,
-                            color: theme.disabledColor,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            isSearching ? l10n.noSearchResults : l10n.noCustomersTitle,
-                            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 6),
-                          if (!isSearching)
+                    return Center(
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              isSearching ? Icons.person_search_rounded : Icons.menu_book_rounded,
+                              size: 56,
+                              color: theme.disabledColor,
+                            ),
+                            const SizedBox(height: 12),
                             Text(
-                              l10n.noCustomersSubtitle,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
+                              isSearching ? l10n.noSearchResults : l10n.noCustomersTitle,
+                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
-                        ],
+                            const SizedBox(height: 6),
+                            if (!isSearching)
+                              Text(
+                                l10n.noCustomersSubtitle,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
-
-                return ListView.builder(
-                  itemCount: customers.length,
-                  padding: const EdgeInsets.only(bottom: 88, top: 4),
-                  itemBuilder: (ctx, index) {
-                    final item = customers[index];
-                    return CustomerListItem(
-                      item: item,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => CustomerDetailsScreen(
-                              customerId: item.customer.id,
-                            ),
-                          ),
-                        );
-                      },
                     );
-                  },
-                );
-              },
+                  }
+
+                  return ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: customers.length,
+                    padding: const EdgeInsets.only(bottom: 88, top: 4),
+                    itemBuilder: (ctx, index) {
+                      final item = customers[index];
+                      return CustomerListItem(
+                        item: item,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) => CustomerDetailsScreen(
+                                customerId: item.customer.id,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],
