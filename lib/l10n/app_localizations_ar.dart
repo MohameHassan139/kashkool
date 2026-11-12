@@ -116,7 +116,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get customerPhoneHint => '010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid => 'رقم الهاتف غير صحيح (010، 011، 012، 015)';
+  String get customerPhoneInvalid => 'رقم الهاتف غير صحيح';
 
   @override
   String get customerNotes => 'ملاحظات';
@@ -1433,8 +1433,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addInstallmentPlanScreen34 => 'رقم هاتف الضامن';
 
   @override
-  String get addInstallmentPlanScreen35 =>
-      'رقم الهاتف غير صحيح (010، 011، 012، 015)';
+  String get addInstallmentPlanScreen35 => 'رقم الهاتف غير صحيح';
 
   @override
   String get addInstallmentPlanScreen36 => 'تم التقاط صورة المستند ✓';
@@ -3461,8 +3460,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get customerPhoneHint => '010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid =>
-      'رقم الموبايل غير صحيح (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'رقم الهاتف غير صحيح';
 
   @override
   String get customerNotes => 'ملاحظات';
@@ -4781,8 +4779,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get addInstallmentPlanScreen34 => 'رقم موبايل الضامن';
 
   @override
-  String get addInstallmentPlanScreen35 =>
-      'رقم الموبايل غير صحيح (010, 011, 012, 015)';
+  String get addInstallmentPlanScreen35 => 'رقم الهاتف غير صحيح';
 
   @override
   String get addInstallmentPlanScreen36 => 'تم التقاط صورة المستند ✓';

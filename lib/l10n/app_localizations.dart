@@ -324,7 +324,7 @@ abstract class AppLocalizations {
   /// No description provided for @customerPhoneInvalid.
   ///
   /// In ar_EG, this message translates to:
-  /// **'رقم الموبايل غير صحيح (010, 011, 012, 015)'**
+  /// **'رقم الهاتف غير صحيح'**
   String get customerPhoneInvalid;
 
   /// No description provided for @customerNotes.
@@ -2669,7 +2669,7 @@ abstract class AppLocalizations {
   /// No description provided for @addInstallmentPlanScreen35.
   ///
   /// In ar_EG, this message translates to:
-  /// **'رقم الموبايل غير صحيح (010, 011, 012, 015)'**
+  /// **'رقم الهاتف غير صحيح'**
   String get addInstallmentPlanScreen35;
 
   /// No description provided for @addInstallmentPlanScreen36.

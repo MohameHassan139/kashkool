@@ -116,8 +116,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customerPhoneHint => '010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid =>
-      'Invalid mobile number (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'Invalid phone number';
 
   @override
   String get customerNotes => 'Notes';
@@ -1441,8 +1440,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addInstallmentPlanScreen34 => 'Guarantor\'s mobile';
 
   @override
-  String get addInstallmentPlanScreen35 =>
-      'Invalid mobile number (010, 011, 012, 015)';
+  String get addInstallmentPlanScreen35 => 'Invalid phone number';
 
   @override
   String get addInstallmentPlanScreen36 => 'Document photo taken ✓';
