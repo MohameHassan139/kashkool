@@ -5,7 +5,7 @@ enum PartyType { customer, supplier }
 
 /// "عليه" (debt - customer owes shop / shop owes supplier)
 /// "دفع" (payment - customer paid / shop paid supplier)
-enum TransactionType { debt, payment }
+enum TransactionType { debt, payment, supplierCredit }
 
 enum PaymentMethod { cash, instapay, wallet, other }
 

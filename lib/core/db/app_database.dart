@@ -13,9 +13,17 @@ import 'tables/cash_days_table.dart';
 import 'tables/customer_photos_table.dart';
 import 'tables/customers_table.dart';
 import 'tables/expenses_table.dart';
+import 'tables/inventory_movements_table.dart';
 import 'tables/installment_plans_table.dart';
 import 'tables/installments_table.dart';
+import 'tables/purchase_invoices_table.dart';
+import 'tables/purchase_items_table.dart';
+import 'tables/products_table.dart';
+import 'tables/sale_items_table.dart';
+import 'tables/sales_table.dart';
 import 'tables/shops_table.dart';
+import 'tables/supplier_return_items_table.dart';
+import 'tables/supplier_returns_table.dart';
 import 'tables/suppliers_table.dart';
 import 'tables/transactions_table.dart';
 
@@ -23,9 +31,17 @@ export 'tables/cash_days_table.dart';
 export 'tables/customer_photos_table.dart';
 export 'tables/customers_table.dart';
 export 'tables/expenses_table.dart';
+export 'tables/inventory_movements_table.dart';
 export 'tables/installment_plans_table.dart';
 export 'tables/installments_table.dart';
+export 'tables/purchase_invoices_table.dart';
+export 'tables/purchase_items_table.dart';
+export 'tables/products_table.dart';
+export 'tables/sale_items_table.dart';
+export 'tables/sales_table.dart';
 export 'tables/shops_table.dart';
+export 'tables/supplier_return_items_table.dart';
+export 'tables/supplier_returns_table.dart';
 export 'tables/suppliers_table.dart';
 export 'tables/transactions_table.dart';
 
@@ -45,23 +61,33 @@ void _setupSqlCipherInIsolate() {
   }
 }
 
-@DriftDatabase(tables: [
-  AppSettings,
-  Shops,
-  Customers,
-  Transactions,
-  Suppliers,
-  CashDays,
-  Expenses,
-  InstallmentPlans,
-  Installments,
-  CustomerPhotos,
-])
+@DriftDatabase(
+  tables: [
+    AppSettings,
+    Shops,
+    Customers,
+    Transactions,
+    Suppliers,
+    CashDays,
+    Expenses,
+    InstallmentPlans,
+    Installments,
+    CustomerPhotos,
+    Products,
+    InventoryMovements,
+    PurchaseInvoices,
+    PurchaseItems,
+    SupplierReturns,
+    SupplierReturnItems,
+    Sales,
+    SaleItems,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 9;
 
   static QueryExecutor _openConnection() {
     return LazyDatabase(() async {
@@ -304,18 +330,38 @@ class AppDatabase extends _$AppDatabase {
       if (from < 6) {
         await m.createTable(customerPhotos);
       }
+      if (from < 7) {
+        await m.createTable(products);
+        await m.createTable(inventoryMovements);
+      }
+      if (from < 8) {
+        await m.createTable(purchaseInvoices);
+        await m.createTable(purchaseItems);
+        await m.createTable(supplierReturns);
+        await m.createTable(supplierReturnItems);
+      }
+      if (from < 9) {
+        await m.createTable(sales);
+        await m.createTable(saleItems);
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON;');
       // Self-healing fallback for app_settings columns on existing devices
       try {
-        await customStatement("ALTER TABLE app_settings ADD COLUMN shop_id TEXT NOT NULL DEFAULT 'default_shop';");
+        await customStatement(
+          "ALTER TABLE app_settings ADD COLUMN shop_id TEXT NOT NULL DEFAULT 'default_shop';",
+        );
       } catch (_) {}
       try {
-        await customStatement("ALTER TABLE app_settings ADD COLUMN device_id TEXT NOT NULL DEFAULT 'local_device';");
+        await customStatement(
+          "ALTER TABLE app_settings ADD COLUMN device_id TEXT NOT NULL DEFAULT 'local_device';",
+        );
       } catch (_) {}
       try {
-        await customStatement("ALTER TABLE app_settings ADD COLUMN created_by TEXT NOT NULL DEFAULT 'owner';");
+        await customStatement(
+          "ALTER TABLE app_settings ADD COLUMN created_by TEXT NOT NULL DEFAULT 'owner';",
+        );
       } catch (_) {}
     },
   );

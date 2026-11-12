@@ -21,7 +21,313 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navSuppliers => 'Tedarikçiler';
 
   @override
+  String get navInventory => 'المخزون';
+
+  @override
   String get navCashDrawer => 'Kasa';
+
+  @override
+  String get inventoryTitle => 'المخزون';
+
+  @override
+  String get inventoryManageButton => 'إدارة الأصناف والمخزون';
+
+  @override
+  String get inventorySearchHint => 'ابحث عن صنف أو باركود...';
+
+  @override
+  String get inventoryAddProduct => 'صنف جديد';
+
+  @override
+  String get inventoryEditProduct => 'تعديل الصنف';
+
+  @override
+  String get inventoryNoProducts => 'لسه مفيش أصناف مسجلة';
+
+  @override
+  String get inventoryNoSearchResults => 'مفيش أصناف مطابقة للبحث';
+
+  @override
+  String get inventoryProductName => 'اسم الصنف';
+
+  @override
+  String get inventoryNameRequired => 'اكتب اسم الصنف';
+
+  @override
+  String get inventoryBarcode => 'الباركود (اختياري)';
+
+  @override
+  String get inventoryCategory => 'التصنيف (اختياري)';
+
+  @override
+  String get inventoryUnit => 'وحدة البيع';
+
+  @override
+  String get inventoryUnitExample => 'مثال: قطعة، كجم، لتر';
+
+  @override
+  String get inventoryUnitRequired => 'اكتب وحدة البيع';
+
+  @override
+  String get inventoryPurchasePrice => 'سعر الشراء بالجنيه';
+
+  @override
+  String get inventorySalePrice => 'سعر البيع بالجنيه';
+
+  @override
+  String get inventoryMinimumStock => 'نبّهني لما الكمية توصل';
+
+  @override
+  String get inventoryInitialStock => 'الكمية الموجودة حاليًا';
+
+  @override
+  String get inventoryCurrentStock => 'الموجود في المخزن';
+
+  @override
+  String get inventoryInStock => 'متوفر';
+
+  @override
+  String get inventoryLowStock => 'الكمية قليلة';
+
+  @override
+  String get inventoryAdjustStock => 'تعديل الكمية';
+
+  @override
+  String get inventoryAddStock => 'إضافة للمخزون';
+
+  @override
+  String get inventoryRemoveStock => 'خصم من المخزون';
+
+  @override
+  String get inventoryQuantity => 'الكمية';
+
+  @override
+  String get inventoryNote => 'ملاحظة (اختياري)';
+
+  @override
+  String get inventoryMovementHistory => 'حركة المخزون';
+
+  @override
+  String get inventoryMovementOpening => 'رصيد افتتاحي';
+
+  @override
+  String get inventoryMovementAdjustment => 'تعديل يدوي';
+
+  @override
+  String get inventoryMovementPurchase => 'شراء';
+
+  @override
+  String get inventoryMovementSale => 'بيع';
+
+  @override
+  String get inventoryMovementCustomerReturn => 'مرتجع عميل';
+
+  @override
+  String get inventoryMovementSupplierReturn => 'مرتجع مورد';
+
+  @override
+  String get inventoryNoMovements => 'مفيش حركات مخزون لسه';
+
+  @override
+  String get inventorySave => 'حفظ';
+
+  @override
+  String get inventoryCancel => 'إلغاء';
+
+  @override
+  String get inventoryDelete => 'حذف الصنف';
+
+  @override
+  String get inventoryDeleteConfirm =>
+      'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
+
+  @override
+  String get inventoryDeleted => 'تم حذف الصنف';
+
+  @override
+  String get inventoryProductSaved => 'تم حفظ الصنف';
+
+  @override
+  String get inventoryStockSaved => 'تم تحديث المخزون';
+
+  @override
+  String get inventoryInvalidQuantity => 'اكتب كمية صحيحة (لحد 3 أرقام عشرية)';
+
+  @override
+  String get inventoryQuantityRequired => 'اكتب كمية أكبر من صفر';
+
+  @override
+  String get inventoryStockCannotBeNegative => 'الكمية الموجودة مش كفاية للخصم';
+
+  @override
+  String get inventoryInvalidPrice => 'اكتب سعر صحيح غير سالب';
+
+  @override
+  String get inventoryBarcodeExists => 'الباركود مسجل لصنف تاني';
+
+  @override
+  String get inventoryUnitChangeNotAllowed =>
+      'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
+
+  @override
+  String get inventorySaveFailed =>
+      'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+
+  @override
+  String get quickPosTitle => 'بيع سريع';
+
+  @override
+  String get quickPosOpen => 'افتح البيع السريع';
+
+  @override
+  String get quickPosSearch => 'ابحث بالاسم أو اكتب الباركود...';
+
+  @override
+  String get quickPosProducts => 'الأصناف';
+
+  @override
+  String get quickPosAdd => 'ضيف للبيع';
+
+  @override
+  String get quickPosAvailable => 'المتاح';
+
+  @override
+  String get quickPosCart => 'أصناف البيع';
+
+  @override
+  String get quickPosEmptyCart => 'ضيف أصناف عشان تبدأ البيع';
+
+  @override
+  String get quickPosQuantity => 'الكمية';
+
+  @override
+  String get quickPosQuantityInvalid => 'اكتب كمية صحيحة أكبر من صفر';
+
+  @override
+  String get quickPosCash => 'نقدي';
+
+  @override
+  String get quickPosCredit => 'على حساب عميل';
+
+  @override
+  String get quickPosSelectCustomer => 'اختار العميل';
+
+  @override
+  String get quickPosCustomerRequired => 'اختار عميل للبيع على الحساب';
+
+  @override
+  String get quickPosTotal => 'الإجمالي';
+
+  @override
+  String get quickPosCompleteSale => 'تأكيد البيع';
+
+  @override
+  String get quickPosSaving => 'بيتم حفظ البيع...';
+
+  @override
+  String get quickPosSaleSaved => 'تم تسجيل البيع';
+
+  @override
+  String get quickPosSaveFailed => 'ماقدرناش نسجل البيع. حاول تاني.';
+
+  @override
+  String get quickPosInsufficientStock => 'المخزون مش كفاية للكمية دي';
+
+  @override
+  String get quickPosCashDayClosed =>
+      'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
+
+  @override
+  String get quickPosLoadFailed => 'ماقدرناش نحمّل الأصناف';
+
+  @override
+  String get quickPosCustomersLoadFailed => 'ماقدرناش نحمّل العملاء';
+
+  @override
+  String get quickPosSaleNote => 'بيع سريع';
+
+  @override
+  String get supplierPurchasesTitle => 'مشتريات المورد';
+
+  @override
+  String get supplierPurchaseNew => 'تسجيل شراء';
+
+  @override
+  String get supplierPurchaseInvoiceNumber => 'رقم الفاتورة (اختياري)';
+
+  @override
+  String get supplierPurchasePaymentType => 'طريقة الحساب';
+
+  @override
+  String get supplierPurchaseCash => 'نقدي';
+
+  @override
+  String get supplierPurchaseCredit => 'على الحساب';
+
+  @override
+  String get supplierPurchaseAddProduct => 'اختار صنف';
+
+  @override
+  String get supplierPurchaseItems => 'أصناف الفاتورة';
+
+  @override
+  String get supplierPurchaseQuantity => 'الكمية';
+
+  @override
+  String get supplierPurchaseUnitCost => 'سعر شراء الوحدة بالجنيه';
+
+  @override
+  String get supplierPurchaseAddLine => 'إضافة الصنف';
+
+  @override
+  String get supplierPurchaseNoLines => 'ضيف صنف واحد على الأقل';
+
+  @override
+  String get supplierPurchaseSave => 'حفظ الفاتورة';
+
+  @override
+  String get supplierPurchaseTotal => 'إجمالي الفاتورة';
+
+  @override
+  String get supplierPurchaseSaved => 'تم تسجيل فاتورة الشراء';
+
+  @override
+  String get supplierPurchaseSaveFailed => 'ماقدرناش نسجل الفاتورة. حاول تاني.';
+
+  @override
+  String get supplierPurchaseNoInvoices => 'مفيش فواتير شراء للمورد ده';
+
+  @override
+  String get supplierPurchaseDetails => 'تفاصيل الفاتورة';
+
+  @override
+  String get supplierPurchaseReturn => 'إرجاع للمورد';
+
+  @override
+  String get supplierPurchaseReturned => 'المرتجع';
+
+  @override
+  String get supplierPurchaseRemaining => 'المتاح للمرتجع';
+
+  @override
+  String get supplierPurchaseReturnQuantity => 'كمية المرتجع';
+
+  @override
+  String get supplierPurchaseReturnSaved =>
+      'تم تسجيل المرتجع واتخصم من حساب المورد';
+
+  @override
+  String get supplierPurchaseReturnLimit =>
+      'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون';
+
+  @override
+  String get supplierCreditNote => 'رصيد دائن من مرتجع';
+
+  @override
+  String get supplierPurchaseInvalidInput => 'راجع الكمية والسعر وحاول تاني';
+
+  @override
+  String get supplierPurchaseLoadError => 'ماقدرناش نحمّل فواتير الشراء';
 
   @override
   String get navSettings => 'Ayarlar';

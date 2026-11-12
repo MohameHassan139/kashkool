@@ -135,11 +135,611 @@ abstract class AppLocalizations {
   /// **'الموردين'**
   String get navSuppliers;
 
+  /// No description provided for @navInventory.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المخزون'**
+  String get navInventory;
+
   /// No description provided for @navCashDrawer.
   ///
   /// In ar_EG, this message translates to:
   /// **'الدرج'**
   String get navCashDrawer;
+
+  /// No description provided for @inventoryTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المخزون'**
+  String get inventoryTitle;
+
+  /// No description provided for @inventoryManageButton.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إدارة الأصناف والمخزون'**
+  String get inventoryManageButton;
+
+  /// No description provided for @inventorySearchHint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ابحث عن صنف أو باركود...'**
+  String get inventorySearchHint;
+
+  /// No description provided for @inventoryAddProduct.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صنف جديد'**
+  String get inventoryAddProduct;
+
+  /// No description provided for @inventoryEditProduct.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعديل الصنف'**
+  String get inventoryEditProduct;
+
+  /// No description provided for @inventoryNoProducts.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لسه مفيش أصناف مسجلة'**
+  String get inventoryNoProducts;
+
+  /// No description provided for @inventoryNoSearchResults.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مفيش أصناف مطابقة للبحث'**
+  String get inventoryNoSearchResults;
+
+  /// No description provided for @inventoryProductName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اسم الصنف'**
+  String get inventoryProductName;
+
+  /// No description provided for @inventoryNameRequired.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب اسم الصنف'**
+  String get inventoryNameRequired;
+
+  /// No description provided for @inventoryBarcode.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الباركود (اختياري)'**
+  String get inventoryBarcode;
+
+  /// No description provided for @inventoryCategory.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'التصنيف (اختياري)'**
+  String get inventoryCategory;
+
+  /// No description provided for @inventoryUnit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'وحدة البيع'**
+  String get inventoryUnit;
+
+  /// No description provided for @inventoryUnitExample.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مثال: قطعة، كجم، لتر'**
+  String get inventoryUnitExample;
+
+  /// No description provided for @inventoryUnitRequired.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب وحدة البيع'**
+  String get inventoryUnitRequired;
+
+  /// No description provided for @inventoryPurchasePrice.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'سعر الشراء بالجنيه'**
+  String get inventoryPurchasePrice;
+
+  /// No description provided for @inventorySalePrice.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'سعر البيع بالجنيه'**
+  String get inventorySalePrice;
+
+  /// No description provided for @inventoryMinimumStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نبّهني لما الكمية توصل'**
+  String get inventoryMinimumStock;
+
+  /// No description provided for @inventoryInitialStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية الموجودة حاليًا'**
+  String get inventoryInitialStock;
+
+  /// No description provided for @inventoryCurrentStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الموجود في المخزن'**
+  String get inventoryCurrentStock;
+
+  /// No description provided for @inventoryInStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'متوفر'**
+  String get inventoryInStock;
+
+  /// No description provided for @inventoryLowStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية قليلة'**
+  String get inventoryLowStock;
+
+  /// No description provided for @inventoryAdjustStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعديل الكمية'**
+  String get inventoryAdjustStock;
+
+  /// No description provided for @inventoryAddStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إضافة للمخزون'**
+  String get inventoryAddStock;
+
+  /// No description provided for @inventoryRemoveStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'خصم من المخزون'**
+  String get inventoryRemoveStock;
+
+  /// No description provided for @inventoryQuantity.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية'**
+  String get inventoryQuantity;
+
+  /// No description provided for @inventoryNote.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ملاحظة (اختياري)'**
+  String get inventoryNote;
+
+  /// No description provided for @inventoryMovementHistory.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حركة المخزون'**
+  String get inventoryMovementHistory;
+
+  /// No description provided for @inventoryMovementOpening.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رصيد افتتاحي'**
+  String get inventoryMovementOpening;
+
+  /// No description provided for @inventoryMovementAdjustment.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعديل يدوي'**
+  String get inventoryMovementAdjustment;
+
+  /// No description provided for @inventoryMovementPurchase.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'شراء'**
+  String get inventoryMovementPurchase;
+
+  /// No description provided for @inventoryMovementSale.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيع'**
+  String get inventoryMovementSale;
+
+  /// No description provided for @inventoryMovementCustomerReturn.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مرتجع عميل'**
+  String get inventoryMovementCustomerReturn;
+
+  /// No description provided for @inventoryMovementSupplierReturn.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مرتجع مورد'**
+  String get inventoryMovementSupplierReturn;
+
+  /// No description provided for @inventoryNoMovements.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مفيش حركات مخزون لسه'**
+  String get inventoryNoMovements;
+
+  /// No description provided for @inventorySave.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حفظ'**
+  String get inventorySave;
+
+  /// No description provided for @inventoryCancel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إلغاء'**
+  String get inventoryCancel;
+
+  /// No description provided for @inventoryDelete.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حذف الصنف'**
+  String get inventoryDelete;
+
+  /// No description provided for @inventoryDeleteConfirm.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟'**
+  String get inventoryDeleteConfirm;
+
+  /// No description provided for @inventoryDeleted.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم حذف الصنف'**
+  String get inventoryDeleted;
+
+  /// No description provided for @inventoryProductSaved.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم حفظ الصنف'**
+  String get inventoryProductSaved;
+
+  /// No description provided for @inventoryStockSaved.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم تحديث المخزون'**
+  String get inventoryStockSaved;
+
+  /// No description provided for @inventoryInvalidQuantity.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب كمية صحيحة (لحد 3 أرقام عشرية)'**
+  String get inventoryInvalidQuantity;
+
+  /// No description provided for @inventoryQuantityRequired.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب كمية أكبر من صفر'**
+  String get inventoryQuantityRequired;
+
+  /// No description provided for @inventoryStockCannotBeNegative.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية الموجودة مش كفاية للخصم'**
+  String get inventoryStockCannotBeNegative;
+
+  /// No description provided for @inventoryInvalidPrice.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب سعر صحيح غير سالب'**
+  String get inventoryInvalidPrice;
+
+  /// No description provided for @inventoryBarcodeExists.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الباركود مسجل لصنف تاني'**
+  String get inventoryBarcodeExists;
+
+  /// No description provided for @inventoryUnitChangeNotAllowed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون'**
+  String get inventoryUnitChangeNotAllowed;
+
+  /// No description provided for @inventorySaveFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.'**
+  String get inventorySaveFailed;
+
+  /// No description provided for @quickPosTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيع سريع'**
+  String get quickPosTitle;
+
+  /// No description provided for @quickPosOpen.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'افتح البيع السريع'**
+  String get quickPosOpen;
+
+  /// No description provided for @quickPosSearch.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ابحث بالاسم أو اكتب الباركود...'**
+  String get quickPosSearch;
+
+  /// No description provided for @quickPosProducts.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الأصناف'**
+  String get quickPosProducts;
+
+  /// No description provided for @quickPosAdd.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ضيف للبيع'**
+  String get quickPosAdd;
+
+  /// No description provided for @quickPosAvailable.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المتاح'**
+  String get quickPosAvailable;
+
+  /// No description provided for @quickPosCart.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أصناف البيع'**
+  String get quickPosCart;
+
+  /// No description provided for @quickPosEmptyCart.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ضيف أصناف عشان تبدأ البيع'**
+  String get quickPosEmptyCart;
+
+  /// No description provided for @quickPosQuantity.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية'**
+  String get quickPosQuantity;
+
+  /// No description provided for @quickPosQuantityInvalid.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اكتب كمية صحيحة أكبر من صفر'**
+  String get quickPosQuantityInvalid;
+
+  /// No description provided for @quickPosCash.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نقدي'**
+  String get quickPosCash;
+
+  /// No description provided for @quickPosCredit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'على حساب عميل'**
+  String get quickPosCredit;
+
+  /// No description provided for @quickPosSelectCustomer.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اختار العميل'**
+  String get quickPosSelectCustomer;
+
+  /// No description provided for @quickPosCustomerRequired.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اختار عميل للبيع على الحساب'**
+  String get quickPosCustomerRequired;
+
+  /// No description provided for @quickPosTotal.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الإجمالي'**
+  String get quickPosTotal;
+
+  /// No description provided for @quickPosCompleteSale.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تأكيد البيع'**
+  String get quickPosCompleteSale;
+
+  /// No description provided for @quickPosSaving.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيتم حفظ البيع...'**
+  String get quickPosSaving;
+
+  /// No description provided for @quickPosSaleSaved.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم تسجيل البيع'**
+  String get quickPosSaleSaved;
+
+  /// No description provided for @quickPosSaveFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ماقدرناش نسجل البيع. حاول تاني.'**
+  String get quickPosSaveFailed;
+
+  /// No description provided for @quickPosInsufficientStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المخزون مش كفاية للكمية دي'**
+  String get quickPosInsufficientStock;
+
+  /// No description provided for @quickPosCashDayClosed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.'**
+  String get quickPosCashDayClosed;
+
+  /// No description provided for @quickPosLoadFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ماقدرناش نحمّل الأصناف'**
+  String get quickPosLoadFailed;
+
+  /// No description provided for @quickPosCustomersLoadFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ماقدرناش نحمّل العملاء'**
+  String get quickPosCustomersLoadFailed;
+
+  /// No description provided for @quickPosSaleNote.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيع سريع'**
+  String get quickPosSaleNote;
+
+  /// No description provided for @supplierPurchasesTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مشتريات المورد'**
+  String get supplierPurchasesTitle;
+
+  /// No description provided for @supplierPurchaseNew.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل شراء'**
+  String get supplierPurchaseNew;
+
+  /// No description provided for @supplierPurchaseInvoiceNumber.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رقم الفاتورة (اختياري)'**
+  String get supplierPurchaseInvoiceNumber;
+
+  /// No description provided for @supplierPurchasePaymentType.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طريقة الحساب'**
+  String get supplierPurchasePaymentType;
+
+  /// No description provided for @supplierPurchaseCash.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نقدي'**
+  String get supplierPurchaseCash;
+
+  /// No description provided for @supplierPurchaseCredit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'على الحساب'**
+  String get supplierPurchaseCredit;
+
+  /// No description provided for @supplierPurchaseAddProduct.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اختار صنف'**
+  String get supplierPurchaseAddProduct;
+
+  /// No description provided for @supplierPurchaseItems.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أصناف الفاتورة'**
+  String get supplierPurchaseItems;
+
+  /// No description provided for @supplierPurchaseQuantity.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية'**
+  String get supplierPurchaseQuantity;
+
+  /// No description provided for @supplierPurchaseUnitCost.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'سعر شراء الوحدة بالجنيه'**
+  String get supplierPurchaseUnitCost;
+
+  /// No description provided for @supplierPurchaseAddLine.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إضافة الصنف'**
+  String get supplierPurchaseAddLine;
+
+  /// No description provided for @supplierPurchaseNoLines.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ضيف صنف واحد على الأقل'**
+  String get supplierPurchaseNoLines;
+
+  /// No description provided for @supplierPurchaseSave.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حفظ الفاتورة'**
+  String get supplierPurchaseSave;
+
+  /// No description provided for @supplierPurchaseTotal.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي الفاتورة'**
+  String get supplierPurchaseTotal;
+
+  /// No description provided for @supplierPurchaseSaved.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم تسجيل فاتورة الشراء'**
+  String get supplierPurchaseSaved;
+
+  /// No description provided for @supplierPurchaseSaveFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ماقدرناش نسجل الفاتورة. حاول تاني.'**
+  String get supplierPurchaseSaveFailed;
+
+  /// No description provided for @supplierPurchaseNoInvoices.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مفيش فواتير شراء للمورد ده'**
+  String get supplierPurchaseNoInvoices;
+
+  /// No description provided for @supplierPurchaseDetails.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تفاصيل الفاتورة'**
+  String get supplierPurchaseDetails;
+
+  /// No description provided for @supplierPurchaseReturn.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إرجاع للمورد'**
+  String get supplierPurchaseReturn;
+
+  /// No description provided for @supplierPurchaseReturned.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المرتجع'**
+  String get supplierPurchaseReturned;
+
+  /// No description provided for @supplierPurchaseRemaining.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المتاح للمرتجع'**
+  String get supplierPurchaseRemaining;
+
+  /// No description provided for @supplierPurchaseReturnQuantity.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كمية المرتجع'**
+  String get supplierPurchaseReturnQuantity;
+
+  /// No description provided for @supplierPurchaseReturnSaved.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم تسجيل المرتجع واتخصم من حساب المورد'**
+  String get supplierPurchaseReturnSaved;
+
+  /// No description provided for @supplierPurchaseReturnLimit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون'**
+  String get supplierPurchaseReturnLimit;
+
+  /// No description provided for @supplierCreditNote.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رصيد دائن من مرتجع'**
+  String get supplierCreditNote;
+
+  /// No description provided for @supplierPurchaseInvalidInput.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'راجع الكمية والسعر وحاول تاني'**
+  String get supplierPurchaseInvalidInput;
+
+  /// No description provided for @supplierPurchaseLoadError.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ماقدرناش نحمّل فواتير الشراء'**
+  String get supplierPurchaseLoadError;
 
   /// No description provided for @navSettings.
   ///

@@ -6,10 +6,7 @@ import '../../l10n/app_localizations.dart';
 class ScaffoldWithNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  const ScaffoldWithNavBar({
-    super.key,
-    required this.navigationShell,
-  });
+  const ScaffoldWithNavBar({super.key, required this.navigationShell});
 
   void _onDestinationSelected(int index) {
     navigationShell.goBranch(
@@ -39,9 +36,14 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: l10n.navCollection,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.inventory_2_outlined),
-            selectedIcon: const Icon(Icons.inventory_2_rounded),
+            icon: const Icon(Icons.local_shipping_outlined),
+            selectedIcon: const Icon(Icons.local_shipping_rounded),
             label: l10n.navSuppliers,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.category_outlined),
+            selectedIcon: const Icon(Icons.category_rounded),
+            label: l10n.navInventory,
           ),
           NavigationDestination(
             icon: const Icon(Icons.point_of_sale_outlined),

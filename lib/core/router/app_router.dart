@@ -7,6 +7,7 @@ import '../../features/customers/presentation/customers_screen.dart';
 import '../../features/installments/presentation/add_installment_plan_screen.dart';
 import '../../features/installments/presentation/installment_plan_details_screen.dart';
 import '../../features/installments/presentation/installments_screen.dart';
+import '../../features/inventory/presentation/inventory_screen.dart';
 import '../../features/onboarding/data/shop_repository.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
@@ -112,7 +113,16 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 4. الدرج (Cash Drawer)
+          // 4. المخزون (Inventory)
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/inventory',
+                builder: (context, state) => const InventoryScreen(),
+              ),
+            ],
+          ),
+          // 5. الدرج (Cash Drawer)
           StatefulShellBranch(
             routes: [
               GoRoute(

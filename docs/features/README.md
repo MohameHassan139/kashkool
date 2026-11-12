@@ -27,6 +27,9 @@ Each file is a self-contained specification for one feature. The agent and engin
 | **18** | Offers & greetings broadcaster | 3 | Paid (79 EGP) | [18-offers-broadcaster.md](18-offers-broadcaster.md) |
 | **19** | Referral program (اكسب شهر مجاناً) | 3 | Free / Rewards | [19-referral-program.md](19-referral-program.md) |
 | **22** | Internal operations & admin dashboard | 3 | Internal Ops | [22-admin-dashboard.md](22-admin-dashboard.md) |
+| **23** | Product catalog & inventory (الأصناف والمخزون) | 1 | Free | [23-product-inventory.md](23-product-inventory.md) |
+| **24** | Supplier purchases & returns (المشتريات ومرتجعات الموردين) | 1 | Free | [24-purchases-returns.md](24-purchases-returns.md) |
+| **25** | Quick point of sale (نقطة البيع السريعة) | 1 | Free | [25-quick-pos.md](25-quick-pos.md) |
 
 ---
 

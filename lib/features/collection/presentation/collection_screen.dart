@@ -123,7 +123,6 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
     if (!launched && mounted) {
       ref.read(pendingWhatsAppCustomerProvider.notifier).state = null;
 
-      // Offer SMS fallback
       final sendSms = await showDialog<bool>(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -187,18 +186,12 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
     switch (action) {
       case 'snooze_3':
         await repo.snoozeCustomer(item.customer.id, const Duration(days: 3));
-        if (mounted) {
-          AppGlassToast.showInfo(context, l10n.snoozedSuccess);
-        }
+        if (mounted) AppGlassToast.showInfo(context, l10n.snoozedSuccess);
         break;
-
       case 'snooze_7':
         await repo.snoozeCustomer(item.customer.id, const Duration(days: 7));
-        if (mounted) {
-          AppGlassToast.showInfo(context, l10n.snoozedSuccess);
-        }
+        if (mounted) AppGlassToast.showInfo(context, l10n.snoozedSuccess);
         break;
-
       case 'record_payment':
         if (mounted) {
           await showModalBottomSheet(
@@ -223,7 +216,6 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-
     final dueListAsync = ref.watch(dueCustomersStreamProvider);
     final summaryAsync = ref.watch(dueSummaryStreamProvider);
     final dueInstallmentsAsync = ref.watch(dueInstallmentsStreamProvider);
@@ -264,99 +256,71 @@ class _CollectionScreenState extends ConsumerState<CollectionScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-            // Tab 1: Customers Ledger Debts
-            dueListAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text(err.toString())),
-              data: (dueList) {
-                if (dueList.isEmpty) {
-                  return Center(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(32.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(24),
-                            decoration: BoxDecoration(
-                              color: AppColors.paymentGreen.withValues(alpha: 0.12),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(
-                              Icons.celebration_rounded,
-                              size: 64,
-                              color: AppColors.paymentGreen,
-                            ),
+          dueListAsync.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (err, stack) => Center(child: Text(err.toString())),
+            data: (dueList) {
+              if (dueList.isEmpty) {
+                return Center(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: AppColors.paymentGreen.withValues(alpha: 0.12),
+                            shape: BoxShape.circle,
                           ),
-                          const SizedBox(height: 20),
-                          Text(
-                            l10n.noDueCustomersTitle,
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            l10n.noDueCustomersSubtitle,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.disabledColor,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+                          child: const Icon(Icons.celebration_rounded, size: 64, color: AppColors.paymentGreen),
+                        ),
+                        const SizedBox(height: 20),
+                        Text(l10n.noDueCustomersTitle, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                        const SizedBox(height: 8),
+                        Text(l10n.noDueCustomersSubtitle, style: theme.textTheme.bodyMedium?.copyWith(color: theme.disabledColor), textAlign: TextAlign.center),
+                      ],
                     ),
-                  );
-                }
-
-                return Column(
-                  children: [
-                    // Summary Header Card
-                    summaryAsync.when(
-                      data: (summary) => CollectionHeaderCard(
-                        count: summary.count,
-                        totalPiasters: summary.totalPiasters,
-                      ),
-                      loading: () => const SizedBox.shrink(),
-                      error: (e, s) => const SizedBox.shrink(),
-                    ),
-
-                    // Due Customers List
-                    Expanded(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(top: 4, bottom: 88),
-                        itemCount: dueList.length,
-                        itemBuilder: (ctx, idx) {
-                          final item = dueList[idx];
-                          return CollectionListItem(
-                            item: item,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => CustomerDetailsScreen(
-                                    customerId: item.customer.id,
-                                  ),
-                                ),
-                              );
-                            },
-                            onWhatsApp: () => _launchWhatsApp(item),
-                            onSms: () => _launchSms(item),
-                            onCall: () => _callCustomer(item.customer.phone!),
-                            onActionSelected: (action) => _handleMenuAction(action, item),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 );
-              },
-            ),
+              }
 
-            // Tab 2: Due Installments
-            const DueInstallmentsTab(),
-          ],
-        ),
-      );
+              return Column(
+                children: [
+                  summaryAsync.when(
+                    data: (summary) => CollectionHeaderCard(
+                      count: summary.count,
+                      totalPiasters: summary.totalPiasters,
+                      dueSoonCount: summary.dueSoonCount,
+                      overdueCount: summary.overdueCount,
+                    ),
+                    loading: () => const SizedBox.shrink(),
+                    error: (e, s) => const SizedBox.shrink(),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(top: 4, bottom: 88),
+                      itemCount: dueList.length,
+                      itemBuilder: (ctx, idx) {
+                        final item = dueList[idx];
+                        return CollectionListItem(
+                          item: item,
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => CustomerDetailsScreen(customerId: item.customer.id))),
+                          onWhatsApp: () => _launchWhatsApp(item),
+                          onSms: () => _launchSms(item),
+                          onCall: () => _callCustomer(item.customer.phone!),
+                          onActionSelected: (action) => _handleMenuAction(action, item),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          const DueInstallmentsTab(),
+        ],
+      ),
+    );
   }
 }
