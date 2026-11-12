@@ -21,7 +21,321 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navSuppliers => 'Suppliers';
 
   @override
+  String get navInventory => 'Inventory';
+
+  @override
   String get navCashDrawer => 'Cash Drawer';
+
+  @override
+  String get inventoryTitle => 'Inventory';
+
+  @override
+  String get inventoryManageButton => 'Manage products and stock';
+
+  @override
+  String get inventorySearchHint => 'Search products or barcode...';
+
+  @override
+  String get inventoryAddProduct => 'New product';
+
+  @override
+  String get inventoryEditProduct => 'Edit product';
+
+  @override
+  String get inventoryNoProducts => 'No products added yet';
+
+  @override
+  String get inventoryNoSearchResults => 'No products match your search';
+
+  @override
+  String get inventoryProductName => 'Product name';
+
+  @override
+  String get inventoryNameRequired => 'Enter a product name';
+
+  @override
+  String get inventoryBarcode => 'Barcode (optional)';
+
+  @override
+  String get inventoryCategory => 'Category (optional)';
+
+  @override
+  String get inventoryUnit => 'Selling unit';
+
+  @override
+  String get inventoryUnitExample => 'For example: piece, kg, liter';
+
+  @override
+  String get inventoryUnitRequired => 'Enter a selling unit';
+
+  @override
+  String get inventoryPurchasePrice => 'Purchase price (EGP)';
+
+  @override
+  String get inventorySalePrice => 'Selling price (EGP)';
+
+  @override
+  String get inventoryMinimumStock => 'Alert me when stock reaches';
+
+  @override
+  String get inventoryInitialStock => 'Current stock';
+
+  @override
+  String get inventoryCurrentStock => 'In stock';
+
+  @override
+  String get inventoryInStock => 'Available';
+
+  @override
+  String get inventoryLowStock => 'Low stock';
+
+  @override
+  String get inventoryAdjustStock => 'Adjust stock';
+
+  @override
+  String get inventoryAddStock => 'Add to stock';
+
+  @override
+  String get inventoryRemoveStock => 'Remove from stock';
+
+  @override
+  String get inventoryQuantity => 'Quantity';
+
+  @override
+  String get inventoryNote => 'Note (optional)';
+
+  @override
+  String get inventoryMovementHistory => 'Stock movements';
+
+  @override
+  String get inventoryMovementOpening => 'Opening stock';
+
+  @override
+  String get inventoryMovementAdjustment => 'Manual adjustment';
+
+  @override
+  String get inventoryMovementPurchase => 'Purchase';
+
+  @override
+  String get inventoryMovementSale => 'Sale';
+
+  @override
+  String get inventoryMovementCustomerReturn => 'Customer return';
+
+  @override
+  String get inventoryMovementSupplierReturn => 'Supplier return';
+
+  @override
+  String get inventoryNoMovements => 'No stock movements yet';
+
+  @override
+  String get inventorySave => 'Save';
+
+  @override
+  String get inventoryCancel => 'Cancel';
+
+  @override
+  String get inventoryDelete => 'Delete product';
+
+  @override
+  String get inventoryDeleteConfirm =>
+      'The product will be hidden, but its movement history will remain. Continue?';
+
+  @override
+  String get inventoryDeleted => 'Product deleted';
+
+  @override
+  String get inventoryProductSaved => 'Product saved';
+
+  @override
+  String get inventoryStockSaved => 'Stock updated';
+
+  @override
+  String get inventoryInvalidQuantity =>
+      'Enter a valid quantity (up to 3 decimal places)';
+
+  @override
+  String get inventoryQuantityRequired => 'Enter a quantity greater than zero';
+
+  @override
+  String get inventoryStockCannotBeNegative =>
+      'There is not enough stock to remove this quantity';
+
+  @override
+  String get inventoryInvalidPrice => 'Enter a valid non-negative price';
+
+  @override
+  String get inventoryBarcodeExists =>
+      'This barcode is already assigned to another product';
+
+  @override
+  String get inventoryUnitChangeNotAllowed =>
+      'A unit cannot be changed after stock movements exist';
+
+  @override
+  String get inventorySaveFailed =>
+      'Could not save. Check the details and try again.';
+
+  @override
+  String get quickPosTitle => 'Quick sale';
+
+  @override
+  String get quickPosOpen => 'Open quick sale';
+
+  @override
+  String get quickPosSearch => 'Search name or type barcode...';
+
+  @override
+  String get quickPosProducts => 'Products';
+
+  @override
+  String get quickPosAdd => 'Add to sale';
+
+  @override
+  String get quickPosAvailable => 'Available';
+
+  @override
+  String get quickPosCart => 'Sale items';
+
+  @override
+  String get quickPosEmptyCart => 'Add products to start a sale';
+
+  @override
+  String get quickPosQuantity => 'Quantity';
+
+  @override
+  String get quickPosQuantityInvalid =>
+      'Enter a valid quantity greater than zero';
+
+  @override
+  String get quickPosCash => 'Cash';
+
+  @override
+  String get quickPosCredit => 'On customer account';
+
+  @override
+  String get quickPosSelectCustomer => 'Choose a customer';
+
+  @override
+  String get quickPosCustomerRequired => 'Choose a customer for a credit sale';
+
+  @override
+  String get quickPosTotal => 'Total';
+
+  @override
+  String get quickPosCompleteSale => 'Complete sale';
+
+  @override
+  String get quickPosSaving => 'Saving sale...';
+
+  @override
+  String get quickPosSaleSaved => 'Sale recorded';
+
+  @override
+  String get quickPosSaveFailed => 'Could not record the sale. Try again.';
+
+  @override
+  String get quickPosInsufficientStock =>
+      'There is not enough stock for this quantity';
+
+  @override
+  String get quickPosCashDayClosed =>
+      'Today\'s cash drawer is closed. Reopen it to record a cash sale.';
+
+  @override
+  String get quickPosLoadFailed => 'Could not load products';
+
+  @override
+  String get quickPosCustomersLoadFailed => 'Could not load customers';
+
+  @override
+  String get quickPosSaleNote => 'Quick sale';
+
+  @override
+  String get supplierPurchasesTitle => 'Supplier purchases';
+
+  @override
+  String get supplierPurchaseNew => 'Record purchase';
+
+  @override
+  String get supplierPurchaseInvoiceNumber => 'Invoice number (optional)';
+
+  @override
+  String get supplierPurchasePaymentType => 'Payment type';
+
+  @override
+  String get supplierPurchaseCash => 'Cash';
+
+  @override
+  String get supplierPurchaseCredit => 'On credit';
+
+  @override
+  String get supplierPurchaseAddProduct => 'Choose a product';
+
+  @override
+  String get supplierPurchaseItems => 'Invoice items';
+
+  @override
+  String get supplierPurchaseQuantity => 'Quantity';
+
+  @override
+  String get supplierPurchaseUnitCost => 'Unit cost (EGP)';
+
+  @override
+  String get supplierPurchaseAddLine => 'Add item';
+
+  @override
+  String get supplierPurchaseNoLines => 'Add at least one product';
+
+  @override
+  String get supplierPurchaseSave => 'Save invoice';
+
+  @override
+  String get supplierPurchaseTotal => 'Invoice total';
+
+  @override
+  String get supplierPurchaseSaved => 'Purchase invoice recorded';
+
+  @override
+  String get supplierPurchaseSaveFailed =>
+      'Could not save the purchase invoice. Try again.';
+
+  @override
+  String get supplierPurchaseNoInvoices =>
+      'No purchase invoices for this supplier';
+
+  @override
+  String get supplierPurchaseDetails => 'Invoice details';
+
+  @override
+  String get supplierPurchaseReturn => 'Return to supplier';
+
+  @override
+  String get supplierPurchaseReturned => 'Returned';
+
+  @override
+  String get supplierPurchaseRemaining => 'Available to return';
+
+  @override
+  String get supplierPurchaseReturnQuantity => 'Return quantity';
+
+  @override
+  String get supplierPurchaseReturnSaved =>
+      'Return recorded and supplier balance credited';
+
+  @override
+  String get supplierPurchaseReturnLimit =>
+      'Quantity exceeds the returnable amount or available stock';
+
+  @override
+  String get supplierCreditNote => 'Supplier return credit';
+
+  @override
+  String get supplierPurchaseInvalidInput =>
+      'Check the quantity and price, then try again';
+
+  @override
+  String get supplierPurchaseLoadError => 'Could not load purchase invoices';
 
   @override
   String get navSettings => 'Settings';
@@ -116,8 +430,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customerPhoneHint => '010xxxxxxxx';
 
   @override
-  String get customerPhoneInvalid =>
-      'Invalid mobile number (010, 011, 012, 015)';
+  String get customerPhoneInvalid => 'Invalid phone number';
 
   @override
   String get customerNotes => 'Notes';
@@ -1441,8 +1754,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addInstallmentPlanScreen34 => 'Guarantor\'s mobile';
 
   @override
-  String get addInstallmentPlanScreen35 =>
-      'Invalid mobile number (010, 011, 012, 015)';
+  String get addInstallmentPlanScreen35 => 'Invalid phone number';
 
   @override
   String get addInstallmentPlanScreen36 => 'Document photo taken ✓';

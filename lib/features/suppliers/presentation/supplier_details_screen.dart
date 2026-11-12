@@ -10,6 +10,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../../transactions/presentation/add_transaction_bottom_sheet.dart';
 import '../../transactions/presentation/transaction_details_bottom_sheet.dart';
+import '../../purchases/presentation/supplier_purchases_screen.dart';
 import '../data/supplier_repository.dart';
 import 'add_edit_supplier_screen.dart';
 import 'suppliers_providers.dart';
@@ -83,12 +84,13 @@ class SupplierDetailsScreen extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final supplierAsync = ref.watch(supplierDetailsStreamProvider(supplierId));
-    final transactionsAsync = ref.watch(supplierTransactionsStreamProvider(supplierId));
+    final transactionsAsync = ref.watch(
+      supplierTransactionsStreamProvider(supplierId),
+    );
 
     return supplierAsync.when(
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (err, stack) => Scaffold(
         appBar: AppBar(title: Text(l10n.supplierDetails)),
         body: Center(child: Text(err.toString())),
@@ -134,7 +136,22 @@ class SupplierDetailsScreen extends ConsumerWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => AddEditSupplierScreen(supplier: supplier),
+                      builder: (ctx) =>
+                          AddEditSupplierScreen(supplier: supplier),
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.receipt_long_outlined),
+                tooltip: l10n.supplierPurchasesTitle,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => SupplierPurchasesScreen(
+                        supplierId: supplier.id,
+                        supplierName: supplier.name,
+                      ),
                     ),
                   );
                 },
@@ -150,10 +167,15 @@ class SupplierDetailsScreen extends ConsumerWidget {
                     value: 'delete',
                     child: Row(
                       children: [
-                        const Icon(Icons.delete_outline_rounded, color: AppColors.debtRed),
+                        const Icon(
+                          Icons.delete_outline_rounded,
+                          color: AppColors.debtRed,
+                        ),
                         const SizedBox(width: 8),
-                        Text(l10n.deleteSupplier,
-                            style: const TextStyle(color: AppColors.debtRed)),
+                        Text(
+                          l10n.deleteSupplier,
+                          style: const TextStyle(color: AppColors.debtRed),
+                        ),
                       ],
                     ),
                   ),
@@ -168,10 +190,14 @@ class SupplierDetailsScreen extends ConsumerWidget {
                 margin: const EdgeInsets.all(16),
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                  color: isDark
+                      ? const Color(0xFF1E293B)
+                      : const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1),
+                    color: isDark
+                        ? const Color(0xFF334155)
+                        : const Color(0xFFCBD5E1),
                   ),
                 ),
                 child: Column(
@@ -185,7 +211,9 @@ class SupplierDetailsScreen extends ConsumerWidget {
                               ? l10n.currentBalance
                               : '${l10n.currentBalance} ($statusLabel)',
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
+                            color: isDark
+                                ? const Color(0xFF94A3B8)
+                                : const Color(0xFF64748B),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -202,17 +230,24 @@ class SupplierDetailsScreen extends ConsumerWidget {
                     const SizedBox(height: 12),
 
                     // Company Name if present
-                    if (supplier.company != null && supplier.company!.isNotEmpty) ...[
+                    if (supplier.company != null &&
+                        supplier.company!.isNotEmpty) ...[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.business_rounded, size: 18, color: AppColors.neutralGrey),
+                          const Icon(
+                            Icons.business_rounded,
+                            size: 18,
+                            color: AppColors.neutralGrey,
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             supplier.company!,
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w600,
-                              color: isDark ? const Color(0xFFCBD5E1) : const Color(0xFF334155),
+                              color: isDark
+                                  ? const Color(0xFFCBD5E1)
+                                  : const Color(0xFF334155),
                             ),
                           ),
                         ],
@@ -223,18 +258,29 @@ class SupplierDetailsScreen extends ConsumerWidget {
                     // Visit Day if set
                     if (visitDay != null) ...[
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
-                          color: isDark ? const Color(0xFF0F172A) : Colors.white,
+                          color: isDark
+                              ? const Color(0xFF0F172A)
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                            color: isDark
+                                ? const Color(0xFF334155)
+                                : const Color(0xFFE2E8F0),
                           ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.calendar_today_rounded, size: 15, color: theme.colorScheme.primary),
+                            Icon(
+                              Icons.calendar_today_rounded,
+                              size: 15,
+                              color: theme.colorScheme.primary,
+                            ),
                             const SizedBox(width: 6),
                             Text(
                               l10n.visitDayPrefix(visitDay),
@@ -251,17 +297,24 @@ class SupplierDetailsScreen extends ConsumerWidget {
                     ],
 
                     // Phone and Call action
-                    if (supplier.phone != null && supplier.phone!.isNotEmpty) ...[
+                    if (supplier.phone != null &&
+                        supplier.phone!.isNotEmpty) ...[
                       InkWell(
                         onTap: () => _callPhone(supplier.phone!),
                         borderRadius: BorderRadius.circular(10),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.phone_in_talk_rounded,
-                                  size: 20, color: AppColors.paymentGreen),
+                              const Icon(
+                                Icons.phone_in_talk_rounded,
+                                size: 20,
+                                color: AppColors.paymentGreen,
+                              ),
                               const SizedBox(width: 8),
                               Text(
                                 PhoneUtils.formatDisplay(supplier.phone),
@@ -279,7 +332,8 @@ class SupplierDetailsScreen extends ConsumerWidget {
                     ],
 
                     // Notes
-                    if (supplier.notes != null && supplier.notes!.isNotEmpty) ...[
+                    if (supplier.notes != null &&
+                        supplier.notes!.isNotEmpty) ...[
                       const SizedBox(height: 6),
                       Text(
                         supplier.notes!,
@@ -310,10 +364,16 @@ class SupplierDetailsScreen extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        icon: const Icon(Icons.remove_circle_outline_rounded, size: 26),
+                        icon: const Icon(
+                          Icons.remove_circle_outline_rounded,
+                          size: 26,
+                        ),
                         label: Text(
                           l10n.iOweHim,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         onPressed: () {
                           showModalBottomSheet(
@@ -344,10 +404,16 @@ class SupplierDetailsScreen extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        icon: const Icon(Icons.add_circle_outline_rounded, size: 26),
+                        icon: const Icon(
+                          Icons.add_circle_outline_rounded,
+                          size: 26,
+                        ),
                         label: Text(
                           l10n.iPaidHim,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         onPressed: () {
                           showModalBottomSheet(
@@ -375,7 +441,8 @@ class SupplierDetailsScreen extends ConsumerWidget {
               // Transaction History List
               Expanded(
                 child: transactionsAsync.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   error: (err, stack) => Center(child: Text(err.toString())),
                   data: (txList) {
                     if (txList.isEmpty) {
@@ -385,8 +452,11 @@ class SupplierDetailsScreen extends ConsumerWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.receipt_long_outlined,
-                                  size: 48, color: theme.disabledColor),
+                              Icon(
+                                Icons.receipt_long_outlined,
+                                size: 48,
+                                color: theme.disabledColor,
+                              ),
                               const SizedBox(height: 12),
                               Text(
                                 l10n.noTransactionsYet,
@@ -405,11 +475,18 @@ class SupplierDetailsScreen extends ConsumerWidget {
                     return ListView.separated(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       itemCount: txList.length,
-                      separatorBuilder: (context, index) => const Divider(height: 1),
+                      separatorBuilder: (context, index) =>
+                          const Divider(height: 1),
                       itemBuilder: (ctx, idx) {
                         final tx = txList[idx];
                         final isDebt = tx.type == TransactionType.debt;
-                        final color = isDebt ? AppColors.debtRed : AppColors.paymentGreen;
+                        final isSupplierCredit =
+                            tx.type == TransactionType.supplierCredit;
+                        final color = isDebt
+                            ? AppColors.debtRed
+                            : isSupplierCredit
+                            ? AppColors.warningAmber
+                            : AppColors.paymentGreen;
 
                         return ListTile(
                           onTap: () {
@@ -432,7 +509,11 @@ class SupplierDetailsScreen extends ConsumerWidget {
                             ),
                           ),
                           title: Text(
-                            isDebt ? l10n.iOweHim : l10n.iPaidHim,
+                            isSupplierCredit
+                                ? l10n.supplierCreditNote
+                                : isDebt
+                                ? l10n.iOweHim
+                                : l10n.iPaidHim,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: color,

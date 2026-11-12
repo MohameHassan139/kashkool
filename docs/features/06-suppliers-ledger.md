@@ -15,6 +15,7 @@ Same shape as `customers` minus `creditLimitPiasters`/reminder fields, plus:
 
 Transactions reuse `transactions` table with `partyType = supplier`:
 - `debt` = **I bought on credit** (عليّا) · `payment` = **I paid him** (دفعت).
+- `supplierCredit` = **supplier return credit**; reduces the payable without changing cash-drawer totals.
 - Labels in UI must be reversed accordingly: "عليّا" / "دفعتله".
 
 ## Screens

@@ -18,7 +18,7 @@ As a shop owner, I want to record "he took goods on credit" or "he paid" in seco
 | supersededById | text? | UUID of the replacement transaction if this was edited |
 | partyType | enum | `customer` \| `supplier` (06 reuses this table) |
 | partyId | text | FK → customers.id or suppliers.id |
-| type | enum | `debt` (عليه) \| `payment` (دفع) |
+| type | enum | `debt` (عليه) \| `payment` (دفع) \| `supplierCredit` (supplier return credit only) |
 | amountPiasters | int | Integer > 0 (1 EGP = 100 piasters) |
 | method | enum? | `cash` \| `instapay` \| `wallet` \| `other` (payments only) |
 | note | text? | Optional description, e.g. "علبة لبن وسكر" |
@@ -28,6 +28,7 @@ As a shop owner, I want to record "he took goods on credit" or "he paid" in seco
 > [!IMPORTANT]
 > **Append-Only Financial Guarantee**: Financial records are **immutable and append-only**. 
 > - Transactions are **never hard-edited in place**.
+- `supplierCredit` reduces supplier payables for a returned purchase and is not a cash payment.
 > - When a user "edits" a transaction, the existing record is soft-deleted (`deletedAt = now()`, `supersededById = newRecordId`) and a new replacement record is inserted.
 > - This guarantees an tamper-proof audit trail for employee tracking (15), simplifies multi-device sync conflict resolution (13), and ensures legal compliance.
 

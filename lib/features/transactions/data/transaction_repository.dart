@@ -41,13 +41,21 @@ class TransactionRepository {
     DateTime? occurredAt,
   }) async {
     if (amountPiasters <= 0) {
-      throw ArgumentError('Transaction amount must be strictly greater than zero');
+      throw ArgumentError(
+        'Transaction amount must be strictly greater than zero',
+      );
+    }
+    if (type == TransactionType.supplierCredit &&
+        partyType != PartyType.supplier) {
+      throw ArgumentError('Supplier credit notes require a supplier party');
     }
 
     final id = _uuid.v4();
     final now = DateTime.now();
 
-    await _db.into(_db.transactions).insert(
+    await _db
+        .into(_db.transactions)
+        .insert(
           TransactionsCompanion.insert(
             id: id,
             partyType: partyType,
@@ -76,7 +84,9 @@ class TransactionRepository {
     required DateTime occurredAt,
   }) async {
     if (amountPiasters <= 0) {
-      throw ArgumentError('Transaction amount must be strictly greater than zero');
+      throw ArgumentError(
+        'Transaction amount must be strictly greater than zero',
+      );
     }
 
     final now = DateTime.now();
@@ -97,10 +107,7 @@ class TransactionRepository {
   Future<void> deleteTransaction(String id) async {
     final now = DateTime.now();
     await (_db.update(_db.transactions)..where((t) => t.id.equals(id))).write(
-      TransactionsCompanion(
-        deletedAt: Value(now),
-        updatedAt: Value(now),
-      ),
+      TransactionsCompanion(deletedAt: Value(now), updatedAt: Value(now)),
     );
   }
 
@@ -110,7 +117,9 @@ class TransactionRepository {
 
   /// Retrieves a single transaction by ID.
   Future<Transaction?> getTransaction(String id) {
-    return (_db.select(_db.transactions)..where((t) => t.id.equals(id))).getSingleOrNull();
+    return (_db.select(
+      _db.transactions,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
   }
 }
 
