@@ -121,6 +121,22 @@ class CloudBackupService {
           .write(CashDaysCompanion(shopId: Value(cloudShopId)));
       await (_db.update(_db.expenses)..where((e) => e.shopId.equals(localShop.id)))
           .write(ExpensesCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.products)..where((p) => p.shopId.equals(localShop.id)))
+          .write(ProductsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.inventoryMovements)..where((m) => m.shopId.equals(localShop.id)))
+          .write(InventoryMovementsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.purchaseInvoices)..where((i) => i.shopId.equals(localShop.id)))
+          .write(PurchaseInvoicesCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.purchaseItems)..where((i) => i.shopId.equals(localShop.id)))
+          .write(PurchaseItemsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.supplierReturns)..where((r) => r.shopId.equals(localShop.id)))
+          .write(SupplierReturnsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.supplierReturnItems)..where((r) => r.shopId.equals(localShop.id)))
+          .write(SupplierReturnItemsCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.sales)..where((s) => s.shopId.equals(localShop.id)))
+          .write(SalesCompanion(shopId: Value(cloudShopId)));
+      await (_db.update(_db.saleItems)..where((s) => s.shopId.equals(localShop.id)))
+          .write(SaleItemsCompanion(shopId: Value(cloudShopId)));
       await (_db.delete(_db.shops)..where((s) => s.id.equals(localShop.id))).go();
     });
 
@@ -159,6 +175,14 @@ class CloudBackupService {
     await add('transactions', _db.transactions, _db.transactions.updatedAt);
     await add('cash_days', _db.cashDays, _db.cashDays.updatedAt);
     await add('expenses', _db.expenses, _db.expenses.updatedAt);
+    await add('products', _db.products, _db.products.updatedAt);
+    await add('inventory_movements', _db.inventoryMovements, _db.inventoryMovements.updatedAt);
+    await add('purchase_invoices', _db.purchaseInvoices, _db.purchaseInvoices.updatedAt);
+    await add('purchase_items', _db.purchaseItems, _db.purchaseItems.updatedAt);
+    await add('supplier_returns', _db.supplierReturns, _db.supplierReturns.updatedAt);
+    await add('supplier_return_items', _db.supplierReturnItems, _db.supplierReturnItems.updatedAt);
+    await add('sales', _db.sales, _db.sales.updatedAt);
+    await add('sale_items', _db.saleItems, _db.saleItems.updatedAt);
     await add('settings', _db.appSettings, _db.appSettings.updatedAt, include: (AppSetting s) => !isPrivateSetting(s.key));
     return changes;
   }
@@ -265,6 +289,14 @@ class CloudBackupService {
         'cash_days': await _stamps(_db.cashDays, _db.cashDays.id, _db.cashDays.updatedAt),
         'expenses': await _stamps(_db.expenses, _db.expenses.id, _db.expenses.updatedAt),
         'settings': await _stamps(_db.appSettings, _db.appSettings.id, _db.appSettings.updatedAt),
+        'products': await _stamps(_db.products, _db.products.id, _db.products.updatedAt),
+        'inventory_movements': await _stamps(_db.inventoryMovements, _db.inventoryMovements.id, _db.inventoryMovements.updatedAt),
+        'purchase_invoices': await _stamps(_db.purchaseInvoices, _db.purchaseInvoices.id, _db.purchaseInvoices.updatedAt),
+        'purchase_items': await _stamps(_db.purchaseItems, _db.purchaseItems.id, _db.purchaseItems.updatedAt),
+        'supplier_returns': await _stamps(_db.supplierReturns, _db.supplierReturns.id, _db.supplierReturns.updatedAt),
+        'supplier_return_items': await _stamps(_db.supplierReturnItems, _db.supplierReturnItems.id, _db.supplierReturnItems.updatedAt),
+        'sales': await _stamps(_db.sales, _db.sales.id, _db.sales.updatedAt),
+        'sale_items': await _stamps(_db.saleItems, _db.saleItems.id, _db.saleItems.updatedAt),
       };
 
       // Keep the phone's newer copy of a row; otherwise take the cloud copy.
@@ -334,6 +366,38 @@ class CloudBackupService {
             final r = AppSetting.fromJson(json, serializer: serializer);
             row = r;
             cloudUpdatedAt = r.updatedAt;
+          case 'products':
+            final r = Product.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'inventory_movements':
+            final r = InventoryMovement.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'purchase_invoices':
+            final r = PurchaseInvoice.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'purchase_items':
+            final r = PurchaseItem.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'supplier_returns':
+            final r = SupplierReturn.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'supplier_return_items':
+            final r = SupplierReturnItem.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'sales':
+            final r = Sale.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
+          case 'sale_items':
+            final r = SaleItem.fromJson(json, serializer: serializer);
+            row = r;
+            cloudUpdatedAt = r.updatedAt;
           default:
             break; // collections this app version doesn't store yet
         }
@@ -368,6 +432,22 @@ class CloudBackupService {
                     ..where((s) => s.key.equals(setting.key) & s.id.equals(setting.id).not()))
                   .go();
               await _db.into(_db.appSettings).insertOnConflictUpdate(setting);
+            case 'products':
+              await _db.into(_db.products).insertOnConflictUpdate(row as Product);
+            case 'inventory_movements':
+              await _db.into(_db.inventoryMovements).insertOnConflictUpdate(row as InventoryMovement);
+            case 'purchase_invoices':
+              await _db.into(_db.purchaseInvoices).insertOnConflictUpdate(row as PurchaseInvoice);
+            case 'purchase_items':
+              await _db.into(_db.purchaseItems).insertOnConflictUpdate(row as PurchaseItem);
+            case 'supplier_returns':
+              await _db.into(_db.supplierReturns).insertOnConflictUpdate(row as SupplierReturn);
+            case 'supplier_return_items':
+              await _db.into(_db.supplierReturnItems).insertOnConflictUpdate(row as SupplierReturnItem);
+            case 'sales':
+              await _db.into(_db.sales).insertOnConflictUpdate(row as Sale);
+            case 'sale_items':
+              await _db.into(_db.saleItems).insertOnConflictUpdate(row as SaleItem);
           }
           written++;
         } catch (e) {

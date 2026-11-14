@@ -240,4 +240,44 @@ void main() {
         ));
     expect(await service.hasUnbackedChanges(), isTrue);
   });
+
+  test('products and sales are collected, backed up, and restored correctly', () async {
+    final service = CloudBackupService(db, api, store);
+    await db.into(db.products).insert(ProductsCompanion.insert(
+          id: 'prod-1',
+          name: 'جبنة دومتي',
+          unitLabel: 'علبة',
+          purchasePricePiasters: 2000,
+          salePricePiasters: 2500,
+          minimumStockMilliUnits: 2000,
+        ));
+    await db.into(db.sales).insert(SalesCompanion.insert(
+          id: 'sale-1',
+          paymentType: SalePaymentType.cash,
+          totalPiasters: 5000,
+        ));
+
+    final changes = await service.collectChanges(null);
+    expect(changes.any((c) => c['collection'] == 'products'), isTrue);
+    expect(changes.any((c) => c['collection'] == 'sales'), isTrue);
+
+    await service.backupNow();
+    expect(api.server.containsKey('products:prod-1'), isTrue);
+    expect(api.server.containsKey('sales:sale-1'), isTrue);
+
+    // Restore on clean database
+    final newDb = AppDatabase(NativeDatabase.memory());
+    final newService = CloudBackupService(newDb, api, store);
+    await newService.restore({'id': 'shop-1', 'name': 'سوبر ماركت النور'});
+
+    final restoredProducts = await newDb.select(newDb.products).get();
+    expect(restoredProducts.length, 1);
+    expect(restoredProducts.first.name, 'جبنة دومتي');
+
+    final restoredSales = await newDb.select(newDb.sales).get();
+    expect(restoredSales.length, 1);
+    expect(restoredSales.first.totalPiasters, 5000);
+
+    await newDb.close();
+  });
 }

@@ -89,6 +89,99 @@ export const SYNC_COLLECTIONS = {
     writePermission: 'settings',
     required: ['key'],
   },
+  products: {
+    mode: 'mutable',
+    required: ['name', 'unitLabel', 'purchasePricePiasters', 'salePricePiasters', 'minimumStockMilliUnits'],
+    positive: ['salePricePiasters'],
+    positiveOrZero: ['purchasePricePiasters', 'minimumStockMilliUnits'],
+  },
+  inventory_movements: {
+    mode: 'append',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: ['productId', 'quantityDeltaMilliUnits', 'type'],
+    enums: {
+      type: ['opening', 'adjustment', 'purchase', 'sale', 'customerReturn', 'supplierReturn'],
+    },
+  },
+  purchase_invoices: {
+    mode: 'append',
+    readPermission: 'suppliers',
+    writePermission: 'suppliers',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: ['supplierId', 'paymentType', 'totalPiasters'],
+    enums: {
+      paymentType: ['cash', 'credit'],
+    },
+    positiveOrZero: ['totalPiasters'],
+  },
+  purchase_items: {
+    mode: 'append',
+    readPermission: 'suppliers',
+    writePermission: 'suppliers',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: [
+      'purchaseId',
+      'productId',
+      'productName',
+      'unitLabel',
+      'quantityMilliUnits',
+      'unitCostPiasters',
+      'lineTotalPiasters',
+    ],
+    positive: ['quantityMilliUnits'],
+    positiveOrZero: ['unitCostPiasters', 'lineTotalPiasters'],
+  },
+  supplier_returns: {
+    mode: 'append',
+    readPermission: 'suppliers',
+    writePermission: 'suppliers',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: ['supplierId', 'purchaseId', 'totalPiasters'],
+    positiveOrZero: ['totalPiasters'],
+  },
+  supplier_return_items: {
+    mode: 'append',
+    readPermission: 'suppliers',
+    writePermission: 'suppliers',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: [
+      'supplierReturnId',
+      'purchaseItemId',
+      'productId',
+      'productName',
+      'unitLabel',
+      'quantityMilliUnits',
+      'unitCostPiasters',
+      'lineTotalPiasters',
+    ],
+    positive: ['quantityMilliUnits'],
+    positiveOrZero: ['unitCostPiasters', 'lineTotalPiasters'],
+  },
+  sales: {
+    mode: 'append',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: ['paymentType', 'totalPiasters'],
+    enums: {
+      paymentType: ['cash', 'credit'],
+    },
+    positiveOrZero: ['totalPiasters'],
+  },
+  sale_items: {
+    mode: 'append',
+    appendMutable: ['deletedAt', 'updatedAt'],
+    required: [
+      'saleId',
+      'productId',
+      'productName',
+      'unitLabel',
+      'quantityMilliUnits',
+      'unitPricePiasters',
+      'unitCostPiasters',
+      'lineTotalPiasters',
+    ],
+    positive: ['quantityMilliUnits'],
+    positiveOrZero: ['unitPricePiasters', 'unitCostPiasters', 'lineTotalPiasters'],
+  },
 };
 
 export const SYNC_COLLECTION_NAMES = Object.keys(SYNC_COLLECTIONS);
@@ -155,6 +248,11 @@ export function sanitizeRecord(collectionName, raw) {
   for (const field of def.positive || []) {
     if (record[field] !== undefined && !(Number.isSafeInteger(record[field]) && record[field] > 0)) {
       return { error: `must_be_positive_integer:${field}` };
+    }
+  }
+  for (const field of def.positiveOrZero || []) {
+    if (record[field] !== undefined && !(Number.isSafeInteger(record[field]) && record[field] >= 0)) {
+      return { error: `must_be_non_negative_integer:${field}` };
     }
   }
   return { record };

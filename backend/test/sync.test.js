@@ -229,3 +229,60 @@ test('subscription gate blocks sync only when REQUIRE_SUBSCRIPTION is on', async
     config.requireSubscription = false;
   }
 });
+
+test('products, inventory movements, sales, and purchase invoices sync round-trip', async () => {
+  const res = await push(owner.token, 'shop-1', [
+    {
+      collection: 'products',
+      record: {
+        id: 'prod-1',
+        name: 'شيبسي',
+        unitLabel: 'كيس',
+        purchasePricePiasters: 800,
+        salePricePiasters: 1000,
+        minimumStockMilliUnits: 5000,
+      },
+    },
+    {
+      collection: 'inventory_movements',
+      record: {
+        id: 'mov-1',
+        productId: 'prod-1',
+        quantityDeltaMilliUnits: 10000,
+        type: 'purchase',
+      },
+    },
+    {
+      collection: 'sales',
+      record: {
+        id: 'sale-1',
+        paymentType: 'cash',
+        totalPiasters: 2000,
+      },
+    },
+    {
+      collection: 'sale_items',
+      record: {
+        id: 'sitem-1',
+        saleId: 'sale-1',
+        productId: 'prod-1',
+        productName: 'شيبسي',
+        unitLabel: 'كيس',
+        quantityMilliUnits: 2000,
+        unitPricePiasters: 1000,
+        unitCostPiasters: 800,
+        lineTotalPiasters: 2000,
+      },
+    },
+  ]);
+  assert.equal(res.status, 200);
+  assert.deepEqual(res.body.results.map((r) => r.status), ['inserted', 'inserted', 'inserted', 'inserted']);
+
+  const pulled = await pull(owner.token, 'shop-1', 0);
+  assert.equal(pulled.status, 200);
+  assert.equal(pulled.body.changes.length, 4);
+  const p = pulled.body.changes.find((c) => c.collection === 'products').record;
+  assert.equal(p.name, 'شيبسي');
+  assert.equal(p.salePricePiasters, 1000);
+});
+
