@@ -62,6 +62,12 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         actions: [
           // Move the paper notebook into the app (customers & balances, old installments)
           NotebookImportButton(installmentsEnabled: installmentsEnabled),
+          // Quick POS / Pay launcher
+          IconButton(
+            icon: const Icon(Icons.point_of_sale_rounded),
+            tooltip: l10n.quickPosTitle,
+            onPressed: () => context.push('/pos'),
+          ),
           // Google sign-in / cloud backup status
           const CloudAccountButton(),
           // Installments Quick Entry (visible when enabled for shop)

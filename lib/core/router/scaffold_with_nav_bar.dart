@@ -26,6 +26,11 @@ class ScaffoldWithNavBar extends StatelessWidget {
         onDestinationSelected: _onDestinationSelected,
         destinations: [
           NavigationDestination(
+            icon: const Icon(Icons.point_of_sale_outlined),
+            selectedIcon: const Icon(Icons.point_of_sale_rounded),
+            label: l10n.quickPosTitle,
+          ),
+          NavigationDestination(
             icon: const Icon(Icons.people_alt_outlined),
             selectedIcon: const Icon(Icons.people_alt_rounded),
             label: l10n.navCustomers,
@@ -46,8 +51,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: l10n.navInventory,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.point_of_sale_outlined),
-            selectedIcon: const Icon(Icons.point_of_sale_rounded),
+            icon: const Icon(Icons.account_balance_wallet_outlined),
+            selectedIcon: const Icon(Icons.account_balance_wallet_rounded),
             label: l10n.navCashDrawer,
           ),
           NavigationDestination(

@@ -10,6 +10,7 @@ import '../../features/installments/presentation/installments_screen.dart';
 import '../../features/inventory/presentation/inventory_screen.dart';
 import '../../features/onboarding/data/shop_repository.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
+import '../../features/quick_pos/presentation/quick_pos_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/suppliers/presentation/suppliers_screen.dart';
 import 'scaffold_with_nav_bar.dart';
@@ -60,6 +61,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,
+        path: '/pos',
+        builder: (context, state) {
+          final customerId = state.uri.queryParameters['customerId'];
+          return QuickPosScreen(initialCustomerId: customerId);
+        },
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/installments',
         builder: (context, state) => const InstallmentsScreen(),
         routes: [
@@ -86,16 +95,25 @@ final routerProvider = Provider<GoRouter>((ref) {
           return ScaffoldWithNavBar(navigationShell: navigationShell);
         },
         branches: [
-          // 1. العملاء (Customers)
+          // 1. نقطة البيع والدفع السريع (Pay / Quick POS Home Page)
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/',
+                builder: (context, state) => const QuickPosScreen(),
+              ),
+            ],
+          ),
+          // 2. العملاء (Customers)
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/customers',
                 builder: (context, state) => const CustomersScreen(),
               ),
             ],
           ),
-          // 2. التحصيل (Collection)
+          // 3. التحصيل (Collection)
           StatefulShellBranch(
             routes: [
               GoRoute(

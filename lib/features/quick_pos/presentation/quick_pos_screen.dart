@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/credit_limit.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/quantity.dart';
 import '../../../features/customers/domain/customer_with_balance.dart';
 import '../../../features/customers/presentation/add_edit_customer_screen.dart';
+import '../../../features/customers/presentation/widgets/rating_badge.dart';
 import '../../../features/inventory/domain/product_with_stock.dart';
 import '../../../features/inventory/data/inventory_repository.dart';
+import '../../../features/inventory/presentation/inventory_screen.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../l10n/l10n.dart';
+import '../../../shared/widgets/glass_toast.dart';
 import '../data/sale_repository.dart';
 import 'quick_pos_providers.dart';
 
+/// Point of Sale / Quick Pay Screen (نقطة البيع والدفع السريع).
 class QuickPosScreen extends ConsumerStatefulWidget {
-  const QuickPosScreen({super.key});
+  final String? initialCustomerId;
+
+  const QuickPosScreen({super.key, this.initialCustomerId});
 
   @override
   ConsumerState<QuickPosScreen> createState() => _QuickPosScreenState();
@@ -29,16 +37,51 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
   bool _saving = false;
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.initialCustomerId != null) {
+      _customerId = widget.initialCustomerId;
+      _paymentType = SalePaymentType.credit;
+    }
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
 
-  Future<void> _addProduct(ProductWithStock product) async {
+  void _onProductTapped(ProductWithStock product) {
     final existing = _cart[product.product.id]?.quantityMilliUnits ?? 0;
     final remaining = product.quantityMilliUnits - existing;
     if (remaining <= 0) {
-      _showMessage(L10n.t.quickPosInsufficientStock);
+      _showMessage(L10n.t.quickPosInsufficientStock, isError: true);
+      return;
+    }
+
+    // If unit is fractional (e.g. kg, liter) or remaining < 1000 milli-units, open quantity dialog
+    final isFractional = const {'kg', 'كيلو', 'لتر', 'متر', 'جرام', 'gram'}.contains(product.product.unitLabel.toLowerCase());
+    if (isFractional || remaining < 1000) {
+      _addProductWithQuantity(product);
+      return;
+    }
+
+    // Otherwise quick add 1 unit (1000 milli-units)
+    HapticFeedback.lightImpact();
+    setState(() {
+      final oldLine = _cart[product.product.id];
+      _cart[product.product.id] = _CartLine(
+        product: product,
+        quantityMilliUnits: (oldLine?.quantityMilliUnits ?? 0) + 1000,
+      );
+    });
+  }
+
+  Future<void> _addProductWithQuantity(ProductWithStock product) async {
+    final existing = _cart[product.product.id]?.quantityMilliUnits ?? 0;
+    final remaining = product.quantityMilliUnits - existing;
+    if (remaining <= 0) {
+      _showMessage(L10n.t.quickPosInsufficientStock, isError: true);
       return;
     }
 
@@ -58,6 +101,36 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     });
   }
 
+  void _incrementQuantity(_CartLine line) {
+    final remaining = line.product.quantityMilliUnits - line.quantityMilliUnits;
+    if (remaining <= 0) {
+      _showMessage(L10n.t.quickPosInsufficientStock, isError: true);
+      return;
+    }
+    final step = remaining >= 1000 ? 1000 : remaining;
+    HapticFeedback.selectionClick();
+    setState(() {
+      _cart[line.product.product.id] = _CartLine(
+        product: line.product,
+        quantityMilliUnits: line.quantityMilliUnits + step,
+      );
+    });
+  }
+
+  void _decrementQuantity(_CartLine line) {
+    HapticFeedback.selectionClick();
+    setState(() {
+      if (line.quantityMilliUnits <= 1000) {
+        _cart.remove(line.product.product.id);
+      } else {
+        _cart[line.product.product.id] = _CartLine(
+          product: line.product,
+          quantityMilliUnits: line.quantityMilliUnits - 1000,
+        );
+      }
+    });
+  }
+
   Future<void> _editQuantity(_CartLine line) async {
     final quantity = await _askQuantity(
       line.product,
@@ -66,10 +139,14 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     );
     if (quantity == null || !mounted) return;
     setState(() {
-      _cart[line.product.product.id] = _CartLine(
-        product: line.product,
-        quantityMilliUnits: quantity,
-      );
+      if (quantity <= 0) {
+        _cart.remove(line.product.product.id);
+      } else {
+        _cart[line.product.product.id] = _CartLine(
+          product: line.product,
+          quantityMilliUnits: quantity,
+        );
+      }
     });
   }
 
@@ -88,6 +165,23 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     );
   }
 
+  void _onBarcodeSubmitted(String barcode, List<ProductWithStock> products) {
+    final code = barcode.trim();
+    if (code.isEmpty) return;
+    ProductWithStock? match;
+    for (final p in products) {
+      if (p.product.barcode != null && p.product.barcode!.trim() == code) {
+        match = p;
+        break;
+      }
+    }
+    if (match != null) {
+      _onProductTapped(match);
+      _searchController.clear();
+      setState(() => _query = '');
+    }
+  }
+
   Future<void> _checkout(List<CustomerWithBalance> customers) async {
     if (_saving || _cart.isEmpty) return;
 
@@ -100,7 +194,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         }
       }
       if (customer == null) {
-        _showMessage(L10n.t.quickPosCustomerRequired);
+        _showMessage(L10n.t.quickPosCustomerRequired, isError: true);
         return;
       }
 
@@ -116,8 +210,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         if (action == 'change_limit') {
           await Navigator.of(context).push<void>(
             MaterialPageRoute(
-              builder: (_) =>
-                  AddEditCustomerScreen(customer: customer!.customer),
+              builder: (_) => AddEditCustomerScreen(customer: customer!.customer),
             ),
           );
           ref.invalidate(quickPosCustomerListProvider);
@@ -129,13 +222,9 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
 
     setState(() => _saving = true);
     try {
-      await ref
-          .read(saleRepositoryProvider)
-          .createSale(
+      await ref.read(saleRepositoryProvider).createSale(
             paymentType: _paymentType,
-            customerId: _paymentType == SalePaymentType.credit
-                ? customer!.customer.id
-                : null,
+            customerId: _paymentType == SalePaymentType.credit ? customer!.customer.id : null,
             lines: _cart.values
                 .map(
                   (line) => SaleLineInput(
@@ -150,22 +239,23 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         _cart.clear();
         _customerId = null;
       });
-      _showMessage(L10n.t.quickPosSaleSaved);
+      AppGlassToast.showSuccess(context, L10n.t.quickPosSaleSaved);
     } on ArgumentError catch (error, stackTrace) {
       debugPrint('Quick sale validation failed: $error\n$stackTrace');
       if (!mounted) return;
-      _showMessage(L10n.t.quickPosInsufficientStock);
+      _showMessage(L10n.t.quickPosInsufficientStock, isError: true);
     } on StateError catch (error, stackTrace) {
       debugPrint('Quick sale could not be completed: $error\n$stackTrace');
       if (!mounted) return;
       final isClosedDay = error.message.toString().contains('closed');
       _showMessage(
         isClosedDay ? L10n.t.quickPosCashDayClosed : L10n.t.quickPosSaveFailed,
+        isError: true,
       );
     } catch (error, stackTrace) {
       debugPrint('Unexpected quick sale error: $error\n$stackTrace');
       if (!mounted) return;
-      _showMessage(L10n.t.quickPosSaveFailed);
+      _showMessage(L10n.t.quickPosSaveFailed, isError: true);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -206,224 +296,684 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     );
   }
 
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(message)));
+  void _showMessage(String message, {bool isError = false}) {
+    if (isError) {
+      AppGlassToast.showError(context, message);
+    } else {
+      AppGlassToast.show(context, message: message);
+    }
   }
 
   int get _totalPiasters => _cart.values.fold<int>(
-    0,
-    (total, line) =>
-        total +
-        SaleRepository.calculateLineTotalPiasters(
-          quantityMilliUnits: line.quantityMilliUnits,
-          unitPricePiasters: line.product.product.salePricePiasters,
-        ),
-  );
+        0,
+        (total, line) =>
+            total +
+            SaleRepository.calculateLineTotalPiasters(
+              quantityMilliUnits: line.quantityMilliUnits,
+              unitPricePiasters: line.product.product.salePricePiasters,
+            ),
+      );
+
+  int get _totalItemsCount => _cart.values.fold<int>(
+        0,
+        (count, line) => count + (line.quantityMilliUnits ~/ 1000),
+      );
 
   @override
   Widget build(BuildContext context) {
     final productsAsync = ref.watch(_quickPosProductListProvider(_query));
     final customersAsync = ref.watch(quickPosCustomerListProvider);
     final strings = L10n.t;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(title: Text(strings.quickPosTitle)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          TextField(
-            controller: _searchController,
-            onChanged: (value) => setState(() => _query = value),
-            decoration: InputDecoration(
-              hintText: strings.quickPosSearch,
-              prefixIcon: const Icon(Icons.search_rounded),
-              suffixIcon: _query.isEmpty
-                  ? null
-                  : IconButton(
-                      onPressed: () {
-                        _searchController.clear();
-                        setState(() => _query = '');
-                      },
-                      icon: const Icon(Icons.clear_rounded),
-                    ),
-              border: const OutlineInputBorder(),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            strings.quickPosProducts,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 220,
-            child: productsAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stackTrace) =>
-                  Center(child: Text(strings.quickPosLoadFailed)),
-              data: (products) {
-                if (products.isEmpty) {
-                  return Center(
-                    child: Text(
-                      _query.trim().isEmpty
-                          ? strings.inventoryNoProducts
-                          : strings.inventoryNoSearchResults,
-                    ),
-                  );
-                }
-                return ListView.separated(
-                  itemCount: products.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: 4),
-                  itemBuilder: (context, index) {
-                    final product = products[index];
-                    final inCart =
-                        _cart[product.product.id]?.quantityMilliUnits ?? 0;
-                    final available = product.quantityMilliUnits - inCart;
-                    return Card(
-                      child: ListTile(
-                        title: Text(product.product.name),
-                        subtitle: Text(
-                          '${MoneyUtils.formatMoney(product.product.salePricePiasters)} · '
-                          '${strings.quickPosAvailable}: '
-                          '${QuantityUtils.formatMilliUnits(available)} '
-                          '${product.product.unitLabel}',
-                        ),
-                        trailing: IconButton(
-                          tooltip: strings.quickPosAdd,
-                          onPressed: available <= 0
-                              ? null
-                              : () => _addProduct(product),
-                          icon: const Icon(Icons.add_shopping_cart_rounded),
-                        ),
-                      ),
-                    );
-                  },
-                );
+      appBar: AppBar(
+        title: Text(
+          strings.quickPosTitle,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          if (_cart.isNotEmpty)
+            IconButton(
+              tooltip: strings.quickPosEmptyCart,
+              icon: const Icon(Icons.delete_sweep_rounded),
+              onPressed: () {
+                setState(() => _cart.clear());
               },
             ),
+          IconButton(
+            tooltip: AppLocalizations.of(context)?.navInventory ?? 'المخزون',
+            icon: const Icon(Icons.inventory_2_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const InventoryScreen()),
+              );
+            },
           ),
-          const SizedBox(height: 16),
-          Text(
-            strings.quickPosCart,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 8),
-          if (_cart.isEmpty)
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Top Section: Search Bar
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Center(child: Text(strings.quickPosEmptyCart)),
-            )
-          else
-            ..._cart.values.map(
-              (line) => Card(
-                child: ListTile(
-                  onTap: () => _editQuantity(line),
-                  title: Text(line.product.product.name),
-                  subtitle: Text(
-                    '${QuantityUtils.formatMilliUnits(line.quantityMilliUnits)} '
-                    '${line.product.product.unitLabel} · '
-                    '${MoneyUtils.formatMoney(SaleRepository.calculateLineTotalPiasters(quantityMilliUnits: line.quantityMilliUnits, unitPricePiasters: line.product.product.salePricePiasters))}',
-                  ),
-                  trailing: IconButton(
-                    tooltip: strings.delete,
-                    onPressed: () =>
-                        setState(() => _cart.remove(line.product.product.id)),
-                    icon: const Icon(Icons.delete_outline_rounded),
-                  ),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (value) => setState(() => _query = value),
+                onSubmitted: (val) {
+                  productsAsync.whenData((products) => _onBarcodeSubmitted(val, products));
+                },
+                decoration: InputDecoration(
+                  hintText: strings.quickPosSearch,
+                  prefixIcon: const Icon(Icons.search_rounded),
+                  suffixIcon: _query.isEmpty
+                      ? const Icon(Icons.qr_code_scanner_rounded)
+                      : IconButton(
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() => _query = '');
+                          },
+                          icon: const Icon(Icons.clear_rounded),
+                        ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                  filled: true,
+                  fillColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
               ),
             ),
-          const SizedBox(height: 16),
-          SegmentedButton<SalePaymentType>(
-            segments: [
-              ButtonSegment(
-                value: SalePaymentType.cash,
-                label: Text(strings.quickPosCash),
-                icon: const Icon(Icons.payments_outlined),
-              ),
-              ButtonSegment(
-                value: SalePaymentType.credit,
-                label: Text(strings.quickPosCredit),
-                icon: const Icon(Icons.account_balance_wallet_outlined),
-              ),
-            ],
-            selected: {_paymentType},
-            onSelectionChanged: (value) {
-              setState(() {
-                _paymentType = value.first;
-                if (_paymentType == SalePaymentType.cash) _customerId = null;
-              });
-            },
-          ),
-          if (_paymentType == SalePaymentType.credit) ...[
-            const SizedBox(height: 12),
-            customersAsync.when(
-              loading: () => const LinearProgressIndicator(),
-              error: (error, stackTrace) =>
-                  Text(strings.quickPosCustomersLoadFailed),
-              data: (customers) {
-                final selectedId =
-                    customers.any(
-                      (customer) => customer.customer.id == _customerId,
-                    )
-                    ? _customerId
-                    : null;
-                return DropdownButtonFormField<String>(
-                  initialValue: selectedId,
-                  decoration: InputDecoration(
-                    labelText: strings.quickPosSelectCustomer,
-                    border: const OutlineInputBorder(),
+
+            // Scrollable Body: Products Catalog & Cart Details
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  // Products Catalog Title
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        strings.quickPosProducts,
+                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'اضغط للإضافة',
+                        style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                      ),
+                    ],
                   ),
-                  items: customers
-                      .map(
-                        (customer) => DropdownMenuItem(
-                          value: customer.customer.id,
-                          child: Text(customer.customer.name),
+                  const SizedBox(height: 8),
+
+                  // Products Horizontal/Grid view
+                  SizedBox(
+                    height: 140,
+                    child: productsAsync.when(
+                      loading: () => const Center(child: CircularProgressIndicator()),
+                      error: (_, _) => Center(child: Text(strings.quickPosLoadFailed)),
+                      data: (products) {
+                        if (products.isEmpty) {
+                          return Center(
+                            child: Text(
+                              _query.trim().isEmpty
+                                  ? strings.inventoryNoProducts
+                                  : strings.inventoryNoSearchResults,
+                              style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor),
+                            ),
+                          );
+                        }
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: products.length,
+                          separatorBuilder: (_, _) => const SizedBox(width: 10),
+                          itemBuilder: (context, index) {
+                            final product = products[index];
+                            final inCart = _cart[product.product.id]?.quantityMilliUnits ?? 0;
+                            final available = product.quantityMilliUnits - inCart;
+                            final isOutOfStock = available <= 0;
+
+                            return InkWell(
+                              onTap: isOutOfStock ? null : () => _onProductTapped(product),
+                              onLongPress: isOutOfStock ? null : () => _addProductWithQuantity(product),
+                              borderRadius: BorderRadius.circular(16),
+                              child: Container(
+                                width: 140,
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: isDark ? const Color(0xFF1E293B) : Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                    color: inCart > 0
+                                        ? AppColors.paymentGreen
+                                        : (isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0)),
+                                    width: inCart > 0 ? 2 : 1,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(alpha: 0.04),
+                                      blurRadius: 6,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            product.product.name,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                                          ),
+                                        ),
+                                        if (inCart > 0)
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.paymentGreen,
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Text(
+                                              QuantityUtils.formatMilliUnits(inCart),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          MoneyUtils.formatMoney(product.product.salePricePiasters),
+                                          style: TextStyle(
+                                            color: theme.colorScheme.primary,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          isOutOfStock
+                                              ? 'نفد المخزون'
+                                              : '${strings.quickPosAvailable}: ${QuantityUtils.formatMilliUnits(available)} ${product.product.unitLabel}',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: isOutOfStock ? AppColors.debtRed : theme.hintColor,
+                                            fontWeight: isOutOfStock ? FontWeight.bold : FontWeight.normal,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Cart Header
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.shopping_bag_outlined, size: 20),
+                          const SizedBox(width: 8),
+                          Text(
+                            strings.quickPosCart,
+                            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          if (_cart.isNotEmpty) ...[
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.primaryContainer,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                '${_cart.length}',
+                                style: TextStyle(
+                                  color: theme.colorScheme.onPrimaryContainer,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                      if (_cart.isNotEmpty)
+                        Text(
+                          '${QuantityUtils.formatMilliUnits(_totalItemsCount * 1000)} صنف',
+                          style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                         ),
-                      )
-                      .toList(growable: false),
-                  onChanged: (value) => setState(() => _customerId = value),
-                );
-              },
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Cart Items
+                  if (_cart.isEmpty)
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 28),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF8FAFC),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart_rounded,
+                            size: 38,
+                            color: theme.colorScheme.outline,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            strings.quickPosEmptyCart,
+                            style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
+                          ),
+                        ],
+                      ),
+                    )
+                  else
+                    ..._cart.values.map(
+                      (line) => Card(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          side: BorderSide(
+                            color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      line.product.product.name,
+                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      '${MoneyUtils.formatMoney(line.product.product.salePricePiasters)} / ${line.product.product.unitLabel}',
+                                      style: TextStyle(color: theme.hintColor, fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Inline Stepper [-] [quantity] [+]
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      iconSize: 18,
+                                      padding: const EdgeInsets.all(4),
+                                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                      icon: const Icon(Icons.remove_rounded),
+                                      onPressed: () => _decrementQuantity(line),
+                                    ),
+                                    InkWell(
+                                      onTap: () => _editQuantity(line),
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                        child: Text(
+                                          QuantityUtils.formatMilliUnits(line.quantityMilliUnits),
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      iconSize: 18,
+                                      padding: const EdgeInsets.all(4),
+                                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                      icon: const Icon(Icons.add_rounded),
+                                      onPressed: line.quantityMilliUnits < line.product.quantityMilliUnits
+                                          ? () => _incrementQuantity(line)
+                                          : null,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              // Line Total
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    MoneyUtils.formatMoney(
+                                      SaleRepository.calculateLineTotalPiasters(
+                                        quantityMilliUnits: line.quantityMilliUnits,
+                                        unitPricePiasters: line.product.product.salePricePiasters,
+                                      ),
+                                    ),
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                  ),
+                                  IconButton(
+                                    iconSize: 18,
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                                    icon: Icon(Icons.close_rounded, color: theme.colorScheme.error),
+                                    onPressed: () => setState(() => _cart.remove(line.product.product.id)),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  const SizedBox(height: 16),
+
+                  // Payment Type Selection
+                  Text(
+                    'طريقة السداد',
+                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => setState(() {
+                            _paymentType = SalePaymentType.cash;
+                            _customerId = null;
+                          }),
+                          borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: _paymentType == SalePaymentType.cash
+                                  ? AppColors.paymentGreen.withValues(alpha: 0.15)
+                                  : (isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9)),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: _paymentType == SalePaymentType.cash
+                                    ? AppColors.paymentGreen
+                                    : (isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1)),
+                                width: _paymentType == SalePaymentType.cash ? 2 : 1,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.payments_rounded,
+                                  color: _paymentType == SalePaymentType.cash
+                                      ? AppColors.paymentGreen
+                                      : theme.colorScheme.onSurfaceVariant,
+                                  size: 26,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  strings.quickPosCash,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: _paymentType == SalePaymentType.cash
+                                        ? AppColors.paymentGreen
+                                        : theme.colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => setState(() => _paymentType = SalePaymentType.credit),
+                          borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: _paymentType == SalePaymentType.credit
+                                  ? AppColors.debtRed.withValues(alpha: 0.12)
+                                  : (isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9)),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: _paymentType == SalePaymentType.credit
+                                    ? AppColors.debtRed
+                                    : (isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1)),
+                                width: _paymentType == SalePaymentType.credit ? 2 : 1,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.account_balance_wallet_rounded,
+                                  color: _paymentType == SalePaymentType.credit
+                                      ? AppColors.debtRed
+                                      : theme.colorScheme.onSurfaceVariant,
+                                  size: 26,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  strings.quickPosCredit,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: _paymentType == SalePaymentType.credit
+                                        ? AppColors.debtRed
+                                        : theme.colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Customer selection when credit sale
+                  if (_paymentType == SalePaymentType.credit) ...[
+                    const SizedBox(height: 12),
+                    customersAsync.when(
+                      loading: () => const LinearProgressIndicator(),
+                      error: (_, _) => Text(strings.quickPosCustomersLoadFailed),
+                      data: (customers) {
+                        final selectedCustomer = customers.cast<CustomerWithBalance?>().firstWhere(
+                              (c) => c?.customer.id == _customerId,
+                              orElse: () => null,
+                            );
+
+                        return Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFEFF6FF),
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: isDark ? const Color(0xFF334155) : const Color(0xFFBFDBFE),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: DropdownButtonFormField<String>(
+                                      initialValue: selectedCustomer?.customer.id,
+                                      isExpanded: true,
+                                      decoration: InputDecoration(
+                                        labelText: strings.quickPosSelectCustomer,
+                                        border: const OutlineInputBorder(),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                      ),
+                                      items: customers
+                                          .map(
+                                            (c) => DropdownMenuItem(
+                                              value: c.customer.id,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(child: Text(c.customer.name)),
+                                                  Text(
+                                                    MoneyUtils.formatMoney(c.balancePiasters),
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: c.hasDebt ? AppColors.debtRed : AppColors.paymentGreen,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                          .toList(growable: false),
+                                      onChanged: (value) => setState(() => _customerId = value),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton.filledTonal(
+                                    tooltip: 'عميل جديد',
+                                    icon: const Icon(Icons.person_add_alt_1_rounded),
+                                    onPressed: () async {
+                                      await Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => const AddEditCustomerScreen(),
+                                        ),
+                                      );
+                                      ref.invalidate(quickPosCustomerListProvider);
+                                    },
+                                  ),
+                                ],
+                              ),
+                              if (selectedCustomer != null) ...[
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'الرصيد الحالي: ${MoneyUtils.formatMoney(selectedCustomer.balancePiasters)}',
+                                      style: TextStyle(
+                                        color: selectedCustomer.hasDebt ? AppColors.debtRed : AppColors.paymentGreen,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    CustomerRatingBadge(
+                                      customerName: selectedCustomer.customer.name,
+                                      rating: selectedCustomer.rating,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+
+                  const SizedBox(height: 100), // spacing above bottom bar
+                ],
+              ),
+            ),
+
+            // Fixed Sticky Bottom Checkout Bar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF1E293B) : Colors.white,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, -3),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          strings.quickPosTotal,
+                          style: TextStyle(color: theme.hintColor, fontSize: 12),
+                        ),
+                        Text(
+                          MoneyUtils.formatMoney(_totalPiasters),
+                          style: theme.textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: _paymentType == SalePaymentType.cash
+                                ? AppColors.paymentGreen
+                                : AppColors.debtRed,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 54,
+                    child: FilledButton.icon(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: _paymentType == SalePaymentType.cash
+                            ? AppColors.paymentGreen
+                            : theme.colorScheme.primary,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      ),
+                      onPressed: _cart.isEmpty || _saving
+                          ? null
+                          : _paymentType == SalePaymentType.cash
+                              ? () => _checkout(const [])
+                              : customersAsync.whenOrNull(
+                                  data: (customers) => () => _checkout(customers),
+                                ),
+                      icon: _saving
+                          ? const SizedBox.square(
+                              dimension: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            )
+                          : Icon(
+                              _paymentType == SalePaymentType.cash
+                                  ? Icons.check_circle_outline_rounded
+                                  : Icons.save_rounded,
+                            ),
+                      label: Text(
+                        _paymentType == SalePaymentType.cash ? 'استلام كاش' : 'تسجيل على الحساب',
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                strings.quickPosTotal,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              Text(
-                MoneyUtils.formatMoney(_totalPiasters),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          FilledButton.icon(
-            onPressed: _cart.isEmpty || _saving
-                ? null
-                : _paymentType == SalePaymentType.cash
-                ? () => _checkout(const [])
-                : customersAsync.whenOrNull(
-                    data: (customers) =>
-                        () => _checkout(customers),
-                  ),
-            icon: _saving
-                ? const SizedBox.square(
-                    dimension: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.check_circle_outline_rounded),
-            label: Text(
-              _saving ? strings.quickPosSaving : strings.quickPosCompleteSale,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -525,5 +1075,5 @@ class _QuantityDialogState extends State<_QuantityDialog> {
 
 final _quickPosProductListProvider =
     StreamProvider.family<List<ProductWithStock>, String>((ref, query) {
-      return ref.watch(inventoryRepositoryProvider).watchProducts(query: query);
-    });
+  return ref.watch(inventoryRepositoryProvider).watchProducts(query: query);
+});

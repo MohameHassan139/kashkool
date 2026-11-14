@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
@@ -130,6 +131,11 @@ class CustomerDetailsScreen extends ConsumerWidget {
           appBar: AppBar(
             title: Text(customer.name),
             actions: [
+              IconButton(
+                icon: const Icon(Icons.point_of_sale_rounded),
+                tooltip: l10n.quickPosTitle,
+                onPressed: () => context.push('/pos?customerId=${customer.id}'),
+              ),
               _PhotosButton(customerId: customer.id, customerName: customer.name),
               IconButton(
                 icon: const Icon(Icons.picture_as_pdf_outlined),
