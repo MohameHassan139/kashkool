@@ -68,6 +68,12 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
             tooltip: l10n.quickPosTitle,
             onPressed: () => context.push('/pos'),
           ),
+          // Offers & Greetings Broadcaster
+          IconButton(
+            icon: const Icon(Icons.campaign_outlined),
+            tooltip: l10n.offersBroadcasterTitle,
+            onPressed: () => context.push('/offers'),
+          ),
           // Google sign-in / cloud backup status
           const CloudAccountButton(),
           // Installments Quick Entry (visible when enabled for shop)

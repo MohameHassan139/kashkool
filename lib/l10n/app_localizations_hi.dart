@@ -3639,4 +3639,145 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
+
+  @override
+  String get offersBroadcasterTitle => 'رسائل العروض والمعايدات';
+
+  @override
+  String get offersBroadcasterSubtitle =>
+      'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة';
+
+  @override
+  String get offersTemplateSection => '1. اختر القالب';
+
+  @override
+  String get offersAudienceSection => '2. اختر الجمهور المستهدف';
+
+  @override
+  String get offersMessageSection => '3. نص الرسالة والمعاينة';
+
+  @override
+  String get offersTemplateRamadan => 'رمضان المبارك 🌙';
+
+  @override
+  String get offersTemplateEid => 'العيد المبارك 🎉';
+
+  @override
+  String get offersTemplateBackToSchool => 'دخول المدارس 📚';
+
+  @override
+  String get offersTemplateNewOffer => 'عروض جديدة 🎁';
+
+  @override
+  String get offersTemplateCustom => 'رسالة مخصصة ✍️';
+
+  @override
+  String get offersAudienceAllWithPhone => 'جميع العملاء برقم هاتف';
+
+  @override
+  String get offersAudienceGoodRating => 'العملاء الملتزمون بالسداد (أخضر)';
+
+  @override
+  String get offersAudienceActive30Days => 'النشطون آخر 30 يوماً';
+
+  @override
+  String get offersAudienceManual => 'اختيار يدوي مخصص';
+
+  @override
+  String get offersTipSpam =>
+      '💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.';
+
+  @override
+  String offersStartCampaign(Object count) {
+    return 'بدء طابور الإرسال ($count عميل)';
+  }
+
+  @override
+  String offersResumeCampaign(Object pending) {
+    return 'استئناف الحملة السابقة ($pending متبقي)';
+  }
+
+  @override
+  String get offersDiscardCampaign => 'بدء حملة جديدة بدلاً منها';
+
+  @override
+  String get offersQueueTitle => 'طابور الإرسال';
+
+  @override
+  String offersProgressLabel(Object sent, Object total, Object percent) {
+    return 'إرسال $sent من $total عميل ($percent%)';
+  }
+
+  @override
+  String get offersSendViaWhatsApp => 'ابعت عبر واتساب';
+
+  @override
+  String get offersSkipCustomer => 'تخطي العميل';
+
+  @override
+  String get offersPauseQueue => 'إيقاف مؤقت والرجوع';
+
+  @override
+  String get offersCampaignCompleteTitle => 'تم الانتهاء بنجاح! 🎉';
+
+  @override
+  String get offersCampaignCompleteSubtitle =>
+      'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.';
+
+  @override
+  String get offersNoRecipients =>
+      'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف';
+
+  @override
+  String offersSelectManualCustomers(Object count) {
+    return 'تحديد العملاء ($count محدد)';
+  }
+
+  @override
+  String get offersSampleCustomerName => 'محمد أحمد';
+
+  @override
+  String get offersInsertPlaceholderHint => 'اضغط لإدراج متغير في الرسالة:';
+
+  @override
+  String get offersDefaultRamadanText =>
+      'كل عام وحضرتك بخير يا {customer_name} بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من {shop_name} 🌙✨';
+
+  @override
+  String get offersDefaultEidText =>
+      'عيد مبارك عليك وعلى أسرتك يا {customer_name}، كل سنة وحضرتك طيب وبصحة وسعادة من {shop_name} 🎉🐑';
+
+  @override
+  String get offersDefaultBackToSchoolText =>
+      'عام دراسي جديد سعيد وموفق لأولادنا يا {customer_name}، متوفر لدينا كل ما يلزمكم في {shop_name} 📚✏️';
+
+  @override
+  String get offersDefaultNewOfferText =>
+      'أهلاً يا {customer_name}! عندنا عروض وتخفيضات جديدة ومميزة لك في {shop_name}، تشرفنا بزيارتك في أي وقت 🎁🔥';
+
+  @override
+  String get offersDefaultCustomText =>
+      'أهلاً يا {customer_name}، تحياتنا لك من {shop_name} 👋';
+
+  @override
+  String offersSentSuccessPrompt(Object name) {
+    return 'هل تم إرسال الرسالة إلى $name بنجاح؟';
+  }
+
+  @override
+  String get offersYesSent => 'نعم، تم الإرسال';
+
+  @override
+  String get offersNotSent => 'لم يتم الإرسال';
+
+  @override
+  String get offersPreviewCardTitle => 'معاينة الرسالة للعميل';
+
+  @override
+  String get offersIncludeGrowthFooter => 'إضافة تذييل كشكول في نهاية الرسالة';
+
+  @override
+  String offersCampaignActiveBanner(Object sent, Object total) {
+    return 'لديك حملة سابقة غير مكتملة ($sent من $total مرسل)';
+  }
 }

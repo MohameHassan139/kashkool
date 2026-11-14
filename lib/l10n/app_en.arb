@@ -1078,5 +1078,96 @@
   "authFetchingData": "Fetching your data from the cloud…",
   "authEmailLoginButton": "Sign in with Email",
   "authEmailRegisterButton": "Create account with Email",
-  "authWipingData": "Wiping local data and switching account…"
+  "authWipingData": "Wiping local data and switching account…",
+  "offersBroadcasterTitle": "Offers & Greetings",
+  "offersBroadcasterSubtitle": "Send greetings and offers to your customers via WhatsApp in 1-tap with zero cost",
+  "offersTemplateSection": "1. Choose Template",
+  "offersAudienceSection": "2. Choose Target Audience",
+  "offersMessageSection": "3. Message & Live Preview",
+  "offersTemplateRamadan": "Holy Ramadan 🌙",
+  "offersTemplateEid": "Blessed Eid 🎉",
+  "offersTemplateBackToSchool": "Back to School 📚",
+  "offersTemplateNewOffer": "New Special Offers 🎁",
+  "offersTemplateCustom": "Custom Message ✍️",
+  "offersAudienceAllWithPhone": "All customers with phone",
+  "offersAudienceGoodRating": "Punctual payers only (Good rating)",
+  "offersAudienceActive30Days": "Active in last 30 days",
+  "offersAudienceManual": "Manual customer selection",
+  "offersTipSpam": "💡 Tip: We recommend sending to ≤ 50 customers per session to avoid WhatsApp spam limits.",
+  "offersStartCampaign": "Start Sending Queue ({count} customers)",
+  "@offersStartCampaign": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersResumeCampaign": "Resume Previous Campaign ({pending} remaining)",
+  "@offersResumeCampaign": {
+    "placeholders": {
+      "pending": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersDiscardCampaign": "Start a new campaign instead",
+  "offersQueueTitle": "Sending Queue",
+  "offersProgressLabel": "Sent {sent} of {total} customers ({percent}%)",
+  "@offersProgressLabel": {
+    "placeholders": {
+      "sent": {
+        "type": "Object"
+      },
+      "total": {
+        "type": "Object"
+      },
+      "percent": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersSendViaWhatsApp": "Send via WhatsApp",
+  "offersSkipCustomer": "Skip Customer",
+  "offersPauseQueue": "Pause & Back",
+  "offersCampaignCompleteTitle": "Campaign Completed! 🎉",
+  "offersCampaignCompleteSubtitle": "All campaign messages have been sent to your selected customers.",
+  "offersNoRecipients": "No customers match the selected filter with a phone number",
+  "offersSelectManualCustomers": "Select Customers ({count} selected)",
+  "@offersSelectManualCustomers": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersSampleCustomerName": "Mohamed Ahmed",
+  "offersInsertPlaceholderHint": "Tap to insert dynamic placeholder:",
+  "offersDefaultRamadanText": "Happy Ramadan '{'customer_name'}'! Best wishes to you and your family from '{'shop_name'}' 🌙✨",
+  "offersDefaultEidText": "Eid Mubarak to you and your family, '{'customer_name'}'! Wishing you joy from '{'shop_name'}' 🎉🐑",
+  "offersDefaultBackToSchoolText": "Wishing your family a successful new school year, '{'customer_name'}'! Visit '{'shop_name'}' for all your needs 📚✏️",
+  "offersDefaultNewOfferText": "Hello '{'customer_name'}'! We have exciting new offers and discounts waiting for you at '{'shop_name'}' 🎁🔥",
+  "offersDefaultCustomText": "Hello '{'customer_name'}', greetings from '{'shop_name'}' 👋",
+  "offersSentSuccessPrompt": "Was the message sent to {name} successfully?",
+  "@offersSentSuccessPrompt": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersYesSent": "Yes, Sent",
+  "offersNotSent": "Not Sent",
+  "offersPreviewCardTitle": "Message Preview for Customer",
+  "offersIncludeGrowthFooter": "Append Kashkool referral footer",
+  "offersCampaignActiveBanner": "You have an active unfinished campaign ({sent} of {total} sent)",
+  "@offersCampaignActiveBanner": {
+    "placeholders": {
+      "sent": {
+        "type": "Object"
+      },
+      "total": {
+        "type": "Object"
+      }
+    }
+  }
 }

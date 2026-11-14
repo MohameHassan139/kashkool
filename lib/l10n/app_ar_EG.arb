@@ -2128,5 +2128,96 @@
   "authFetchingData": "جاري جلب بياناتك من السحابة…",
   "authEmailLoginButton": "تسجيل الدخول بالبريد الإلكتروني",
   "authEmailRegisterButton": "إنشاء حساب جديد بالبريد",
-  "authWipingData": "جاري مسح البيانات المحلية وتبديل الحساب…"
+  "authWipingData": "جاري مسح البيانات المحلية وتبديل الحساب…",
+  "offersBroadcasterTitle": "رسائل العروض والمعايدات",
+  "offersBroadcasterSubtitle": "أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة",
+  "offersTemplateSection": "1. اختر القالب",
+  "offersAudienceSection": "2. اختر الجمهور المستهدف",
+  "offersMessageSection": "3. نص الرسالة والمعاينة",
+  "offersTemplateRamadan": "رمضان المبارك 🌙",
+  "offersTemplateEid": "العيد المبارك 🎉",
+  "offersTemplateBackToSchool": "دخول المدارس 📚",
+  "offersTemplateNewOffer": "عروض جديدة 🎁",
+  "offersTemplateCustom": "رسالة مخصصة ✍️",
+  "offersAudienceAllWithPhone": "جميع العملاء برقم هاتف",
+  "offersAudienceGoodRating": "العملاء الملتزمون بالسداد (أخضر)",
+  "offersAudienceActive30Days": "النشطون آخر 30 يوماً",
+  "offersAudienceManual": "اختيار يدوي مخصص",
+  "offersTipSpam": "💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.",
+  "offersStartCampaign": "بدء طابور الإرسال ({count} عميل)",
+  "@offersStartCampaign": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersResumeCampaign": "استئناف الحملة السابقة ({pending} متبقي)",
+  "@offersResumeCampaign": {
+    "placeholders": {
+      "pending": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersDiscardCampaign": "بدء حملة جديدة بدلاً منها",
+  "offersQueueTitle": "طابور الإرسال",
+  "offersProgressLabel": "إرسال {sent} من {total} عميل ({percent}%)",
+  "@offersProgressLabel": {
+    "placeholders": {
+      "sent": {
+        "type": "Object"
+      },
+      "total": {
+        "type": "Object"
+      },
+      "percent": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersSendViaWhatsApp": "ابعت عبر واتساب",
+  "offersSkipCustomer": "تخطي العميل",
+  "offersPauseQueue": "إيقاف مؤقت والرجوع",
+  "offersCampaignCompleteTitle": "تم الانتهاء بنجاح! 🎉",
+  "offersCampaignCompleteSubtitle": "تم إرسال كافة الرسائل المحددة لعملائك بنجاح.",
+  "offersNoRecipients": "لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف",
+  "offersSelectManualCustomers": "تحديد العملاء ({count} محدد)",
+  "@offersSelectManualCustomers": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersSampleCustomerName": "محمد أحمد",
+  "offersInsertPlaceholderHint": "اضغط لإدراج متغير في الرسالة:",
+  "offersDefaultRamadanText": "كل عام وحضرتك بخير يا '{'customer_name'}' بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من '{'shop_name'}' 🌙✨",
+  "offersDefaultEidText": "عيد مبارك عليك وعلى أسرتك يا '{'customer_name'}'، كل سنة وحضرتك طيب وبصحة وسعادة من '{'shop_name'}' 🎉🐑",
+  "offersDefaultBackToSchoolText": "عام دراسي جديد سعيد وموفق لأولادنا يا '{'customer_name'}'، متوفر لدينا كل ما يلزمكم في '{'shop_name'}' 📚✏️",
+  "offersDefaultNewOfferText": "أهلاً يا '{'customer_name'}'! عندنا عروض وتخفيضات جديدة ومميزة لك في '{'shop_name'}'، تشرفنا بزيارتك في أي وقت 🎁🔥",
+  "offersDefaultCustomText": "أهلاً يا '{'customer_name'}'، تحياتنا لك من '{'shop_name'}' 👋",
+  "offersSentSuccessPrompt": "هل تم إرسال الرسالة إلى {name} بنجاح؟",
+  "@offersSentSuccessPrompt": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "offersYesSent": "نعم، تم الإرسال",
+  "offersNotSent": "لم يتم الإرسال",
+  "offersPreviewCardTitle": "معاينة الرسالة للعميل",
+  "offersIncludeGrowthFooter": "إضافة تذييل كشكول في نهاية الرسالة",
+  "offersCampaignActiveBanner": "لديك حملة سابقة غير مكتملة ({sent} من {total} مرسل)",
+  "@offersCampaignActiveBanner": {
+    "placeholders": {
+      "sent": {
+        "type": "Object"
+      },
+      "total": {
+        "type": "Object"
+      }
+    }
+  }
 }

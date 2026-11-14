@@ -8,6 +8,8 @@ import '../../features/installments/presentation/add_installment_plan_screen.dar
 import '../../features/installments/presentation/installment_plan_details_screen.dart';
 import '../../features/installments/presentation/installments_screen.dart';
 import '../../features/inventory/presentation/inventory_screen.dart';
+import '../../features/offers_broadcaster/presentation/offers_broadcaster_screen.dart';
+import '../../features/offers_broadcaster/presentation/offers_queue_screen.dart';
 import '../../features/onboarding/data/shop_repository.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/quick_pos/presentation/quick_pos_screen.dart';
@@ -66,6 +68,18 @@ final routerProvider = Provider<GoRouter>((ref) {
           final customerId = state.uri.queryParameters['customerId'];
           return QuickPosScreen(initialCustomerId: customerId);
         },
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/offers',
+        builder: (context, state) => const OffersBroadcasterScreen(),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: 'queue',
+            builder: (context, state) => const OffersQueueScreen(),
+          ),
+        ],
       ),
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,

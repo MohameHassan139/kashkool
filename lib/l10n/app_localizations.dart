@@ -6591,6 +6591,246 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'جاري مسح البيانات المحلية وتبديل الحساب…'**
   String get authWipingData;
+
+  /// No description provided for @offersBroadcasterTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رسائل العروض والمعايدات'**
+  String get offersBroadcasterTitle;
+
+  /// No description provided for @offersBroadcasterSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة'**
+  String get offersBroadcasterSubtitle;
+
+  /// No description provided for @offersTemplateSection.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'1. اختر القالب'**
+  String get offersTemplateSection;
+
+  /// No description provided for @offersAudienceSection.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'2. اختر الجمهور المستهدف'**
+  String get offersAudienceSection;
+
+  /// No description provided for @offersMessageSection.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'3. نص الرسالة والمعاينة'**
+  String get offersMessageSection;
+
+  /// No description provided for @offersTemplateRamadan.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رمضان المبارك 🌙'**
+  String get offersTemplateRamadan;
+
+  /// No description provided for @offersTemplateEid.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'العيد المبارك 🎉'**
+  String get offersTemplateEid;
+
+  /// No description provided for @offersTemplateBackToSchool.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'دخول المدارس 📚'**
+  String get offersTemplateBackToSchool;
+
+  /// No description provided for @offersTemplateNewOffer.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عروض جديدة 🎁'**
+  String get offersTemplateNewOffer;
+
+  /// No description provided for @offersTemplateCustom.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رسالة مخصصة ✍️'**
+  String get offersTemplateCustom;
+
+  /// No description provided for @offersAudienceAllWithPhone.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جميع العملاء برقم هاتف'**
+  String get offersAudienceAllWithPhone;
+
+  /// No description provided for @offersAudienceGoodRating.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'العملاء الملتزمون بالسداد (أخضر)'**
+  String get offersAudienceGoodRating;
+
+  /// No description provided for @offersAudienceActive30Days.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'النشطون آخر 30 يوماً'**
+  String get offersAudienceActive30Days;
+
+  /// No description provided for @offersAudienceManual.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اختيار يدوي مخصص'**
+  String get offersAudienceManual;
+
+  /// No description provided for @offersTipSpam.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.'**
+  String get offersTipSpam;
+
+  /// No description provided for @offersStartCampaign.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بدء طابور الإرسال ({count} عميل)'**
+  String offersStartCampaign(Object count);
+
+  /// No description provided for @offersResumeCampaign.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'استئناف الحملة السابقة ({pending} متبقي)'**
+  String offersResumeCampaign(Object pending);
+
+  /// No description provided for @offersDiscardCampaign.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بدء حملة جديدة بدلاً منها'**
+  String get offersDiscardCampaign;
+
+  /// No description provided for @offersQueueTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طابور الإرسال'**
+  String get offersQueueTitle;
+
+  /// No description provided for @offersProgressLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إرسال {sent} من {total} عميل ({percent}%)'**
+  String offersProgressLabel(Object sent, Object total, Object percent);
+
+  /// No description provided for @offersSendViaWhatsApp.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'ابعت عبر واتساب'**
+  String get offersSendViaWhatsApp;
+
+  /// No description provided for @offersSkipCustomer.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تخطي العميل'**
+  String get offersSkipCustomer;
+
+  /// No description provided for @offersPauseQueue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إيقاف مؤقت والرجوع'**
+  String get offersPauseQueue;
+
+  /// No description provided for @offersCampaignCompleteTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم الانتهاء بنجاح! 🎉'**
+  String get offersCampaignCompleteTitle;
+
+  /// No description provided for @offersCampaignCompleteSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.'**
+  String get offersCampaignCompleteSubtitle;
+
+  /// No description provided for @offersNoRecipients.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف'**
+  String get offersNoRecipients;
+
+  /// No description provided for @offersSelectManualCustomers.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تحديد العملاء ({count} محدد)'**
+  String offersSelectManualCustomers(Object count);
+
+  /// No description provided for @offersSampleCustomerName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'محمد أحمد'**
+  String get offersSampleCustomerName;
+
+  /// No description provided for @offersInsertPlaceholderHint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اضغط لإدراج متغير في الرسالة:'**
+  String get offersInsertPlaceholderHint;
+
+  /// No description provided for @offersDefaultRamadanText.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كل عام وحضرتك بخير يا \'{\'customer_name\'}\' بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من \'{\'shop_name\'}\' 🌙✨'**
+  String get offersDefaultRamadanText;
+
+  /// No description provided for @offersDefaultEidText.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عيد مبارك عليك وعلى أسرتك يا \'{\'customer_name\'}\'، كل سنة وحضرتك طيب وبصحة وسعادة من \'{\'shop_name\'}\' 🎉🐑'**
+  String get offersDefaultEidText;
+
+  /// No description provided for @offersDefaultBackToSchoolText.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عام دراسي جديد سعيد وموفق لأولادنا يا \'{\'customer_name\'}\'، متوفر لدينا كل ما يلزمكم في \'{\'shop_name\'}\' 📚✏️'**
+  String get offersDefaultBackToSchoolText;
+
+  /// No description provided for @offersDefaultNewOfferText.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أهلاً يا \'{\'customer_name\'}\'! عندنا عروض وتخفيضات جديدة ومميزة لك في \'{\'shop_name\'}\'، تشرفنا بزيارتك في أي وقت 🎁🔥'**
+  String get offersDefaultNewOfferText;
+
+  /// No description provided for @offersDefaultCustomText.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أهلاً يا \'{\'customer_name\'}\'، تحياتنا لك من \'{\'shop_name\'}\' 👋'**
+  String get offersDefaultCustomText;
+
+  /// No description provided for @offersSentSuccessPrompt.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'هل تم إرسال الرسالة إلى {name} بنجاح؟'**
+  String offersSentSuccessPrompt(Object name);
+
+  /// No description provided for @offersYesSent.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نعم، تم الإرسال'**
+  String get offersYesSent;
+
+  /// No description provided for @offersNotSent.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لم يتم الإرسال'**
+  String get offersNotSent;
+
+  /// No description provided for @offersPreviewCardTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاينة الرسالة للعميل'**
+  String get offersPreviewCardTitle;
+
+  /// No description provided for @offersIncludeGrowthFooter.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إضافة تذييل كشكول في نهاية الرسالة'**
+  String get offersIncludeGrowthFooter;
+
+  /// No description provided for @offersCampaignActiveBanner.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لديك حملة سابقة غير مكتملة ({sent} من {total} مرسل)'**
+  String offersCampaignActiveBanner(Object sent, Object total);
 }
 
 class _AppLocalizationsDelegate

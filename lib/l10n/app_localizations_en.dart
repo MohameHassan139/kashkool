@@ -3683,4 +3683,146 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authWipingData => 'Wiping local data and switching account…';
+
+  @override
+  String get offersBroadcasterTitle => 'Offers & Greetings';
+
+  @override
+  String get offersBroadcasterSubtitle =>
+      'Send greetings and offers to your customers via WhatsApp in 1-tap with zero cost';
+
+  @override
+  String get offersTemplateSection => '1. Choose Template';
+
+  @override
+  String get offersAudienceSection => '2. Choose Target Audience';
+
+  @override
+  String get offersMessageSection => '3. Message & Live Preview';
+
+  @override
+  String get offersTemplateRamadan => 'Holy Ramadan 🌙';
+
+  @override
+  String get offersTemplateEid => 'Blessed Eid 🎉';
+
+  @override
+  String get offersTemplateBackToSchool => 'Back to School 📚';
+
+  @override
+  String get offersTemplateNewOffer => 'New Special Offers 🎁';
+
+  @override
+  String get offersTemplateCustom => 'Custom Message ✍️';
+
+  @override
+  String get offersAudienceAllWithPhone => 'All customers with phone';
+
+  @override
+  String get offersAudienceGoodRating => 'Punctual payers only (Good rating)';
+
+  @override
+  String get offersAudienceActive30Days => 'Active in last 30 days';
+
+  @override
+  String get offersAudienceManual => 'Manual customer selection';
+
+  @override
+  String get offersTipSpam =>
+      '💡 Tip: We recommend sending to ≤ 50 customers per session to avoid WhatsApp spam limits.';
+
+  @override
+  String offersStartCampaign(Object count) {
+    return 'Start Sending Queue ($count customers)';
+  }
+
+  @override
+  String offersResumeCampaign(Object pending) {
+    return 'Resume Previous Campaign ($pending remaining)';
+  }
+
+  @override
+  String get offersDiscardCampaign => 'Start a new campaign instead';
+
+  @override
+  String get offersQueueTitle => 'Sending Queue';
+
+  @override
+  String offersProgressLabel(Object sent, Object total, Object percent) {
+    return 'Sent $sent of $total customers ($percent%)';
+  }
+
+  @override
+  String get offersSendViaWhatsApp => 'Send via WhatsApp';
+
+  @override
+  String get offersSkipCustomer => 'Skip Customer';
+
+  @override
+  String get offersPauseQueue => 'Pause & Back';
+
+  @override
+  String get offersCampaignCompleteTitle => 'Campaign Completed! 🎉';
+
+  @override
+  String get offersCampaignCompleteSubtitle =>
+      'All campaign messages have been sent to your selected customers.';
+
+  @override
+  String get offersNoRecipients =>
+      'No customers match the selected filter with a phone number';
+
+  @override
+  String offersSelectManualCustomers(Object count) {
+    return 'Select Customers ($count selected)';
+  }
+
+  @override
+  String get offersSampleCustomerName => 'Mohamed Ahmed';
+
+  @override
+  String get offersInsertPlaceholderHint =>
+      'Tap to insert dynamic placeholder:';
+
+  @override
+  String get offersDefaultRamadanText =>
+      'Happy Ramadan {customer_name}! Best wishes to you and your family from {shop_name} 🌙✨';
+
+  @override
+  String get offersDefaultEidText =>
+      'Eid Mubarak to you and your family, {customer_name}! Wishing you joy from {shop_name} 🎉🐑';
+
+  @override
+  String get offersDefaultBackToSchoolText =>
+      'Wishing your family a successful new school year, {customer_name}! Visit {shop_name} for all your needs 📚✏️';
+
+  @override
+  String get offersDefaultNewOfferText =>
+      'Hello {customer_name}! We have exciting new offers and discounts waiting for you at {shop_name} 🎁🔥';
+
+  @override
+  String get offersDefaultCustomText =>
+      'Hello {customer_name}, greetings from {shop_name} 👋';
+
+  @override
+  String offersSentSuccessPrompt(Object name) {
+    return 'Was the message sent to $name successfully?';
+  }
+
+  @override
+  String get offersYesSent => 'Yes, Sent';
+
+  @override
+  String get offersNotSent => 'Not Sent';
+
+  @override
+  String get offersPreviewCardTitle => 'Message Preview for Customer';
+
+  @override
+  String get offersIncludeGrowthFooter => 'Append Kashkool referral footer';
+
+  @override
+  String offersCampaignActiveBanner(Object sent, Object total) {
+    return 'You have an active unfinished campaign ($sent of $total sent)';
+  }
 }
