@@ -15,6 +15,10 @@ class SettingsRepository {
   static const String keyReminderIntervalDays = 'collection_reminder_interval_days';
   static const String keyReminderTimeHour = 'collection_reminder_time_hour';
   static const String keyReminderTimeMinute = 'collection_reminder_time_minute';
+  static const String keyNotificationsEnabled = 'notifications_enabled';
+  static const String keyLastCollectionReminderDate = 'notifications_last_collection_reminder_date';
+  static const String keyLastInstallmentReminderDate = 'notifications_last_installment_reminder_date';
+  static const String keyLastBackupReminderDate = 'notifications_last_backup_reminder_date';
   static const String keyShopName = 'shop_name';
   static const String keyShopPhone = 'shop_phone';
   static const String keyShopAddress = 'shop_address';
@@ -129,6 +133,62 @@ class SettingsRepository {
     return watchString(keyReminderIntervalDays)
         .map((val) => val != null ? (int.tryParse(val) ?? 7) : 7);
   }
+
+  /// Hour of the daily collection reminder (0-23, default: 10 AM).
+  Future<int> getReminderTimeHour() async {
+    final val = await getString(keyReminderTimeHour);
+    return val != null ? (int.tryParse(val) ?? 10) : 10;
+  }
+
+  Future<void> setReminderTimeHour(int hour) async {
+    await setString(keyReminderTimeHour, hour.toString());
+  }
+
+  Stream<int> watchReminderTimeHour() {
+    return watchString(keyReminderTimeHour)
+        .map((val) => val != null ? (int.tryParse(val) ?? 10) : 10);
+  }
+
+  /// Minute of the daily collection reminder (0-59, default: 0).
+  Future<int> getReminderTimeMinute() async {
+    final val = await getString(keyReminderTimeMinute);
+    return val != null ? (int.tryParse(val) ?? 0) : 0;
+  }
+
+  Future<void> setReminderTimeMinute(int minute) async {
+    await setString(keyReminderTimeMinute, minute.toString());
+  }
+
+  Stream<int> watchReminderTimeMinute() {
+    return watchString(keyReminderTimeMinute)
+        .map((val) => val != null ? (int.tryParse(val) ?? 0) : 0);
+  }
+
+  /// Whether app notifications are enabled by the shop owner (default: true).
+  Future<bool> getNotificationsEnabled() async {
+    final val = await getString(keyNotificationsEnabled);
+    return val != 'false';
+  }
+
+  Future<void> setNotificationsEnabled(bool enabled) async {
+    await setString(keyNotificationsEnabled, enabled.toString());
+  }
+
+  Stream<bool> watchNotificationsEnabled() {
+    return watchString(keyNotificationsEnabled).map((val) => val != 'false');
+  }
+
+  /// Date when collection reminder was last triggered (yyyy-MM-dd).
+  Future<String?> getLastCollectionReminderDate() async => getString(keyLastCollectionReminderDate);
+  Future<void> setLastCollectionReminderDate(String dateStr) => setString(keyLastCollectionReminderDate, dateStr);
+
+  /// Date when installment reminder was last triggered (yyyy-MM-dd).
+  Future<String?> getLastInstallmentReminderDate() async => getString(keyLastInstallmentReminderDate);
+  Future<void> setLastInstallmentReminderDate(String dateStr) => setString(keyLastInstallmentReminderDate, dateStr);
+
+  /// Date when backup reminder was last triggered (yyyy-MM-dd).
+  Future<String?> getLastBackupReminderDate() async => getString(keyLastBackupReminderDate);
+  Future<void> setLastBackupReminderDate(String dateStr) => setString(keyLastBackupReminderDate, dateStr);
 
   /// Shop name for reminder message header (default: 'كشكول').
   Future<String> getShopName() async {
@@ -494,4 +554,22 @@ final isBackupDueProvider = FutureProvider<bool>((ref) async {
   // Re-evaluate whenever lastBackupAt changes
   ref.watch(lastBackupAtProvider);
   return repo.isBackupDue();
+});
+
+/// Stream provider for reminder hour
+final reminderTimeHourProvider = StreamProvider<int>((ref) {
+  final repo = ref.watch(settingsRepositoryProvider);
+  return repo.watchReminderTimeHour();
+});
+
+/// Stream provider for reminder minute
+final reminderTimeMinuteProvider = StreamProvider<int>((ref) {
+  final repo = ref.watch(settingsRepositoryProvider);
+  return repo.watchReminderTimeMinute();
+});
+
+/// Stream provider for notifications enabled
+final notificationsEnabledProvider = StreamProvider<bool>((ref) {
+  final repo = ref.watch(settingsRepositoryProvider);
+  return repo.watchNotificationsEnabled();
 });

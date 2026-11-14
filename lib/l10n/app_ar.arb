@@ -1071,5 +1071,40 @@
         "type": "Object"
       }
     }
-  }
+  },
+  "notificationServiceInstallmentsChannelName": "تذكير الأقساط",
+  "notificationServiceInstallmentsChannelDesc": "تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة",
+  "notificationServiceInstallmentsTitle": "تنبيه الأقساط المستحقة 🔔",
+  "notificationServiceInstallmentsBody": "عندك {count} أقساط مستحقة بإجمالي {amountStr} — اضغط للمتابعة",
+  "@notificationServiceInstallmentsBody": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      },
+      "amountStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceBackupChannelName": "تذكير النسخ الاحتياطي",
+  "notificationServiceBackupChannelDesc": "تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع",
+  "notificationServiceBackupTitle": "تنبيه: محتاج تعمل نسخة احتياطية ⚠️",
+  "notificationServiceBackupBody": "فات {days} أيام بدون حفظ نسخة احتياطية. اضغط لحفظ بياناتك الآن.",
+  "@notificationServiceBackupBody": {
+    "placeholders": {
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceTestTitle": "إشعار تجريبي من كشكول 🚀",
+  "notificationServiceTestBody": "الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍",
+  "notificationServiceSettingsReminderTime": "وقت التذكير اليومي",
+  "notificationServiceSettingsReminderTimeSubtitle": "الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة",
+  "notificationServiceSettingsStatus": "إشعارات التطبيق",
+  "notificationServiceSettingsStatusActive": "مفعلة وتعمل بنجاح ✓",
+  "notificationServiceSettingsStatusDisabled": "متوقفة — اضغط لمنح الإذن",
+  "notificationServiceSettingsSendTest": "إرسال إشعار تجريبي الآن",
+  "notificationServiceSettingsSendTestSubtitle": "تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً",
+  "notificationServiceSettingsSendTestSuccess": "تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍"
 }

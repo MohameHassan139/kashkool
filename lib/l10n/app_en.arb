@@ -1169,5 +1169,40 @@
         "type": "Object"
       }
     }
-  }
+  },
+  "notificationServiceInstallmentsChannelName": "Installments Reminder",
+  "notificationServiceInstallmentsChannelDesc": "Alerts for due and overdue installment payments",
+  "notificationServiceInstallmentsTitle": "Due Installments Alert 🔔",
+  "notificationServiceInstallmentsBody": "You have {count} due installments totaling {amountStr} — tap to view",
+  "@notificationServiceInstallmentsBody": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      },
+      "amountStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceBackupChannelName": "Backup Reminder",
+  "notificationServiceBackupChannelDesc": "Periodic alert to protect your ledger data",
+  "notificationServiceBackupTitle": "Backup Reminder ⚠️",
+  "notificationServiceBackupBody": "{days} days passed without a backup. Tap to secure your data now.",
+  "@notificationServiceBackupBody": {
+    "placeholders": {
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceTestTitle": "Test Notification from Kashkool 🚀",
+  "notificationServiceTestBody": "Notifications are working properly and will arrive on time 👍",
+  "notificationServiceSettingsReminderTime": "Daily Reminder Time",
+  "notificationServiceSettingsReminderTimeSubtitle": "Time of day to alert you about due collections and installments",
+  "notificationServiceSettingsStatus": "App Notifications",
+  "notificationServiceSettingsStatusActive": "Active & working ✓",
+  "notificationServiceSettingsStatusDisabled": "Disabled — tap to grant permission",
+  "notificationServiceSettingsSendTest": "Send Test Notification Now",
+  "notificationServiceSettingsSendTestSubtitle": "Verify that notifications and sound appear on your phone right now",
+  "notificationServiceSettingsSendTestSuccess": "Test notification sent! Check your notification tray 👍"
 }

@@ -6831,6 +6831,114 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'لديك حملة سابقة غير مكتملة ({sent} من {total} مرسل)'**
   String offersCampaignActiveBanner(Object sent, Object total);
+
+  /// No description provided for @notificationServiceInstallmentsChannelName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تذكير الأقساط'**
+  String get notificationServiceInstallmentsChannelName;
+
+  /// No description provided for @notificationServiceInstallmentsChannelDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة'**
+  String get notificationServiceInstallmentsChannelDesc;
+
+  /// No description provided for @notificationServiceInstallmentsTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيه الأقساط المستحقة 🔔'**
+  String get notificationServiceInstallmentsTitle;
+
+  /// No description provided for @notificationServiceInstallmentsBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عندك {count} أقساط مستحقة بإجمالي {amountStr} — اضغط للمتابعة'**
+  String notificationServiceInstallmentsBody(Object count, Object amountStr);
+
+  /// No description provided for @notificationServiceBackupChannelName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تذكير النسخ الاحتياطي'**
+  String get notificationServiceBackupChannelName;
+
+  /// No description provided for @notificationServiceBackupChannelDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع'**
+  String get notificationServiceBackupChannelDesc;
+
+  /// No description provided for @notificationServiceBackupTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيه: محتاج تعمل نسخة احتياطية ⚠️'**
+  String get notificationServiceBackupTitle;
+
+  /// No description provided for @notificationServiceBackupBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'فات {days} أيام بدون حفظ نسخة احتياطية. اضغط لحفظ بياناتك الآن.'**
+  String notificationServiceBackupBody(Object days);
+
+  /// No description provided for @notificationServiceTestTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إشعار تجريبي من كشكول 🚀'**
+  String get notificationServiceTestTitle;
+
+  /// No description provided for @notificationServiceTestBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍'**
+  String get notificationServiceTestBody;
+
+  /// No description provided for @notificationServiceSettingsReminderTime.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'وقت التذكير اليومي'**
+  String get notificationServiceSettingsReminderTime;
+
+  /// No description provided for @notificationServiceSettingsReminderTimeSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة'**
+  String get notificationServiceSettingsReminderTimeSubtitle;
+
+  /// No description provided for @notificationServiceSettingsStatus.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إشعارات التطبيق'**
+  String get notificationServiceSettingsStatus;
+
+  /// No description provided for @notificationServiceSettingsStatusActive.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مفعلة وتعمل بنجاح ✓'**
+  String get notificationServiceSettingsStatusActive;
+
+  /// No description provided for @notificationServiceSettingsStatusDisabled.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'متوقفة — اضغط لمنح الإذن'**
+  String get notificationServiceSettingsStatusDisabled;
+
+  /// No description provided for @notificationServiceSettingsSendTest.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إرسال إشعار تجريبي الآن'**
+  String get notificationServiceSettingsSendTest;
+
+  /// No description provided for @notificationServiceSettingsSendTestSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً'**
+  String get notificationServiceSettingsSendTestSubtitle;
+
+  /// No description provided for @notificationServiceSettingsSendTestSuccess.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍'**
+  String get notificationServiceSettingsSendTestSuccess;
 }
 
 class _AppLocalizationsDelegate

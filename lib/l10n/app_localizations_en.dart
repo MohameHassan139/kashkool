@@ -3825,4 +3825,73 @@ class AppLocalizationsEn extends AppLocalizations {
   String offersCampaignActiveBanner(Object sent, Object total) {
     return 'You have an active unfinished campaign ($sent of $total sent)';
   }
+
+  @override
+  String get notificationServiceInstallmentsChannelName =>
+      'Installments Reminder';
+
+  @override
+  String get notificationServiceInstallmentsChannelDesc =>
+      'Alerts for due and overdue installment payments';
+
+  @override
+  String get notificationServiceInstallmentsTitle =>
+      'Due Installments Alert 🔔';
+
+  @override
+  String notificationServiceInstallmentsBody(Object count, Object amountStr) {
+    return 'You have $count due installments totaling $amountStr — tap to view';
+  }
+
+  @override
+  String get notificationServiceBackupChannelName => 'Backup Reminder';
+
+  @override
+  String get notificationServiceBackupChannelDesc =>
+      'Periodic alert to protect your ledger data';
+
+  @override
+  String get notificationServiceBackupTitle => 'Backup Reminder ⚠️';
+
+  @override
+  String notificationServiceBackupBody(Object days) {
+    return '$days days passed without a backup. Tap to secure your data now.';
+  }
+
+  @override
+  String get notificationServiceTestTitle =>
+      'Test Notification from Kashkool 🚀';
+
+  @override
+  String get notificationServiceTestBody =>
+      'Notifications are working properly and will arrive on time 👍';
+
+  @override
+  String get notificationServiceSettingsReminderTime => 'Daily Reminder Time';
+
+  @override
+  String get notificationServiceSettingsReminderTimeSubtitle =>
+      'Time of day to alert you about due collections and installments';
+
+  @override
+  String get notificationServiceSettingsStatus => 'App Notifications';
+
+  @override
+  String get notificationServiceSettingsStatusActive => 'Active & working ✓';
+
+  @override
+  String get notificationServiceSettingsStatusDisabled =>
+      'Disabled — tap to grant permission';
+
+  @override
+  String get notificationServiceSettingsSendTest =>
+      'Send Test Notification Now';
+
+  @override
+  String get notificationServiceSettingsSendTestSubtitle =>
+      'Verify that notifications and sound appear on your phone right now';
+
+  @override
+  String get notificationServiceSettingsSendTestSuccess =>
+      'Test notification sent! Check your notification tray 👍';
 }

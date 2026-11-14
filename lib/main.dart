@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqlcipher_flutter_libs/sqlcipher_flutter_libs.dart';
 import 'package:sqlite3/open.dart';
 import 'core/cloud/auto_backup_coordinator.dart';
+import 'core/notifications/notification_coordinator.dart';
 import 'core/router/app_router.dart';
 import 'core/security/app_lock_wrapper.dart';
 import 'core/theme/app_theme.dart';
@@ -57,6 +58,9 @@ class _KashkoolAppState extends ConsumerState<KashkoolApp> {
 
     // Automatic cloud backup (when signed in): on reconnect, after changes, on resume
     ref.read(autoBackupCoordinatorProvider);
+
+    // Initialize notification & reminders coordinator (Feature 07, 12, 14)
+    ref.read(notificationCoordinatorProvider);
 
     // Ensure the stable shop referral code exists from first launch (Feature 11)
     ref.read(settingsRepositoryProvider).getOrCreateShopCode();

@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/backup/backup_service.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/growth/growth_footer.dart';
+import '../../../../core/notifications/notification_coordinator.dart';
+import '../../../../core/notifications/notification_service.dart';
 import '../../../../core/security/pin_lock_screen.dart';
 import '../../../../core/security/security_service.dart';
 import '../../../../core/utils/money.dart';
@@ -413,6 +415,14 @@ class SettingsScreen extends ConsumerWidget {
 
   // --- 3. Reminders Card ---
   Widget _buildRemindersCard(BuildContext context, WidgetRef ref) {
+    final hour = ref.watch(reminderTimeHourProvider).valueOrNull ?? 10;
+    final minute = ref.watch(reminderTimeMinuteProvider).valueOrNull ?? 0;
+    final notificationsEnabled = ref.watch(notificationsEnabledProvider).valueOrNull ?? true;
+    final settingsRepo = ref.read(settingsRepositoryProvider);
+
+    final timeOfDay = TimeOfDay(hour: hour, minute: minute);
+    final timeStr = timeOfDay.format(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Card(
@@ -420,6 +430,145 @@ class SettingsScreen extends ConsumerWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Column(
           children: [
+            // 1. Daily Reminder Time Picker
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.15),
+                child: const Icon(Icons.alarm_rounded, color: AppColors.primaryBlue),
+              ),
+              title: Text(
+                L10n.t.notificationServiceSettingsReminderTime,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              subtitle: Text(
+                L10n.t.notificationServiceSettingsReminderTimeSubtitle,
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+              ),
+              trailing: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () async {
+                  final picked = await showTimePicker(
+                    context: context,
+                    initialTime: timeOfDay,
+                    builder: (context, child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+                        child: child ?? const SizedBox.shrink(),
+                      );
+                    },
+                  );
+                  if (picked != null) {
+                    await settingsRepo.setReminderTimeHour(picked.hour);
+                    await settingsRepo.setReminderTimeMinute(picked.minute);
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        timeStr,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Icon(
+                        Icons.edit_rounded,
+                        size: 14,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const Divider(height: 1),
+
+            // 2. Notification Status & Toggle / Permission
+            FutureBuilder<bool>(
+              future: NotificationService().isPermissionGranted(),
+              builder: (context, snapshot) {
+                final hasSystemPermission = snapshot.data ?? true;
+                final isActive = notificationsEnabled && hasSystemPermission;
+
+                return SwitchListTile(
+                  secondary: CircleAvatar(
+                    backgroundColor: isActive
+                        ? AppColors.paymentGreen.withValues(alpha: 0.15)
+                        : AppColors.warningAmber.withValues(alpha: 0.15),
+                    child: Icon(
+                      isActive ? Icons.notifications_active_rounded : Icons.notifications_off_rounded,
+                      color: isActive ? AppColors.paymentGreen : AppColors.warningAmber,
+                    ),
+                  ),
+                  title: Text(
+                    L10n.t.notificationServiceSettingsStatus,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  subtitle: Text(
+                    isActive
+                        ? L10n.t.notificationServiceSettingsStatusActive
+                        : L10n.t.notificationServiceSettingsStatusDisabled,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isActive ? AppColors.paymentGreen : AppColors.warningAmber,
+                    ),
+                  ),
+                  value: notificationsEnabled,
+                  onChanged: (val) async {
+                    if (val && !hasSystemPermission) {
+                      await NotificationService().requestPermissions();
+                    }
+                    await settingsRepo.setNotificationsEnabled(val);
+                  },
+                );
+              },
+            ),
+            const Divider(height: 1),
+
+            // 3. Send Test Notification Button
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.purple.withValues(alpha: 0.15),
+                child: const Icon(Icons.send_rounded, color: Colors.purple),
+              ),
+              title: Text(
+                L10n.t.notificationServiceSettingsSendTest,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              subtitle: Text(
+                L10n.t.notificationServiceSettingsSendTestSubtitle,
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+              ),
+              trailing: const Icon(Icons.chevron_left_rounded),
+              onTap: () async {
+                final success = await ref.read(notificationCoordinatorProvider).sendTestNotification();
+                if (context.mounted) {
+                  if (success) {
+                    AppGlassToast.showSuccess(
+                      context,
+                      L10n.t.notificationServiceSettingsSendTestSuccess,
+                    );
+                  } else {
+                    AppGlassToast.showError(
+                      context,
+                      'فشل إرسال الإشعار. تأكد من تفعيل الإشعارات للتطبيق في إعدادات الهاتف.',
+                    );
+                  }
+                }
+              },
+            ),
+            const Divider(height: 1),
+
+            // 4. Message Template Editor
             ListTile(
               leading: CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
@@ -437,6 +586,8 @@ class SettingsScreen extends ConsumerWidget {
               onTap: () => MessageTemplateEditorBottomSheet.show(context),
             ),
             const Divider(height: 1),
+
+            // 5. Battery Guide
             ListTile(
               leading: Container(
                 padding: const EdgeInsets.all(8),

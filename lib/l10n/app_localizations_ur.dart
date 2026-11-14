@@ -3777,4 +3777,71 @@ class AppLocalizationsUr extends AppLocalizations {
   String offersCampaignActiveBanner(Object sent, Object total) {
     return 'لديك حملة سابقة غير مكتملة ($sent من $total مرسل)';
   }
+
+  @override
+  String get notificationServiceInstallmentsChannelName => 'تذكير الأقساط';
+
+  @override
+  String get notificationServiceInstallmentsChannelDesc =>
+      'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة';
+
+  @override
+  String get notificationServiceInstallmentsTitle =>
+      'تنبيه الأقساط المستحقة 🔔';
+
+  @override
+  String notificationServiceInstallmentsBody(Object count, Object amountStr) {
+    return 'عندك $count أقساط مستحقة بإجمالي $amountStr — اضغط للمتابعة';
+  }
+
+  @override
+  String get notificationServiceBackupChannelName => 'تذكير النسخ الاحتياطي';
+
+  @override
+  String get notificationServiceBackupChannelDesc =>
+      'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع';
+
+  @override
+  String get notificationServiceBackupTitle =>
+      'تنبيه: محتاج تعمل نسخة احتياطية ⚠️';
+
+  @override
+  String notificationServiceBackupBody(Object days) {
+    return 'فات $days أيام بدون حفظ نسخة احتياطية. اضغط لحفظ بياناتك الآن.';
+  }
+
+  @override
+  String get notificationServiceTestTitle => 'إشعار تجريبي من كشكول 🚀';
+
+  @override
+  String get notificationServiceTestBody =>
+      'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍';
+
+  @override
+  String get notificationServiceSettingsReminderTime => 'وقت التذكير اليومي';
+
+  @override
+  String get notificationServiceSettingsReminderTimeSubtitle =>
+      'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة';
+
+  @override
+  String get notificationServiceSettingsStatus => 'إشعارات التطبيق';
+
+  @override
+  String get notificationServiceSettingsStatusActive => 'مفعلة وتعمل بنجاح ✓';
+
+  @override
+  String get notificationServiceSettingsStatusDisabled =>
+      'متوقفة — اضغط لمنح الإذن';
+
+  @override
+  String get notificationServiceSettingsSendTest => 'إرسال إشعار تجريبي الآن';
+
+  @override
+  String get notificationServiceSettingsSendTestSubtitle =>
+      'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً';
+
+  @override
+  String get notificationServiceSettingsSendTestSuccess =>
+      'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
 }

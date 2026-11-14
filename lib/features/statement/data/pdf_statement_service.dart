@@ -54,13 +54,19 @@ class PdfStatementService {
     final pdf = pw.Document();
 
     final isA4 = pageFormat == StatementPageFormat.a4;
-    final pdfFormat = isA4
-        ? PdfPageFormat.a4
-        : const PdfPageFormat(
-            80 * PdfPageFormat.mm,
-            double.infinity,
-            marginAll: 4 * PdfPageFormat.mm,
-          );
+
+    // Thermal receipts use an open-ended height; MultiPage requires a finite
+    // height, so for thermal we use a tall fixed height (10 m) with a single
+    // Page widget instead of MultiPage.
+    final thermalWidth = 80 * PdfPageFormat.mm;
+    const thermalMarginAll = 4 * PdfPageFormat.mm;
+    final thermalPageFormat = PdfPageFormat(
+      thermalWidth,
+      3000 * PdfPageFormat.mm, // ~10 m — enough for any realistic receipt
+      marginAll: thermalMarginAll,
+    );
+
+    final pdfFormat = isA4 ? PdfPageFormat.a4 : thermalPageFormat;
 
     final now = DateTime.now();
     final dateGenStr = DateFormat('yyyy/MM/dd · hh:mm a').format(now);
