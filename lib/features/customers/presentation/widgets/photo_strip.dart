@@ -230,7 +230,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
           child: Center(
             child: Image.file(
               File(widget.paths[i]),
-              errorBuilder: (_, _, _) => Text(L10n.t.photoStrip10, style: TextStyle(color: Colors.white)),
+              errorBuilder: (_, _, _) => Text(L10n.t.photoStrip10, style: const TextStyle(color: Colors.white)),
             ),
           ),
         ),

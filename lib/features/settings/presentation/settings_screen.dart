@@ -218,11 +218,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.customersScreen2,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen17,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               value: isPrivacy,
               onChanged: (val) async {
@@ -246,7 +246,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen18,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 hasPin ? L10n.t.settingsScreen19 : L10n.t.settingsScreen20,
@@ -316,11 +316,11 @@ class SettingsScreen extends ConsumerWidget {
                 ),
                 title: Text(
                   L10n.t.settingsScreen25,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 subtitle: Text(
                   L10n.t.settingsScreen26,
-                  style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                  style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
                 ),
                 value: isBioEnabled,
                 onChanged: (val) async {
@@ -355,7 +355,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     title: Text(
                       L10n.t.settingsScreen32,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     subtitle: Text(
                       timeout == 0 ? L10n.t.settingsScreen33 : L10n.t.settingsScreen34(timeout),
@@ -386,7 +386,7 @@ class SettingsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: Text(L10n.t.settingsScreen32, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.settingsScreen32, style: const TextStyle(fontWeight: FontWeight.bold)),
         children: [
           for (final option in [
             (0, L10n.t.settingsScreen35),
@@ -426,11 +426,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen39,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen40,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
               onTap: () => MessageTemplateEditorBottomSheet.show(context),
@@ -447,11 +447,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen41,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen42,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
               onTap: () => BatteryGuideBottomSheet.show(context),
@@ -488,7 +488,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen44,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 dateStr,
@@ -505,11 +505,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen45,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen46,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.share_rounded),
               onTap: () async {
@@ -536,11 +536,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen49,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen50,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.folder_open_rounded),
               onTap: () => _handleRestoreBackup(context, ref),
@@ -586,8 +586,8 @@ class SettingsScreen extends ConsumerWidget {
           builder: (ctx) => AlertDialog(
             title: Row(
               children: [
-                Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
-                SizedBox(width: 8),
+                const Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     L10n.t.settingsScreen54,
@@ -602,7 +602,7 @@ class SettingsScreen extends ConsumerWidget {
               children: [
                 Text(
                   L10n.t.settingsScreen55,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.debtRed),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.debtRed),
                 ),
                 const SizedBox(height: 12),
                 if (validation.exportedAt != null)
@@ -749,7 +749,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen67,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 currentTheme == ThemeMode.system
@@ -813,7 +813,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       title: Text(
                         L10n.t.settingsScreen70,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       subtitle: Text(
                         limitStr,
@@ -836,11 +836,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen71,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen72,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               trailing: const Icon(Icons.open_in_new_rounded),
               onTap: () async {
@@ -863,11 +863,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen74,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen75,
-                style: TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
               ),
               onTap: () {
                 showDialog(
@@ -877,7 +877,7 @@ class SettingsScreen extends ConsumerWidget {
                     content: SingleChildScrollView(
                       child: Text(
                         L10n.t.settingsScreen77,
-                        style: TextStyle(height: 1.5),
+                        style: const TextStyle(height: 1.5),
                       ),
                     ),
                     actions: [
@@ -928,7 +928,7 @@ class SettingsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: Text(L10n.t.settingsScreen67, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.settingsScreen67, style: const TextStyle(fontWeight: FontWeight.bold)),
         children: [
           for (final option in [
             (ThemeMode.system, L10n.t.settingsScreen78),

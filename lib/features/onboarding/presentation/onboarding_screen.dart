@@ -477,7 +477,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             const SizedBox(height: 20),
             Text(
               L10n.t.onboardingScreen5,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -580,7 +580,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         children: [
           Text(
             L10n.t.onboardingScreen22,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
           Text(
@@ -659,7 +659,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                     ),
                                     child: Text(
                                       L10n.t.onboardingScreen24,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppColors.paymentGreen,
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
@@ -700,11 +700,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             value: _enableInstallments,
             title: Text(
               L10n.t.onboardingScreen25,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
             ),
             subtitle: Text(
               L10n.t.onboardingScreen26,
-              style: TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12),
             ),
             onChanged: (val) => setState(() => _enableInstallments = val),
           ),
@@ -726,7 +726,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         children: [
           Text(
             L10n.t.onboardingScreen27,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
           Text(
@@ -770,7 +770,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           children: [
                             Text(
                               L10n.t.onboardingScreen29,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             const SizedBox(height: 2),
                             Text(
@@ -920,7 +920,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 18),
           Text(
             L10n.t.onboardingScreen36,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),

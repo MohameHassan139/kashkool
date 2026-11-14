@@ -21,19 +21,19 @@ class NotebookImportButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(12, 0, 12, 4),
-                child: Text(L10n.t.notebookImportButton1, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 4),
+                child: Text(L10n.t.notebookImportButton1, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(12, 0, 12, 8),
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
                 child: Text(
                   L10n.t.notebookImportButton2,
-                  style: TextStyle(fontSize: 13, color: AppColors.neutralGrey),
+                  style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
                 ),
               ),
               ListTile(
                 leading: const CircleAvatar(child: Icon(Icons.groups_rounded)),
-                title: Text(L10n.t.notebookImportButton3, style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text(L10n.t.notebookImportButton3, style: const TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text(L10n.t.notebookImportButton4),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -43,7 +43,7 @@ class NotebookImportButton extends StatelessWidget {
               if (installmentsEnabled)
                 ListTile(
                   leading: const CircleAvatar(child: Icon(Icons.event_repeat_rounded)),
-                  title: Text(L10n.t.notebookImportButton5, style: TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(L10n.t.notebookImportButton5, style: const TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Text(L10n.t.notebookImportButton6),
                   onTap: () {
                     Navigator.pop(ctx);

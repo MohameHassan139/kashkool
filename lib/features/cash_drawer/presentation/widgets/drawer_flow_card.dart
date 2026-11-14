@@ -254,7 +254,7 @@ class DrawerFlowCard extends StatelessWidget {
                         ),
                         Text(
                           L10n.t.drawerFlowCard1,
-                          style: TextStyle(fontSize: 11, color: AppColors.neutralGrey),
+                          style: const TextStyle(fontSize: 11, color: AppColors.neutralGrey),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],

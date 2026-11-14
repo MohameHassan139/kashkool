@@ -123,7 +123,7 @@ class CloudApi {
   /// Exchanges a Google ID token for Kashkool tokens and saves the session.
   Future<CloudSession> loginWithGoogle(String idToken, {String? deviceLabel}) async {
     final res = await _send('POST', '/v1/auth/google',
-        body: {'idToken': idToken, if (deviceLabel != null) 'deviceLabel': deviceLabel}, auth: false) as Map;
+        body: {'idToken': idToken, 'deviceLabel': ?deviceLabel}, auth: false) as Map;
     final user = res['user'] as Map;
     final previous = await _store.read();
     final sameUser = previous?.userId == user['id'];

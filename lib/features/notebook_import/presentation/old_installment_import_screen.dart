@@ -184,7 +184,7 @@ class _OldInstallmentImportScreenState extends ConsumerState<OldInstallmentImpor
           children: [
             Text(
               L10n.t.oldInstallmentImportScreen12,
-              style: TextStyle(fontSize: 13, color: AppColors.neutralGrey, height: 1.5),
+              style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey, height: 1.5),
             ),
             const SizedBox(height: 16),
             _section(L10n.t.oldInstallmentImportScreen13),

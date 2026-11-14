@@ -182,7 +182,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(L10n.t.installmentsScreen14, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.installmentsScreen14, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Form(
         key: _formKey,
@@ -201,8 +201,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                   isExpanded: true,
                   decoration: InputDecoration(
                     labelText: L10n.t.addInstallmentPlanScreen14,
-                    prefixIcon: Icon(Icons.person_outline),
-                    border: OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.person_outline),
+                    border: const OutlineInputBorder(),
                   ),
                   items: customers.map((c) {
                     return DropdownMenuItem<String>(
@@ -229,8 +229,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               decoration: InputDecoration(
                 labelText: L10n.t.addInstallmentPlanScreen17,
                 hintText: L10n.t.addInstallmentPlanScreen18,
-                prefixIcon: Icon(Icons.shopping_bag_outlined),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.shopping_bag_outlined),
+                border: const OutlineInputBorder(),
               ),
               validator: (val) => (val == null || val.trim().length < 2) ? L10n.t.addInstallmentPlanScreen19 : null,
             ),
@@ -269,8 +269,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     decoration: InputDecoration(
                       labelText: L10n.t.addInstallmentPlanScreen20,
                       hintText: L10n.t.addInstallmentPlanScreen21,
-                      prefixIcon: Icon(Icons.monetization_on_outlined),
-                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.monetization_on_outlined),
+                      border: const OutlineInputBorder(),
                     ),
                     validator: (val) {
                       final numVal = double.tryParse(val ?? '');
@@ -289,8 +289,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     decoration: InputDecoration(
                       labelText: L10n.t.addInstallmentPlanScreen23,
                       hintText: '0',
-                      prefixIcon: Icon(Icons.paid_outlined),
-                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.paid_outlined),
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -352,8 +352,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     onChanged: (_) => setState(() {}),
                     decoration: InputDecoration(
                       labelText: L10n.t.addInstallmentPlanScreen27,
-                      prefixIcon: Icon(Icons.format_list_numbered_rounded),
-                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.format_list_numbered_rounded),
+                      border: const OutlineInputBorder(),
                     ),
                     validator: (val) {
                       final n = int.tryParse(val ?? '');
@@ -368,7 +368,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
                     initialValue: _frequency,
                     decoration: InputDecoration(
                       labelText: L10n.t.addInstallmentPlanScreen29,
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                     ),
                     items: [
                       DropdownMenuItem(value: InstallmentFrequency.monthly, child: Text(L10n.t.oldInstallmentImportScreen32)),
@@ -405,8 +405,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               decoration: InputDecoration(
                 labelText: L10n.t.oldInstallmentImportScreen35,
                 hintText: L10n.t.addInstallmentPlanScreen33,
-                prefixIcon: Icon(Icons.shield_outlined),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.shield_outlined),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 12),
@@ -420,8 +420,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               decoration: InputDecoration(
                 labelText: L10n.t.addInstallmentPlanScreen34,
                 hintText: '010xxxxxxxx',
-                prefixIcon: Icon(Icons.phone_outlined),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.phone_outlined),
+                border: const OutlineInputBorder(),
               ),
               validator: (val) {
                 if (val != null && val.trim().isNotEmpty && !PhoneUtils.isValid(val)) {
@@ -450,8 +450,8 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               controller: _notesController,
               decoration: InputDecoration(
                 labelText: L10n.t.addInstallmentPlanScreen41,
-                prefixIcon: Icon(Icons.notes_outlined),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.notes_outlined),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 12),
@@ -531,7 +531,7 @@ class _AddInstallmentPlanScreenState extends ConsumerState<AddInstallmentPlanScr
               onPressed: _isSaving ? null : _savePlan,
               child: _isSaving
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text(L10n.t.addInstallmentPlanScreen46, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  : Text(L10n.t.addInstallmentPlanScreen46, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 32),
           ],

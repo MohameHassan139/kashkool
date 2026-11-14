@@ -77,63 +77,15 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     ProductWithStock product, {
     required int initialMilliUnits,
     required int maxMilliUnits,
-  }) async {
-    final controller = TextEditingController(
-      text: QuantityUtils.formatMilliUnits(initialMilliUnits),
-    );
-    final formKey = GlobalKey<FormState>();
-    final strings = L10n.t;
-
+  }) {
     return showDialog<int>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(product.product.name),
-        content: Form(
-          key: formKey,
-          child: TextFormField(
-            controller: controller,
-            autofocus: true,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩.,٫]')),
-            ],
-            decoration: InputDecoration(
-              labelText: strings.quickPosQuantity,
-              helperText:
-                  '${strings.quickPosAvailable}: '
-                  '${QuantityUtils.formatMilliUnits(maxMilliUnits)} '
-                  '${product.product.unitLabel}',
-              border: const OutlineInputBorder(),
-            ),
-            validator: (value) {
-              final quantity = QuantityUtils.parseMilliUnits(value ?? '');
-              if (quantity == null || quantity <= 0) {
-                return strings.quickPosQuantityInvalid;
-              }
-              if (quantity > maxMilliUnits) {
-                return strings.quickPosInsufficientStock;
-              }
-              return null;
-            },
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(strings.cancel),
-          ),
-          FilledButton(
-            onPressed: () {
-              if (!formKey.currentState!.validate()) return;
-              Navigator.of(
-                context,
-              ).pop(QuantityUtils.parseMilliUnits(controller.text));
-            },
-            child: Text(strings.save),
-          ),
-        ],
+      builder: (context) => _QuantityDialog(
+        product: product,
+        initialMilliUnits: initialMilliUnits,
+        maxMilliUnits: maxMilliUnits,
       ),
-    ).whenComplete(controller.dispose);
+    );
   }
 
   Future<void> _checkout(List<CustomerWithBalance> customers) async {
@@ -482,6 +434,93 @@ class _CartLine {
   final int quantityMilliUnits;
 
   const _CartLine({required this.product, required this.quantityMilliUnits});
+}
+
+class _QuantityDialog extends StatefulWidget {
+  final ProductWithStock product;
+  final int initialMilliUnits;
+  final int maxMilliUnits;
+
+  const _QuantityDialog({
+    required this.product,
+    required this.initialMilliUnits,
+    required this.maxMilliUnits,
+  });
+
+  @override
+  State<_QuantityDialog> createState() => _QuantityDialogState();
+}
+
+class _QuantityDialogState extends State<_QuantityDialog> {
+  late final TextEditingController _controller;
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: QuantityUtils.formatMilliUnits(widget.initialMilliUnits),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final strings = L10n.t;
+
+    return AlertDialog(
+      title: Text(widget.product.product.name),
+      content: Form(
+        key: _formKey,
+        child: TextFormField(
+          controller: _controller,
+          autofocus: true,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩.,٫]')),
+          ],
+          decoration: InputDecoration(
+            labelText: strings.quickPosQuantity,
+            helperText:
+                '${strings.quickPosAvailable}: '
+                '${QuantityUtils.formatMilliUnits(widget.maxMilliUnits)} '
+                '${widget.product.product.unitLabel}',
+            border: const OutlineInputBorder(),
+          ),
+          validator: (value) {
+            final quantity = QuantityUtils.parseMilliUnits(value ?? '');
+            if (quantity == null || quantity <= 0) {
+              return strings.quickPosQuantityInvalid;
+            }
+            if (quantity > widget.maxMilliUnits) {
+              return strings.quickPosInsufficientStock;
+            }
+            return null;
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(strings.cancel),
+        ),
+        FilledButton(
+          onPressed: () {
+            if (!_formKey.currentState!.validate()) return;
+            Navigator.of(
+              context,
+            ).pop(QuantityUtils.parseMilliUnits(_controller.text));
+          },
+          child: Text(strings.save),
+        ),
+      ],
+    );
+  }
 }
 
 final _quickPosProductListProvider =

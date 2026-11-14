@@ -218,7 +218,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                 decoration: InputDecoration(
                   labelText: L10n.t.shopProfileBottomSheet3,
                   hintText: L10n.t.shopProfileBottomSheet4,
-                  prefixIcon: Icon(Icons.storefront_outlined),
+                  prefixIcon: const Icon(Icons.storefront_outlined),
                 ),
                 validator: (val) {
                   if (val == null || val.trim().isEmpty) {
@@ -236,7 +236,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                 decoration: InputDecoration(
                   labelText: L10n.t.shopProfileBottomSheet6,
                   hintText: L10n.t.shopProfileBottomSheet7,
-                  prefixIcon: Icon(Icons.phone_outlined),
+                  prefixIcon: const Icon(Icons.phone_outlined),
                 ),
                 validator: (val) {
                   final text = val?.trim() ?? '';
@@ -255,7 +255,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                 decoration: InputDecoration(
                   labelText: L10n.t.shopProfileBottomSheet8,
                   hintText: L10n.t.shopProfileBottomSheet9,
-                  prefixIcon: Icon(Icons.location_on_outlined),
+                  prefixIcon: const Icon(Icons.location_on_outlined),
                 ),
               ),
               const SizedBox(height: 12),
@@ -266,7 +266,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                 decoration: InputDecoration(
                   labelText: L10n.t.shopProfileBottomSheet10,
                   hintText: L10n.t.shopProfileBottomSheet11,
-                  prefixIcon: Icon(Icons.payment_outlined),
+                  prefixIcon: const Icon(Icons.payment_outlined),
                 ),
               ),
               const SizedBox(height: 12),
@@ -278,7 +278,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                 decoration: InputDecoration(
                   labelText: L10n.t.shopProfileBottomSheet12,
                   hintText: L10n.t.shopProfileBottomSheet7,
-                  prefixIcon: Icon(Icons.account_balance_wallet_outlined),
+                  prefixIcon: const Icon(Icons.account_balance_wallet_outlined),
                 ),
               ),
               // Trade Type
@@ -286,7 +286,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                 initialValue: _tradeType,
                 decoration: InputDecoration(
                   labelText: L10n.t.shopProfileBottomSheet13,
-                  prefixIcon: Icon(Icons.category_outlined),
+                  prefixIcon: const Icon(Icons.category_outlined),
                 ),
                 items: [
                   DropdownMenuItem(value: 'grocery', child: Text(L10n.t.settingsScreen11)),
@@ -311,8 +311,8 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
               // Installments Toggle
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(L10n.t.shopProfileBottomSheet15, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                subtitle: Text(L10n.t.shopProfileBottomSheet16, style: TextStyle(fontSize: 12)),
+                title: Text(L10n.t.shopProfileBottomSheet15, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                subtitle: Text(L10n.t.shopProfileBottomSheet16, style: const TextStyle(fontSize: 12)),
                 value: _enableInstallments,
                 onChanged: (val) => setState(() => _enableInstallments = val),
               ),
@@ -325,7 +325,7 @@ class _ShopProfileBottomSheetState extends ConsumerState<ShopProfileBottomSheet>
                   minimumSize: const Size.fromHeight(52),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: Text(L10n.t.shopProfileBottomSheet17, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(L10n.t.shopProfileBottomSheet17, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
             ],
           ),

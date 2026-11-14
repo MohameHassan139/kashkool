@@ -30,7 +30,7 @@ class HomeWidgetSettingsCard extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.homeWidgetSettingsCard1,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               subtitle: Text(
                 enabled
@@ -117,7 +117,7 @@ class _AddWidgetTile extends ConsumerWidget {
         title: Text(L10n.t.homeWidgetSettingsCard9),
         content: Text(
           L10n.t.homeWidgetSettingsCard10,
-          style: TextStyle(height: 1.5),
+          style: const TextStyle(height: 1.5),
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.ratingExplanationBottomSheet12)),

@@ -122,7 +122,7 @@ class InstallmentPlanCard extends StatelessWidget {
                       ),
                       child: Text(
                         L10n.t.installmentPlanCard2,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppColors.primaryGreen,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
@@ -138,7 +138,7 @@ class InstallmentPlanCard extends StatelessWidget {
                       ),
                       child: Text(
                         L10n.t.installmentPlanCard3,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,

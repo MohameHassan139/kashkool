@@ -24,13 +24,13 @@ class CloudAccountButton extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   L10n.t.cloudAccountButton1,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
               ),
-              CloudBackupCard(),
+              const CloudBackupCard(),
             ],
           ),
         ),

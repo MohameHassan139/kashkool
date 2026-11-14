@@ -158,7 +158,7 @@ class _MessageTemplateEditorBottomSheetState
               runSpacing: 6,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                Text(L10n.t.messageTemplateEditorBottomSheet6, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                Text(L10n.t.messageTemplateEditorBottomSheet6, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                 ActionChip(
                   label: Text(L10n.t.messageTemplateEditorBottomSheet7),
                   backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
@@ -238,7 +238,7 @@ class _MessageTemplateEditorBottomSheetState
               ),
               child: Text(
                 L10n.t.messageTemplateEditorBottomSheet14,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ],

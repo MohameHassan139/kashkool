@@ -84,12 +84,12 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
     return AlertDialog(
       title: Row(
         children: [
-          Icon(Icons.verified_rounded, color: AppColors.primaryGreen),
-          SizedBox(width: 8),
+          const Icon(Icons.verified_rounded, color: AppColors.primaryGreen),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               L10n.t.earlySettlementDialog3,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -140,8 +140,8 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
               decoration: InputDecoration(
                 labelText: L10n.t.earlySettlementDialog6,
                 hintText: '0',
-                prefixIcon: Icon(Icons.discount_outlined),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.discount_outlined),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 12),
@@ -200,7 +200,7 @@ class _EarlySettlementDialogState extends ConsumerState<EarlySettlementDialog> {
           onPressed: _isLoading ? null : _submit,
           child: _isLoading
               ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-              : Text(L10n.t.earlySettlementDialog7, style: TextStyle(fontWeight: FontWeight.bold)),
+              : Text(L10n.t.earlySettlementDialog7, style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
       ],
     );

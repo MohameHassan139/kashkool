@@ -64,11 +64,11 @@ class CustomerPhotosScreen extends ConsumerWidget {
           if (photos.isEmpty) {
             return Center(
               child: Padding(
-                padding: EdgeInsets.all(32),
+                padding: const EdgeInsets.all(32),
                 child: Text(
                   L10n.t.customerPhotosScreen8,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppColors.neutralGrey, height: 1.6),
+                  style: const TextStyle(color: AppColors.neutralGrey, height: 1.6),
                 ),
               ),
             );

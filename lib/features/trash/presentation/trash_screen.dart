@@ -73,7 +73,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
             ),
             child: Text(
               L10n.t.trashScreen9,
-              style: TextStyle(fontSize: 13, height: 1.5),
+              style: const TextStyle(fontSize: 13, height: 1.5),
             ),
           ),
           SizedBox(
@@ -97,16 +97,16 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
           Expanded(
             child: itemsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (_, __) => Center(child: Text(L10n.t.trashScreen10)),
+              error: (_, _) => Center(child: Text(L10n.t.trashScreen10)),
               data: (all) {
                 final items = _filter == null ? all : all.where((i) => i.kind == _filter).toList();
                 if (items.isEmpty) {
                   return Center(
                     child: Padding(
-                      padding: EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(32),
                       child: Text(
                         L10n.t.trashScreen11,
-                        style: TextStyle(fontSize: 16, color: AppColors.neutralGrey),
+                        style: const TextStyle(fontSize: 16, color: AppColors.neutralGrey),
                       ),
                     ),
                   );
@@ -114,7 +114,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
                 return ListView.separated(
                   padding: const EdgeInsets.only(bottom: 24),
                   itemCount: items.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
+                  separatorBuilder: (_, _) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final item = items[index];
                     final busy = _restoring.contains(item.id);
@@ -169,7 +169,7 @@ class TrashEntryTile extends ConsumerWidget {
             backgroundColor: Colors.grey.shade200,
             child: const Icon(Icons.delete_outline_rounded, color: AppColors.neutralGrey),
           ),
-          title: Text(L10n.t.trashScreen14, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          title: Text(L10n.t.trashScreen14, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           subtitle: Text(
             count == null || count == 0 ? L10n.t.trashScreen15 : L10n.t.trashScreen16(count),
             style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),

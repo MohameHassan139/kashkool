@@ -141,7 +141,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                     fit: BoxFit.scaleDown,
                     child: Text(L10n.t.addCashSalesBottomSheet2),
                   ),
-                  icon: Icon(Icons.add_rounded),
+                  icon: const Icon(Icons.add_rounded),
                 ),
                 ButtonSegment(
                   value: false,
@@ -149,7 +149,7 @@ class _AddCashSalesBottomSheetState extends ConsumerState<AddCashSalesBottomShee
                     fit: BoxFit.scaleDown,
                     child: Text(L10n.t.addCashSalesBottomSheet3),
                   ),
-                  icon: Icon(Icons.edit_outlined),
+                  icon: const Icon(Icons.edit_outlined),
                 ),
               ],
               selected: {_isAddMode},

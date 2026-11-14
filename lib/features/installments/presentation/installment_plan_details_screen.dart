@@ -168,7 +168,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                     PopupMenuItem(value: 'cancel', child: Text(L10n.t.installmentPlanDetailsScreen7)),
                   PopupMenuItem(
                     value: 'delete',
-                    child: Text(L10n.t.installmentPlanDetailsScreen17, style: TextStyle(color: AppColors.debtRed)),
+                    child: Text(L10n.t.installmentPlanDetailsScreen17, style: const TextStyle(color: AppColors.debtRed)),
                   ),
                 ],
               ),
@@ -287,7 +287,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                           icon: const Icon(Icons.verified_rounded),
                           label: Text(
                             L10n.t.installmentPlanDetailsScreen22,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -493,10 +493,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                     )
                                   else if (isOverdue)
                                     Text(L10n.t.installmentPlanDetailsScreen32,
-                                        style: TextStyle(color: AppColors.debtRed, fontSize: 12, fontWeight: FontWeight.bold))
+                                        style: const TextStyle(color: AppColors.debtRed, fontSize: 12, fontWeight: FontWeight.bold))
                                   else if (isDueToday)
                                     Text(L10n.t.installmentPlanDetailsScreen33,
-                                        style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold))
+                                        style: const TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold))
                                   else
                                     Text(L10n.t.installmentPlanDetailsScreen34(MoneyUtils.formatMoney(inst.amountPiasters)),
                                         style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 12)),
@@ -529,7 +529,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                               if (customer.phone != null && customer.phone!.isNotEmpty)
                                 TextButton.icon(
                                   icon: const Icon(Icons.chat_outlined, size: 16, color: AppColors.primaryGreen),
-                                  label: Text(L10n.t.installmentPlanDetailsScreen35, style: TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
+                                  label: Text(L10n.t.installmentPlanDetailsScreen35, style: const TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
                                   onPressed: () {
                                     _sendWhatsAppReminder(
                                       context: context,
@@ -555,7 +555,7 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 12),
                                 ),
                                 icon: const Icon(Icons.payment_rounded, size: 16),
-                                label: Text(L10n.t.installmentPlanDetailsScreen36, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                                label: Text(L10n.t.installmentPlanDetailsScreen36, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   showDialog(
                                     context: context,

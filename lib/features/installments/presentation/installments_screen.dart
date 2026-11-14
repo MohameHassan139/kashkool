@@ -44,7 +44,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(L10n.t.installmentsScreen1, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(L10n.t.installmentsScreen1, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Column(
         children: [
@@ -257,7 +257,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
         backgroundColor: AppColors.primaryGreen,
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
-        label: Text(L10n.t.installmentsScreen14, style: TextStyle(fontWeight: FontWeight.bold)),
+        label: Text(L10n.t.installmentsScreen14, style: const TextStyle(fontWeight: FontWeight.bold)),
         onPressed: () {
           Navigator.push(
             context,

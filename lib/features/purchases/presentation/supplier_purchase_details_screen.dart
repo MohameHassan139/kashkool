@@ -52,83 +52,10 @@ class SupplierPurchaseDetailsScreen extends ConsumerWidget {
     BuildContext context,
     PurchaseItemWithReturns item,
   ) {
-    final quantityController = TextEditingController();
-    final noteController = TextEditingController();
-    String? errorText;
-
     return showDialog<_ReturnRequest>(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: Text(L10n.t.supplierPurchaseReturn),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Text(
-                  '${item.item.productName} · '
-                  '${L10n.t.supplierPurchaseRemaining}: '
-                  '${QuantityUtils.formatMilliUnits(item.remainingQuantityMilliUnits)} '
-                  '${item.item.unitLabel}',
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: quantityController,
-                autofocus: true,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: InputDecoration(
-                  labelText: L10n.t.supplierPurchaseReturnQuantity,
-                  errorText: errorText,
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: noteController,
-                decoration: InputDecoration(
-                  labelText: L10n.t.inventoryNote,
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(L10n.t.inventoryCancel),
-            ),
-            FilledButton(
-              onPressed: () {
-                final quantity = QuantityUtils.parseMilliUnits(
-                  quantityController.text,
-                );
-                if (quantity == null || quantity <= 0) {
-                  setDialogState(
-                    () => errorText = L10n.t.supplierPurchaseInvalidInput,
-                  );
-                  return;
-                }
-                Navigator.pop(
-                  context,
-                  _ReturnRequest(
-                    quantityMilliUnits: quantity,
-                    note: noteController.text.trim(),
-                  ),
-                );
-              },
-              child: Text(L10n.t.supplierPurchaseReturn),
-            ),
-          ],
-        ),
-      ),
-    ).whenComplete(() {
-      quantityController.dispose();
-      noteController.dispose();
-    });
+      builder: (context) => _ReturnDialog(item: item),
+    );
   }
 
   @override
@@ -252,4 +179,95 @@ class _ReturnRequest {
   final String note;
 
   const _ReturnRequest({required this.quantityMilliUnits, required this.note});
+}
+
+class _ReturnDialog extends StatefulWidget {
+  final PurchaseItemWithReturns item;
+
+  const _ReturnDialog({required this.item});
+
+  @override
+  State<_ReturnDialog> createState() => _ReturnDialogState();
+}
+
+class _ReturnDialogState extends State<_ReturnDialog> {
+  final _quantityController = TextEditingController();
+  final _noteController = TextEditingController();
+  String? _errorText;
+
+  @override
+  void dispose() {
+    _quantityController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(L10n.t.supplierPurchaseReturn),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              '${widget.item.item.productName} · '
+              '${L10n.t.supplierPurchaseRemaining}: '
+              '${QuantityUtils.formatMilliUnits(widget.item.remainingQuantityMilliUnits)} '
+              '${widget.item.item.unitLabel}',
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _quantityController,
+            autofocus: true,
+            keyboardType: const TextInputType.numberWithOptions(
+              decimal: true,
+            ),
+            decoration: InputDecoration(
+              labelText: L10n.t.supplierPurchaseReturnQuantity,
+              errorText: _errorText,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _noteController,
+            decoration: InputDecoration(
+              labelText: L10n.t.inventoryNote,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(L10n.t.inventoryCancel),
+        ),
+        FilledButton(
+          onPressed: () {
+            final quantity = QuantityUtils.parseMilliUnits(
+              _quantityController.text,
+            );
+            if (quantity == null || quantity <= 0) {
+              setState(
+                () => _errorText = L10n.t.supplierPurchaseInvalidInput,
+              );
+              return;
+            }
+            Navigator.pop(
+              context,
+              _ReturnRequest(
+                quantityMilliUnits: quantity,
+                note: _noteController.text.trim(),
+              ),
+            );
+          },
+          child: Text(L10n.t.supplierPurchaseReturn),
+        ),
+      ],
+    );
+  }
 }

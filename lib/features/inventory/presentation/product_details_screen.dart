@@ -103,94 +103,10 @@ class ProductDetailsScreen extends ConsumerWidget {
   }
 
   Future<_StockAdjustment?> _showAdjustmentDialog(BuildContext context) {
-    final quantityController = TextEditingController();
-    final noteController = TextEditingController();
-    var isAdding = true;
-    String? errorText;
-
     return showDialog<_StockAdjustment>(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: Text(L10n.t.inventoryAdjustStock),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SegmentedButton<bool>(
-                segments: [
-                  ButtonSegment(
-                    value: true,
-                    label: Text(L10n.t.inventoryAddStock),
-                    icon: const Icon(Icons.add_rounded),
-                  ),
-                  ButtonSegment(
-                    value: false,
-                    label: Text(L10n.t.inventoryRemoveStock),
-                    icon: const Icon(Icons.remove_rounded),
-                  ),
-                ],
-                selected: {isAdding},
-                onSelectionChanged: (selection) =>
-                    setDialogState(() => isAdding = selection.first),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: quantityController,
-                autofocus: true,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: InputDecoration(
-                  labelText: L10n.t.inventoryQuantity,
-                  errorText: errorText,
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: noteController,
-                decoration: InputDecoration(
-                  labelText: L10n.t.inventoryNote,
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(L10n.t.inventoryCancel),
-            ),
-            FilledButton(
-              onPressed: () {
-                final quantity = QuantityUtils.parseMilliUnits(
-                  quantityController.text,
-                );
-                if (quantity == null || quantity <= 0) {
-                  setDialogState(
-                    () => errorText = quantity == null
-                        ? L10n.t.inventoryInvalidQuantity
-                        : L10n.t.inventoryQuantityRequired,
-                  );
-                  return;
-                }
-                Navigator.pop(
-                  context,
-                  _StockAdjustment(
-                    quantityDeltaMilliUnits: isAdding ? quantity : -quantity,
-                    note: noteController.text.trim(),
-                  ),
-                );
-              },
-              child: Text(L10n.t.inventorySave),
-            ),
-          ],
-        ),
-      ),
-    ).whenComplete(() {
-      quantityController.dispose();
-      noteController.dispose();
-    });
+      builder: (context) => const _StockAdjustmentDialog(),
+    );
   }
 
   @override
@@ -413,4 +329,104 @@ class _StockAdjustment {
     required this.quantityDeltaMilliUnits,
     required this.note,
   });
+}
+
+class _StockAdjustmentDialog extends StatefulWidget {
+  const _StockAdjustmentDialog();
+
+  @override
+  State<_StockAdjustmentDialog> createState() => _StockAdjustmentDialogState();
+}
+
+class _StockAdjustmentDialogState extends State<_StockAdjustmentDialog> {
+  final _quantityController = TextEditingController();
+  final _noteController = TextEditingController();
+  var _isAdding = true;
+  String? _errorText;
+
+  @override
+  void dispose() {
+    _quantityController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(L10n.t.inventoryAdjustStock),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SegmentedButton<bool>(
+            segments: [
+              ButtonSegment(
+                value: true,
+                label: Text(L10n.t.inventoryAddStock),
+                icon: const Icon(Icons.add_rounded),
+              ),
+              ButtonSegment(
+                value: false,
+                label: Text(L10n.t.inventoryRemoveStock),
+                icon: const Icon(Icons.remove_rounded),
+              ),
+            ],
+            selected: {_isAdding},
+            onSelectionChanged: (selection) =>
+                setState(() => _isAdding = selection.first),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _quantityController,
+            autofocus: true,
+            keyboardType: const TextInputType.numberWithOptions(
+              decimal: true,
+            ),
+            decoration: InputDecoration(
+              labelText: L10n.t.inventoryQuantity,
+              errorText: _errorText,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _noteController,
+            decoration: InputDecoration(
+              labelText: L10n.t.inventoryNote,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(L10n.t.inventoryCancel),
+        ),
+        FilledButton(
+          onPressed: () {
+            final quantity = QuantityUtils.parseMilliUnits(
+              _quantityController.text,
+            );
+            if (quantity == null || quantity <= 0) {
+              setState(
+                () => _errorText = quantity == null
+                    ? L10n.t.inventoryInvalidQuantity
+                    : L10n.t.inventoryQuantityRequired,
+              );
+              return;
+            }
+            Navigator.pop(
+              context,
+              _StockAdjustment(
+                quantityDeltaMilliUnits: _isAdding ? quantity : -quantity,
+                note: _noteController.text.trim(),
+              ),
+            );
+          },
+          child: Text(L10n.t.inventorySave),
+        ),
+      ],
+    );
+  }
 }

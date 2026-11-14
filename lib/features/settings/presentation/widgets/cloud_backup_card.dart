@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,7 +40,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
     if (_busy) return null;
     setState(() => _busy = true);
     final progress = ValueNotifier<String>(L10n.t.cloudBackupCard1);
-    showDialog<void>(
+    unawaited(showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => PopScope(
@@ -52,14 +53,14 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
               Expanded(
                 child: ValueListenableBuilder<String>(
                   valueListenable: progress,
-                  builder: (_, value, __) => Text(value),
+                  builder: (_, value, _) => Text(value),
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
+    ));
     try {
       return await task((message, _) => progress.value = message);
     } on CloudApiException catch (e) {
@@ -217,9 +218,9 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
               ? (session == null ? _signedOutTiles() : _signedInTiles(session))
               : [
                   ListTile(
-                    leading: Icon(Icons.cloud_off_rounded, color: AppColors.neutralGrey),
-                    title: Text(L10n.t.cloudAccountButton2, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                    subtitle: Text(L10n.t.cloudBackupCard25, style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+                    leading: const Icon(Icons.cloud_off_rounded, color: AppColors.neutralGrey),
+                    title: Text(L10n.t.cloudAccountButton2, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                    subtitle: Text(L10n.t.cloudBackupCard25, style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
                   ),
                 ],
         ),
@@ -289,7 +290,7 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       ListTile(
         enabled: !_busy,
         leading: const Icon(Icons.cloud_upload_rounded, color: AppColors.primaryBlue),
-        title: Text(L10n.t.cloudBackupCard35, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        title: Text(L10n.t.cloudBackupCard35, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         trailing: const Icon(Icons.chevron_left_rounded),
         onTap: _backup,
       ),
@@ -297,8 +298,8 @@ class _CloudBackupCardState extends ConsumerState<CloudBackupCard> {
       ListTile(
         enabled: !_busy,
         leading: const Icon(Icons.cloud_download_rounded, color: AppColors.warningAmber),
-        title: Text(L10n.t.cloudBackupCard36, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-        subtitle: Text(L10n.t.cloudBackupCard37, style: TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
+        title: Text(L10n.t.cloudBackupCard36, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        subtitle: Text(L10n.t.cloudBackupCard37, style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey)),
         trailing: const Icon(Icons.chevron_left_rounded),
         onTap: _restore,
       ),

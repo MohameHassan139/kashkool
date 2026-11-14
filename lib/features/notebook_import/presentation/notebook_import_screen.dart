@@ -362,7 +362,7 @@ class _Header extends StatelessWidget {
         children: [
           Text(
             L10n.t.notebookImportScreen18,
-            style: TextStyle(fontSize: 13, color: AppColors.neutralGrey, height: 1.5),
+            style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey, height: 1.5),
           ),
           const SizedBox(height: 10),
           OutlinedButton.icon(
@@ -504,7 +504,7 @@ class _LineCard extends StatelessWidget {
                 child: error != null
                     ? Text(error!, style: const TextStyle(color: AppColors.debtRed, fontSize: 12, fontWeight: FontWeight.w600))
                     : line.checking
-                        ? Text(L10n.t.notebookImportScreen28, style: TextStyle(fontSize: 12, color: AppColors.neutralGrey))
+                        ? Text(L10n.t.notebookImportScreen28, style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey))
                         : Text(
                             L10n.t.notebookImportScreen29(line.existing!.name),
                             style: const TextStyle(fontSize: 12, color: AppColors.warningAmber, fontWeight: FontWeight.w600),

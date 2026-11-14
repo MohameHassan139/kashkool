@@ -230,7 +230,7 @@ class DueInstallmentsTab extends ConsumerWidget {
                                 else if (isDueToday)
                                   Text(
                                     L10n.t.dueInstallmentsTab7,
-                                    style: TextStyle(color: Colors.blue, fontSize: 11, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: Colors.blue, fontSize: 11, fontWeight: FontWeight.bold),
                                   ),
                               ],
                             ),
@@ -255,7 +255,7 @@ class DueInstallmentsTab extends ConsumerWidget {
                               ),
                               TextButton.icon(
                                 icon: const Icon(Icons.chat_outlined, size: 16, color: AppColors.primaryGreen),
-                                label: Text(L10n.t.dueInstallmentsTab9, style: TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
+                                label: Text(L10n.t.dueInstallmentsTab9, style: const TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
                                 onPressed: () => _sendWhatsAppReminder(context: context, ref: ref, item: item),
                               ),
                             ],
@@ -267,7 +267,7 @@ class DueInstallmentsTab extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 12),
                               ),
                               icon: const Icon(Icons.payment_rounded, size: 16),
-                              label: Text(L10n.t.installmentPlanDetailsScreen36, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                              label: Text(L10n.t.installmentPlanDetailsScreen36, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                               onPressed: () {
                                 showDialog(
                                   context: context,

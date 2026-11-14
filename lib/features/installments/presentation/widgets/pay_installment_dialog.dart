@@ -155,8 +155,8 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
               decoration: InputDecoration(
                 labelText: L10n.t.payInstallmentDialog7,
-                prefixIcon: Icon(Icons.attach_money_rounded),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.attach_money_rounded),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 12),
@@ -210,8 +210,8 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
               decoration: InputDecoration(
                 labelText: L10n.t.payInstallmentDialog14,
                 hintText: L10n.t.payInstallmentDialog15,
-                prefixIcon: Icon(Icons.note_alt_outlined),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.note_alt_outlined),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 8),
@@ -241,7 +241,7 @@ class _PayInstallmentDialogState extends ConsumerState<PayInstallmentDialog> {
           onPressed: _isLoading ? null : _submit,
           child: _isLoading
               ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-              : Text(L10n.t.payInstallmentDialog18, style: TextStyle(fontWeight: FontWeight.bold)),
+              : Text(L10n.t.payInstallmentDialog18, style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
       ],
     );

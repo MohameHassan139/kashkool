@@ -39,7 +39,7 @@ class CloudBackupService {
   static const int _pushBatchSize = 400;
 
   /// Dates as ISO-8601 strings, which the server requires.
-  static final ValueSerializer serializer = ValueSerializer.defaults(serializeDateTimeValuesAsString: true);
+  static const ValueSerializer serializer = ValueSerializer.defaults(serializeDateTimeValuesAsString: true);
 
   /// Settings that must never leave the phone, or are device-specific.
   static bool isPrivateSetting(String key) =>

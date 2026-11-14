@@ -115,7 +115,7 @@ class RatingExplanationBottomSheet extends StatelessWidget {
                 children: [
                   Text(
                     L10n.t.ratingExplanationBottomSheet2,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                       color: AppColors.neutralGrey,
@@ -136,7 +136,7 @@ class RatingExplanationBottomSheet extends StatelessWidget {
             // System explanation legend for merchant
             Text(
               L10n.t.ratingExplanationBottomSheet3,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             const SizedBox(height: 10),
 
