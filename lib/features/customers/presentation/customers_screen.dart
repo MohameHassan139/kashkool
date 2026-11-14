@@ -277,6 +277,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
         icon: const Icon(Icons.person_add_alt_1_rounded),
         label: Text(
           l10n.addNewCustomer,

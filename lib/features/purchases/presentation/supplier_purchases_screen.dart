@@ -115,6 +115,7 @@ class SupplierPurchasesScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
         onPressed: () => _addPurchase(context, ref),
         icon: const Icon(Icons.add_rounded),
         label: Text(L10n.t.supplierPurchaseNew),

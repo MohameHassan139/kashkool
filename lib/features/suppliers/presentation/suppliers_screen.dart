@@ -264,6 +264,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
         icon: const Icon(Icons.person_add_rounded),
         label: Text(
           l10n.addNewSupplier,

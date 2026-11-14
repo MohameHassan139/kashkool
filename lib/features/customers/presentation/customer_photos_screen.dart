@@ -53,6 +53,7 @@ class CustomerPhotosScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(L10n.t.customerPhotosScreen5(customerName))),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
         onPressed: () => _add(context, ref),
         icon: const Icon(Icons.add_a_photo_rounded),
         label: Text(L10n.t.customerPhotosScreen6),

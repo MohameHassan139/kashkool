@@ -254,6 +254,7 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
         backgroundColor: AppColors.primaryGreen,
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),

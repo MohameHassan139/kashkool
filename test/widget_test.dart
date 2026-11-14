@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashkool/core/db/app_database.dart';
@@ -65,6 +66,13 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('المخزون'), findsOneWidget);
     expect(find.text('الدرج'), findsOneWidget);
+
+    // Settings sits at the bottom of the More page, so scroll it into view.
+    await tester.scrollUntilVisible(
+      find.text('الإعدادات'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('الإعدادات'), findsOneWidget);
 
     // Tap on Collection tab

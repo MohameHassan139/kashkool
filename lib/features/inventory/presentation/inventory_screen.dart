@@ -195,6 +195,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
         onPressed: _openForm,
         icon: const Icon(Icons.add_rounded),
         label: Text(L10n.t.inventoryAddProduct),
