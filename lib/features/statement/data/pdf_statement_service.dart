@@ -58,9 +58,9 @@ class PdfStatementService {
     // Thermal receipts use an open-ended height; MultiPage requires a finite
     // height, so for thermal we use a tall fixed height (10 m) with a single
     // Page widget instead of MultiPage.
-    final thermalWidth = 80 * PdfPageFormat.mm;
+    const thermalWidth = 80 * PdfPageFormat.mm;
     const thermalMarginAll = 4 * PdfPageFormat.mm;
-    final thermalPageFormat = PdfPageFormat(
+    const thermalPageFormat = PdfPageFormat(
       thermalWidth,
       3000 * PdfPageFormat.mm, // ~10 m — enough for any realistic receipt
       marginAll: thermalMarginAll,

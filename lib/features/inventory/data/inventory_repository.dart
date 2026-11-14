@@ -10,25 +10,36 @@ class InventoryRepository {
 
   InventoryRepository(this._db, {Uuid? uuid}) : _uuid = uuid ?? const Uuid();
 
-  Stream<List<ProductWithStock>> watchProducts({String query = ''}) {
+  Stream<List<ProductWithStock>> watchProducts({
+    String query = '',
+    String? supplierId,
+  }) {
     final trimmed = query.trim();
     final pattern = '%$trimmed%';
     final totalQuantity = _db.inventoryMovements.quantityDeltaMilliUnits.sum();
-    final statement =
-        (_db.select(_db.products)..where(
-              (product) =>
-                  product.deletedAt.isNull() &
-                  (product.name.like(pattern) |
-                      product.barcode.like(pattern) |
-                      product.category.like(pattern)),
-            ))
-            .join([
-              leftOuterJoin(
-                _db.inventoryMovements,
-                _db.inventoryMovements.productId.equalsExp(_db.products.id) &
-                    _db.inventoryMovements.deletedAt.isNull(),
-              ),
-            ]);
+
+    var whereCondition = _db.products.deletedAt.isNull() &
+        (_db.products.name.like(pattern) |
+            _db.products.barcode.like(pattern) |
+            _db.products.category.like(pattern));
+
+    if (supplierId != null && supplierId.isNotEmpty) {
+      whereCondition = whereCondition & _db.products.supplierId.equals(supplierId);
+    }
+
+    final statement = (_db.select(_db.products)..where((_) => whereCondition))
+        .join([
+          leftOuterJoin(
+            _db.inventoryMovements,
+            _db.inventoryMovements.productId.equalsExp(_db.products.id) &
+                _db.inventoryMovements.deletedAt.isNull(),
+          ),
+          leftOuterJoin(
+            _db.suppliers,
+            _db.products.supplierId.equalsExp(_db.suppliers.id) &
+                _db.suppliers.deletedAt.isNull(),
+          ),
+        ]);
     statement.addColumns([totalQuantity]);
     statement.groupBy([_db.products.id]);
     statement.orderBy([
@@ -41,10 +52,16 @@ class InventoryRepository {
             (row) => ProductWithStock(
               product: row.readTable(_db.products),
               quantityMilliUnits: row.read(totalQuantity) ?? 0,
+              supplier: row.readTableOrNull(_db.suppliers),
             ),
           )
           .toList(growable: false),
     );
+  }
+
+  /// Watches all products associated with a specific supplier.
+  Stream<List<ProductWithStock>> watchProductsBySupplier(String supplierId) {
+    return watchProducts(supplierId: supplierId);
   }
 
   Stream<List<InventoryMovement>> watchMovements(String productId) {
@@ -62,6 +79,7 @@ class InventoryRepository {
     required int minimumStockMilliUnits,
     String? barcode,
     String? category,
+    String? supplierId,
     int startingStockMilliUnits = 0,
   }) async {
     _validateProduct(
@@ -90,6 +108,7 @@ class InventoryRepository {
               purchasePricePiasters: purchasePricePiasters,
               salePricePiasters: salePricePiasters,
               minimumStockMilliUnits: minimumStockMilliUnits,
+              supplierId: Value(_cleanOptional(supplierId)),
               createdAt: Value(now),
               updatedAt: Value(now),
             ),
@@ -117,6 +136,7 @@ class InventoryRepository {
     required int minimumStockMilliUnits,
     String? barcode,
     String? category,
+    String? supplierId,
   }) async {
     _validateProduct(
       name: name,
@@ -156,6 +176,7 @@ class InventoryRepository {
           purchasePricePiasters: Value(purchasePricePiasters),
           salePricePiasters: Value(salePricePiasters),
           minimumStockMilliUnits: Value(minimumStockMilliUnits),
+          supplierId: Value(_cleanOptional(supplierId)),
           updatedAt: Value(DateTime.now().toUtc()),
         ),
       );

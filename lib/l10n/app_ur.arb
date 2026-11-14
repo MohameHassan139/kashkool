@@ -934,5 +934,14 @@
   "cloudDeleteAccountConfirmTitle": "اکاؤنٹ ہمیشہ کے لیے حذف کریں؟",
   "cloudDeleteAccountConfirmBody": "ہم آپ کا اکاؤنٹ اور آپ کی دکانوں کے تمام کلاؤڈ بیک اپ حذف کر دیں گے۔ یہ واپس نہیں ہو سکتا۔ اس فون کا ڈیٹا ویسا ہی رہے گا۔",
   "cloudDeleteAccountConfirmButton": "ہمیشہ کے لیے حذف کریں",
-  "cloudDeleteAccountDone": "آپ کا کلاؤڈ اکاؤنٹ حذف ہو گیا"
+  "cloudDeleteAccountDone": "آپ کا کلاؤڈ اکاؤنٹ حذف ہو گیا",
+  "navHome": "ہوم",
+  "moreSectionShop": "دکان کے اوزار",
+  "moreSectionApp": "رابطہ اور ترتیبات",
+  "moreInventorySubtitle": "مصنوعات، قیمتیں اور مقدار",
+  "moreCashDrawerSubtitle": "روزانہ کی بندش اور اخراجات",
+  "moreInstallmentsTitle": "اقساط",
+  "moreInstallmentsSubtitle": "اقساط کے منصوبے اور ادائیگی کی تاریخیں",
+  "moreOffersSubtitle": "گاہکوں کے لیے پیشکشیں اور مبارکبادیں",
+  "moreSettingsSubtitle": "دکان کی معلومات، حفاظت اور بیک اپ"
 }

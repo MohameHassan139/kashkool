@@ -7,6 +7,7 @@ import '../../../core/utils/quantity.dart';
 import '../../../l10n/l10n.dart';
 import '../data/inventory_repository.dart';
 import '../domain/product_with_stock.dart';
+import '../../suppliers/presentation/supplier_details_screen.dart';
 import 'inventory_providers.dart';
 import 'product_form_screen.dart';
 
@@ -241,6 +242,61 @@ class _ProductDetailsBody extends StatelessWidget {
                     ),
                   ],
                 ),
+                if (item.supplier != null) ...[
+                  const Divider(height: 24),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundColor: theme.colorScheme.primaryContainer,
+                        child: Icon(
+                          Icons.local_shipping_outlined,
+                          size: 20,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              L10n.t.inventorySupplierCardTitle,
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: theme.colorScheme.outline,
+                              ),
+                            ),
+                            Text(
+                              item.supplier!.name,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (item.supplier!.company != null &&
+                                item.supplier!.company!.isNotEmpty)
+                              Text(
+                                item.supplier!.company!,
+                                style: theme.textTheme.bodySmall,
+                              ),
+                          ],
+                        ),
+                      ),
+                      IconButton.filledTonal(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => SupplierDetailsScreen(
+                                supplierId: item.supplier!.id,
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.arrow_forward_rounded),
+                        tooltip: L10n.t.supplierDetails,
+                      ),
+                    ],
+                  ),
+                ],
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,

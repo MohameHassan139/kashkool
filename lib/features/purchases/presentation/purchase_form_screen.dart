@@ -10,6 +10,8 @@ import '../data/purchase_repository.dart';
 import '../domain/purchase_details.dart';
 import 'purchase_providers.dart';
 
+enum PurchasePaymentChoice { full, credit, partial, onAccount }
+
 class PurchaseFormScreen extends ConsumerStatefulWidget {
   final String supplierId;
   final String supplierName;
@@ -28,9 +30,10 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
   final _invoiceController = TextEditingController();
   final _quantityController = TextEditingController();
   final _unitCostController = TextEditingController();
+  final _paidAmountController = TextEditingController();
   final _lines = <PurchaseLineInputWithProduct>[];
   String? _selectedProductId;
-  PurchasePaymentType _paymentType = PurchasePaymentType.credit;
+  PurchasePaymentChoice _paymentChoice = PurchasePaymentChoice.credit;
   String? _errorMessage;
   bool _saving = false;
 
@@ -39,6 +42,7 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
     _invoiceController.dispose();
     _quantityController.dispose();
     _unitCostController.dispose();
+    _paidAmountController.dispose();
     super.dispose();
   }
 
@@ -98,6 +102,19 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
       return;
     }
 
+    final total = _lines.fold<int>(
+      0,
+      (sum, line) => sum + _lineTotal(line.line),
+    );
+    int paidPiasters = 0;
+    if (_paymentChoice == PurchasePaymentChoice.full) {
+      paidPiasters = total;
+    } else if (_paymentChoice == PurchasePaymentChoice.partial ||
+        _paymentChoice == PurchasePaymentChoice.onAccount) {
+      paidPiasters =
+          MoneyUtils.toPiasters(_paidAmountController.text, fallback: 0);
+    }
+
     setState(() {
       _saving = true;
       _errorMessage = null;
@@ -107,7 +124,10 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
           .read(purchaseRepositoryProvider)
           .createPurchase(
             supplierId: widget.supplierId,
-            paymentType: _paymentType,
+            paymentType: paidPiasters >= total && total > 0
+                ? PurchasePaymentType.cash
+                : PurchasePaymentType.credit,
+            paidPiasters: paidPiasters,
             lines: _lines.map((item) => item.line).toList(growable: false),
             invoiceNumber: _invoiceController.text,
           );
@@ -158,23 +178,62 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 8),
-              SegmentedButton<PurchasePaymentType>(
-                segments: [
-                  ButtonSegment(
-                    value: PurchasePaymentType.cash,
-                    label: Text(strings.supplierPurchaseCash),
-                    icon: const Icon(Icons.payments_outlined),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  ChoiceChip(
+                    label: Text(strings.purchasePaymentFull),
+                    selected: _paymentChoice == PurchasePaymentChoice.full,
+                    onSelected: (_) => setState(() {
+                      _paymentChoice = PurchasePaymentChoice.full;
+                      _paidAmountController.text = MoneyUtils.formatMoney(
+                        total,
+                        includeCurrency: false,
+                      );
+                    }),
                   ),
-                  ButtonSegment(
-                    value: PurchasePaymentType.credit,
-                    label: Text(strings.supplierPurchaseCredit),
-                    icon: const Icon(Icons.event_note_outlined),
+                  ChoiceChip(
+                    label: Text(strings.purchasePaymentCredit),
+                    selected: _paymentChoice == PurchasePaymentChoice.credit,
+                    onSelected: (_) => setState(() {
+                      _paymentChoice = PurchasePaymentChoice.credit;
+                      _paidAmountController.clear();
+                    }),
+                  ),
+                  ChoiceChip(
+                    label: Text(strings.purchasePaymentPartial),
+                    selected: _paymentChoice == PurchasePaymentChoice.partial,
+                    onSelected: (_) => setState(() {
+                      _paymentChoice = PurchasePaymentChoice.partial;
+                    }),
+                  ),
+                  ChoiceChip(
+                    label: Text(strings.purchasePaymentOnAccount),
+                    selected: _paymentChoice == PurchasePaymentChoice.onAccount,
+                    onSelected: (_) => setState(() {
+                      _paymentChoice = PurchasePaymentChoice.onAccount;
+                    }),
                   ),
                 ],
-                selected: {_paymentType},
-                onSelectionChanged: (value) =>
-                    setState(() => _paymentType = value.first),
               ),
+              if (_paymentChoice == PurchasePaymentChoice.partial ||
+                  _paymentChoice == PurchasePaymentChoice.onAccount) ...[
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _paidAmountController,
+                  decoration: InputDecoration(
+                    labelText: strings.purchasePaidAmount,
+                    border: const OutlineInputBorder(),
+                  ),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[\d٠-٩٫., ]')),
+                  ],
+                  onChanged: (_) => setState(() {}),
+                ),
+              ],
               const SizedBox(height: 20),
               DropdownButtonFormField<String>(
                 initialValue: _selectedProductId,
@@ -293,6 +352,45 @@ class _PurchaseFormScreenState extends ConsumerState<PurchaseFormScreen> {
                   context,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
+              if (total > 0 || _paymentChoice != PurchasePaymentChoice.credit) ...[
+                const SizedBox(height: 6),
+                Builder(builder: (context) {
+                  final enteredPaid = _paymentChoice == PurchasePaymentChoice.full
+                      ? total
+                      : (_paymentChoice == PurchasePaymentChoice.credit
+                          ? 0
+                          : MoneyUtils.toPiasters(
+                              _paidAmountController.text,
+                              fallback: 0,
+                            ));
+                  final diff = total - enteredPaid;
+                  if (diff > 0) {
+                    return Text(
+                      '${strings.purchaseRemainingDebt}: ${MoneyUtils.formatMoney(diff)}',
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  } else if (diff < 0) {
+                    return Text(
+                      '${strings.purchaseAdvanceCredit}: ${MoneyUtils.formatMoney(diff.abs())}',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  } else {
+                    return Text(
+                      strings.settled,
+                      style: const TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                }),
+              ],
               if (_errorMessage != null) ...[
                 const SizedBox(height: 12),
                 Text(

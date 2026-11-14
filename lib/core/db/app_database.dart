@@ -87,7 +87,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 9;
+  int get schemaVersion => 10;
 
   static QueryExecutor _openConnection() {
     return LazyDatabase(() async {
@@ -344,9 +344,17 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(sales);
         await m.createTable(saleItems);
       }
+      if (from < 10) {
+        try {
+          await m.addColumn(products, products.supplierId);
+        } catch (_) {}
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON;');
+      try {
+        await customStatement("ALTER TABLE products ADD COLUMN supplier_id TEXT;");
+      } catch (_) {}
       // Self-healing fallback for app_settings columns on existing devices
       try {
         await customStatement(

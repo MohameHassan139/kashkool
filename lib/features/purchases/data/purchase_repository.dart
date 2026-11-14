@@ -46,6 +46,7 @@ class PurchaseRepository {
     required PurchasePaymentType paymentType,
     required List<PurchaseLineInput> lines,
     String? invoiceNumber,
+    int? paidPiasters,
   }) async {
     if (lines.isEmpty) {
       throw ArgumentError('A purchase needs at least one line');
@@ -65,6 +66,11 @@ class PurchaseRepository {
         )
         .toList(growable: false);
     final total = lineTotals.fold<int>(0, (sum, line) => sum + line);
+    final effectivePaid =
+        paidPiasters ?? (paymentType == PurchasePaymentType.cash ? total : 0);
+    final recordedPaymentType = (effectivePaid >= total && total > 0)
+        ? PurchasePaymentType.cash
+        : paymentType;
     final purchaseId = _uuid.v4();
     final now = DateTime.now().toUtc();
     final cleanInvoiceNumber = _cleanOptional(invoiceNumber);
@@ -84,7 +90,7 @@ class PurchaseRepository {
               id: purchaseId,
               supplierId: supplierId,
               invoiceNumber: Value(cleanInvoiceNumber),
-              paymentType: paymentType,
+              paymentType: recordedPaymentType,
               totalPiasters: total,
               occurredAt: Value(now),
               createdAt: Value(now),
@@ -137,11 +143,11 @@ class PurchaseRepository {
           note: _purchaseNote(cleanInvoiceNumber),
           occurredAt: now,
         );
-        if (paymentType == PurchasePaymentType.cash) {
+        if (effectivePaid > 0) {
           await _insertSupplierTransaction(
             supplierId: supplierId,
             type: TransactionType.payment,
-            amountPiasters: total,
+            amountPiasters: effectivePaid,
             method: PaymentMethod.cash,
             note: _purchaseNote(cleanInvoiceNumber),
             occurredAt: now,

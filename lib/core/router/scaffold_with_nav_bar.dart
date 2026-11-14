@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/collection/presentation/collection_providers.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Bottom navigation bar shell widget wrapping the primary 5 sections.
-class ScaffoldWithNavBar extends StatelessWidget {
+/// Less used tools (inventory, cash drawer, installments, offers, settings)
+/// live under the "More" tab to keep the bar readable on small phones.
+class ScaffoldWithNavBar extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
 
   const ScaffoldWithNavBar({super.key, required this.navigationShell});
 
   void _onDestinationSelected(int index) {
+    HapticFeedback.selectionClick();
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
@@ -16,8 +22,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final dueCustomersCount = ref.watch(dueCustomersStreamProvider).valueOrNull?.length ?? 0;
 
     return Scaffold(
       body: navigationShell,
@@ -26,9 +33,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
         onDestinationSelected: _onDestinationSelected,
         destinations: [
           NavigationDestination(
-            icon: const Icon(Icons.point_of_sale_outlined),
-            selectedIcon: const Icon(Icons.point_of_sale_rounded),
-            label: l10n.quickPosTitle,
+            icon: const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home_rounded),
+            label: l10n.navHome,
           ),
           NavigationDestination(
             icon: const Icon(Icons.people_alt_outlined),
@@ -36,8 +43,16 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: l10n.navCustomers,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.notifications_active_outlined),
-            selectedIcon: const Icon(Icons.notifications_active_rounded),
+            icon: Badge.count(
+              count: dueCustomersCount,
+              isLabelVisible: dueCustomersCount > 0,
+              child: const Icon(Icons.notifications_active_outlined),
+            ),
+            selectedIcon: Badge.count(
+              count: dueCustomersCount,
+              isLabelVisible: dueCustomersCount > 0,
+              child: const Icon(Icons.notifications_active_rounded),
+            ),
             label: l10n.navCollection,
           ),
           NavigationDestination(
@@ -46,19 +61,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: l10n.navSuppliers,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.category_outlined),
-            selectedIcon: const Icon(Icons.category_rounded),
-            label: l10n.navInventory,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.account_balance_wallet_outlined),
-            selectedIcon: const Icon(Icons.account_balance_wallet_rounded),
-            label: l10n.navCashDrawer,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            selectedIcon: const Icon(Icons.settings_rounded),
-            label: l10n.navSettings,
+            icon: const Icon(Icons.more_horiz_rounded),
+            selectedIcon: const Icon(Icons.more_horiz_rounded),
+            label: l10n.moreActions,
           ),
         ],
       ),

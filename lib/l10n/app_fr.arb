@@ -934,5 +934,14 @@
   "cloudDeleteAccountConfirmTitle": "Supprimer définitivement votre compte ?",
   "cloudDeleteAccountConfirmBody": "Nous supprimerons votre compte et toutes les sauvegardes cloud de vos boutiques. C''est irréversible. Les données de ce téléphone restent intactes.",
   "cloudDeleteAccountConfirmButton": "Supprimer définitivement",
-  "cloudDeleteAccountDone": "Votre compte cloud a été supprimé"
+  "cloudDeleteAccountDone": "Votre compte cloud a été supprimé",
+  "navHome": "Accueil",
+  "moreSectionShop": "Outils de la boutique",
+  "moreSectionApp": "Communication et paramètres",
+  "moreInventorySubtitle": "Produits, prix et quantités",
+  "moreCashDrawerSubtitle": "Clôture du jour et dépenses",
+  "moreInstallmentsTitle": "Échéances",
+  "moreInstallmentsSubtitle": "Plans d''échéances et dates de paiement",
+  "moreOffersSubtitle": "Offres et vœux à vos clients",
+  "moreSettingsSubtitle": "Infos boutique, sécurité et sauvegarde"
 }

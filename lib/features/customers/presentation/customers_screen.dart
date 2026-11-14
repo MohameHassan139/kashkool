@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../../core/cloud/cloud_providers.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
@@ -62,29 +61,8 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         actions: [
           // Move the paper notebook into the app (customers & balances, old installments)
           NotebookImportButton(installmentsEnabled: installmentsEnabled),
-          // Quick POS / Pay launcher
-          IconButton(
-            icon: const Icon(Icons.point_of_sale_rounded),
-            tooltip: l10n.quickPosTitle,
-            onPressed: () => context.push('/pos'),
-          ),
-          // Offers & Greetings Broadcaster
-          IconButton(
-            icon: const Icon(Icons.campaign_outlined),
-            tooltip: l10n.offersBroadcasterTitle,
-            onPressed: () => context.push('/offers'),
-          ),
           // Google sign-in / cloud backup status
           const CloudAccountButton(),
-          // Installments Quick Entry (visible when enabled for shop)
-          if (installmentsEnabled)
-            IconButton(
-              icon: const Icon(Icons.receipt_long_rounded),
-              tooltip: L10n.t.customersScreen1,
-              onPressed: () {
-                context.push('/installments');
-              },
-            ),
           // Quick Privacy Mode Toggle
           IconButton(
             icon: Icon(

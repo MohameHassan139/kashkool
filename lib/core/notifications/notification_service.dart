@@ -201,7 +201,7 @@ class NotificationService {
 
   /// Displays a test notification to verify delivery and permissions immediately.
   Future<void> showTestNotification() async {
-    final androidDetails = AndroidNotificationDetails(
+    const androidDetails = AndroidNotificationDetails(
       'kashkool_general_channel',
       'إشعارات كشكول',
       channelDescription: 'إشعارات عامة وتجريبية',
@@ -212,9 +212,9 @@ class NotificationService {
       showWhen: true,
     );
 
-    final notificationDetails = NotificationDetails(
+    const notificationDetails = NotificationDetails(
       android: androidDetails,
-      iOS: const DarwinNotificationDetails(
+      iOS: DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,

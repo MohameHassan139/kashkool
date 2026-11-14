@@ -4,7 +4,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/quantity.dart';
 import '../../../l10n/l10n.dart';
-import '../../quick_pos/presentation/quick_pos_screen.dart';
+import '../../suppliers/presentation/suppliers_providers.dart';
 import '../domain/product_with_stock.dart';
 import 'inventory_providers.dart';
 import 'product_details_screen.dart';
@@ -57,15 +57,6 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(L10n.t.inventoryTitle),
-        actions: [
-          IconButton(
-            tooltip: L10n.t.quickPosOpen,
-            onPressed: () => Navigator.of(context).push<void>(
-              MaterialPageRoute(builder: (_) => const QuickPosScreen()),
-            ),
-            icon: const Icon(Icons.point_of_sale_rounded),
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -94,6 +85,48 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
               ),
             ),
           ),
+          ref.watch(suppliersListStreamProvider).maybeWhen(
+                data: (suppliers) {
+                  if (suppliers.isEmpty) return const SizedBox.shrink();
+                  final selectedSupplierId =
+                      ref.watch(inventorySupplierFilterProvider);
+                  return SizedBox(
+                    height: 40,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      children: [
+                        FilterChip(
+                          selected: selectedSupplierId == null,
+                          label: Text(L10n.t.inventoryFilterAllSuppliers),
+                          onSelected: (_) => ref
+                              .read(inventorySupplierFilterProvider.notifier)
+                              .state = null,
+                        ),
+                        const SizedBox(width: 8),
+                        ...suppliers.map((s) => Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 8),
+                              child: FilterChip(
+                                selected: selectedSupplierId == s.supplier.id,
+                                label: Text(s.supplier.name),
+                                onSelected: (_) {
+                                  ref
+                                      .read(inventorySupplierFilterProvider
+                                          .notifier)
+                                      .state = selectedSupplierId == s.supplier.id
+                                      ? null
+                                      : s.supplier.id;
+                                },
+                              ),
+                            )),
+                      ],
+                    ),
+                  );
+                },
+                orElse: () => const SizedBox.shrink(),
+              ),
+          const SizedBox(height: 8),
           Expanded(
             child: productsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),

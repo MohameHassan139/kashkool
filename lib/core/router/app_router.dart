@@ -8,11 +8,14 @@ import '../../features/installments/presentation/add_installment_plan_screen.dar
 import '../../features/installments/presentation/installment_plan_details_screen.dart';
 import '../../features/installments/presentation/installments_screen.dart';
 import '../../features/inventory/presentation/inventory_screen.dart';
+import '../../features/more/presentation/more_screen.dart';
 import '../../features/offers_broadcaster/presentation/offers_broadcaster_screen.dart';
 import '../../features/offers_broadcaster/presentation/offers_queue_screen.dart';
 import '../../features/onboarding/data/shop_repository.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/quick_pos/presentation/quick_pos_screen.dart';
+import '../../features/reports/presentation/profit_loss_screen.dart';
+import '../../features/reports/presentation/shop_financial_report_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/suppliers/presentation/suppliers_screen.dart';
 import 'scaffold_with_nav_bar.dart';
@@ -104,6 +107,33 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+      // Tools grouped under the "More" tab. They live outside the shell so the
+      // bottom bar stays focused on the five main sections.
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/inventory',
+        builder: (context, state) => const InventoryScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/cash-drawer',
+        builder: (context, state) => const CashDrawerScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/profit-loss',
+        builder: (context, state) => const ProfitLossScreen(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/shop-overview',
+        builder: (context, state) => const ShopFinancialReportScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell: navigationShell);
@@ -136,7 +166,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 3. الموردين (Suppliers)
+          // 4. الموردين (Suppliers)
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -145,30 +175,12 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 4. المخزون (Inventory)
+          // 5. المزيد (More): inventory, cash drawer, installments, offers, settings
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/inventory',
-                builder: (context, state) => const InventoryScreen(),
-              ),
-            ],
-          ),
-          // 5. الدرج (Cash Drawer)
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/cash-drawer',
-                builder: (context, state) => const CashDrawerScreen(),
-              ),
-            ],
-          ),
-          // 5. الإعدادات (Settings)
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/settings',
-                builder: (context, state) => const SettingsScreen(),
+                path: '/more',
+                builder: (context, state) => const MoreScreen(),
               ),
             ],
           ),

@@ -48,7 +48,14 @@ class NotificationCoordinator {
         if (payload != null && payload.isNotEmpty) {
           try {
             final router = _ref.read(routerProvider);
-            router.go(payload);
+            const tabLocations = {'/', '/customers', '/collection', '/suppliers', '/more'};
+            if (tabLocations.contains(payload)) {
+              router.go(payload);
+            } else {
+              // Screens outside the tab shell (e.g. /settings from the backup
+              // reminder) are pushed so the user always has a way back.
+              unawaited(router.push(payload));
+            }
           } catch (e) {
             debugPrint('NotificationCoordinator: failed to navigate to $payload: $e');
           }

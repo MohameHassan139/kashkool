@@ -9,4 +9,5 @@ class Products extends Table with BaseTable {
   IntColumn get purchasePricePiasters => integer()();
   IntColumn get salePricePiasters => integer()();
   IntColumn get minimumStockMilliUnits => integer()();
+  TextColumn get supplierId => text().nullable()();
 }

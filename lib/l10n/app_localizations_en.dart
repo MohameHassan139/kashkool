@@ -177,6 +177,134 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not save. Check the details and try again.';
 
   @override
+  String get inventorySupplier => 'Supplier (optional)';
+
+  @override
+  String get inventorySupplierNone => 'No supplier';
+
+  @override
+  String get inventorySupplierFilter => 'Filter by supplier';
+
+  @override
+  String get inventoryFilterAllSuppliers => 'All suppliers';
+
+  @override
+  String get inventorySupplierProducts => 'Supplier products';
+
+  @override
+  String get inventoryNoSupplierProducts =>
+      'No products linked to this supplier';
+
+  @override
+  String get inventorySupplierCardTitle => 'Assigned Supplier';
+
+  @override
+  String get inventoryOrderWhatsApp => 'Order restock via WhatsApp';
+
+  @override
+  String get supplierReturn => 'Supplier Return';
+
+  @override
+  String get supplierReturnReason => 'Return reason (optional)';
+
+  @override
+  String get supplierReturnSuccess =>
+      'Return recorded successfully and balance updated';
+
+  @override
+  String get purchasePaidAmount => 'Paid amount now';
+
+  @override
+  String get purchasePaymentFull => 'Full payment';
+
+  @override
+  String get purchasePaymentPartial => 'Partial payment (remaining on credit)';
+
+  @override
+  String get purchasePaymentOnAccount => 'Deposit under account';
+
+  @override
+  String get purchasePaymentCredit => 'Full credit';
+
+  @override
+  String get purchaseRemainingDebt => 'Remaining debt on shop';
+
+  @override
+  String get purchaseAdvanceCredit => 'Advance credit for shop';
+
+  @override
+  String get profitLossTitle => 'Profit & Loss';
+
+  @override
+  String get profitLossRevenue => 'Total Revenue';
+
+  @override
+  String get profitLossCogs => 'Cost of Goods Sold';
+
+  @override
+  String get profitLossGross => 'Gross Profit';
+
+  @override
+  String get profitLossExpenses => 'Operational Expenses';
+
+  @override
+  String get profitLossNet => 'Net Profit / Loss';
+
+  @override
+  String get profitLossMargin => 'Profit Margin';
+
+  @override
+  String get profitLossPeriodToday => 'Today';
+
+  @override
+  String get profitLossPeriodWeek => 'Last 7 days';
+
+  @override
+  String get profitLossPeriodMonth => 'This month';
+
+  @override
+  String get profitLossPeriodAll => 'All time';
+
+  @override
+  String get profitLossPositive => 'Net Profit';
+
+  @override
+  String get profitLossNegative => 'Net Loss';
+
+  @override
+  String get shopReportTitle => 'Shop Comprehensive Report';
+
+  @override
+  String get shopReportInventoryValue => 'Inventory Valuation';
+
+  @override
+  String get shopReportAtCost => 'At cost price';
+
+  @override
+  String get shopReportAtRetail => 'At retail price';
+
+  @override
+  String get shopReportExpectedProfit => 'Expected inventory profit';
+
+  @override
+  String get shopReportReceivables => 'Receivables from customers';
+
+  @override
+  String get shopReportPayables => 'Payables to suppliers';
+
+  @override
+  String get shopReportCashDrawer => 'Cash in drawer & bank';
+
+  @override
+  String get shopReportNetWorth => 'Shop Net Worth';
+
+  @override
+  String get shopReportLowStockCount => 'Low stock items';
+
+  @override
+  String get shopReportShare => 'Share report via WhatsApp';
+
+  @override
   String get quickPosTitle => 'Quick sale';
 
   @override
@@ -3894,4 +4022,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationServiceSettingsSendTestSuccess =>
       'Test notification sent! Check your notification tray 👍';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get moreSectionShop => 'Shop tools';
+
+  @override
+  String get moreSectionApp => 'Communication & settings';
+
+  @override
+  String get moreInventorySubtitle => 'Products, prices and quantities';
+
+  @override
+  String get moreCashDrawerSubtitle => 'Daily closing and expenses';
+
+  @override
+  String get moreInstallmentsTitle => 'Installments';
+
+  @override
+  String get moreInstallmentsSubtitle => 'Installment plans and due dates';
+
+  @override
+  String get moreOffersSubtitle => 'Offers and greetings to your customers';
+
+  @override
+  String get moreSettingsSubtitle => 'Shop info, security and backup';
 }

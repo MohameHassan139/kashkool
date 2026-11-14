@@ -7974,6 +7974,17 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _supplierIdMeta = const VerificationMeta(
+    'supplierId',
+  );
+  @override
+  late final GeneratedColumn<String> supplierId = GeneratedColumn<String>(
+    'supplier_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -7990,6 +8001,7 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     purchasePricePiasters,
     salePricePiasters,
     minimumStockMilliUnits,
+    supplierId,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -8105,6 +8117,12 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     } else if (isInserting) {
       context.missing(_minimumStockMilliUnitsMeta);
     }
+    if (data.containsKey('supplier_id')) {
+      context.handle(
+        _supplierIdMeta,
+        supplierId.isAcceptableOrUnknown(data['supplier_id']!, _supplierIdMeta),
+      );
+    }
     return context;
   }
 
@@ -8170,6 +8188,10 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
         DriftSqlType.int,
         data['${effectivePrefix}minimum_stock_milli_units'],
       )!,
+      supplierId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_id'],
+      ),
     );
   }
 
@@ -8194,6 +8216,7 @@ class Product extends DataClass implements Insertable<Product> {
   final int purchasePricePiasters;
   final int salePricePiasters;
   final int minimumStockMilliUnits;
+  final String? supplierId;
   const Product({
     required this.id,
     required this.shopId,
@@ -8209,6 +8232,7 @@ class Product extends DataClass implements Insertable<Product> {
     required this.purchasePricePiasters,
     required this.salePricePiasters,
     required this.minimumStockMilliUnits,
+    this.supplierId,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -8233,6 +8257,9 @@ class Product extends DataClass implements Insertable<Product> {
     map['purchase_price_piasters'] = Variable<int>(purchasePricePiasters);
     map['sale_price_piasters'] = Variable<int>(salePricePiasters);
     map['minimum_stock_milli_units'] = Variable<int>(minimumStockMilliUnits);
+    if (!nullToAbsent || supplierId != null) {
+      map['supplier_id'] = Variable<String>(supplierId);
+    }
     return map;
   }
 
@@ -8258,6 +8285,9 @@ class Product extends DataClass implements Insertable<Product> {
       purchasePricePiasters: Value(purchasePricePiasters),
       salePricePiasters: Value(salePricePiasters),
       minimumStockMilliUnits: Value(minimumStockMilliUnits),
+      supplierId: supplierId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(supplierId),
     );
   }
 
@@ -8285,6 +8315,7 @@ class Product extends DataClass implements Insertable<Product> {
       minimumStockMilliUnits: serializer.fromJson<int>(
         json['minimumStockMilliUnits'],
       ),
+      supplierId: serializer.fromJson<String?>(json['supplierId']),
     );
   }
   @override
@@ -8305,6 +8336,7 @@ class Product extends DataClass implements Insertable<Product> {
       'purchasePricePiasters': serializer.toJson<int>(purchasePricePiasters),
       'salePricePiasters': serializer.toJson<int>(salePricePiasters),
       'minimumStockMilliUnits': serializer.toJson<int>(minimumStockMilliUnits),
+      'supplierId': serializer.toJson<String?>(supplierId),
     };
   }
 
@@ -8323,6 +8355,7 @@ class Product extends DataClass implements Insertable<Product> {
     int? purchasePricePiasters,
     int? salePricePiasters,
     int? minimumStockMilliUnits,
+    Value<String?> supplierId = const Value.absent(),
   }) => Product(
     id: id ?? this.id,
     shopId: shopId ?? this.shopId,
@@ -8339,6 +8372,7 @@ class Product extends DataClass implements Insertable<Product> {
     salePricePiasters: salePricePiasters ?? this.salePricePiasters,
     minimumStockMilliUnits:
         minimumStockMilliUnits ?? this.minimumStockMilliUnits,
+    supplierId: supplierId.present ? supplierId.value : this.supplierId,
   );
   Product copyWithCompanion(ProductsCompanion data) {
     return Product(
@@ -8362,6 +8396,9 @@ class Product extends DataClass implements Insertable<Product> {
       minimumStockMilliUnits: data.minimumStockMilliUnits.present
           ? data.minimumStockMilliUnits.value
           : this.minimumStockMilliUnits,
+      supplierId: data.supplierId.present
+          ? data.supplierId.value
+          : this.supplierId,
     );
   }
 
@@ -8381,7 +8418,8 @@ class Product extends DataClass implements Insertable<Product> {
           ..write('unitLabel: $unitLabel, ')
           ..write('purchasePricePiasters: $purchasePricePiasters, ')
           ..write('salePricePiasters: $salePricePiasters, ')
-          ..write('minimumStockMilliUnits: $minimumStockMilliUnits')
+          ..write('minimumStockMilliUnits: $minimumStockMilliUnits, ')
+          ..write('supplierId: $supplierId')
           ..write(')'))
         .toString();
   }
@@ -8402,6 +8440,7 @@ class Product extends DataClass implements Insertable<Product> {
     purchasePricePiasters,
     salePricePiasters,
     minimumStockMilliUnits,
+    supplierId,
   );
   @override
   bool operator ==(Object other) =>
@@ -8420,7 +8459,8 @@ class Product extends DataClass implements Insertable<Product> {
           other.unitLabel == this.unitLabel &&
           other.purchasePricePiasters == this.purchasePricePiasters &&
           other.salePricePiasters == this.salePricePiasters &&
-          other.minimumStockMilliUnits == this.minimumStockMilliUnits);
+          other.minimumStockMilliUnits == this.minimumStockMilliUnits &&
+          other.supplierId == this.supplierId);
 }
 
 class ProductsCompanion extends UpdateCompanion<Product> {
@@ -8438,6 +8478,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
   final Value<int> purchasePricePiasters;
   final Value<int> salePricePiasters;
   final Value<int> minimumStockMilliUnits;
+  final Value<String?> supplierId;
   final Value<int> rowid;
   const ProductsCompanion({
     this.id = const Value.absent(),
@@ -8454,6 +8495,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     this.purchasePricePiasters = const Value.absent(),
     this.salePricePiasters = const Value.absent(),
     this.minimumStockMilliUnits = const Value.absent(),
+    this.supplierId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   ProductsCompanion.insert({
@@ -8471,6 +8513,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     required int purchasePricePiasters,
     required int salePricePiasters,
     required int minimumStockMilliUnits,
+    this.supplierId = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
@@ -8493,6 +8536,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     Expression<int>? purchasePricePiasters,
     Expression<int>? salePricePiasters,
     Expression<int>? minimumStockMilliUnits,
+    Expression<String>? supplierId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -8512,6 +8556,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
       if (salePricePiasters != null) 'sale_price_piasters': salePricePiasters,
       if (minimumStockMilliUnits != null)
         'minimum_stock_milli_units': minimumStockMilliUnits,
+      if (supplierId != null) 'supplier_id': supplierId,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -8531,6 +8576,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     Value<int>? purchasePricePiasters,
     Value<int>? salePricePiasters,
     Value<int>? minimumStockMilliUnits,
+    Value<String?>? supplierId,
     Value<int>? rowid,
   }) {
     return ProductsCompanion(
@@ -8550,6 +8596,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
       salePricePiasters: salePricePiasters ?? this.salePricePiasters,
       minimumStockMilliUnits:
           minimumStockMilliUnits ?? this.minimumStockMilliUnits,
+      supplierId: supplierId ?? this.supplierId,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -8603,6 +8650,9 @@ class ProductsCompanion extends UpdateCompanion<Product> {
         minimumStockMilliUnits.value,
       );
     }
+    if (supplierId.present) {
+      map['supplier_id'] = Variable<String>(supplierId.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -8626,6 +8676,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
           ..write('purchasePricePiasters: $purchasePricePiasters, ')
           ..write('salePricePiasters: $salePricePiasters, ')
           ..write('minimumStockMilliUnits: $minimumStockMilliUnits, ')
+          ..write('supplierId: $supplierId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -17706,6 +17757,7 @@ typedef $$ProductsTableCreateCompanionBuilder =
       required int purchasePricePiasters,
       required int salePricePiasters,
       required int minimumStockMilliUnits,
+      Value<String?> supplierId,
       Value<int> rowid,
     });
 typedef $$ProductsTableUpdateCompanionBuilder =
@@ -17724,6 +17776,7 @@ typedef $$ProductsTableUpdateCompanionBuilder =
       Value<int> purchasePricePiasters,
       Value<int> salePricePiasters,
       Value<int> minimumStockMilliUnits,
+      Value<String?> supplierId,
       Value<int> rowid,
     });
 
@@ -17803,6 +17856,11 @@ class $$ProductsTableFilterComposer
 
   ColumnFilters<int> get minimumStockMilliUnits => $composableBuilder(
     column: $table.minimumStockMilliUnits,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get supplierId => $composableBuilder(
+    column: $table.supplierId,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -17885,6 +17943,11 @@ class $$ProductsTableOrderingComposer
     column: $table.minimumStockMilliUnits,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get supplierId => $composableBuilder(
+    column: $table.supplierId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$ProductsTableAnnotationComposer
@@ -17943,6 +18006,11 @@ class $$ProductsTableAnnotationComposer
     column: $table.minimumStockMilliUnits,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get supplierId => $composableBuilder(
+    column: $table.supplierId,
+    builder: (column) => column,
+  );
 }
 
 class $$ProductsTableTableManager
@@ -17987,6 +18055,7 @@ class $$ProductsTableTableManager
                 Value<int> purchasePricePiasters = const Value.absent(),
                 Value<int> salePricePiasters = const Value.absent(),
                 Value<int> minimumStockMilliUnits = const Value.absent(),
+                Value<String?> supplierId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ProductsCompanion(
                 id: id,
@@ -18003,6 +18072,7 @@ class $$ProductsTableTableManager
                 purchasePricePiasters: purchasePricePiasters,
                 salePricePiasters: salePricePiasters,
                 minimumStockMilliUnits: minimumStockMilliUnits,
+                supplierId: supplierId,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -18021,6 +18091,7 @@ class $$ProductsTableTableManager
                 required int purchasePricePiasters,
                 required int salePricePiasters,
                 required int minimumStockMilliUnits,
+                Value<String?> supplierId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ProductsCompanion.insert(
                 id: id,
@@ -18037,6 +18108,7 @@ class $$ProductsTableTableManager
                 purchasePricePiasters: purchasePricePiasters,
                 salePricePiasters: salePricePiasters,
                 minimumStockMilliUnits: minimumStockMilliUnits,
+                supplierId: supplierId,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/quantity.dart';
 import '../../../l10n/l10n.dart';
+import '../../suppliers/presentation/suppliers_providers.dart';
 import '../data/inventory_repository.dart';
 import '../domain/product_with_stock.dart';
 
@@ -26,6 +27,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
   late final TextEditingController _salePriceController;
   late final TextEditingController _minimumStockController;
   late final TextEditingController _initialStockController;
+  String? _selectedSupplierId;
   bool _saving = false;
 
   bool get _isEditing => widget.product != null;
@@ -34,6 +36,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
   void initState() {
     super.initState();
     final product = widget.product?.product;
+    _selectedSupplierId = product?.supplierId;
     _nameController = TextEditingController(text: product?.name ?? '');
     _barcodeController = TextEditingController(text: product?.barcode ?? '');
     _categoryController = TextEditingController(text: product?.category ?? '');
@@ -101,6 +104,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
           minimumStockMilliUnits: minimumStock,
           barcode: _barcodeController.text,
           category: _categoryController.text,
+          supplierId: _selectedSupplierId,
         );
       } else {
         final startingStock = _initialStockController.text.trim().isEmpty
@@ -119,6 +123,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
           barcode: _barcodeController.text,
           category: _categoryController.text,
           startingStockMilliUnits: startingStock,
+          supplierId: _selectedSupplierId,
         );
       }
 
@@ -209,6 +214,32 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
               decoration: _decoration(strings.inventoryCategory),
               textCapitalization: TextCapitalization.sentences,
             ),
+            const SizedBox(height: 16),
+            ref.watch(suppliersListStreamProvider).maybeWhen(
+                  data: (suppliers) => DropdownButtonFormField<String?>(
+                    initialValue: _selectedSupplierId,
+                    decoration: _decoration(strings.inventorySupplier),
+                    items: [
+                      DropdownMenuItem<String?>(
+                        value: null,
+                        child: Text(strings.inventorySupplierNone),
+                      ),
+                      ...suppliers.map((s) {
+                        final label = s.supplier.company != null &&
+                                s.supplier.company!.isNotEmpty
+                            ? '${s.supplier.name} (${s.supplier.company})'
+                            : s.supplier.name;
+                        return DropdownMenuItem<String?>(
+                          value: s.supplier.id,
+                          child: Text(label),
+                        );
+                      }),
+                    ],
+                    onChanged: (val) =>
+                        setState(() => _selectedSupplierId = val),
+                  ),
+                  orElse: () => const SizedBox.shrink(),
+                ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _unitController,

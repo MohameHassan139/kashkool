@@ -934,5 +934,14 @@
   "cloudDeleteAccountConfirmTitle": "अकाउंट हमेशा के लिए हटाएँ?",
   "cloudDeleteAccountConfirmBody": "हम आपका अकाउंट और आपकी दुकानों के सारे क्लाउड बैकअप हटा देंगे। यह वापस नहीं होगा। इस फ़ोन का डेटा वैसा ही रहेगा।",
   "cloudDeleteAccountConfirmButton": "हमेशा के लिए हटाएँ",
-  "cloudDeleteAccountDone": "आपका क्लाउड अकाउंट हटा दिया गया"
+  "cloudDeleteAccountDone": "आपका क्लाउड अकाउंट हटा दिया गया",
+  "navHome": "होम",
+  "moreSectionShop": "दुकान के टूल",
+  "moreSectionApp": "संपर्क और सेटिंग्स",
+  "moreInventorySubtitle": "उत्पाद, कीमतें और मात्रा",
+  "moreCashDrawerSubtitle": "दैनिक क्लोजिंग और खर्च",
+  "moreInstallmentsTitle": "किस्तें",
+  "moreInstallmentsSubtitle": "किस्त योजनाएँ और भुगतान तिथियाँ",
+  "moreOffersSubtitle": "ग्राहकों के लिए ऑफ़र और शुभकामनाएँ",
+  "moreSettingsSubtitle": "दुकान की जानकारी, सुरक्षा और बैकअप"
 }

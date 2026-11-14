@@ -217,4 +217,54 @@ void main() {
       expect(await db.select(db.transactions).get(), isEmpty);
     },
   );
+
+  test('supports partial payment and advance deposit under account', () async {
+    final supplierId = await supplierRepository.addSupplier(
+      name: 'مورد البركة',
+    );
+    final productId = await inventoryRepository.addProduct(
+      name: 'Sugar',
+      unitLabel: 'kg',
+      purchasePricePiasters: 2000,
+      salePricePiasters: 2500,
+      minimumStockMilliUnits: 0,
+    );
+
+    // Bill total = 10,000 piasters. Paid 4,000 piasters. Remaining debt = 6,000 piasters.
+    await purchaseRepository.createPurchase(
+      supplierId: supplierId,
+      paymentType: PurchasePaymentType.credit,
+      invoiceNumber: 'PARTIAL-1',
+      paidPiasters: 4000,
+      lines: [
+        PurchaseLineInput(
+          productId: productId,
+          quantityMilliUnits: 5000,
+          unitCostPiasters: 2000,
+        ),
+      ],
+    );
+
+    var supplier = await supplierRepository.getSupplierWithBalance(supplierId);
+    expect(supplier!.balancePiasters, 6000);
+
+    // Now purchase for 2,000 piasters, but pay 5,000 piasters (3,000 excess under account)
+    await purchaseRepository.createPurchase(
+      supplierId: supplierId,
+      paymentType: PurchasePaymentType.credit,
+      invoiceNumber: 'ADVANCE-1',
+      paidPiasters: 5000,
+      lines: [
+        PurchaseLineInput(
+          productId: productId,
+          quantityMilliUnits: 1000,
+          unitCostPiasters: 2000,
+        ),
+      ],
+    );
+
+    supplier = await supplierRepository.getSupplierWithBalance(supplierId);
+    // 6000 + 2000 - 5000 = 3000
+    expect(supplier!.balancePiasters, 3000);
+  });
 }

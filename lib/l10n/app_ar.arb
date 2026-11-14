@@ -1106,5 +1106,14 @@
   "notificationServiceSettingsStatusDisabled": "متوقفة — اضغط لمنح الإذن",
   "notificationServiceSettingsSendTest": "إرسال إشعار تجريبي الآن",
   "notificationServiceSettingsSendTestSubtitle": "تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً",
-  "notificationServiceSettingsSendTestSuccess": "تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍"
+  "notificationServiceSettingsSendTestSuccess": "تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍",
+  "navHome": "الرئيسية",
+  "moreSectionShop": "أدوات المتجر",
+  "moreSectionApp": "التواصل والإعدادات",
+  "moreInventorySubtitle": "المنتجات والأسعار والكميات",
+  "moreCashDrawerSubtitle": "إغلاق اليوم والمصروفات",
+  "moreInstallmentsTitle": "الأقساط",
+  "moreInstallmentsSubtitle": "خطط الأقساط ومواعيد الدفع",
+  "moreOffersSubtitle": "رسائل العروض والتهاني لعملائك",
+  "moreSettingsSubtitle": "بيانات المتجر، الحماية، والنسخ الاحتياطي"
 }

@@ -7,12 +7,14 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/phone.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../l10n/l10n.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../../transactions/presentation/add_transaction_bottom_sheet.dart';
 import '../../transactions/presentation/transaction_details_bottom_sheet.dart';
 import '../../purchases/presentation/supplier_purchases_screen.dart';
 import '../data/supplier_repository.dart';
 import 'add_edit_supplier_screen.dart';
+import 'supplier_restock_dialog.dart';
 import 'suppliers_providers.dart';
 
 /// Full details screen for a single supplier or distributor.
@@ -426,6 +428,65 @@ class SupplierDetailsScreen extends ConsumerWidget {
                               partyName: supplier.name,
                               currentBalancePiasters: balance,
                               initialType: TransactionType.payment,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(44),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.chat_bubble_outline_rounded,
+                          color: Color(0xFF25D366),
+                        ),
+                        label: Text(
+                          L10n.t.inventoryOrderWhatsApp,
+                          style: const TextStyle(fontSize: 13),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) =>
+                                SupplierRestockDialog(supplier: supplier),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(44),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        icon: const Icon(Icons.receipt_long_outlined),
+                        label: Text(
+                          l10n.supplierPurchasesTitle,
+                          style: const TextStyle(fontSize: 13),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => SupplierPurchasesScreen(
+                                supplierId: supplier.id,
+                                supplierName: supplier.name,
+                              ),
                             ),
                           );
                         },

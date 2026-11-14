@@ -435,6 +435,258 @@ abstract class AppLocalizations {
   /// **'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.'**
   String get inventorySaveFailed;
 
+  /// No description provided for @inventorySupplier.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المورد (اختياري)'**
+  String get inventorySupplier;
+
+  /// No description provided for @inventorySupplierNone.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بدون مورد'**
+  String get inventorySupplierNone;
+
+  /// No description provided for @inventorySupplierFilter.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تصفية بالمورد'**
+  String get inventorySupplierFilter;
+
+  /// No description provided for @inventoryFilterAllSuppliers.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كل الموردين'**
+  String get inventoryFilterAllSuppliers;
+
+  /// No description provided for @inventorySupplierProducts.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أصناف المورد'**
+  String get inventorySupplierProducts;
+
+  /// No description provided for @inventoryNoSupplierProducts.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مفيش أصناف مربوطة بهذا المورد'**
+  String get inventoryNoSupplierProducts;
+
+  /// No description provided for @inventorySupplierCardTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المورد المسئول'**
+  String get inventorySupplierCardTitle;
+
+  /// No description provided for @inventoryOrderWhatsApp.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طلب نواقص عبر واتساب'**
+  String get inventoryOrderWhatsApp;
+
+  /// No description provided for @supplierReturn.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مرتجع للمورد'**
+  String get supplierReturn;
+
+  /// No description provided for @supplierReturnReason.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'سبب المرتجع (اختياري)'**
+  String get supplierReturnReason;
+
+  /// No description provided for @supplierReturnSuccess.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب'**
+  String get supplierReturnSuccess;
+
+  /// No description provided for @purchasePaidAmount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المبلغ المدفوع حالياً'**
+  String get purchasePaidAmount;
+
+  /// No description provided for @purchasePaymentFull.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'دفع كامل'**
+  String get purchasePaymentFull;
+
+  /// No description provided for @purchasePaymentPartial.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'دفع جزء (باقي آجل)'**
+  String get purchasePaymentPartial;
+
+  /// No description provided for @purchasePaymentOnAccount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'دفعة تحت الحساب'**
+  String get purchasePaymentOnAccount;
+
+  /// No description provided for @purchasePaymentCredit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'آجل بالكامل'**
+  String get purchasePaymentCredit;
+
+  /// No description provided for @purchaseRemainingDebt.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المتبقي آجل على المحل'**
+  String get purchaseRemainingDebt;
+
+  /// No description provided for @purchaseAdvanceCredit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رصيد زيادة للمحل (تحت الحساب)'**
+  String get purchaseAdvanceCredit;
+
+  /// No description provided for @profitLossTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المكسب والخسارة'**
+  String get profitLossTitle;
+
+  /// No description provided for @profitLossRevenue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي المبيعات'**
+  String get profitLossRevenue;
+
+  /// No description provided for @profitLossCogs.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تكلفة البضاعة المباعة'**
+  String get profitLossCogs;
+
+  /// No description provided for @profitLossGross.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مجمل الربح'**
+  String get profitLossGross;
+
+  /// No description provided for @profitLossExpenses.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المصروفات التشغيلية'**
+  String get profitLossExpenses;
+
+  /// No description provided for @profitLossNet.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي الربح / الخسارة'**
+  String get profitLossNet;
+
+  /// No description provided for @profitLossMargin.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نسبة هامش الربح'**
+  String get profitLossMargin;
+
+  /// No description provided for @profitLossPeriodToday.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اليوم'**
+  String get profitLossPeriodToday;
+
+  /// No description provided for @profitLossPeriodWeek.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'آخر 7 أيام'**
+  String get profitLossPeriodWeek;
+
+  /// No description provided for @profitLossPeriodMonth.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'هذا الشهر'**
+  String get profitLossPeriodMonth;
+
+  /// No description provided for @profitLossPeriodAll.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كل الفترات'**
+  String get profitLossPeriodAll;
+
+  /// No description provided for @profitLossPositive.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي ربح'**
+  String get profitLossPositive;
+
+  /// No description provided for @profitLossNegative.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي خسارة'**
+  String get profitLossNegative;
+
+  /// No description provided for @shopReportTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير المحل الشامل'**
+  String get shopReportTitle;
+
+  /// No description provided for @shopReportInventoryValue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'قيمة بضاعة المحل'**
+  String get shopReportInventoryValue;
+
+  /// No description provided for @shopReportAtCost.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بسعر الشراء (التكلفة)'**
+  String get shopReportAtCost;
+
+  /// No description provided for @shopReportAtRetail.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بسعر البيع (المتوقع)'**
+  String get shopReportAtRetail;
+
+  /// No description provided for @shopReportExpectedProfit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الربح المتوقع من البضاعة'**
+  String get shopReportExpectedProfit;
+
+  /// No description provided for @shopReportReceivables.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لينا عند العملاء (ديون)'**
+  String get shopReportReceivables;
+
+  /// No description provided for @shopReportPayables.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'علينا للموردين (ديون)'**
+  String get shopReportPayables;
+
+  /// No description provided for @shopReportCashDrawer.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الفلوس في الدرج والخزينة'**
+  String get shopReportCashDrawer;
+
+  /// No description provided for @shopReportNetWorth.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي رأس مال المحل'**
+  String get shopReportNetWorth;
+
+  /// No description provided for @shopReportLowStockCount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أصناف وصلت للنواقص'**
+  String get shopReportLowStockCount;
+
+  /// No description provided for @shopReportShare.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مشاركة التقرير عبر واتساب'**
+  String get shopReportShare;
+
   /// No description provided for @quickPosTitle.
   ///
   /// In ar_EG, this message translates to:
@@ -6939,6 +7191,60 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍'**
   String get notificationServiceSettingsSendTestSuccess;
+
+  /// No description provided for @navHome.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الرئيسية'**
+  String get navHome;
+
+  /// No description provided for @moreSectionShop.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أدوات المحل'**
+  String get moreSectionShop;
+
+  /// No description provided for @moreSectionApp.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'التواصل والإعدادات'**
+  String get moreSectionApp;
+
+  /// No description provided for @moreInventorySubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المنتجات والأسعار والكميات'**
+  String get moreInventorySubtitle;
+
+  /// No description provided for @moreCashDrawerSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقفيل اليوم والمصروفات'**
+  String get moreCashDrawerSubtitle;
+
+  /// No description provided for @moreInstallmentsTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الأقساط'**
+  String get moreInstallmentsTitle;
+
+  /// No description provided for @moreInstallmentsSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'خطط الأقساط ومواعيد الدفع'**
+  String get moreInstallmentsSubtitle;
+
+  /// No description provided for @moreOffersSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رسائل العروض والمعايدات لعملائك'**
+  String get moreOffersSubtitle;
+
+  /// No description provided for @moreSettingsSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيانات المحل، الحماية، والنسخ الاحتياطي'**
+  String get moreSettingsSubtitle;
 }
 
 class _AppLocalizationsDelegate

@@ -11,8 +11,6 @@ import '../../../features/customers/presentation/add_edit_customer_screen.dart';
 import '../../../features/customers/presentation/widgets/rating_badge.dart';
 import '../../../features/inventory/domain/product_with_stock.dart';
 import '../../../features/inventory/data/inventory_repository.dart';
-import '../../../features/inventory/presentation/inventory_screen.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../../l10n/l10n.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../data/sale_repository.dart';
@@ -342,15 +340,6 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                 setState(() => _cart.clear());
               },
             ),
-          IconButton(
-            tooltip: AppLocalizations.of(context)?.navInventory ?? 'المخزون',
-            icon: const Icon(Icons.inventory_2_outlined),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const InventoryScreen()),
-              );
-            },
-          ),
         ],
       ),
       body: SafeArea(

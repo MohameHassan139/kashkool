@@ -934,5 +934,14 @@
   "cloudDeleteAccountConfirmTitle": "Hesabınız kalıcı olarak silinsin mi?",
   "cloudDeleteAccountConfirmBody": "Hesabınızı ve sahibi olduğunuz dükkânların tüm bulut yedeklerini sileceğiz. Bu geri alınamaz. Bu telefondaki veriler olduğu gibi kalır.",
   "cloudDeleteAccountConfirmButton": "Kalıcı olarak sil",
-  "cloudDeleteAccountDone": "Bulut hesabınız silindi"
+  "cloudDeleteAccountDone": "Bulut hesabınız silindi",
+  "navHome": "Ana Sayfa",
+  "moreSectionShop": "Mağaza araçları",
+  "moreSectionApp": "İletişim ve ayarlar",
+  "moreInventorySubtitle": "Ürünler, fiyatlar ve miktarlar",
+  "moreCashDrawerSubtitle": "Günlük kapanış ve giderler",
+  "moreInstallmentsTitle": "Taksitler",
+  "moreInstallmentsSubtitle": "Taksit planları ve ödeme tarihleri",
+  "moreOffersSubtitle": "Müşterilerinize teklifler ve tebrikler",
+  "moreSettingsSubtitle": "Mağaza bilgileri, güvenlik ve yedekleme"
 }

@@ -174,6 +174,133 @@ class AppLocalizationsAr extends AppLocalizations {
       'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
 
   @override
+  String get inventorySupplier => 'المورد (اختياري)';
+
+  @override
+  String get inventorySupplierNone => 'بدون مورد';
+
+  @override
+  String get inventorySupplierFilter => 'تصفية بالمورد';
+
+  @override
+  String get inventoryFilterAllSuppliers => 'كل الموردين';
+
+  @override
+  String get inventorySupplierProducts => 'أصناف المورد';
+
+  @override
+  String get inventoryNoSupplierProducts => 'مفيش أصناف مربوطة بهذا المورد';
+
+  @override
+  String get inventorySupplierCardTitle => 'المورد المسئول';
+
+  @override
+  String get inventoryOrderWhatsApp => 'طلب نواقص عبر واتساب';
+
+  @override
+  String get supplierReturn => 'مرتجع للمورد';
+
+  @override
+  String get supplierReturnReason => 'سبب المرتجع (اختياري)';
+
+  @override
+  String get supplierReturnSuccess =>
+      'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
+
+  @override
+  String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
+
+  @override
+  String get purchasePaymentFull => 'دفع كامل';
+
+  @override
+  String get purchasePaymentPartial => 'دفع جزء (باقي آجل)';
+
+  @override
+  String get purchasePaymentOnAccount => 'دفعة تحت الحساب';
+
+  @override
+  String get purchasePaymentCredit => 'آجل بالكامل';
+
+  @override
+  String get purchaseRemainingDebt => 'المتبقي آجل على المحل';
+
+  @override
+  String get purchaseAdvanceCredit => 'رصيد زيادة للمحل (تحت الحساب)';
+
+  @override
+  String get profitLossTitle => 'المكسب والخسارة';
+
+  @override
+  String get profitLossRevenue => 'إجمالي المبيعات';
+
+  @override
+  String get profitLossCogs => 'تكلفة البضاعة المباعة';
+
+  @override
+  String get profitLossGross => 'مجمل الربح';
+
+  @override
+  String get profitLossExpenses => 'المصروفات التشغيلية';
+
+  @override
+  String get profitLossNet => 'صافي الربح / الخسارة';
+
+  @override
+  String get profitLossMargin => 'نسبة هامش الربح';
+
+  @override
+  String get profitLossPeriodToday => 'اليوم';
+
+  @override
+  String get profitLossPeriodWeek => 'آخر 7 أيام';
+
+  @override
+  String get profitLossPeriodMonth => 'هذا الشهر';
+
+  @override
+  String get profitLossPeriodAll => 'كل الفترات';
+
+  @override
+  String get profitLossPositive => 'صافي ربح';
+
+  @override
+  String get profitLossNegative => 'صافي خسارة';
+
+  @override
+  String get shopReportTitle => 'تقرير المحل الشامل';
+
+  @override
+  String get shopReportInventoryValue => 'قيمة بضاعة المحل';
+
+  @override
+  String get shopReportAtCost => 'بسعر الشراء (التكلفة)';
+
+  @override
+  String get shopReportAtRetail => 'بسعر البيع (المتوقع)';
+
+  @override
+  String get shopReportExpectedProfit => 'الربح المتوقع من البضاعة';
+
+  @override
+  String get shopReportReceivables => 'لينا عند العملاء (ديون)';
+
+  @override
+  String get shopReportPayables => 'علينا للموردين (ديون)';
+
+  @override
+  String get shopReportCashDrawer => 'الفلوس في الدرج والخزينة';
+
+  @override
+  String get shopReportNetWorth => 'صافي رأس مال المحل';
+
+  @override
+  String get shopReportLowStockCount => 'أصناف وصلت للنواقص';
+
+  @override
+  String get shopReportShare => 'مشاركة التقرير عبر واتساب';
+
+  @override
   String get quickPosTitle => 'بيع سريع';
 
   @override
@@ -3860,6 +3987,33 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get notificationServiceSettingsSendTestSuccess =>
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+
+  @override
+  String get navHome => 'الرئيسية';
+
+  @override
+  String get moreSectionShop => 'أدوات المتجر';
+
+  @override
+  String get moreSectionApp => 'التواصل والإعدادات';
+
+  @override
+  String get moreInventorySubtitle => 'المنتجات والأسعار والكميات';
+
+  @override
+  String get moreCashDrawerSubtitle => 'إغلاق اليوم والمصروفات';
+
+  @override
+  String get moreInstallmentsTitle => 'الأقساط';
+
+  @override
+  String get moreInstallmentsSubtitle => 'خطط الأقساط ومواعيد الدفع';
+
+  @override
+  String get moreOffersSubtitle => 'رسائل العروض والتهاني لعملائك';
+
+  @override
+  String get moreSettingsSubtitle => 'بيانات المتجر، الحماية، والنسخ الاحتياطي';
 }
 
 /// The translations for Arabic, as used in Egypt (`ar_EG`).
@@ -4030,6 +4184,133 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   @override
   String get inventorySaveFailed =>
       'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+
+  @override
+  String get inventorySupplier => 'المورد (اختياري)';
+
+  @override
+  String get inventorySupplierNone => 'بدون مورد';
+
+  @override
+  String get inventorySupplierFilter => 'تصفية بالمورد';
+
+  @override
+  String get inventoryFilterAllSuppliers => 'كل الموردين';
+
+  @override
+  String get inventorySupplierProducts => 'أصناف المورد';
+
+  @override
+  String get inventoryNoSupplierProducts => 'مفيش أصناف مربوطة بهذا المورد';
+
+  @override
+  String get inventorySupplierCardTitle => 'المورد المسئول';
+
+  @override
+  String get inventoryOrderWhatsApp => 'طلب نواقص عبر واتساب';
+
+  @override
+  String get supplierReturn => 'مرتجع للمورد';
+
+  @override
+  String get supplierReturnReason => 'سبب المرتجع (اختياري)';
+
+  @override
+  String get supplierReturnSuccess =>
+      'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
+
+  @override
+  String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
+
+  @override
+  String get purchasePaymentFull => 'دفع كامل';
+
+  @override
+  String get purchasePaymentPartial => 'دفع جزء (باقي آجل)';
+
+  @override
+  String get purchasePaymentOnAccount => 'دفعة تحت الحساب';
+
+  @override
+  String get purchasePaymentCredit => 'آجل بالكامل';
+
+  @override
+  String get purchaseRemainingDebt => 'المتبقي آجل على المحل';
+
+  @override
+  String get purchaseAdvanceCredit => 'رصيد زيادة للمحل (تحت الحساب)';
+
+  @override
+  String get profitLossTitle => 'المكسب والخسارة';
+
+  @override
+  String get profitLossRevenue => 'إجمالي المبيعات';
+
+  @override
+  String get profitLossCogs => 'تكلفة البضاعة المباعة';
+
+  @override
+  String get profitLossGross => 'مجمل الربح';
+
+  @override
+  String get profitLossExpenses => 'المصروفات التشغيلية';
+
+  @override
+  String get profitLossNet => 'صافي الربح / الخسارة';
+
+  @override
+  String get profitLossMargin => 'نسبة هامش الربح';
+
+  @override
+  String get profitLossPeriodToday => 'اليوم';
+
+  @override
+  String get profitLossPeriodWeek => 'آخر 7 أيام';
+
+  @override
+  String get profitLossPeriodMonth => 'هذا الشهر';
+
+  @override
+  String get profitLossPeriodAll => 'كل الفترات';
+
+  @override
+  String get profitLossPositive => 'صافي ربح';
+
+  @override
+  String get profitLossNegative => 'صافي خسارة';
+
+  @override
+  String get shopReportTitle => 'تقرير المحل الشامل';
+
+  @override
+  String get shopReportInventoryValue => 'قيمة بضاعة المحل';
+
+  @override
+  String get shopReportAtCost => 'بسعر الشراء (التكلفة)';
+
+  @override
+  String get shopReportAtRetail => 'بسعر البيع (المتوقع)';
+
+  @override
+  String get shopReportExpectedProfit => 'الربح المتوقع من البضاعة';
+
+  @override
+  String get shopReportReceivables => 'لينا عند العملاء (ديون)';
+
+  @override
+  String get shopReportPayables => 'علينا للموردين (ديون)';
+
+  @override
+  String get shopReportCashDrawer => 'الفلوس في الدرج والخزينة';
+
+  @override
+  String get shopReportNetWorth => 'صافي رأس مال المحل';
+
+  @override
+  String get shopReportLowStockCount => 'أصناف وصلت للنواقص';
+
+  @override
+  String get shopReportShare => 'مشاركة التقرير عبر واتساب';
 
   @override
   String get quickPosTitle => 'بيع سريع';
@@ -7719,4 +8000,31 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   @override
   String get notificationServiceSettingsSendTestSuccess =>
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+
+  @override
+  String get navHome => 'الرئيسية';
+
+  @override
+  String get moreSectionShop => 'أدوات المحل';
+
+  @override
+  String get moreSectionApp => 'التواصل والإعدادات';
+
+  @override
+  String get moreInventorySubtitle => 'المنتجات والأسعار والكميات';
+
+  @override
+  String get moreCashDrawerSubtitle => 'تقفيل اليوم والمصروفات';
+
+  @override
+  String get moreInstallmentsTitle => 'الأقساط';
+
+  @override
+  String get moreInstallmentsSubtitle => 'خطط الأقساط ومواعيد الدفع';
+
+  @override
+  String get moreOffersSubtitle => 'رسائل العروض والمعايدات لعملائك';
+
+  @override
+  String get moreSettingsSubtitle => 'بيانات المحل، الحماية، والنسخ الاحتياطي';
 }

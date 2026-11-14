@@ -54,9 +54,16 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify Arabic navigation items are present
+    expect(find.text('الرئيسية'), findsOneWidget);
     expect(find.text('العملاء'), findsWidgets);
     expect(find.text('التحصيل'), findsOneWidget);
     expect(find.text('الموردين'), findsOneWidget);
+    expect(find.text('المزيد'), findsOneWidget);
+
+    // Less used tools are grouped under "المزيد"
+    await tester.tap(find.text('المزيد'));
+    await tester.pumpAndSettle();
+    expect(find.text('المخزون'), findsOneWidget);
     expect(find.text('الدرج'), findsOneWidget);
     expect(find.text('الإعدادات'), findsOneWidget);
 

@@ -934,5 +934,14 @@
   "cloudDeleteAccountConfirmTitle": "حساب برای همیشه حذف شود؟",
   "cloudDeleteAccountConfirmBody": "حساب شما و همه پشتیبان‌های ابری مغازه‌هایتان حذف می‌شود و قابل بازگشت نیست. داده‌های این گوشی همان‌طور می‌ماند.",
   "cloudDeleteAccountConfirmButton": "حذف دائمی",
-  "cloudDeleteAccountDone": "حساب ابری شما حذف شد"
+  "cloudDeleteAccountDone": "حساب ابری شما حذف شد",
+  "navHome": "خانه",
+  "moreSectionShop": "ابزارهای فروشگاه",
+  "moreSectionApp": "ارتباطات و تنظیمات",
+  "moreInventorySubtitle": "محصولات، قیمت‌ها و موجودی",
+  "moreCashDrawerSubtitle": "بستن روز و هزینه‌ها",
+  "moreInstallmentsTitle": "اقساط",
+  "moreInstallmentsSubtitle": "طرح‌های اقساط و تاریخ پرداخت",
+  "moreOffersSubtitle": "پیشنهادها و تبریک‌ها به مشتریان",
+  "moreSettingsSubtitle": "اطلاعات فروشگاه، امنیت و پشتیبان‌گیری"
 }

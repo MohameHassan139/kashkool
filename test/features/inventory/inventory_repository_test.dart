@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashkool/core/db/app_database.dart';
@@ -159,5 +160,36 @@ void main() {
     await repository.softDeleteProduct(id);
     expect(await repository.watchProducts().first, isEmpty);
     expect(await repository.watchMovements(id).first, hasLength(1));
+  });
+
+  test('associates products with suppliers and filters by supplierId', () async {
+    await db.into(db.suppliers).insert(
+      SuppliersCompanion.insert(
+        id: 'supp-1',
+        name: 'Juhayna Rep',
+        phone: const Value('01012345678'),
+      ),
+    );
+
+    await repository.addProduct(
+      name: 'Milk 1L',
+      unitLabel: 'bottle',
+      purchasePricePiasters: 2500,
+      salePricePiasters: 3000,
+      minimumStockMilliUnits: 5000,
+      startingStockMilliUnits: 10000,
+      supplierId: 'supp-1',
+    );
+
+    final allProducts = await repository.watchProducts().first;
+    expect(allProducts.single.product.supplierId, 'supp-1');
+    expect(allProducts.single.supplier?.name, 'Juhayna Rep');
+
+    final filtered = await repository.watchProducts(supplierId: 'supp-1').first;
+    expect(filtered, hasLength(1));
+
+    final emptyFilter =
+        await repository.watchProducts(supplierId: 'non-existent').first;
+    expect(emptyFilter, isEmpty);
   });
 }
