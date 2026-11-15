@@ -8,6 +8,7 @@ import '../../../l10n/l10n.dart';
 import '../data/inventory_repository.dart';
 import '../domain/product_with_stock.dart';
 import '../../suppliers/presentation/supplier_details_screen.dart';
+import '../../suppliers/presentation/supplier_restock_dialog.dart';
 import 'inventory_providers.dart';
 import 'product_form_screen.dart';
 
@@ -295,6 +296,24 @@ class _ProductDetailsBody extends StatelessWidget {
                         tooltip: L10n.t.supplierDetails,
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => SupplierRestockDialog(supplier: item.supplier!),
+                        );
+                      },
+                      icon: const Icon(Icons.send_rounded, color: Color(0xFF25D366)),
+                      label: Text(L10n.t.inventoryOrderWhatsApp),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: const Color(0xFF25D366),
+                        side: const BorderSide(color: Color(0xFF25D366)),
+                      ),
+                    ),
                   ),
                 ],
                 const SizedBox(height: 16),

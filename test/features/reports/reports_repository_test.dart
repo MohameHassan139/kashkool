@@ -147,4 +147,74 @@ void main() {
     // Net worth = (InventoryCost 50,000 + Cash 0 + Receivables 3,000) - Payables 15,000 = 38,000
     expect(overview.netWorthPiasters, 38000);
   });
+
+  test('correctly splits profit into realized cash and unrealized credit at customers', () async {
+    // 1. Add product: cost 20 EGP (2000 piasters), sale 35 EGP (3500 piasters)
+    // Unit profit = 15 EGP (1500 piasters)
+    final productId = await inventoryRepository.addProduct(
+      name: 'Tea Pack',
+      unitLabel: 'pack',
+      purchasePricePiasters: 2000,
+      salePricePiasters: 3500,
+      minimumStockMilliUnits: 1000,
+      startingStockMilliUnits: 10000,
+    );
+
+    // 2. Cash Sale: 2 packs = 7,000 revenue, 4,000 cost -> 3,000 cash gross profit
+    await saleRepository.createSale(
+      paymentType: SalePaymentType.cash,
+      lines: [
+        SaleLineInput(productId: productId, quantityMilliUnits: 2000),
+      ],
+    );
+
+    // 3. Credit Sale: 3 packs = 10,500 revenue, 6,000 cost -> 4,500 credit gross profit
+    final custId = await customerRepository.addCustomer(
+      name: 'عميل آجل',
+      phone: '01099998888',
+    );
+    await saleRepository.createSale(
+      customerId: custId,
+      paymentType: SalePaymentType.credit,
+      lines: [
+        SaleLineInput(productId: productId, quantityMilliUnits: 3000),
+      ],
+    );
+
+    // 4. Operating expense of 1,000 piasters
+    await expensesRepository.addExpense(
+      date: DateTime.now(),
+      category: ExpenseCategory.other,
+      amountPiasters: 1000,
+      note: 'مستلزمات نظافة',
+    );
+
+    // 5. Fetch report
+    final report =
+        await reportsRepository.watchProfitLossReport(ReportPeriod.today).first;
+
+    // Cash breakdown verification
+    expect(report.cashRevenuePiasters, 7000);
+    expect(report.cashCogsPiasters, 4000);
+    expect(report.cashGrossProfitPiasters, 3000);
+    expect(report.cashNetProfitPiasters, 2000); // 3,000 - 1,000 expense
+    expect(report.cashSalesCount, 1);
+
+    // Credit breakdown verification
+    expect(report.creditRevenuePiasters, 10500);
+    expect(report.creditCogsPiasters, 6000);
+    expect(report.creditGrossProfitPiasters, 4500); // Uncollected at customers
+    expect(report.creditSalesCount, 1);
+
+    // Total summary verification
+    expect(report.totalRevenuePiasters, 17500);
+    expect(report.costOfGoodsSoldPiasters, 10000);
+    expect(report.grossProfitPiasters, 7500);
+    expect(report.operatingExpensesPiasters, 1000);
+    expect(report.netProfitPiasters, 6500);
+    expect(report.netProfitPiasters, equals(report.cashNetProfitPiasters + report.creditGrossProfitPiasters));
+    expect(report.totalSalesCount, 2);
+    expect(report.isCashProfitable, isTrue);
+    expect(report.isProfitable, isTrue);
+  });
 }

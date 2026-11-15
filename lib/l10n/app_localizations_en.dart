@@ -272,6 +272,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profitLossNegative => 'Net Loss';
 
   @override
+  String get profitLossCashSectionTitle => 'Realized Cash Profit';
+
+  @override
+  String get profitLossCashSectionSubtitle =>
+      'Profit physically collected from cash sales after operating expenses';
+
+  @override
+  String get profitLossCashNet => 'Net Cash Profit in Drawer';
+
+  @override
+  String get profitLossCashRevenue => 'Cash Sales';
+
+  @override
+  String get profitLossCashCogs => 'Cost of Cash Goods Sold';
+
+  @override
+  String get profitLossCashGross => 'Gross Cash Profit';
+
+  @override
+  String get profitLossCreditSectionTitle => 'Uncollected Receivables Profit';
+
+  @override
+  String get profitLossCreditSectionSubtitle =>
+      'Profit locked in customer credit debts awaiting collection';
+
+  @override
+  String get profitLossCreditGross => 'Unrealized Profit at Customers';
+
+  @override
+  String get profitLossCreditRevenue => 'Credit Sales';
+
+  @override
+  String get profitLossCreditCogs => 'Cost of Credit Goods Sold';
+
+  @override
+  String get profitLossTotalExpectedNet => 'Total Expected Net Profit';
+
+  @override
+  String get profitLossCashVsCreditRatio => 'Cash to Credit Ratio';
+
+  @override
   String get shopReportTitle => 'Shop Comprehensive Report';
 
   @override

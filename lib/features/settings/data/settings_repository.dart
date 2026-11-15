@@ -20,6 +20,7 @@ class SettingsRepository {
   static const String keyLastCollectionReminderDate = 'notifications_last_collection_reminder_date';
   static const String keyLastInstallmentReminderDate = 'notifications_last_installment_reminder_date';
   static const String keyLastBackupReminderDate = 'notifications_last_backup_reminder_date';
+  static const String keyLastLowStockReminderDate = 'notifications_last_low_stock_reminder_date';
   static const String keyShopName = 'shop_name';
   static const String keyShopPhone = 'shop_phone';
   static const String keyShopAddress = 'shop_address';
@@ -190,6 +191,9 @@ class SettingsRepository {
   /// Date when backup reminder was last triggered (yyyy-MM-dd).
   Future<String?> getLastBackupReminderDate() async => getString(keyLastBackupReminderDate);
   Future<void> setLastBackupReminderDate(String dateStr) => setString(keyLastBackupReminderDate, dateStr);
+
+  Future<String?> getLastLowStockReminderDate() async => getString(keyLastLowStockReminderDate);
+  Future<void> setLastLowStockReminderDate(String dateStr) => setString(keyLastLowStockReminderDate, dateStr);
 
   /// Shop name for reminder message header (default: 'كشكول').
   Future<String> getShopName() async {

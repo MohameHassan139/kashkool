@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/db/app_database.dart';
+import '../../../core/notifications/notification_service.dart';
 import '../../../features/cash_drawer/data/cash_drawer_repository.dart';
 import '../../../l10n/l10n.dart';
 
@@ -175,6 +176,38 @@ class SaleRepository {
             );
       }
     });
+
+    // Immediate low-stock check after stock reduction
+    try {
+      for (final line in lines) {
+        final product = await (_db.select(_db.products)
+              ..where((p) => p.id.equals(line.productId) & p.deletedAt.isNull()))
+            .getSingleOrNull();
+        if (product != null && product.minimumStockMilliUnits > 0) {
+          final current = await _quantityOnHand(product.id);
+          if (current <= product.minimumStockMilliUnits) {
+            String? supplierName;
+            String? supplierPhone;
+            if (product.supplierId != null) {
+              final supplier = await (_db.select(_db.suppliers)
+                    ..where((s) => s.id.equals(product.supplierId!) & s.deletedAt.isNull()))
+                  .getSingleOrNull();
+              supplierName = supplier?.name;
+              supplierPhone = supplier?.phone;
+            }
+            final qtyStr = '${(current / 1000).toStringAsFixed(1)} ${product.unitLabel}';
+            await NotificationService().showLowStockNotification(
+              productName: product.name,
+              remainingStock: qtyStr,
+              supplierName: supplierName,
+              supplierPhone: supplierPhone,
+            );
+          }
+        }
+      }
+    } catch (_) {
+      // Ignore notification exceptions in test or headless environments
+    }
 
     return saleId;
   }

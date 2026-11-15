@@ -98,19 +98,35 @@ class ReportsRepository {
                 c.deletedAt.isNull()))
           .get();
 
-      var revenuePiasters = 0;
-      var cogsPiasters = 0;
+      final saleMap = {for (final s in sales) s.id: s};
+      var cashRevenuePiasters = 0;
+      var cashCogsPiasters = 0;
+      var creditRevenuePiasters = 0;
+      var creditCogsPiasters = 0;
+      var cashSalesCount = 0;
+      var creditSalesCount = 0;
       var posCashSales = 0;
-
-      for (final item in saleItems) {
-        revenuePiasters += item.lineTotalPiasters;
-        final cost = (item.quantityMilliUnits * item.unitCostPiasters + 500) ~/ 1000;
-        cogsPiasters += cost;
-      }
 
       for (final s in sales) {
         if (s.paymentType == SalePaymentType.cash) {
+          cashSalesCount++;
           posCashSales += s.totalPiasters;
+        } else {
+          creditSalesCount++;
+        }
+      }
+
+      for (final item in saleItems) {
+        final sale = saleMap[item.saleId];
+        final cost = (item.quantityMilliUnits * item.unitCostPiasters + 500) ~/ 1000;
+        final isCash = sale?.paymentType == SalePaymentType.cash;
+
+        if (isCash) {
+          cashRevenuePiasters += item.lineTotalPiasters;
+          cashCogsPiasters += cost;
+        } else {
+          creditRevenuePiasters += item.lineTotalPiasters;
+          creditCogsPiasters += cost;
         }
       }
 
@@ -120,7 +136,7 @@ class ReportsRepository {
         totalDrawerCashSales += day.cashSalesPiasters;
       }
       if (totalDrawerCashSales > posCashSales) {
-        revenuePiasters += (totalDrawerCashSales - posCashSales);
+        cashRevenuePiasters += (totalDrawerCashSales - posCashSales);
       }
 
       var operatingExpenses = 0;
@@ -128,23 +144,39 @@ class ReportsRepository {
         operatingExpenses += e.amountPiasters;
       }
 
-      final grossProfit = revenuePiasters - cogsPiasters;
+      final cashGrossProfit = cashRevenuePiasters - cashCogsPiasters;
+      final cashNetProfit = cashGrossProfit - operatingExpenses;
+
+      final creditGrossProfit = creditRevenuePiasters - creditCogsPiasters;
+
+      final totalRevenue = cashRevenuePiasters + creditRevenuePiasters;
+      final totalCogs = cashCogsPiasters + creditCogsPiasters;
+      final grossProfit = totalRevenue - totalCogs;
       final netProfit = grossProfit - operatingExpenses;
-      final margin = revenuePiasters > 0
-          ? (netProfit / revenuePiasters) * 100.0
+      final margin = totalRevenue > 0
+          ? (netProfit / totalRevenue) * 100.0
           : 0.0;
 
       yield ProfitLossReport(
         period: period,
         startDate: start,
         endDate: end,
-        totalRevenuePiasters: revenuePiasters,
-        costOfGoodsSoldPiasters: cogsPiasters,
+        cashRevenuePiasters: cashRevenuePiasters,
+        cashCogsPiasters: cashCogsPiasters,
+        cashGrossProfitPiasters: cashGrossProfit,
+        cashNetProfitPiasters: cashNetProfit,
+        creditRevenuePiasters: creditRevenuePiasters,
+        creditCogsPiasters: creditCogsPiasters,
+        creditGrossProfitPiasters: creditGrossProfit,
+        totalRevenuePiasters: totalRevenue,
+        costOfGoodsSoldPiasters: totalCogs,
         grossProfitPiasters: grossProfit,
         operatingExpensesPiasters: operatingExpenses,
         netProfitPiasters: netProfit,
         profitMarginPercentage: margin,
         totalSalesCount: sales.length,
+        cashSalesCount: cashSalesCount,
+        creditSalesCount: creditSalesCount,
         totalExpensesCount: expenses.length,
       );
     }

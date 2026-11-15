@@ -199,6 +199,85 @@ class NotificationService {
     );
   }
 
+  /// Displays an immediate notification for a single item that reached low stock.
+  Future<void> showLowStockNotification({
+    required String productName,
+    required String remainingStock,
+    String? supplierName,
+    String? supplierPhone,
+  }) async {
+    const androidDetails = AndroidNotificationDetails(
+      'low_stock_channel',
+      'تنبيهات نواقص البضاعة',
+      channelDescription: 'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون',
+      importance: Importance.high,
+      priority: Priority.high,
+      playSound: true,
+      enableVibration: true,
+      showWhen: true,
+    );
+
+    const notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      ),
+    );
+
+    String body = 'المتبقي بالمخزن: $remainingStock.';
+    if (supplierName != null && supplierName.isNotEmpty) {
+      body += ' المورد: $supplierName — اضغط لطلب البضاعة عبر واتساب';
+    } else {
+      body += ' اضغط لتفقد المخزون وتحديث النواقص';
+    }
+
+    final notifId = 2000 + (productName.hashCode.abs() % 900);
+    await _notificationsPlugin.show(
+      id: notifId,
+      title: '⚠️ بضاعة وصلت للنواقص: $productName',
+      body: body,
+      notificationDetails: notificationDetails,
+      payload: '/inventory',
+    );
+  }
+
+  /// Displays a notification when multiple items need restocking.
+  Future<void> showMultipleLowStockNotification({
+    required int count,
+  }) async {
+    if (count <= 0) return;
+
+    const androidDetails = AndroidNotificationDetails(
+      'low_stock_channel',
+      'تنبيهات نواقص البضاعة',
+      channelDescription: 'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون',
+      importance: Importance.high,
+      priority: Priority.high,
+      playSound: true,
+      enableVibration: true,
+      showWhen: true,
+    );
+
+    const notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      ),
+    );
+
+    await _notificationsPlugin.show(
+      id: 2999,
+      title: '⚠️ تنبيه: يوجد $count أصناف وصلت لحد النواقص!',
+      body: 'افحص قائمة النواقص في المخزون لطلبها من الموردين فوراً.',
+      notificationDetails: notificationDetails,
+      payload: '/inventory',
+    );
+  }
+
   /// Displays a test notification to verify delivery and permissions immediately.
   Future<void> showTestNotification() async {
     const androidDetails = AndroidNotificationDetails(

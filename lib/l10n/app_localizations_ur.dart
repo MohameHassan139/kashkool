@@ -268,6 +268,47 @@ class AppLocalizationsUr extends AppLocalizations {
   String get profitLossNegative => 'صافي خسارة';
 
   @override
+  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (كاش)';
+
+  @override
+  String get profitLossCashSectionSubtitle =>
+      'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات';
+
+  @override
+  String get profitLossCashNet => 'صافي الربح النقدي في الدرج';
+
+  @override
+  String get profitLossCashRevenue => 'مبيعات نقدية (كاش)';
+
+  @override
+  String get profitLossCashCogs => 'تكلفة بضاعة الكاش المباعة';
+
+  @override
+  String get profitLossCashGross => 'مجمل ربح الكاش';
+
+  @override
+  String get profitLossCreditSectionTitle => 'أرباح آجلة (عند العملاء)';
+
+  @override
+  String get profitLossCreditSectionSubtitle =>
+      'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد';
+
+  @override
+  String get profitLossCreditGross => 'أرباح مؤجلة عند الزبائن';
+
+  @override
+  String get profitLossCreditRevenue => 'مبيعات بالآجل (شُكك)';
+
+  @override
+  String get profitLossCreditCogs => 'تكلفة بضاعة الآجل';
+
+  @override
+  String get profitLossTotalExpectedNet => 'إجمالي الربح الكلي (نقدي + آجل)';
+
+  @override
+  String get profitLossCashVsCreditRatio => 'نسبة الكاش إلى الآجل';
+
+  @override
   String get shopReportTitle => 'تقرير المحل الشامل';
 
   @override

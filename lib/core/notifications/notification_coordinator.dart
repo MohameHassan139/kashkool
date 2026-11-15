@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:drift/drift.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../db/app_database.dart';
@@ -164,6 +165,63 @@ class NotificationCoordinator {
             await _service.showBackupReminderNotification(daysSinceBackup: days);
             await settingsRepo.setLastBackupReminderDate(todayStr);
           }
+        }
+      }
+
+      // --- Low Stock Items Reminder ---
+      final lastLowStockDate = await settingsRepo.getLastLowStockReminderDate();
+      if (lastLowStockDate != todayStr) {
+        final db = _ref.read(databaseProvider);
+        final lowStockProducts = await (db.select(db.products)
+              ..where((p) =>
+                  p.minimumStockMilliUnits.isBiggerThanValue(0) &
+                  p.deletedAt.isNull()))
+            .get();
+
+        final itemsNeedingRestock = <Product>[];
+        final stockLevels = <String, int>{};
+
+        for (final p in lowStockProducts) {
+          final movements = await (db.select(db.inventoryMovements)
+                ..where((m) => m.productId.equals(p.id) & m.deletedAt.isNull()))
+              .get();
+          var currentStock = 0;
+          for (final m in movements) {
+            currentStock += m.quantityDeltaMilliUnits;
+          }
+          if (currentStock <= p.minimumStockMilliUnits) {
+            itemsNeedingRestock.add(p);
+            stockLevels[p.id] = currentStock;
+          }
+        }
+
+        if (itemsNeedingRestock.isNotEmpty) {
+          if (itemsNeedingRestock.length == 1) {
+            final p = itemsNeedingRestock.first;
+            String? supplierName;
+            String? supplierPhone;
+            if (p.supplierId != null) {
+              final s = await (db.select(db.suppliers)
+                    ..where((s) => s.id.equals(p.supplierId!) & s.deletedAt.isNull()))
+                  .getSingleOrNull();
+              supplierName = s?.name;
+              supplierPhone = s?.phone;
+            }
+            final currentStock = stockLevels[p.id] ?? 0;
+            final qtyStr = '${(currentStock / 1000).toStringAsFixed(1)} ${p.unitLabel}';
+
+            await _service.showLowStockNotification(
+              productName: p.name,
+              remainingStock: qtyStr,
+              supplierName: supplierName,
+              supplierPhone: supplierPhone,
+            );
+          } else {
+            await _service.showMultipleLowStockNotification(
+              count: itemsNeedingRestock.length,
+            );
+          }
+          await settingsRepo.setLastLowStockReminderDate(todayStr);
         }
       }
     } catch (e) {

@@ -621,6 +621,84 @@ abstract class AppLocalizations {
   /// **'صافي خسارة'**
   String get profitLossNegative;
 
+  /// No description provided for @profitLossCashSectionTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أرباح نقدية محصّلة (كاش)'**
+  String get profitLossCashSectionTitle;
+
+  /// No description provided for @profitLossCashSectionSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات'**
+  String get profitLossCashSectionSubtitle;
+
+  /// No description provided for @profitLossCashNet.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي الربح النقدي في الدرج'**
+  String get profitLossCashNet;
+
+  /// No description provided for @profitLossCashRevenue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مبيعات نقدية (كاش)'**
+  String get profitLossCashRevenue;
+
+  /// No description provided for @profitLossCashCogs.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تكلفة بضاعة الكاش المباعة'**
+  String get profitLossCashCogs;
+
+  /// No description provided for @profitLossCashGross.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مجمل ربح الكاش'**
+  String get profitLossCashGross;
+
+  /// No description provided for @profitLossCreditSectionTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أرباح آجلة (عند العملاء)'**
+  String get profitLossCreditSectionTitle;
+
+  /// No description provided for @profitLossCreditSectionSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد'**
+  String get profitLossCreditSectionSubtitle;
+
+  /// No description provided for @profitLossCreditGross.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أرباح مؤجلة عند الزبائن'**
+  String get profitLossCreditGross;
+
+  /// No description provided for @profitLossCreditRevenue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مبيعات بالآجل (شُكك)'**
+  String get profitLossCreditRevenue;
+
+  /// No description provided for @profitLossCreditCogs.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تكلفة بضاعة الآجل'**
+  String get profitLossCreditCogs;
+
+  /// No description provided for @profitLossTotalExpectedNet.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي الربح الكلي (نقدي + آجل)'**
+  String get profitLossTotalExpectedNet;
+
+  /// No description provided for @profitLossCashVsCreditRatio.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نسبة الكاش إلى الآجل'**
+  String get profitLossCashVsCreditRatio;
+
   /// No description provided for @shopReportTitle.
   ///
   /// In ar_EG, this message translates to:

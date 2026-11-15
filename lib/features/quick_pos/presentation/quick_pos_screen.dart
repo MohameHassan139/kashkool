@@ -343,7 +343,13 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         ],
       ),
       body: SafeArea(
-        child: Column(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isTablet = constraints.maxWidth >= 720;
+            if (isTablet) {
+              return _buildTabletLayout(context, constraints, strings, theme, isDark, productsAsync, customersAsync);
+            }
+            return Column(
           children: [
             // Top Section: Search Bar
             Padding(
@@ -962,8 +968,655 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
               ),
             ),
           ],
+        );
+      },
+    ),
+  ),
+);
+  }
+
+  /// Tablet Dual-Pane Layout (Catalog Grid on right, Cart & Checkout on left in RTL)
+  Widget _buildTabletLayout(
+    BuildContext context,
+    BoxConstraints constraints,
+    dynamic strings,
+    ThemeData theme,
+    bool isDark,
+    AsyncValue<List<ProductWithStock>> productsAsync,
+    AsyncValue<List<CustomerWithBalance>> customersAsync,
+  ) {
+    return Row(
+      children: [
+        // 1. Catalog Pane (58% width)
+        Expanded(
+          flex: 58,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) => setState(() => _query = value),
+                  onSubmitted: (val) {
+                    productsAsync.whenData((products) => _onBarcodeSubmitted(val, products));
+                  },
+                  decoration: InputDecoration(
+                    hintText: strings.quickPosSearch,
+                    prefixIcon: const Icon(Icons.search_rounded),
+                    suffixIcon: _query.isEmpty
+                        ? const Icon(Icons.qr_code_scanner_rounded)
+                        : IconButton(
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _query = '');
+                            },
+                            icon: const Icon(Icons.clear_rounded),
+                          ),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                    filled: true,
+                    fillColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      strings.quickPosProducts,
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'اضغط للإضافة للسلة',
+                      style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: productsAsync.when(
+                  loading: () => const Center(child: CircularProgressIndicator()),
+                  error: (_, _) => Center(child: Text(strings.quickPosLoadFailed)),
+                  data: (products) {
+                    if (products.isEmpty) {
+                      return Center(
+                        child: Text(
+                          _query.trim().isEmpty
+                              ? strings.inventoryNoProducts
+                              : strings.inventoryNoSearchResults,
+                          style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor),
+                        ),
+                      );
+                    }
+                    return GridView.builder(
+                      padding: const EdgeInsets.all(16),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: constraints.maxWidth >= 1000 ? 4 : 3,
+                        childAspectRatio: 0.95,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+                        final inCart = _cart[product.product.id]?.quantityMilliUnits ?? 0;
+                        final available = product.quantityMilliUnits - inCart;
+                        final isOutOfStock = available <= 0;
+
+                        return InkWell(
+                          onTap: isOutOfStock ? null : () => _onProductTapped(product),
+                          onLongPress: isOutOfStock ? null : () => _addProductWithQuantity(product),
+                          borderRadius: BorderRadius.circular(16),
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: isDark ? const Color(0xFF1E293B) : Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: inCart > 0
+                                    ? AppColors.paymentGreen
+                                    : (isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0)),
+                                width: inCart > 0 ? 2 : 1,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.04),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        product.product.name,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                                      ),
+                                    ),
+                                    if (inCart > 0)
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.paymentGreen,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          QuantityUtils.formatMilliUnits(inCart),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      MoneyUtils.formatMoney(product.product.salePricePiasters),
+                                      style: TextStyle(
+                                        color: theme.colorScheme.primary,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      isOutOfStock
+                                          ? 'نفد المخزون'
+                                          : '${strings.quickPosAvailable}: ${QuantityUtils.formatMilliUnits(available)} ${product.product.unitLabel}',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: isOutOfStock ? AppColors.debtRed : theme.hintColor,
+                                        fontWeight: isOutOfStock ? FontWeight.bold : FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+
+        const VerticalDivider(width: 1),
+
+        // 2. Cart & Checkout Pane (42% width)
+        Expanded(
+          flex: 42,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    // Cart Header
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.shopping_bag_outlined, size: 20),
+                            const SizedBox(width: 8),
+                            Text(
+                              strings.quickPosCart,
+                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            if (_cart.isNotEmpty) ...[
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '${_cart.length}',
+                                  style: TextStyle(
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                        if (_cart.isNotEmpty)
+                          Text(
+                            '${QuantityUtils.formatMilliUnits(_totalItemsCount * 1000)} صنف',
+                            style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Cart Items
+                    if (_cart.isEmpty)
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 28),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF8FAFC),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.add_shopping_cart_rounded,
+                              size: 38,
+                              color: theme.colorScheme.outline,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              strings.quickPosEmptyCart,
+                              style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      ..._cart.values.map(
+                        (line) => Card(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            side: BorderSide(
+                              color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        line.product.product.name,
+                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        '${MoneyUtils.formatMoney(line.product.product.salePricePiasters)} / ${line.product.product.unitLabel}',
+                                        style: TextStyle(color: theme.hintColor, fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        iconSize: 18,
+                                        padding: const EdgeInsets.all(4),
+                                        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                        icon: const Icon(Icons.remove_rounded),
+                                        onPressed: () => _decrementQuantity(line),
+                                      ),
+                                      InkWell(
+                                        onTap: () => _editQuantity(line),
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                          child: Text(
+                                            QuantityUtils.formatMilliUnits(line.quantityMilliUnits),
+                                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        iconSize: 18,
+                                        padding: const EdgeInsets.all(4),
+                                        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                        icon: const Icon(Icons.add_rounded),
+                                        onPressed: line.quantityMilliUnits < line.product.quantityMilliUnits
+                                            ? () => _incrementQuantity(line)
+                                            : null,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      MoneyUtils.formatMoney(
+                                        SaleRepository.calculateLineTotalPiasters(
+                                          quantityMilliUnits: line.quantityMilliUnits,
+                                          unitPricePiasters: line.product.product.salePricePiasters,
+                                        ),
+                                      ),
+                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                    ),
+                                    IconButton(
+                                      iconSize: 18,
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                                      icon: Icon(Icons.close_rounded, color: theme.colorScheme.error),
+                                      onPressed: () => setState(() => _cart.remove(line.product.product.id)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    const SizedBox(height: 16),
+
+                    // Payment Type Selection
+                    Text(
+                      'طريقة السداد',
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () => setState(() {
+                              _paymentType = SalePaymentType.cash;
+                              _customerId = null;
+                            }),
+                            borderRadius: BorderRadius.circular(14),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: _paymentType == SalePaymentType.cash
+                                    ? AppColors.paymentGreen.withValues(alpha: 0.15)
+                                    : (isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9)),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                  color: _paymentType == SalePaymentType.cash
+                                      ? AppColors.paymentGreen
+                                      : (isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0)),
+                                  width: _paymentType == SalePaymentType.cash ? 2 : 1,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.payments_rounded,
+                                    color: _paymentType == SalePaymentType.cash
+                                        ? AppColors.paymentGreen
+                                        : theme.colorScheme.onSurfaceVariant,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    strings.quickPosCash,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: _paymentType == SalePaymentType.cash
+                                          ? AppColors.paymentGreen
+                                          : theme.colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () => setState(() => _paymentType = SalePaymentType.credit),
+                            borderRadius: BorderRadius.circular(14),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: _paymentType == SalePaymentType.credit
+                                    ? AppColors.debtRed.withValues(alpha: 0.15)
+                                    : (isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9)),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                  color: _paymentType == SalePaymentType.credit
+                                      ? AppColors.debtRed
+                                      : (isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0)),
+                                  width: _paymentType == SalePaymentType.credit ? 2 : 1,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.account_circle_rounded,
+                                    color: _paymentType == SalePaymentType.credit
+                                        ? AppColors.debtRed
+                                        : theme.colorScheme.onSurfaceVariant,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    strings.quickPosCredit,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: _paymentType == SalePaymentType.credit
+                                          ? AppColors.debtRed
+                                          : theme.colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    if (_paymentType == SalePaymentType.credit) ...[
+                      const SizedBox(height: 12),
+                      customersAsync.when(
+                        loading: () => const LinearProgressIndicator(),
+                        error: (_, _) => Text(strings.quickPosCustomersLoadFailed),
+                        data: (customers) {
+                          final selectedCustomer = customers.cast<CustomerWithBalance?>().firstWhere(
+                                (c) => c?.customer.id == _customerId,
+                                orElse: () => null,
+                              );
+
+                          return Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: isDark ? const Color(0xFF1E293B) : const Color(0xFFEFF6FF),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: isDark ? const Color(0xFF334155) : const Color(0xFFBFDBFE),
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: DropdownButtonFormField<String>(
+                                        initialValue: selectedCustomer?.customer.id,
+                                        isExpanded: true,
+                                        decoration: InputDecoration(
+                                          labelText: strings.quickPosSelectCustomer,
+                                          border: const OutlineInputBorder(),
+                                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                        ),
+                                        items: customers
+                                            .map(
+                                              (c) => DropdownMenuItem(
+                                                value: c.customer.id,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(child: Text(c.customer.name)),
+                                                    Text(
+                                                      MoneyUtils.formatMoney(c.balancePiasters),
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: c.hasDebt ? AppColors.debtRed : AppColors.paymentGreen,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            .toList(growable: false),
+                                        onChanged: (value) => setState(() => _customerId = value),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    IconButton.filledTonal(
+                                      tooltip: 'عميل جديد',
+                                      icon: const Icon(Icons.person_add_alt_1_rounded),
+                                      onPressed: () async {
+                                        await Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (_) => const AddEditCustomerScreen(),
+                                          ),
+                                        );
+                                        ref.invalidate(quickPosCustomerListProvider);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                if (selectedCustomer != null) ...[
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'الرصيد الحالي: ${MoneyUtils.formatMoney(selectedCustomer.balancePiasters)}',
+                                        style: TextStyle(
+                                          color: selectedCustomer.hasDebt ? AppColors.debtRed : AppColors.paymentGreen,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      CustomerRatingBadge(
+                                        customerName: selectedCustomer.customer.name,
+                                        rating: selectedCustomer.rating,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+
+              // Bottom Checkout Bar for Tablet
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: isDark ? const Color(0xFF1E293B) : Colors.white,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.08),
+                      blurRadius: 10,
+                      offset: const Offset(0, -3),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            strings.quickPosTotal,
+                            style: TextStyle(color: theme.hintColor, fontSize: 12),
+                          ),
+                          Text(
+                            MoneyUtils.formatMoney(_totalPiasters),
+                            style: theme.textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: _paymentType == SalePaymentType.cash
+                                  ? AppColors.paymentGreen
+                                  : AppColors.debtRed,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 54,
+                      child: FilledButton.icon(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: _paymentType == SalePaymentType.cash
+                              ? AppColors.paymentGreen
+                              : theme.colorScheme.primary,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        ),
+                        onPressed: _cart.isEmpty || _saving
+                            ? null
+                            : _paymentType == SalePaymentType.cash
+                                ? () => _checkout(const [])
+                                : customersAsync.whenOrNull(
+                                    data: (customers) => () => _checkout(customers),
+                                  ),
+                        icon: _saving
+                            ? const SizedBox.square(
+                                dimension: 18,
+                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              )
+                            : Icon(
+                                _paymentType == SalePaymentType.cash
+                                    ? Icons.check_circle_outline_rounded
+                                    : Icons.save_rounded,
+                              ),
+                        label: Text(
+                          _paymentType == SalePaymentType.cash ? 'استلام كاش' : 'تسجيل على الحساب',
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

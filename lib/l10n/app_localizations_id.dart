@@ -138,8 +138,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get inventoryDelete => 'حذف الصنف';
 
   @override
-  String get inventoryDeleteConfirm =>
-      'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
+  String get inventoryDeleteConfirm => 'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
 
   @override
   String get inventoryDeleted => 'تم حذف الصنف';
@@ -166,12 +165,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get inventoryBarcodeExists => 'الباركود مسجل لصنف تاني';
 
   @override
-  String get inventoryUnitChangeNotAllowed =>
-      'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
+  String get inventoryUnitChangeNotAllowed => 'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
 
   @override
-  String get inventorySaveFailed =>
-      'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+  String get inventorySaveFailed => 'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
 
   @override
   String get inventorySupplier => 'المورد (اختياري)';
@@ -204,8 +201,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get supplierReturnReason => 'سبب المرتجع (اختياري)';
 
   @override
-  String get supplierReturnSuccess =>
-      'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
+  String get supplierReturnSuccess => 'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
 
   @override
   String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
@@ -268,6 +264,45 @@ class AppLocalizationsId extends AppLocalizations {
   String get profitLossNegative => 'صافي خسارة';
 
   @override
+  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (كاش)';
+
+  @override
+  String get profitLossCashSectionSubtitle => 'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات';
+
+  @override
+  String get profitLossCashNet => 'صافي الربح النقدي في الدرج';
+
+  @override
+  String get profitLossCashRevenue => 'مبيعات نقدية (كاش)';
+
+  @override
+  String get profitLossCashCogs => 'تكلفة بضاعة الكاش المباعة';
+
+  @override
+  String get profitLossCashGross => 'مجمل ربح الكاش';
+
+  @override
+  String get profitLossCreditSectionTitle => 'أرباح آجلة (عند العملاء)';
+
+  @override
+  String get profitLossCreditSectionSubtitle => 'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد';
+
+  @override
+  String get profitLossCreditGross => 'أرباح مؤجلة عند الزبائن';
+
+  @override
+  String get profitLossCreditRevenue => 'مبيعات بالآجل (شُكك)';
+
+  @override
+  String get profitLossCreditCogs => 'تكلفة بضاعة الآجل';
+
+  @override
+  String get profitLossTotalExpectedNet => 'إجمالي الربح الكلي (نقدي + آجل)';
+
+  @override
+  String get profitLossCashVsCreditRatio => 'نسبة الكاش إلى الآجل';
+
+  @override
   String get shopReportTitle => 'تقرير المحل الشامل';
 
   @override
@@ -304,12 +339,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get featureManagerTitle => 'تخصيص ميزات المحل';
 
   @override
-  String get featureManagerSubtitle =>
-      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
+  String get featureManagerSubtitle => 'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
 
   @override
-  String get featureManagerNote =>
-      'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
+  String get featureManagerNote => 'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
 
   @override
   String get featurePresetTitle => 'أوضاع سريعة بنقرة واحدة';
@@ -318,8 +351,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get featurePresetSimple => 'كشكول ديون فقط';
 
   @override
-  String get featurePresetSimpleDesc =>
-      'تركيز تام على حسابات الزباين والتحصيل فقط';
+  String get featurePresetSimpleDesc => 'تركيز تام على حسابات الزباين والتحصيل فقط';
 
   @override
   String get featurePresetGrocery => 'بقالة وسوبرماركت';
@@ -343,54 +375,46 @@ class AppLocalizationsId extends AppLocalizations {
   String get featureQuickPosTitle => 'البيع السريع ونقطة البيع (POS)';
 
   @override
-  String get featureQuickPosDesc =>
-      'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
+  String get featureQuickPosDesc => 'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
 
   @override
   String get featureSuppliersTitle => 'الموردون وفواتير الشراء';
 
   @override
-  String get featureSuppliersDesc =>
-      'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
+  String get featureSuppliersDesc => 'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
 
   @override
   String get featureInstallmentsTitle => 'دفتر الأقساط الشهرية';
 
   @override
-  String get featureInstallmentsDesc =>
-      'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد';
+  String get featureInstallmentsDesc => 'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد';
 
   @override
   String get featureInventoryTitle => 'المخزون وإدارة الأصناف';
 
   @override
-  String get featureInventoryDesc =>
-      'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
+  String get featureInventoryDesc => 'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
 
   @override
   String get featureCashDrawerTitle => 'الصندوق والدرج اليومي';
 
   @override
-  String get featureCashDrawerDesc =>
-      'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
+  String get featureCashDrawerDesc => 'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
 
   @override
   String get featureProfitLossTitle => 'المكسب والخسارة والتقارير';
 
   @override
-  String get featureProfitLossDesc =>
-      'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال';
+  String get featureProfitLossDesc => 'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال';
 
   @override
   String get featureOffersTitle => 'رسائل العروض والمناسبات';
 
   @override
-  String get featureOffersDesc =>
-      'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب';
+  String get featureOffersDesc => 'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب';
 
   @override
-  String get featureCoreAlwaysActive =>
-      'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
+  String get featureCoreAlwaysActive => 'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
 
   @override
   String get featureStatusActive => 'مفعل';
@@ -459,8 +483,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get quickPosInsufficientStock => 'المخزون مش كفاية للكمية دي';
 
   @override
-  String get quickPosCashDayClosed =>
-      'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
+  String get quickPosCashDayClosed => 'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
 
   @override
   String get quickPosLoadFailed => 'ماقدرناش نحمّل الأصناف';
@@ -538,12 +561,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get supplierPurchaseReturnQuantity => 'كمية المرتجع';
 
   @override
-  String get supplierPurchaseReturnSaved =>
-      'تم تسجيل المرتجع واتخصم من حساب المورد';
+  String get supplierPurchaseReturnSaved => 'تم تسجيل المرتجع واتخصم من حساب المورد';
 
   @override
-  String get supplierPurchaseReturnLimit =>
-      'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون';
+  String get supplierPurchaseReturnLimit => 'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون';
 
   @override
   String get supplierCreditNote => 'رصيد دائن من مرتجع';
@@ -665,15 +686,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get noCustomersTitle => 'Buku Anda masih kosong!';
 
   @override
-  String get noCustomersSubtitle =>
-      'Ketuk tombol di bawah untuk menambah pelanggan pertama dan mulai mencatat dengan mudah';
+  String get noCustomersSubtitle => 'Ketuk tombol di bawah untuk menambah pelanggan pertama dan mulai mencatat dengan mudah';
 
   @override
   String get noSearchResults => 'Pelanggan tidak ditemukan';
 
   @override
-  String get duplicateCustomerWarning =>
-      'Peringatan: pelanggan dengan nama atau nomor yang sama sudah ada';
+  String get duplicateCustomerWarning => 'Peringatan: pelanggan dengan nama atau nomor yang sama sudah ada';
 
   @override
   String get customerDetails => 'Detail pelanggan';
@@ -780,8 +799,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get listening => 'Mendengarkan... Silakan bicara';
 
   @override
-  String get speechNotAvailable =>
-      'Dikte suara tidak tersedia di perangkat ini';
+  String get speechNotAvailable => 'Dikte suara tidak tersedia di perangkat ini';
 
   @override
   String get attachPhoto => 'Lampirkan foto';
@@ -799,11 +817,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get overpaymentTitle => 'Jumlah melebihi utang!';
 
   @override
-  String overpaymentMessage(
-    String paidAmount,
-    String dueAmount,
-    String creditAmount,
-  ) {
+  String overpaymentMessage(String paidAmount, String dueAmount, String creditAmount) {
     return 'Jumlah dibayar ($paidAmount) melebihi utang ($dueAmount). Catat selisih ($creditAmount) sebagai saldo pelanggan?';
   }
 
@@ -841,11 +855,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get creditLimitWarningTitle => 'Peringatan batas utang';
 
   @override
-  String creditLimitExceededDialog(
-    String customerName,
-    String newTotal,
-    String limit,
-  ) {
+  String creditLimitExceededDialog(String customerName, String newTotal, String limit) {
     return 'Utang $customerName akan menjadi $newTotal, padahal batasnya $limit';
   }
 
@@ -920,8 +930,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get noSuppliersTitle => 'Buku pemasok kosong!';
 
   @override
-  String get noSuppliersSubtitle =>
-      'Ketuk tombol di bawah untuk menambah pemasok pertama';
+  String get noSuppliersSubtitle => 'Ketuk tombol di bawah untuk menambah pemasok pertama';
 
   @override
   String get noSupplierSearchResults => 'Pemasok tidak ditemukan';
@@ -1056,12 +1065,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get noDueCustomersTitle => 'Tidak ada tagihan hari ini 🎉';
 
   @override
-  String get noDueCustomersSubtitle =>
-      'Semua pelanggan lunas atau baru saja diingatkan.';
+  String get noDueCustomersSubtitle => 'Semua pelanggan lunas atau baru saja diingatkan.';
 
   @override
-  String get whatsAppNotInstalled =>
-      'WhatsApp tidak terpasang. Kirim SMS saja?';
+  String get whatsAppNotInstalled => 'WhatsApp tidak terpasang. Kirim SMS saja?';
 
   @override
   String get openSms => 'Kirim SMS';
@@ -1308,15 +1315,13 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get readOnlyDayNotice =>
-      'Hari ini sudah ditutup. Ketuk Buka kembali hari untuk mengubah.';
+  String get readOnlyDayNotice => 'Hari ini sudah ditutup. Ketuk Buka kembali hari untuk mengubah.';
 
   @override
   String get privacyModeTitle => 'Mode privasi';
 
   @override
-  String get privacyModeSubtitle =>
-      'Sembunyikan jumlah di layar & widget (••••••)';
+  String get privacyModeSubtitle => 'Sembunyikan jumlah di layar & widget (••••••)';
 
   @override
   String get shareAppTitle => 'Bagikan aplikasi';
@@ -1330,8 +1335,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get growthFooterToggleTitle =>
-      'Sembunyikan tanda tangan Kashkool di pesan';
+  String get growthFooterToggleTitle => 'Sembunyikan tanda tangan Kashkool di pesan';
 
   @override
   String get growthFooterToggleSubtitle => 'Tersedia di paket berbayar 🔒';
@@ -1343,26 +1347,22 @@ class AppLocalizationsId extends AppLocalizations {
   String get main1 => 'Kashkool';
 
   @override
-  String get notebookImportButton1 =>
-      'Pindahkan buku catatan Anda ke aplikasi 📒';
+  String get notebookImportButton1 => 'Pindahkan buku catatan Anda ke aplikasi 📒';
 
   @override
-  String get notebookImportButton2 =>
-      'Tidak perlu semua catatan lama: cukup nama pelanggan dan utangnya sekarang.';
+  String get notebookImportButton2 => 'Tidak perlu semua catatan lama: cukup nama pelanggan dan utangnya sekarang.';
 
   @override
   String get notebookImportButton3 => 'Pelanggan dan saldo';
 
   @override
-  String get notebookImportButton4 =>
-      'Satu baris per pelanggan: nama, telepon, dan utang';
+  String get notebookImportButton4 => 'Satu baris per pelanggan: nama, telepon, dan utang';
 
   @override
   String get notebookImportButton5 => 'Cicilan lama';
 
   @override
-  String get notebookImportButton6 =>
-      'Harga, yang sudah dibayar, sisa cicilan, dan jatuh tempo berikutnya';
+  String get notebookImportButton6 => 'Harga, yang sudah dibayar, sisa cicilan, dan jatuh tempo berikutnya';
 
   @override
   String get notebookImportButton7 => 'Impor dari buku';
@@ -1374,11 +1374,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get oldInstallmentImportScreen2 => 'Cicilan disimpan ✓';
 
   @override
-  String oldInstallmentImportScreen3(
-    Object remaining,
-    Object countValue,
-    Object nextDue,
-  ) {
+  String oldInstallmentImportScreen3(Object remaining, Object countValue, Object nextDue) {
     return 'Sisa $remaining dalam $countValue cicilan, pertama pada $nextDue.';
   }
 
@@ -1389,8 +1385,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get oldInstallmentImportScreen5 => 'Cicilan lain';
 
   @override
-  String get oldInstallmentImportScreen6 =>
-      'Gagal menyimpan, tidak ada yang tersimpan';
+  String get oldInstallmentImportScreen6 => 'Gagal menyimpan, tidak ada yang tersimpan';
 
   @override
   String get oldInstallmentImportScreen7 => ' per bulan';
@@ -1399,12 +1394,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get oldInstallmentImportScreen8 => ' per minggu';
 
   @override
-  String oldInstallmentImportScreen9(
-    Object remaining,
-    Object count,
-    Object count2,
-    Object monthly,
-  ) {
+  String oldInstallmentImportScreen9(Object remaining, Object count, Object count2, Object monthly) {
     return 'Sisa $remaining — $count cicilan × sekitar $count2$monthly';
   }
 
@@ -1417,8 +1407,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get oldInstallmentImportScreen12 =>
-      'Untuk cicilan yang dimulai sebelum aplikasi: isi harga, yang sudah dibayar, dan jumlah cicilan tersisa. Aplikasi hanya membuat jadwal sisa dan tidak menghitung pembayaran lama di laci kas hari ini.';
+  String get oldInstallmentImportScreen12 => 'Untuk cicilan yang dimulai sebelum aplikasi: isi harga, yang sudah dibayar, dan jumlah cicilan tersisa. Aplikasi hanya membuat jadwal sisa dan tidak menghitung pembayaran lama di laci kas hari ini.';
 
   @override
   String get oldInstallmentImportScreen13 => 'Pelanggan';
@@ -1427,15 +1416,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get oldInstallmentImportScreen14 => 'Nama pelanggan';
 
   @override
-  String get oldInstallmentImportScreen15 =>
-      'Ketik nama pelanggan lama atau baru';
+  String get oldInstallmentImportScreen15 => 'Ketik nama pelanggan lama atau baru';
 
   @override
   String get oldInstallmentImportScreen16 => 'Isi nama pelanggan';
 
   @override
-  String get oldInstallmentImportScreen17 =>
-      'HP pelanggan (jika baru — opsional)';
+  String get oldInstallmentImportScreen17 => 'HP pelanggan (jika baru — opsional)';
 
   @override
   String get oldInstallmentImportScreen18 => 'Nomor tidak valid';
@@ -1497,12 +1484,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get oldInstallmentImportScreen36 => 'HP penjamin';
 
   @override
-  String get oldInstallmentImportScreen37 =>
-      'Foto buku atau kontrak (opsional — tetap di HP ini)';
+  String get oldInstallmentImportScreen37 => 'Foto buku atau kontrak (opsional — tetap di HP ini)';
 
   @override
-  String get oldInstallmentImportScreen38 =>
-      'Anda bisa menambah beberapa foto: halaman buku, kontrak, KTP penjamin…';
+  String get oldInstallmentImportScreen38 => 'Anda bisa menambah beberapa foto: halaman buku, kontrak, KTP penjamin…';
 
   @override
   String oldInstallmentImportScreen39(Object photosLength) {
@@ -1551,8 +1536,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get notebookImportScreen9 => 'Keluar tanpa menyimpan?';
 
   @override
-  String get notebookImportScreen10 =>
-      'Yang Anda tulis di halaman ini tidak akan disimpan.';
+  String get notebookImportScreen10 => 'Yang Anda tulis di halaman ini tidak akan disimpan.';
 
   @override
   String get notebookImportScreen11 => 'Lanjutkan';
@@ -1580,8 +1564,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get notebookImportScreen17 => 'Simpan';
 
   @override
-  String get notebookImportScreen18 =>
-      'Tulis satu pelanggan per baris: nama, HP jika ada, dan jumlah utangnya. Ketuk \"Berikutnya\" di keyboard agar cepat.';
+  String get notebookImportScreen18 => 'Tulis satu pelanggan per baris: nama, HP jika ada, dan jumlah utangnya. Ketuk \"Berikutnya\" di keyboard agar cepat.';
 
   @override
   String get notebookImportScreen19 => 'Saldo per hari ini';
@@ -1592,8 +1575,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get notebookImportScreen21 =>
-      'Foto halaman buku (opsional): disimpan untuk semua pelanggan di halaman itu';
+  String get notebookImportScreen21 => 'Foto halaman buku (opsional): disimpan untuk semua pelanggan di halaman itu';
 
   @override
   String notebookImportScreen22(Object pagePhotosLength) {
@@ -1654,8 +1636,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get notebookImportService6 => 'Jumlah dibayar tidak boleh negatif';
 
   @override
-  String get notebookImportService7 =>
-      'Jumlah dibayar harus kurang dari harga total';
+  String get notebookImportService7 => 'Jumlah dibayar harus kurang dari harga total';
 
   @override
   String get notebookImportService8 => 'Minimal 1 cicilan tersisa';
@@ -1679,8 +1660,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get installmentsScreen1 => 'Cicilan 📋';
 
   @override
-  String get installmentsScreen2 =>
-      'Cari pelanggan, barang, HP, atau penjamin...';
+  String get installmentsScreen2 => 'Cari pelanggan, barang, HP, atau penjamin...';
 
   @override
   String get installmentsScreen3 => 'Total cicilan';
@@ -1715,8 +1695,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get installmentsScreen12 => 'Belum ada rencana cicilan';
 
   @override
-  String get installmentsScreen13 =>
-      'Ketuk (+ Rencana cicilan baru) untuk membuat jadwal cicilan pertama.';
+  String get installmentsScreen13 => 'Ketuk (+ Rencana cicilan baru) untuk membuat jadwal cicilan pertama.';
 
   @override
   String get installmentsScreen14 => 'Rencana cicilan baru';
@@ -1740,8 +1719,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get installmentPlanDetailsScreen4 => 'Batalkan rencana cicilan';
 
   @override
-  String get installmentPlanDetailsScreen5 =>
-      'Batalkan rencana ini? Pengingat berhenti dan riwayat pembayaran tetap disimpan.';
+  String get installmentPlanDetailsScreen5 => 'Batalkan rencana ini? Pengingat berhenti dan riwayat pembayaran tetap disimpan.';
 
   @override
   String get installmentPlanDetailsScreen6 => 'Kembali';
@@ -1776,8 +1754,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get installmentPlanDetailsScreen16 =>
-      'Rencana cicilan tidak ada atau sudah dihapus';
+  String get installmentPlanDetailsScreen16 => 'Rencana cicilan tidak ada atau sudah dihapus';
 
   @override
   String get installmentPlanDetailsScreen17 => 'Hapus rencana';
@@ -1806,8 +1783,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get installmentPlanDetailsScreen24 => 'Foto kontrak / surat utang';
 
   @override
-  String get installmentPlanDetailsScreen25 =>
-      'Ketuk untuk melihat dokumen penuh';
+  String get installmentPlanDetailsScreen25 => 'Ketuk untuk melihat dokumen penuh';
 
   @override
   String get installmentPlanDetailsScreen26 => 'Dokumen cicilan';
@@ -1821,10 +1797,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get installmentPlanDetailsScreen28 => 'Bayar bebas';
 
   @override
-  String installmentPlanDetailsScreen29(
-    Object installmentIndex,
-    Object dueDate,
-  ) {
+  String installmentPlanDetailsScreen29(Object installmentIndex, Object dueDate) {
     return 'Cicilan ke-$installmentIndex • $dueDate';
   }
 
@@ -1834,10 +1807,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String installmentPlanDetailsScreen31(
-    Object paidPiasters,
-    Object amountPiasters,
-  ) {
+  String installmentPlanDetailsScreen31(Object paidPiasters, Object amountPiasters) {
     return 'Dibayar $paidPiasters dari $amountPiasters';
   }
 
@@ -1886,12 +1856,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get addInstallmentPlanScreen9 => 'Pilih pelanggan dulu';
 
   @override
-  String get addInstallmentPlanScreen10 =>
-      'Uang muka harus kurang dari harga total';
+  String get addInstallmentPlanScreen10 => 'Uang muka harus kurang dari harga total';
 
   @override
-  String get addInstallmentPlanScreen11 =>
-      'Rencana cicilan dibuat dan dijadwalkan ✓';
+  String get addInstallmentPlanScreen11 => 'Rencana cicilan dibuat dan dijadwalkan ✓';
 
   @override
   String addInstallmentPlanScreen12(Object e) {
@@ -1969,8 +1937,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get addInstallmentPlanScreen34 => 'Nomor HP penjamin';
 
   @override
-  String get addInstallmentPlanScreen35 =>
-      'Nomor tidak valid (010, 011, 012, 015)';
+  String get addInstallmentPlanScreen35 => 'Nomor tidak valid (010, 011, 012, 015)';
 
   @override
   String get addInstallmentPlanScreen36 => 'Foto dokumen diambil ✓';
@@ -1994,8 +1961,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get addInstallmentPlanScreen42 => 'Hubungkan ke buku pelanggan';
 
   @override
-  String get addInstallmentPlanScreen43 =>
-      'Catat harga total sebagai utang dan uang muka sebagai pembayaran di buku pelanggan';
+  String get addInstallmentPlanScreen43 => 'Catat harga total sebagai utang dan uang muka sebagai pembayaran di buku pelanggan';
 
   @override
   String addInstallmentPlanScreen44(Object scheduleLength) {
@@ -2011,11 +1977,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get addInstallmentPlanScreen46 => 'Simpan rencana dan jadwal';
 
   @override
-  String installmentProgressBar1(
-    Object paidCount,
-    Object totalCount,
-    Object percentInt,
-  ) {
+  String installmentProgressBar1(Object paidCount, Object totalCount, Object percentInt) {
     return '$paidCount dari $totalCount dibayar ($percentInt%)';
   }
 
@@ -2145,8 +2107,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get installmentRepository3 => 'Uang muka tidak boleh negatif';
 
   @override
-  String get installmentRepository4 =>
-      'Uang muka harus kurang dari harga total';
+  String get installmentRepository4 => 'Uang muka harus kurang dari harga total';
 
   @override
   String get installmentRepository5 => 'Jumlah cicilan harus lebih dari nol';
@@ -2192,8 +2153,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get dueInstallmentsTab2 => 'Tidak ada cicilan jatuh tempo hari ini 🎉';
 
   @override
-  String get dueInstallmentsTab3 =>
-      'Semua pelanggan cicilan membayar tepat waktu.';
+  String get dueInstallmentsTab3 => 'Semua pelanggan cicilan membayar tepat waktu.';
 
   @override
   String dueInstallmentsTab4(Object dueListLength) {
@@ -2201,11 +2161,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String dueInstallmentsTab5(
-    Object itemDescription,
-    Object installmentIndex,
-    Object installmentCount,
-  ) {
+  String dueInstallmentsTab5(Object itemDescription, Object installmentIndex, Object installmentCount) {
     return '$itemDescription • cicilan $installmentIndex dari $installmentCount';
   }
 
@@ -2270,10 +2226,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String drawerHistoryTab1(
-    Object cashSalesPiasters,
-    Object openingCashPiasters,
-  ) {
+  String drawerHistoryTab1(Object cashSalesPiasters, Object openingCashPiasters) {
     return 'Penjualan tunai: $cashSalesPiasters · Kas awal: $openingCashPiasters';
   }
 
@@ -2320,17 +2273,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get customerPhotosScreen7 => 'Gagal memuat foto';
 
   @override
-  String get customerPhotosScreen8 =>
-      'Belum ada foto untuk pelanggan ini.\nFoto halaman buku atau dokumennya — foto hanya disimpan di HP ini.';
+  String get customerPhotosScreen8 => 'Belum ada foto untuk pelanggan ini.\nFoto halaman buku atau dokumennya — foto hanya disimpan di HP ini.';
 
   @override
   String get customerPhotosScreen9 => 'Hapus foto';
 
   @override
-  String customerDetailsScreen1(
-    Object activePlansLength,
-    Object remainingPiasters,
-  ) {
+  String customerDetailsScreen1(Object activePlansLength, Object remainingPiasters) {
     return 'Cicilan aktif ($activePlansLength) • Sisa: $remainingPiasters';
   }
 
@@ -2398,29 +2347,25 @@ class AppLocalizationsId extends AppLocalizations {
   String get ratingExplanationBottomSheet4 => 'Sangat baik';
 
   @override
-  String get ratingExplanationBottomSheet5 =>
-      'Lunas, atau utang terlama maksimal 14 hari.';
+  String get ratingExplanationBottomSheet5 => 'Lunas, atau utang terlama maksimal 14 hari.';
 
   @override
   String get ratingExplanationBottomSheet6 => 'Perlu dipantau';
 
   @override
-  String get ratingExplanationBottomSheet7 =>
-      'Utang terlama 15–45 hari (sebaiknya diingatkan).';
+  String get ratingExplanationBottomSheet7 => 'Utang terlama 15–45 hari (sebaiknya diingatkan).';
 
   @override
   String get ratingExplanationBottomSheet8 => 'Terlambat';
 
   @override
-  String get ratingExplanationBottomSheet9 =>
-      'Utang terlama lebih dari 45 hari, atau batas utang terlampaui.';
+  String get ratingExplanationBottomSheet9 => 'Utang terlama lebih dari 45 hari, atau batas utang terlampaui.';
 
   @override
   String get ratingExplanationBottomSheet10 => 'Baru';
 
   @override
-  String get ratingExplanationBottomSheet11 =>
-      'Pelanggan dengan kurang dari 3 transaksi.';
+  String get ratingExplanationBottomSheet11 => 'Pelanggan dengan kurang dari 3 transaksi.';
 
   @override
   String get ratingExplanationBottomSheet12 => 'Mengerti';
@@ -2453,8 +2398,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen8 => 'Kashkool 📒';
 
   @override
-  String get settingsScreen9 =>
-      'Buku kas toko tanpa internet (Offline-First)\nVersi 1.0.0';
+  String get settingsScreen9 => 'Buku kas toko tanpa internet (Offline-First)\nVersi 1.0.0';
 
   @override
   String get settingsScreen10 => 'Toko umum';
@@ -2480,8 +2424,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get settingsScreen17 =>
-      'Sembunyikan jumlah di layar & widget (••••••)';
+  String get settingsScreen17 => 'Sembunyikan jumlah di layar & widget (••••••)';
 
   @override
   String get settingsScreen18 => 'Kunci aplikasi dengan PIN (4 digit)';
@@ -2552,8 +2495,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen39 => 'Pesan pengingat';
 
   @override
-  String get settingsScreen40 =>
-      'Ubah pesan otomatis dengan pratinjau langsung';
+  String get settingsScreen40 => 'Ubah pesan otomatis dengan pratinjau langsung';
 
   @override
   String get settingsScreen41 => 'Cegah pengingat dimatikan di latar belakang';
@@ -2571,8 +2513,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen45 => 'Ekspor cadangan (.kashkool)';
 
   @override
-  String get settingsScreen46 =>
-      'Simpan salinan buku dan foto lalu kirim via WhatsApp atau Drive';
+  String get settingsScreen46 => 'Simpan salinan buku dan foto lalu kirim via WhatsApp atau Drive';
 
   @override
   String get settingsScreen47 => 'Cadangan diekspor 👍';
@@ -2601,8 +2542,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen54 => 'Konfirmasi pemulihan';
 
   @override
-  String get settingsScreen55 =>
-      'Perhatian: pemulihan mengganti semua data saat ini dengan data dari file.';
+  String get settingsScreen55 => 'Perhatian: pemulihan mengganti semua data saat ini dengan data dari file.';
 
   @override
   String settingsScreen56(Object exportedAt) {
@@ -2626,8 +2566,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen60 => 'Berhasil dipulihkan 🎉';
 
   @override
-  String get settingsScreen61 =>
-      'Semua akun, transaksi, dan foto dipulihkan. Mulai ulang aplikasi untuk memperbarui layar.';
+  String get settingsScreen61 => 'Semua akun, transaksi, dan foto dipulihkan. Mulai ulang aplikasi untuk memperbarui layar.';
 
   @override
   String get settingsScreen62 => 'Mulai ulang sekarang';
@@ -2665,22 +2604,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen72 => 'Saran dan bantuan langsung';
 
   @override
-  String get settingsScreen73 =>
-      'https://wa.me/201000000000?text=Halo%2C%20saya%20punya%20pertanyaan%20tentang%20Kashkool';
+  String get settingsScreen73 => 'https://wa.me/201000000000?text=Halo%2C%20saya%20punya%20pertanyaan%20tentang%20Kashkool';
 
   @override
   String get settingsScreen74 => 'Kebijakan privasi & ketentuan';
 
   @override
-  String get settingsScreen75 =>
-      'Data milik Anda dan hanya ada di HP Anda, tanpa internet';
+  String get settingsScreen75 => 'Data milik Anda dan hanya ada di HP Anda, tanpa internet';
 
   @override
   String get settingsScreen76 => 'Kebijakan privasi Kashkool 🔒';
 
   @override
-  String get settingsScreen77 =>
-      '1. Kashkool bekerja sepenuhnya tanpa internet (Offline-First).\n\n2. Semua akun, nama, nomor telepon, foto nota, dan transaksi hanya disimpan di perangkat Anda. Tidak ada data yang dikirim ke server luar.\n\n3. Anda bertanggung jawab membuat cadangan rutin (Ekspor cadangan) agar data aman jika HP diganti atau hilang.\n\n4. Kashkool dibuat untuk pemilik toko dan pedagang agar hak mereka terjaga dan utang tercatat dengan aman.';
+  String get settingsScreen77 => '1. Kashkool bekerja sepenuhnya tanpa internet (Offline-First).\n\n2. Semua akun, nama, nomor telepon, foto nota, dan transaksi hanya disimpan di perangkat Anda. Tidak ada data yang dikirim ke server luar.\n\n3. Anda bertanggung jawab membuat cadangan rutin (Ekspor cadangan) agar data aman jika HP diganti atau hilang.\n\n4. Kashkool dibuat untuk pemilik toko dan pedagang agar hak mereka terjaga dan utang tercatat dengan aman.';
 
   @override
   String get settingsScreen78 => 'Sistem (otomatis)';
@@ -2706,8 +2642,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get batteryGuideBottomSheet2 => 'Panduan agar pengingat tetap jalan';
 
   @override
-  String get batteryGuideBottomSheet3 =>
-      'Beberapa HP (seperti Xiaomi, Realme, Infinix, dan Huawei) menghentikan aplikasi di latar belakang untuk menghemat baterai. Agar pengingat tagihan dan cicilan tepat waktu, ikuti langkah berikut:';
+  String get batteryGuideBottomSheet3 => 'Beberapa HP (seperti Xiaomi, Realme, Infinix, dan Huawei) menghentikan aplikasi di latar belakang untuk menghemat baterai. Agar pengingat tagihan dan cicilan tepat waktu, ikuti langkah berikut:';
 
   @override
   String get batteryGuideBottomSheet4 => 'Buka pengaturan baterai sekarang';
@@ -2724,8 +2659,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get backupReminderBanner3 => 'Saatnya membuat cadangan ⚠️';
 
   @override
-  String get backupReminderBanner4 =>
-      'Sudah lebih dari 7 hari sejak cadangan terakhir. Simpan data agar tidak hilang jika HP hilang atau diganti.';
+  String get backupReminderBanner4 => 'Sudah lebih dari 7 hari sejak cadangan terakhir. Simpan data agar tidak hilang jika HP hilang atau diganti.';
 
   @override
   String get backupReminderBanner5 => 'Nanti saja';
@@ -2740,12 +2674,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get homeWidgetSettingsCard1 => 'Tampilkan saldo di layar utama';
 
   @override
-  String get homeWidgetSettingsCard2 =>
-      'Widget menampilkan piutang dan tagihan hari ini tanpa membuka aplikasi';
+  String get homeWidgetSettingsCard2 => 'Widget menampilkan piutang dan tagihan hari ini tanpa membuka aplikasi';
 
   @override
-  String get homeWidgetSettingsCard3 =>
-      'Widget nonaktif dan tidak menampilkan angka';
+  String get homeWidgetSettingsCard3 => 'Widget nonaktif dan tidak menampilkan angka';
 
   @override
   String get homeWidgetSettingsCard4 => 'Tambah widget kecil';
@@ -2757,19 +2689,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get homeWidgetSettingsCard6 => 'Tambah widget ringkasan hari ini';
 
   @override
-  String get homeWidgetSettingsCard7 =>
-      'Piutang + tagihan hari ini + jatuh tempo + tombol tagih';
+  String get homeWidgetSettingsCard7 => 'Piutang + tagihan hari ini + jatuh tempo + tombol tagih';
 
   @override
-  String get homeWidgetSettingsCard8 =>
-      'Setujui pesan yang muncul agar widget ditambahkan 👍';
+  String get homeWidgetSettingsCard8 => 'Setujui pesan yang muncul agar widget ditambahkan 👍';
 
   @override
   String get homeWidgetSettingsCard9 => 'Tambahkan widget sendiri 📱';
 
   @override
-  String get homeWidgetSettingsCard10 =>
-      'HP Anda tidak mengizinkan aplikasi menambahkannya otomatis. Lakukan ini:\n\n1. Tekan lama area kosong di layar utama\n2. Pilih \"Widget\"\n3. Cari \"Kashkool\" lalu seret widget ke layar';
+  String get homeWidgetSettingsCard10 => 'HP Anda tidak mengizinkan aplikasi menambahkannya otomatis. Lakukan ini:\n\n1. Tekan lama area kosong di layar utama\n2. Pilih \"Widget\"\n3. Cari \"Kashkool\" lalu seret widget ke layar';
 
   @override
   String get messageTemplateEditorBottomSheet1 => 'Toko Amanah';
@@ -2805,12 +2734,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get messageTemplateEditorBottomSheet11 => 'Tanggal transaksi terakhir';
 
   @override
-  String get messageTemplateEditorBottomSheet12 =>
-      'Tulis pesan pengingat di sini...';
+  String get messageTemplateEditorBottomSheet12 => 'Tulis pesan pengingat di sini...';
 
   @override
-  String get messageTemplateEditorBottomSheet13 =>
-      'Pratinjau seperti yang diterima pelanggan:';
+  String get messageTemplateEditorBottomSheet13 => 'Pratinjau seperti yang diterima pelanggan:';
 
   @override
   String get messageTemplateEditorBottomSheet14 => 'Simpan template';
@@ -2863,8 +2790,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get shopProfileBottomSheet15 => 'Aktifkan cicilan';
 
   @override
-  String get shopProfileBottomSheet16 =>
-      'Tampilkan tombol cicilan & jadwal bayar';
+  String get shopProfileBottomSheet16 => 'Tampilkan tombol cicilan & jadwal bayar';
 
   @override
   String get shopProfileBottomSheet17 => 'Simpan perubahan';
@@ -2929,8 +2855,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get cloudBackupCard15 =>
-      'Tidak ada yang dihapus: data yang hanya ada di HP ini tetap ada, dan perubahan setelah cadangan terakhir dibiarkan.';
+  String get cloudBackupCard15 => 'Tidak ada yang dihapus: data yang hanya ada di HP ini tetap ada, dan perubahan setelah cadangan terakhir dibiarkan.';
 
   @override
   String get cloudBackupCard16 => 'Ya, pulihkan';
@@ -2949,8 +2874,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get cloudBackupCard20 =>
-      ' Tutup dan buka lagi aplikasi untuk memperbarui layar.';
+  String get cloudBackupCard20 => ' Tutup dan buka lagi aplikasi untuk memperbarui layar.';
 
   @override
   String get cloudBackupCard21 => 'Tutup aplikasi';
@@ -2959,8 +2883,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get cloudBackupCard22 => 'Keluar dari akun?';
 
   @override
-  String get cloudBackupCard23 =>
-      'Data tetap di HP dan cloud, tetapi pencadangan berhenti sampai Anda masuk lagi.';
+  String get cloudBackupCard23 => 'Data tetap di HP dan cloud, tetapi pencadangan berhenti sampai Anda masuk lagi.';
 
   @override
   String get cloudBackupCard24 => 'Keluar';
@@ -2972,8 +2895,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get cloudBackupCard26 => 'Cadangan cloud';
 
   @override
-  String get cloudBackupCard27 =>
-      'Masuk dengan Google agar data tersimpan online. Jika HP hilang, pulihkan di HP lain.';
+  String get cloudBackupCard27 => 'Masuk dengan Google agar data tersimpan online. Jika HP hilang, pulihkan di HP lain.';
 
   @override
   String get cloudBackupCard28 => 'Belum ada cadangan';
@@ -3005,8 +2927,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get cloudBackupCard36 => 'Pulihkan data di HP ini';
 
   @override
-  String get cloudBackupCard37 =>
-      'Untuk HP baru atau setelah instal ulang — tidak menghapus apa pun';
+  String get cloudBackupCard37 => 'Untuk HP baru atau setelah instal ulang — tidak menghapus apa pun';
 
   @override
   String get cloudBackupCard38 => 'Keluar';
@@ -3015,8 +2936,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen1 => 'Toko saya';
 
   @override
-  String get onboardingScreen2 =>
-      'Pelanggan contoh ditambahkan untuk mencoba aplikasi, bisa dihapus kapan saja';
+  String get onboardingScreen2 => 'Pelanggan contoh ditambahkan untuk mencoba aplikasi, bisa dihapus kapan saja';
 
   @override
   String get onboardingScreen3 => 'Menyiapkan Kashkool';
@@ -3028,8 +2948,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen5 => 'Selamat datang di Kashkool! 👋';
 
   @override
-  String get onboardingScreen6 =>
-      'Buku digital untuk utang, pengingat WhatsApp, dan cicilan — tanpa ribet.';
+  String get onboardingScreen6 => 'Buku digital untuk utang, pengingat WhatsApp, dan cicilan — tanpa ribet.';
 
   @override
   String get onboardingScreen7 => 'Nama toko *';
@@ -3044,8 +2963,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen10 => 'Telepon toko (opsional)';
 
   @override
-  String get onboardingScreen11 =>
-      'Tampil di nota, laporan, dan pesan WhatsApp';
+  String get onboardingScreen11 => 'Tampil di nota, laporan, dan pesan WhatsApp';
 
   @override
   String get onboardingScreen12 => 'Toko kelontong & swalayan';
@@ -3063,8 +2981,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen16 => 'Elektronik & peralatan rumah';
 
   @override
-  String get onboardingScreen17 =>
-      'Kontrak jual kredit, cicilan aktif otomatis';
+  String get onboardingScreen17 => 'Kontrak jual kredit, cicilan aktif otomatis';
 
   @override
   String get onboardingScreen18 => 'Apotek & kosmetik';
@@ -3082,8 +2999,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen22 => 'Apa jenis usaha Anda?';
 
   @override
-  String get onboardingScreen23 =>
-      'Kami akan menyesuaikan aplikasi dengan usaha Anda.';
+  String get onboardingScreen23 => 'Kami akan menyesuaikan aplikasi dengan usaha Anda.';
 
   @override
   String get onboardingScreen24 => 'Mendukung cicilan';
@@ -3092,15 +3008,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen25 => 'Aktifkan rencana cicilan';
 
   @override
-  String get onboardingScreen26 =>
-      'Bisa diaktifkan/nonaktifkan kapan saja di Pengaturan';
+  String get onboardingScreen26 => 'Bisa diaktifkan/nonaktifkan kapan saja di Pengaturan';
 
   @override
   String get onboardingScreen27 => 'Pastikan pengingat sampai 🔔';
 
   @override
-  String get onboardingScreen28 =>
-      'Agar Kashkool bisa mengingatkan tagihan dan cicilan setiap hari:';
+  String get onboardingScreen28 => 'Agar Kashkool bisa mengingatkan tagihan dan cicilan setiap hari:';
 
   @override
   String get onboardingScreen29 => 'Izin notifikasi';
@@ -3109,8 +3023,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen30 => 'Notifikasi aktif ✅';
 
   @override
-  String get onboardingScreen31 =>
-      'Kami perlu izin notifikasi untuk mengirim ringkasan tagihan harian';
+  String get onboardingScreen31 => 'Kami perlu izin notifikasi untuk mengirim ringkasan tagihan harian';
 
   @override
   String get onboardingScreen32 => 'Izinkan notifikasi';
@@ -3136,15 +3049,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get onboardingScreen38 => '+ Tambah pelanggan pertama';
 
   @override
-  String get onboardingScreen39 =>
-      'Catat pelanggan pertama dan langsung catat utang serta pembayaran';
+  String get onboardingScreen39 => 'Catat pelanggan pertama dan langsung catat utang serta pembayaran';
 
   @override
   String get onboardingScreen40 => 'Coba dulu dengan data contoh 💡';
 
   @override
-  String get onboardingScreen41 =>
-      'Menambah dua pelanggan contoh untuk mencoba Kashkool (hapus dengan sekali ketuk)';
+  String get onboardingScreen41 => 'Menambah dua pelanggan contoh untuk mencoba Kashkool (hapus dengan sekali ketuk)';
 
   @override
   String get onboardingScreen42 => 'Lewati ke layar utama';
@@ -3212,8 +3123,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get trashScreen8 => 'Sampah 🗑️';
 
   @override
-  String get trashScreen9 =>
-      'Apa pun yang dihapus masuk ke sini dan tidak hilang. Bisa dikembalikan kapan saja, termasuk di cadangan cloud.';
+  String get trashScreen9 => 'Apa pun yang dihapus masuk ke sini dan tidak hilang. Bisa dikembalikan kapan saja, termasuk di cadangan cloud.';
 
   @override
   String get trashScreen10 => 'Gagal memuat item terhapus';
@@ -3445,8 +3355,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get googleAuthService1 => 'Cadangan cloud belum diatur di versi ini';
 
   @override
-  String get googleAuthService2 =>
-      'Google tidak mengembalikan data masuk, coba lagi';
+  String get googleAuthService2 => 'Google tidak mengembalikan data masuk, coba lagi';
 
   @override
   String get googleAuthService3 => 'Masuk dibatalkan';
@@ -3478,8 +3387,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get cloudApi7 => 'Fitur ini perlu langganan';
 
   @override
-  String get cloudApi8 =>
-      'Terlalu banyak percobaan, tunggu sebentar lalu coba lagi';
+  String get cloudApi8 => 'Terlalu banyak percobaan, tunggu sebentar lalu coba lagi';
 
   @override
   String get cloudApi9 => 'Masuk lagi dengan Google';
@@ -3566,16 +3474,13 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get whatsappTemplate1 =>
-      'Halo {customer_name} 👋\nIni dari {shop_name}.\nSaldo Anda saat ini: {balance}\nTransaksi terakhir: {last_transaction_date} - {last_transaction_amount}\nUntuk membayar: {payment_info}\nTerima kasih sudah berbelanja 🙏';
+  String get whatsappTemplate1 => 'Halo {customer_name} 👋\nIni dari {shop_name}.\nSaldo Anda saat ini: {balance}\nTransaksi terakhir: {last_transaction_date} - {last_transaction_amount}\nUntuk membayar: {payment_info}\nTerima kasih sudah berbelanja 🙏';
 
   @override
-  String get whatsappTemplate2 =>
-      'Yth. {customer_name},\nKami mengingatkan bahwa saldo Anda di {shop_name} saat ini {balance}.\nTransaksi terakhir: {last_transaction_date} ({last_transaction_amount})\nPilihan pembayaran: {payment_info}\nHormat kami.';
+  String get whatsappTemplate2 => 'Yth. {customer_name},\nKami mengingatkan bahwa saldo Anda di {shop_name} saat ini {balance}.\nTransaksi terakhir: {last_transaction_date} ({last_transaction_amount})\nPilihan pembayaran: {payment_info}\nHormat kami.';
 
   @override
-  String get whatsappTemplate3 =>
-      'Halo {customer_name} 👋\nIni dari {shop_name}.\nMengingatkan cicilan ({item}) jatuh tempo — cicilan ke-{installment_number} dari {installment_count}:\nJumlah tagihan: {amount}\nJatuh tempo: {due_date}\nTotal sisa: {remaining_total}\nPilihan pembayaran: {payment_info}\nTerima kasih atas ketepatan Anda 🙏';
+  String get whatsappTemplate3 => 'Halo {customer_name} 👋\nIni dari {shop_name}.\nMengingatkan cicilan ({item}) jatuh tempo — cicilan ke-{installment_number} dari {installment_count}:\nJumlah tagihan: {amount}\nJatuh tempo: {due_date}\nTotal sisa: {remaining_total}\nPilihan pembayaran: {payment_info}\nTerima kasih atas ketepatan Anda 🙏';
 
   @override
   String get whatsappTemplate4 => 'Tunai di toko atau transfer';
@@ -3590,71 +3495,58 @@ class AppLocalizationsId extends AppLocalizations {
   String get batteryOptimizationHelper2 => 'Buka aplikasi Phone Master.';
 
   @override
-  String get batteryOptimizationHelper3 =>
-      'Masuk ke \"Auto-start\" dan aktifkan Kashkool.';
+  String get batteryOptimizationHelper3 => 'Masuk ke \"Auto-start\" dan aktifkan Kashkool.';
 
   @override
-  String get batteryOptimizationHelper4 =>
-      'Di pengaturan aplikasi, buka \"Baterai\" dan pilih \"Tidak dibatasi\".';
+  String get batteryOptimizationHelper4 => 'Di pengaturan aplikasi, buka \"Baterai\" dan pilih \"Tidak dibatasi\".';
 
   @override
-  String get batteryOptimizationHelper5 =>
-      'Di aplikasi terbaru, tarik aplikasi ke bawah untuk menguncinya 🔒.';
+  String get batteryOptimizationHelper5 => 'Di aplikasi terbaru, tarik aplikasi ke bawah untuk menguncinya 🔒.';
 
   @override
   String get batteryOptimizationHelper6 => 'MIUI / HyperOS';
 
   @override
-  String get batteryOptimizationHelper7 =>
-      'Buka pengaturan aplikasi dan aktifkan \"Autostart\".';
+  String get batteryOptimizationHelper7 => 'Buka pengaturan aplikasi dan aktifkan \"Autostart\".';
 
   @override
-  String get batteryOptimizationHelper8 =>
-      'Di \"Penghemat baterai\", pilih \"Tanpa batasan\".';
+  String get batteryOptimizationHelper8 => 'Di \"Penghemat baterai\", pilih \"Tanpa batasan\".';
 
   @override
-  String get batteryOptimizationHelper9 =>
-      'Di aplikasi terbaru, tekan lama Kashkool lalu pilih ikon gembok 🔒.';
+  String get batteryOptimizationHelper9 => 'Di aplikasi terbaru, tekan lama Kashkool lalu pilih ikon gembok 🔒.';
 
   @override
   String get batteryOptimizationHelper10 => 'ColorOS / Realme UI';
 
   @override
-  String get batteryOptimizationHelper11 =>
-      'Pengaturan aplikasi -> Penggunaan baterai, aktifkan \"Izinkan aktivitas latar belakang\".';
+  String get batteryOptimizationHelper11 => 'Pengaturan aplikasi -> Penggunaan baterai, aktifkan \"Izinkan aktivitas latar belakang\".';
 
   @override
   String get batteryOptimizationHelper12 => 'Aktifkan \"Auto-launch\".';
 
   @override
-  String get batteryOptimizationHelper13 =>
-      'Di aplikasi terbaru, ketuk titik tiga lalu pilih \"Kunci\".';
+  String get batteryOptimizationHelper13 => 'Di aplikasi terbaru, ketuk titik tiga lalu pilih \"Kunci\".';
 
   @override
   String get batteryOptimizationHelper14 => 'One UI';
 
   @override
-  String get batteryOptimizationHelper15 =>
-      'Buka Pengaturan -> Perawatan perangkat -> Baterai.';
+  String get batteryOptimizationHelper15 => 'Buka Pengaturan -> Perawatan perangkat -> Baterai.';
 
   @override
-  String get batteryOptimizationHelper16 =>
-      'Buka \"Batas penggunaan latar belakang\".';
+  String get batteryOptimizationHelper16 => 'Buka \"Batas penggunaan latar belakang\".';
 
   @override
-  String get batteryOptimizationHelper17 =>
-      'Tambahkan Kashkool ke \"Aplikasi tidak pernah tidur\".';
+  String get batteryOptimizationHelper17 => 'Tambahkan Kashkool ke \"Aplikasi tidak pernah tidur\".';
 
   @override
   String get batteryOptimizationHelper18 => 'EMUI / MagicOS';
 
   @override
-  String get batteryOptimizationHelper19 =>
-      'Buka Pengaturan -> Baterai -> Peluncuran aplikasi.';
+  String get batteryOptimizationHelper19 => 'Buka Pengaturan -> Baterai -> Peluncuran aplikasi.';
 
   @override
-  String get batteryOptimizationHelper20 =>
-      'Cari \"Kashkool\", ubah ke manual, lalu aktifkan Auto-launch dan Jalankan di latar belakang.';
+  String get batteryOptimizationHelper20 => 'Cari \"Kashkool\", ubah ke manual, lalu aktifkan Auto-launch dan Jalankan di latar belakang.';
 
   @override
   String get batteryOptimizationHelper21 => 'Pengaturan sistem';
@@ -3663,16 +3555,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get batteryOptimizationHelper22 => 'Lindungi notifikasi sistem';
 
   @override
-  String get batteryOptimizationHelper23 =>
-      'Buka info aplikasi di pengaturan HP.';
+  String get batteryOptimizationHelper23 => 'Buka info aplikasi di pengaturan HP.';
 
   @override
-  String get batteryOptimizationHelper24 =>
-      'Buka \"Baterai\" lalu pilih \"Tidak dibatasi\".';
+  String get batteryOptimizationHelper24 => 'Buka \"Baterai\" lalu pilih \"Tidak dibatasi\".';
 
   @override
-  String get batteryOptimizationHelper25 =>
-      'Pastikan mode hemat daya ekstrem mati agar pengingat masuk.';
+  String get batteryOptimizationHelper25 => 'Pastikan mode hemat daya ekstrem mati agar pengingat masuk.';
 
   @override
   String get homeWidgetService1 => 'Tidak ada';
@@ -3734,15 +3623,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get cloudDeleteAccountTitle => 'Hapus akun cloud saya';
 
   @override
-  String get cloudDeleteAccountSubtitle =>
-      'Menghapus permanen cadangan cloud dan akun — data di HP tetap ada';
+  String get cloudDeleteAccountSubtitle => 'Menghapus permanen cadangan cloud dan akun — data di HP tetap ada';
 
   @override
   String get cloudDeleteAccountConfirmTitle => 'Hapus akun secara permanen?';
 
   @override
-  String get cloudDeleteAccountConfirmBody =>
-      'Kami akan menghapus akun Anda dan semua cadangan cloud toko milik Anda. Ini tidak bisa dibatalkan. Data di HP ini tetap ada.';
+  String get cloudDeleteAccountConfirmBody => 'Kami akan menghapus akun Anda dan semua cadangan cloud toko milik Anda. Ini tidak bisa dibatalkan. Data di HP ini tetap ada.';
 
   @override
   String get cloudDeleteAccountConfirmButton => 'Hapus permanen';
@@ -3760,8 +3647,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get authHaveAccount => 'عندي حساب بالفعل';
 
   @override
-  String get authHaveAccountSubtitle =>
-      'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
+  String get authHaveAccountSubtitle => 'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
 
   @override
   String get authNewUser => 'مستخدم جديد';
@@ -3773,8 +3659,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
 
   @override
-  String get authContinueGuestSubtitle =>
-      'استخدم التطبيق محلياً بدون إنترنت خالص';
+  String get authContinueGuestSubtitle => 'استخدم التطبيق محلياً بدون إنترنت خالص';
 
   @override
   String get authLogin => 'تسجيل الدخول';
@@ -3807,15 +3692,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
 
   @override
-  String get authSignInWithGoogleSubtitle =>
-      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+  String get authSignInWithGoogleSubtitle => 'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
 
   @override
   String get authSwitchAccount => 'تبديل الحساب';
 
   @override
-  String get authSwitchAccountSubtitle =>
-      'اختر حساباً آخر أو سجّل دخول بحساب جديد';
+  String get authSwitchAccountSubtitle => 'اختر حساباً آخر أو سجّل دخول بحساب جديد';
 
   @override
   String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
@@ -3853,8 +3736,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
 
   @override
-  String get authBackupBeforeSwitchBody =>
-      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
+  String get authBackupBeforeSwitchBody => 'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
 
   @override
   String get authBackupFirst => 'اعمل نسخة احتياطية أولاً';
@@ -3878,8 +3760,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get offersBroadcasterTitle => 'رسائل العروض والمعايدات';
 
   @override
-  String get offersBroadcasterSubtitle =>
-      'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة';
+  String get offersBroadcasterSubtitle => 'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة';
 
   @override
   String get offersTemplateSection => '1. اختر القالب';
@@ -3918,8 +3799,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get offersAudienceManual => 'اختيار يدوي مخصص';
 
   @override
-  String get offersTipSpam =>
-      '💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.';
+  String get offersTipSpam => '💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.';
 
   @override
   String offersStartCampaign(Object count) {
@@ -3955,12 +3835,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get offersCampaignCompleteTitle => 'تم الانتهاء بنجاح! 🎉';
 
   @override
-  String get offersCampaignCompleteSubtitle =>
-      'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.';
+  String get offersCampaignCompleteSubtitle => 'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.';
 
   @override
-  String get offersNoRecipients =>
-      'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف';
+  String get offersNoRecipients => 'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف';
 
   @override
   String offersSelectManualCustomers(Object count) {
@@ -3974,24 +3852,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get offersInsertPlaceholderHint => 'اضغط لإدراج متغير في الرسالة:';
 
   @override
-  String get offersDefaultRamadanText =>
-      'كل عام وحضرتك بخير يا {customer_name} بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من {shop_name} 🌙✨';
+  String get offersDefaultRamadanText => 'كل عام وحضرتك بخير يا {customer_name} بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من {shop_name} 🌙✨';
 
   @override
-  String get offersDefaultEidText =>
-      'عيد مبارك عليك وعلى أسرتك يا {customer_name}، كل سنة وحضرتك طيب وبصحة وسعادة من {shop_name} 🎉🐑';
+  String get offersDefaultEidText => 'عيد مبارك عليك وعلى أسرتك يا {customer_name}، كل سنة وحضرتك طيب وبصحة وسعادة من {shop_name} 🎉🐑';
 
   @override
-  String get offersDefaultBackToSchoolText =>
-      'عام دراسي جديد سعيد وموفق لأولادنا يا {customer_name}، متوفر لدينا كل ما يلزمكم في {shop_name} 📚✏️';
+  String get offersDefaultBackToSchoolText => 'عام دراسي جديد سعيد وموفق لأولادنا يا {customer_name}، متوفر لدينا كل ما يلزمكم في {shop_name} 📚✏️';
 
   @override
-  String get offersDefaultNewOfferText =>
-      'أهلاً يا {customer_name}! عندنا عروض وتخفيضات جديدة ومميزة لك في {shop_name}، تشرفنا بزيارتك في أي وقت 🎁🔥';
+  String get offersDefaultNewOfferText => 'أهلاً يا {customer_name}! عندنا عروض وتخفيضات جديدة ومميزة لك في {shop_name}، تشرفنا بزيارتك في أي وقت 🎁🔥';
 
   @override
-  String get offersDefaultCustomText =>
-      'أهلاً يا {customer_name}، تحياتنا لك من {shop_name} 👋';
+  String get offersDefaultCustomText => 'أهلاً يا {customer_name}، تحياتنا لك من {shop_name} 👋';
 
   @override
   String offersSentSuccessPrompt(Object name) {
@@ -4019,12 +3892,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get notificationServiceInstallmentsChannelName => 'تذكير الأقساط';
 
   @override
-  String get notificationServiceInstallmentsChannelDesc =>
-      'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة';
+  String get notificationServiceInstallmentsChannelDesc => 'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة';
 
   @override
-  String get notificationServiceInstallmentsTitle =>
-      'تنبيه الأقساط المستحقة 🔔';
+  String get notificationServiceInstallmentsTitle => 'تنبيه الأقساط المستحقة 🔔';
 
   @override
   String notificationServiceInstallmentsBody(Object count, Object amountStr) {
@@ -4035,12 +3906,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get notificationServiceBackupChannelName => 'تذكير النسخ الاحتياطي';
 
   @override
-  String get notificationServiceBackupChannelDesc =>
-      'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع';
+  String get notificationServiceBackupChannelDesc => 'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع';
 
   @override
-  String get notificationServiceBackupTitle =>
-      'تنبيه: محتاج تعمل نسخة احتياطية ⚠️';
+  String get notificationServiceBackupTitle => 'تنبيه: محتاج تعمل نسخة احتياطية ⚠️';
 
   @override
   String notificationServiceBackupBody(Object days) {
@@ -4051,15 +3920,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get notificationServiceTestTitle => 'إشعار تجريبي من كشكول 🚀';
 
   @override
-  String get notificationServiceTestBody =>
-      'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍';
+  String get notificationServiceTestBody => 'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍';
 
   @override
   String get notificationServiceSettingsReminderTime => 'وقت التذكير اليومي';
 
   @override
-  String get notificationServiceSettingsReminderTimeSubtitle =>
-      'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة';
+  String get notificationServiceSettingsReminderTimeSubtitle => 'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة';
 
   @override
   String get notificationServiceSettingsStatus => 'إشعارات التطبيق';
@@ -4068,19 +3935,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get notificationServiceSettingsStatusActive => 'مفعلة وتعمل بنجاح ✓';
 
   @override
-  String get notificationServiceSettingsStatusDisabled =>
-      'متوقفة — اضغط لمنح الإذن';
+  String get notificationServiceSettingsStatusDisabled => 'متوقفة — اضغط لمنح الإذن';
 
   @override
   String get notificationServiceSettingsSendTest => 'إرسال إشعار تجريبي الآن';
 
   @override
-  String get notificationServiceSettingsSendTestSubtitle =>
-      'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً';
+  String get notificationServiceSettingsSendTestSubtitle => 'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً';
 
   @override
-  String get notificationServiceSettingsSendTestSuccess =>
-      'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+  String get notificationServiceSettingsSendTestSuccess => 'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
 
   @override
   String get navHome => 'Beranda';
@@ -4101,8 +3965,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get moreInstallmentsTitle => 'Cicilan';
 
   @override
-  String get moreInstallmentsSubtitle =>
-      'Rencana cicilan dan tanggal jatuh tempo';
+  String get moreInstallmentsSubtitle => 'Rencana cicilan dan tanggal jatuh tempo';
 
   @override
   String get moreOffersSubtitle => 'Penawaran dan ucapan untuk pelanggan';

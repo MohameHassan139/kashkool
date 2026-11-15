@@ -250,21 +250,56 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
                     );
                   }
 
-                  return ListView.builder(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: customers.length,
-                    padding: const EdgeInsets.only(bottom: 88, top: 4),
-                    itemBuilder: (ctx, index) {
-                      final item = customers[index];
-                      return CustomerListItem(
-                        item: item,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (ctx) => CustomerDetailsScreen(
-                                customerId: item.customer.id,
-                              ),
-                            ),
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isTablet = constraints.maxWidth >= 720;
+
+                      if (isTablet) {
+                        return GridView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: customers.length,
+                          padding: const EdgeInsets.only(bottom: 88, top: 4, left: 16, right: 16),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 3.4,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 8,
+                          ),
+                          itemBuilder: (ctx, index) {
+                            final item = customers[index];
+                            return CustomerListItem(
+                              item: item,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (ctx) => CustomerDetailsScreen(
+                                      customerId: item.customer.id,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }
+
+                      return ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: customers.length,
+                        padding: const EdgeInsets.only(bottom: 88, top: 4),
+                        itemBuilder: (ctx, index) {
+                          final item = customers[index];
+                          return CustomerListItem(
+                            item: item,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => CustomerDetailsScreen(
+                                    customerId: item.customer.id,
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       );

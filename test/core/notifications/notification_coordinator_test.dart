@@ -41,6 +41,7 @@ void main() {
       final lastCollection = await settingsRepo.getLastCollectionReminderDate();
       final lastInstallment = await settingsRepo.getLastInstallmentReminderDate();
       final lastBackup = await settingsRepo.getLastBackupReminderDate();
+      final lastLowStock = await settingsRepo.getLastLowStockReminderDate();
 
       expect(hour, equals(10));
       expect(minute, equals(0));
@@ -48,6 +49,7 @@ void main() {
       expect(lastCollection, isNull);
       expect(lastInstallment, isNull);
       expect(lastBackup, isNull);
+      expect(lastLowStock, isNull);
     });
 
     test('SettingsRepository saves and watches notification settings', () async {
@@ -57,6 +59,7 @@ void main() {
       await settingsRepo.setLastCollectionReminderDate('2026-11-14');
       await settingsRepo.setLastInstallmentReminderDate('2026-11-14');
       await settingsRepo.setLastBackupReminderDate('2026-11-14');
+      await settingsRepo.setLastLowStockReminderDate('2026-11-14');
 
       expect(await settingsRepo.getReminderTimeHour(), equals(20));
       expect(await settingsRepo.getReminderTimeMinute(), equals(30));
@@ -64,6 +67,7 @@ void main() {
       expect(await settingsRepo.getLastCollectionReminderDate(), equals('2026-11-14'));
       expect(await settingsRepo.getLastInstallmentReminderDate(), equals('2026-11-14'));
       expect(await settingsRepo.getLastBackupReminderDate(), equals('2026-11-14'));
+      expect(await settingsRepo.getLastLowStockReminderDate(), equals('2026-11-14'));
     });
 
     test('NotificationCoordinator instantiates and starts cleanly via ProviderContainer', () {
