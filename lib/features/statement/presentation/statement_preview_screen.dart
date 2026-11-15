@@ -228,6 +228,8 @@ class _StatementPreviewScreenState extends ConsumerState<StatementPreviewScreen>
                         canChangeOrientation: false,
                         canChangePageFormat: false,
                         canDebug: false,
+                        maxPageWidth: 450,
+                        dpi: 144,
                         scrollViewDecoration: BoxDecoration(
                           color: isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
                         ),

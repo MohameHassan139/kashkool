@@ -39,13 +39,17 @@ class PdfReportsService {
     }
   }
 
-  static PdfPageFormat _pageFormatFor(PdfDocumentFormat format) {
+  static PdfPageFormat _pageFormatFor(PdfDocumentFormat format, {int itemCount = 1}) {
     if (format == PdfDocumentFormat.thermal80mm) {
       const thermalWidth = 80 * PdfPageFormat.mm;
       const thermalMarginAll = 4 * PdfPageFormat.mm;
-      return const PdfPageFormat(
+      // Calculate a safe, realistic height in millimeters based on item count.
+      // Base overhead: 110mm (header, metadata, totals, footer) + 8mm per item line.
+      // Clamped between 140mm and 290mm so single pages never blow GPU texture limits on budget devices.
+      final heightMm = (110.0 + (itemCount * 8.0)).clamp(140.0, 290.0);
+      return PdfPageFormat(
         thermalWidth,
-        3000 * PdfPageFormat.mm,
+        heightMm * PdfPageFormat.mm,
         marginAll: thermalMarginAll,
       );
     }
@@ -67,7 +71,7 @@ class PdfReportsService {
     final font = await _loadFont();
     final pdf = pw.Document();
     final isA4 = format == PdfDocumentFormat.a4;
-    final pageFormat = _pageFormatFor(format);
+    final pageFormat = _pageFormatFor(format, itemCount: 8);
 
     final now = DateTime.now();
     final genDateStr = DateFormat('yyyy/MM/dd · hh:mm a').format(now);
@@ -303,7 +307,7 @@ class PdfReportsService {
     final font = await _loadFont();
     final pdf = pw.Document();
     final isA4 = format == PdfDocumentFormat.a4;
-    final pageFormat = _pageFormatFor(format);
+    final pageFormat = _pageFormatFor(format, itemCount: 10);
 
     final genDateStr = DateFormat('yyyy/MM/dd · hh:mm a').format(overview.generatedAt);
 
@@ -491,7 +495,7 @@ class PdfReportsService {
     final font = await _loadFont();
     final pdf = pw.Document();
     final isA4 = format == PdfDocumentFormat.a4;
-    final pageFormat = _pageFormatFor(format);
+    final pageFormat = _pageFormatFor(format, itemCount: products.length);
 
     final genDateStr = DateFormat('yyyy/MM/dd · hh:mm a').format(DateTime.now());
     final title = isLowStockOnly ? 'كشف النواقص وطلبيات الموردين' : 'تقرير جرد المخزون العام وقيمة البضاعة';
@@ -653,11 +657,12 @@ class PdfReportsService {
     final font = await _loadFont();
     final pdf = pw.Document();
     final isA4 = format == PdfDocumentFormat.a4;
-    final pageFormat = _pageFormatFor(format);
 
     final saleDateStr = DateFormat('yyyy/MM/dd · hh:mm a').format(sale.occurredAt.toLocal());
     final isCredit = sale.paymentType == SalePaymentType.credit;
     final shortSaleId = sale.id.length >= 8 ? sale.id.substring(0, 8).toUpperCase() : sale.id;
+
+    final pageFormat = _pageFormatFor(format, itemCount: items.length);
 
     pdf.addPage(
       pw.MultiPage(

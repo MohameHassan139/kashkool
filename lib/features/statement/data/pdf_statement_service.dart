@@ -60,9 +60,11 @@ class PdfStatementService {
     // Page widget instead of MultiPage.
     const thermalWidth = 80 * PdfPageFormat.mm;
     const thermalMarginAll = 4 * PdfPageFormat.mm;
-    const thermalPageFormat = PdfPageFormat(
+    final rowCount = statement.rows.length;
+    final heightMm = (120.0 + (rowCount * 8.0)).clamp(140.0, 300.0);
+    final thermalPageFormat = PdfPageFormat(
       thermalWidth,
-      3000 * PdfPageFormat.mm, // ~10 m — enough for any realistic receipt
+      heightMm * PdfPageFormat.mm,
       marginAll: thermalMarginAll,
     );
 
