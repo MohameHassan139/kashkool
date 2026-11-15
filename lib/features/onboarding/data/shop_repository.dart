@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/db/app_database.dart';
 import '../../settings/data/settings_repository.dart';
+import '../../settings/domain/app_features.dart';
 import '../../../l10n/l10n.dart';
 
 /// Repository for Shop profile and onboarding state management.
@@ -279,6 +280,5 @@ final isOnboardingCompletedProvider = FutureProvider<bool>((ref) {
 
 /// Provides whether installments is enabled for the shop
 final installmentsEnabledProvider = Provider<bool>((ref) {
-  final shop = ref.watch(activeShopStreamProvider).value;
-  return shop?.enableInstallments ?? false;
+  return ref.watch(isFeatureEnabledProvider(AppFeature.installments));
 });

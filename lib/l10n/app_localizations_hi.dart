@@ -301,6 +301,104 @@ class AppLocalizationsHi extends AppLocalizations {
   String get shopReportShare => 'مشاركة التقرير عبر واتساب';
 
   @override
+  String get featureManagerTitle => 'تخصيص ميزات المحل';
+
+  @override
+  String get featureManagerSubtitle =>
+      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
+
+  @override
+  String get featureManagerNote =>
+      'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
+
+  @override
+  String get featurePresetTitle => 'أوضاع سريعة بنقرة واحدة';
+
+  @override
+  String get featurePresetSimple => 'كشكول ديون فقط';
+
+  @override
+  String get featurePresetSimpleDesc =>
+      'تركيز تام على حسابات الزباين والتحصيل فقط';
+
+  @override
+  String get featurePresetGrocery => 'بقالة وسوبرماركت';
+
+  @override
+  String get featurePresetGroceryDesc => 'بيع سريع + بضاعة وموردين + درج يومي';
+
+  @override
+  String get featurePresetElectronics => 'محل موبايل وأجهزة';
+
+  @override
+  String get featurePresetElectronicsDesc => 'أقساط + مخزون + بيع سريع وموردين';
+
+  @override
+  String get featurePresetAll => 'تشغيل كل الميزات';
+
+  @override
+  String get featurePresetAllDesc => 'فتح كافة إمكانيات التطبيق';
+
+  @override
+  String get featureQuickPosTitle => 'البيع السريع ونقطة البيع (POS)';
+
+  @override
+  String get featureQuickPosDesc =>
+      'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
+
+  @override
+  String get featureSuppliersTitle => 'الموردون وفواتير الشراء';
+
+  @override
+  String get featureSuppliersDesc =>
+      'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
+
+  @override
+  String get featureInstallmentsTitle => 'دفتر الأقساط الشهرية';
+
+  @override
+  String get featureInstallmentsDesc =>
+      'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد';
+
+  @override
+  String get featureInventoryTitle => 'المخزون وإدارة الأصناف';
+
+  @override
+  String get featureInventoryDesc =>
+      'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
+
+  @override
+  String get featureCashDrawerTitle => 'الصندوق والدرج اليومي';
+
+  @override
+  String get featureCashDrawerDesc =>
+      'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
+
+  @override
+  String get featureProfitLossTitle => 'المكسب والخسارة والتقارير';
+
+  @override
+  String get featureProfitLossDesc =>
+      'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال';
+
+  @override
+  String get featureOffersTitle => 'رسائل العروض والمناسبات';
+
+  @override
+  String get featureOffersDesc =>
+      'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب';
+
+  @override
+  String get featureCoreAlwaysActive =>
+      'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
+
+  @override
+  String get featureStatusActive => 'مفعل';
+
+  @override
+  String get featureStatusHidden => 'مخفي';
+
+  @override
   String get quickPosTitle => 'بيع سريع';
 
   @override

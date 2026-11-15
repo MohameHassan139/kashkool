@@ -16,6 +16,9 @@ import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/quick_pos/presentation/quick_pos_screen.dart';
 import '../../features/reports/presentation/profit_loss_screen.dart';
 import '../../features/reports/presentation/shop_financial_report_screen.dart';
+import '../../features/settings/data/settings_repository.dart';
+import '../../features/settings/domain/app_features.dart';
+import '../../features/settings/presentation/feature_manager_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/suppliers/presentation/suppliers_screen.dart';
 import 'scaffold_with_nav_bar.dart';
@@ -28,6 +31,9 @@ class RouterNotifier extends ChangeNotifier {
 
   RouterNotifier(this._ref) {
     _ref.listen(isOnboardingCompletedStreamProvider, (_, _) {
+      notifyListeners();
+    });
+    _ref.listen(enabledFeaturesStreamProvider, (_, _) {
       notifyListeners();
     });
   }
@@ -43,8 +49,24 @@ class RouterNotifier extends ChangeNotifier {
       return '/onboarding';
     }
     if (isComplete && isGoingToOnboarding) {
-      return '/';
+      final isQuickPosEnabled = _ref.read(isFeatureEnabledProvider(AppFeature.quickPos));
+      return isQuickPosEnabled ? '/' : '/customers';
     }
+
+    if (isComplete && (state.matchedLocation == '/' || state.matchedLocation == '/pos')) {
+      final isQuickPosEnabled = _ref.read(isFeatureEnabledProvider(AppFeature.quickPos));
+      if (!isQuickPosEnabled) {
+        return '/customers';
+      }
+    }
+
+    if (isComplete && state.matchedLocation == '/suppliers') {
+      final isSuppliersEnabled = _ref.read(isFeatureEnabledProvider(AppFeature.suppliers));
+      if (!isSuppliersEnabled) {
+        return '/customers';
+      }
+    }
+
     return null;
   }
 }
@@ -123,6 +145,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         parentNavigatorKey: _rootNavigatorKey,
         path: '/settings',
         builder: (context, state) => const SettingsScreen(),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: 'features',
+            builder: (context, state) => const FeatureManagerScreen(),
+          ),
+        ],
       ),
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,

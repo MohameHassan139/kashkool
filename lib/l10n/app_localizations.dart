@@ -687,6 +687,180 @@ abstract class AppLocalizations {
   /// **'مشاركة التقرير عبر واتساب'**
   String get shopReportShare;
 
+  /// No description provided for @featureManagerTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تخصيص ميزات المحل'**
+  String get featureManagerTitle;
+
+  /// No description provided for @featureManagerSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك'**
+  String get featureManagerSubtitle;
+
+  /// No description provided for @featureManagerNote.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.'**
+  String get featureManagerNote;
+
+  /// No description provided for @featurePresetTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أوضاع سريعة بنقرة واحدة'**
+  String get featurePresetTitle;
+
+  /// No description provided for @featurePresetSimple.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كشكول ديون فقط'**
+  String get featurePresetSimple;
+
+  /// No description provided for @featurePresetSimpleDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تركيز تام على حسابات الزباين والتحصيل فقط'**
+  String get featurePresetSimpleDesc;
+
+  /// No description provided for @featurePresetGrocery.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بقالة وسوبرماركت'**
+  String get featurePresetGrocery;
+
+  /// No description provided for @featurePresetGroceryDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيع سريع + بضاعة وموردين + درج يومي'**
+  String get featurePresetGroceryDesc;
+
+  /// No description provided for @featurePresetElectronics.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'محل موبايل وأجهزة'**
+  String get featurePresetElectronics;
+
+  /// No description provided for @featurePresetElectronicsDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'أقساط + مخزون + بيع سريع وموردين'**
+  String get featurePresetElectronicsDesc;
+
+  /// No description provided for @featurePresetAll.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تشغيل كل الميزات'**
+  String get featurePresetAll;
+
+  /// No description provided for @featurePresetAllDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'فتح كافة إمكانيات التطبيق'**
+  String get featurePresetAllDesc;
+
+  /// No description provided for @featureQuickPosTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'البيع السريع ونقطة البيع (POS)'**
+  String get featureQuickPosTitle;
+
+  /// No description provided for @featureQuickPosDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي'**
+  String get featureQuickPosDesc;
+
+  /// No description provided for @featureSuppliersTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الموردون وفواتير الشراء'**
+  String get featureSuppliersTitle;
+
+  /// No description provided for @featureSuppliersDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'متابعة ديون الموردين وطلبيات النواقص والمرتجعات'**
+  String get featureSuppliersDesc;
+
+  /// No description provided for @featureInstallmentsTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'دفتر الأقساط الشهرية'**
+  String get featureInstallmentsTitle;
+
+  /// No description provided for @featureInstallmentsDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد'**
+  String get featureInstallmentsDesc;
+
+  /// No description provided for @featureInventoryTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المخزون وإدارة الأصناف'**
+  String get featureInventoryTitle;
+
+  /// No description provided for @featureInventoryDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات'**
+  String get featureInventoryDesc;
+
+  /// No description provided for @featureCashDrawerTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الصندوق والدرج اليومي'**
+  String get featureCashDrawerTitle;
+
+  /// No description provided for @featureCashDrawerDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حساب حركة النقدية اليومية والعجز والزيادة والإقفال'**
+  String get featureCashDrawerDesc;
+
+  /// No description provided for @featureProfitLossTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المكسب والخسارة والتقارير'**
+  String get featureProfitLossTitle;
+
+  /// No description provided for @featureProfitLossDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال'**
+  String get featureProfitLossDesc;
+
+  /// No description provided for @featureOffersTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رسائل العروض والمناسبات'**
+  String get featureOffersTitle;
+
+  /// No description provided for @featureOffersDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب'**
+  String get featureOffersDesc;
+
+  /// No description provided for @featureCoreAlwaysActive.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'العملاء والتحصيل ميزة أساسية مفعلة دائماً'**
+  String get featureCoreAlwaysActive;
+
+  /// No description provided for @featureStatusActive.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مفعل'**
+  String get featureStatusActive;
+
+  /// No description provided for @featureStatusHidden.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مخفي'**
+  String get featureStatusHidden;
+
   /// No description provided for @quickPosTitle.
   ///
   /// In ar_EG, this message translates to:

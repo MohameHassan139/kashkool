@@ -5,6 +5,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/growth/growth_footer.dart';
 import '../../../core/utils/whatsapp_template.dart';
 import '../../../l10n/l10n.dart';
+import '../domain/app_features.dart';
 
 /// Repository managing application settings and defaults stored locally in Drift SQLite.
 class SettingsRepository {
@@ -488,6 +489,75 @@ class SettingsRepository {
       }
     });
   }
+
+  // --- Modular App Features ---
+
+  /// Checks whether an [AppFeature] is enabled.
+  Future<bool> isFeatureEnabled(AppFeature feature) async {
+    final val = await getString(feature.settingKey);
+    if (val != null) {
+      return val == 'true';
+    }
+    // Backward compatibility: for installments, fallback to shop.enableInstallments
+    if (feature == AppFeature.installments) {
+      final shop = await (_db.select(_db.shops)
+            ..where((s) => s.deletedAt.isNull())
+            ..limit(1))
+          .getSingleOrNull();
+      if (shop != null) return shop.enableInstallments;
+    }
+    return feature.defaultEnabled;
+  }
+
+  /// Sets whether an [AppFeature] is enabled.
+  Future<void> setFeatureEnabled(AppFeature feature, bool enabled) async {
+    await setString(feature.settingKey, enabled ? 'true' : 'false');
+    // If installments, sync with shop.enableInstallments
+    if (feature == AppFeature.installments) {
+      final now = DateTime.now();
+      await (_db.update(_db.shops)..where((s) => s.deletedAt.isNull())).write(
+        ShopsCompanion(
+          enableInstallments: Value(enabled),
+          updatedAt: Value(now),
+        ),
+      );
+    }
+  }
+
+  /// Watches whether an [AppFeature] is enabled.
+  Stream<bool> watchFeatureEnabled(AppFeature feature) {
+    return watchString(feature.settingKey).map((val) {
+      if (val != null) return val == 'true';
+      return feature.defaultEnabled;
+    });
+  }
+
+  /// Watches all enabled features as a set.
+  Stream<Set<AppFeature>> watchEnabledFeatures() {
+    return (_db.select(_db.appSettings)
+          ..where((s) => s.key.like('feature_%_enabled')))
+        .watch()
+        .map((entries) {
+      final enabledSet = <AppFeature>{};
+      final map = {for (final e in entries) e.key: e.value == 'true'};
+      for (final f in AppFeature.values) {
+        if (map.containsKey(f.settingKey)) {
+          if (map[f.settingKey] == true) enabledSet.add(f);
+        } else if (f.defaultEnabled) {
+          enabledSet.add(f);
+        }
+      }
+      return enabledSet;
+    });
+  }
+
+  /// Applies a preset profile in one batch.
+  Future<void> applyFeaturePreset(FeaturePreset preset) async {
+    final targets = preset.enabledFeatures;
+    for (final f in AppFeature.values) {
+      await setFeatureEnabled(f, targets.contains(f));
+    }
+  }
 }
 
 /// Global provider for SettingsRepository
@@ -572,4 +642,20 @@ final reminderTimeMinuteProvider = StreamProvider<int>((ref) {
 final notificationsEnabledProvider = StreamProvider<bool>((ref) {
   final repo = ref.watch(settingsRepositoryProvider);
   return repo.watchNotificationsEnabled();
+});
+
+/// Stream provider watching the set of all enabled features
+final enabledFeaturesStreamProvider = StreamProvider<Set<AppFeature>>((ref) {
+  final repo = ref.watch(settingsRepositoryProvider);
+  return repo.watchEnabledFeatures();
+});
+
+/// Direct provider checking whether an [AppFeature] is enabled
+final isFeatureEnabledProvider =
+    Provider.family<bool, AppFeature>((ref, feature) {
+  final enabledSet = ref.watch(enabledFeaturesStreamProvider).valueOrNull;
+  if (enabledSet != null) {
+    return enabledSet.contains(feature);
+  }
+  return feature.defaultEnabled;
 });

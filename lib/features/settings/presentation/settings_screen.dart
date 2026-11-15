@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -56,6 +57,10 @@ class SettingsScreen extends ConsumerWidget {
           // 1. بيانات المحل (Shop Info)
           _buildSectionHeader(context, L10n.t.settingsScreen1),
           _buildShopInfoCard(context, ref),
+
+          // 1b. تخصيص ميزات المحل (Feature Customization)
+          _buildSectionHeader(context, l10n.featureManagerTitle),
+          _buildFeatureManagerCard(context),
 
           // 2. الحماية والخصوصية (Security & Privacy)
           _buildSectionHeader(context, L10n.t.settingsScreen2),
@@ -189,6 +194,40 @@ class SettingsScreen extends ConsumerWidget {
           ),
           trailing: const Icon(Icons.chevron_left_rounded),
           onTap: () => ShopProfileBottomSheet.show(context),
+        ),
+      ),
+    );
+  }
+
+  // --- 1b. Feature Customization Card ---
+  Widget _buildFeatureManagerCard(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Card(
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
+            child: Icon(Icons.tune_rounded, color: theme.colorScheme.primary),
+          ),
+          title: Text(
+            l10n.featureManagerTitle,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          subtitle: Text(
+            l10n.featureManagerSubtitle,
+            style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
+          ),
+          trailing: Icon(
+            L10n.isRtl ? Icons.chevron_left_rounded : Icons.chevron_right_rounded,
+          ),
+          onTap: () {
+            HapticFeedback.selectionClick();
+            context.push('/settings/features');
+          },
         ),
       ),
     );

@@ -305,6 +305,106 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shopReportShare => 'Share report via WhatsApp';
 
   @override
+  String get featureManagerTitle => 'Shop Features Manager';
+
+  @override
+  String get featureManagerSubtitle =>
+      'Show or hide sections based on your shop\'s daily workflow';
+
+  @override
+  String get featureManagerNote =>
+      'Hiding any feature never deletes its data; you can re-enable it anytime.';
+
+  @override
+  String get featurePresetTitle => 'One-tap Presets';
+
+  @override
+  String get featurePresetSimple => 'Simple Credit Ledger';
+
+  @override
+  String get featurePresetSimpleDesc =>
+      'Pure focus on customer credit and collection only';
+
+  @override
+  String get featurePresetGrocery => 'Grocery & Supermarket';
+
+  @override
+  String get featurePresetGroceryDesc =>
+      'Quick sale + inventory & suppliers + daily cash drawer';
+
+  @override
+  String get featurePresetElectronics => 'Mobile & Electronics';
+
+  @override
+  String get featurePresetElectronicsDesc =>
+      'Installments + stock + quick sales & suppliers';
+
+  @override
+  String get featurePresetAll => 'All Features Enabled';
+
+  @override
+  String get featurePresetAllDesc => 'Enable all application capabilities';
+
+  @override
+  String get featureQuickPosTitle => 'Quick Sale & Point of Sale (POS)';
+
+  @override
+  String get featureQuickPosDesc =>
+      'Fast cash invoice screen with change calculation';
+
+  @override
+  String get featureSuppliersTitle => 'Suppliers & Purchases';
+
+  @override
+  String get featureSuppliersDesc =>
+      'Track supplier payables, restock orders, and returns';
+
+  @override
+  String get featureInstallmentsTitle => 'Monthly Installments Book';
+
+  @override
+  String get featureInstallmentsDesc =>
+      'Installment schedules, contracts, and payment dates';
+
+  @override
+  String get featureInventoryTitle => 'Inventory & Products';
+
+  @override
+  String get featureInventoryDesc =>
+      'Track goods, low-stock alerts, and movement logs';
+
+  @override
+  String get featureCashDrawerTitle => 'Cash Drawer & Daily Closing';
+
+  @override
+  String get featureCashDrawerDesc =>
+      'Track daily cash flow, discrepancy, and day closing';
+
+  @override
+  String get featureProfitLossTitle => 'Profit & Loss Reports';
+
+  @override
+  String get featureProfitLossDesc =>
+      'Calculate net profit after expenses and total shop net worth';
+
+  @override
+  String get featureOffersTitle => 'Promotional & Greeting Messages';
+
+  @override
+  String get featureOffersDesc =>
+      'Broadcast seasonal offers and greetings via WhatsApp';
+
+  @override
+  String get featureCoreAlwaysActive =>
+      'Customers & Collections are always active core features';
+
+  @override
+  String get featureStatusActive => 'Active';
+
+  @override
+  String get featureStatusHidden => 'Hidden';
+
+  @override
   String get quickPosTitle => 'Quick sale';
 
   @override
