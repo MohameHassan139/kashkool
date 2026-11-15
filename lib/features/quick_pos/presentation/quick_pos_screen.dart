@@ -223,6 +223,31 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     }
 
     final totalSalePiasters = _totalPiasters;
+    final now = DateTime.now();
+    // Snapshot items in cart BEFORE clearing cart so invoices always render selected items
+    final cartItemsSnapshot = _cart.values.map((line) {
+      final lineTotal = SaleRepository.calculateLineTotalPiasters(
+        quantityMilliUnits: line.quantityMilliUnits,
+        unitPricePiasters: line.product.product.salePricePiasters,
+      );
+      return SaleItem(
+        id: 'item-${line.product.product.id}',
+        shopId: 'default_shop',
+        deviceId: 'local_device',
+        createdBy: 'owner',
+        createdAt: now,
+        updatedAt: now,
+        saleId: '',
+        productId: line.product.product.id,
+        productName: line.product.product.name,
+        unitLabel: line.product.product.unitLabel,
+        quantityMilliUnits: line.quantityMilliUnits,
+        unitPricePiasters: line.product.product.salePricePiasters,
+        unitCostPiasters: line.product.product.purchasePricePiasters,
+        lineTotalPiasters: lineTotal,
+      );
+    }).toList(growable: false);
+
     setState(() => _saving = true);
     try {
       final saleId = await ref.read(saleRepositoryProvider).createSale(
@@ -239,19 +264,24 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
           );
       if (!mounted) return;
       final savedCustomer = customer?.customer;
+      final resolvedItems = cartItemsSnapshot
+          .map((item) => item.copyWith(saleId: saleId))
+          .toList(growable: false);
+
       setState(() {
         _cart.clear();
         _customerId = null;
       });
       if (andPrint) {
         AppGlassToast.showSuccess(context, 'تم حفظ البيع وجاري الطباعة...');
-        await _printInvoiceDirectly(saleId, savedCustomer, isThermal: true);
+        await _printInvoiceDirectly(saleId, savedCustomer, isThermal: true, preloadedItems: resolvedItems);
       } else {
         AppGlassToast.showSuccess(context, L10n.t.quickPosSaleSaved);
         await _showSaleCompletedDialog(
           saleId: saleId,
           totalAmountPiasters: totalSalePiasters,
           customer: savedCustomer,
+          items: resolvedItems,
         );
       }
     } on ArgumentError catch (error, stackTrace) {
@@ -314,6 +344,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     required String saleId,
     required int totalAmountPiasters,
     Customer? customer,
+    List<SaleItem>? items,
   }) async {
     final theme = Theme.of(context);
 
@@ -368,7 +399,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                   ),
                   onPressed: () async {
                     Navigator.of(bottomSheetContext).pop();
-                    await _printInvoiceDirectly(saleId, customer, isThermal: true);
+                    await _printInvoiceDirectly(saleId, customer, isThermal: true, preloadedItems: items);
                   },
                   icon: const Icon(Icons.receipt_long_rounded),
                   label: const Text('طباعة بون كاشير حراري (80مم)'),
@@ -381,7 +412,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                   ),
                   onPressed: () async {
                     Navigator.of(bottomSheetContext).pop();
-                    await _openInvoicePreview(saleId, customer);
+                    await _openInvoicePreview(saleId, customer, preloadedItems: items);
                   },
                   icon: const Icon(Icons.picture_as_pdf_rounded),
                   label: const Text('معاينة ومشاركة الفاتورة PDF'),
@@ -399,12 +430,22 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     );
   }
 
-  Future<void> _printInvoiceDirectly(String saleId, Customer? customer, {bool isThermal = true}) async {
+  Future<void> _printInvoiceDirectly(
+    String saleId,
+    Customer? customer, {
+    bool isThermal = true,
+    List<SaleItem>? preloadedItems,
+  }) async {
     try {
       final saleRepo = ref.read(saleRepositoryProvider);
       final sale = await saleRepo.getSale(saleId);
-      final items = await saleRepo.getSaleItems(saleId);
-      if (sale == null || items.isEmpty) return;
+      final items = (preloadedItems != null && preloadedItems.isNotEmpty)
+          ? preloadedItems
+          : await saleRepo.getSaleItems(saleId);
+      if (sale == null || items.isEmpty) {
+        if (mounted) _showMessage('لا توجد أصناف في هذه الفاتورة للطباعة', isError: true);
+        return;
+      }
 
       final activeShop = ref.read(activeShopStreamProvider).value;
       final shopName = activeShop?.name ?? L10n.pdf.main1;
@@ -434,12 +475,21 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     }
   }
 
-  Future<void> _openInvoicePreview(String saleId, Customer? customer) async {
+  Future<void> _openInvoicePreview(
+    String saleId,
+    Customer? customer, {
+    List<SaleItem>? preloadedItems,
+  }) async {
     try {
       final saleRepo = ref.read(saleRepositoryProvider);
       final sale = await saleRepo.getSale(saleId);
-      final items = await saleRepo.getSaleItems(saleId);
-      if (sale == null || items.isEmpty) return;
+      final items = (preloadedItems != null && preloadedItems.isNotEmpty)
+          ? preloadedItems
+          : await saleRepo.getSaleItems(saleId);
+      if (sale == null || items.isEmpty) {
+        if (mounted) _showMessage('لا توجد أصناف في هذه الفاتورة للمعاينة', isError: true);
+        return;
+      }
 
       final activeShop = ref.read(activeShopStreamProvider).value;
       final shopName = activeShop?.name ?? L10n.pdf.main1;
@@ -483,12 +533,17 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         _showMessage('لا توجد فواتير بيع سابقة بعد');
         return;
       }
+      final items = await saleRepo.getSaleItems(lastSale.id);
+      if (items.isEmpty) {
+        _showMessage('الفاتورة الأخيرة لا تحتوي على أصناف مسجلة');
+        return;
+      }
       Customer? customer;
       if (lastSale.customerId != null) {
         customer = await saleRepo.getCustomer(lastSale.customerId!);
       }
       if (!mounted) return;
-      await _openInvoicePreview(lastSale.id, customer);
+      await _openInvoicePreview(lastSale.id, customer, preloadedItems: items);
     } catch (e) {
       if (mounted) {
         AppGlassToast.showError(context, 'تعذر جلب الفاتورة الأخيرة: $e');
@@ -604,15 +659,10 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            tooltip: 'طباعة آخر فاتورة',
-            icon: const Icon(Icons.receipt_long_rounded),
-            onPressed: _reprintLastInvoice,
-          ),
           if (_cart.isNotEmpty) ...[
             IconButton(
-              tooltip: 'معاينة الفاتورة قبل الحفظ',
-              icon: const Icon(Icons.remove_red_eye_outlined),
+              tooltip: 'معاينة وطباعة الفاتورة الحالية',
+              icon: const Icon(Icons.receipt_long_rounded),
               onPressed: () {
                 final customers = customersAsync.valueOrNull ?? [];
                 CustomerWithBalance? customer;
@@ -634,7 +684,57 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                 setState(() => _cart.clear());
               },
             ),
+          ] else ...[
+            IconButton(
+              tooltip: 'طباعة آخر فاتورة مسجلة',
+              icon: const Icon(Icons.receipt_long_rounded),
+              onPressed: _reprintLastInvoice,
+            ),
           ],
+          PopupMenuButton<String>(
+            tooltip: 'خيارات الفواتير',
+            icon: const Icon(Icons.more_vert_rounded),
+            onSelected: (val) {
+              if (val == 'reprint_last') {
+                _reprintLastInvoice();
+              } else if (val == 'preview_current' && _cart.isNotEmpty) {
+                final customers = customersAsync.valueOrNull ?? [];
+                CustomerWithBalance? customer;
+                if (_paymentType == SalePaymentType.credit && _customerId != null) {
+                  for (final c in customers) {
+                    if (c.customer.id == _customerId) {
+                      customer = c;
+                      break;
+                    }
+                  }
+                }
+                _previewCurrentCart(customer);
+              }
+            },
+            itemBuilder: (context) => [
+              if (_cart.isNotEmpty)
+                const PopupMenuItem(
+                  value: 'preview_current',
+                  child: Row(
+                    children: [
+                      Icon(Icons.remove_red_eye_outlined, size: 20),
+                      SizedBox(width: 8),
+                      Text('معاينة الفاتورة الحالية'),
+                    ],
+                  ),
+                ),
+              const PopupMenuItem(
+                value: 'reprint_last',
+                child: Row(
+                  children: [
+                    Icon(Icons.history_rounded, size: 20),
+                    SizedBox(width: 8),
+                    Text('طباعة آخر فاتورة مسجلة'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       body: SafeArea(

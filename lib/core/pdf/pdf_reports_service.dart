@@ -44,9 +44,9 @@ class PdfReportsService {
       const thermalWidth = 80 * PdfPageFormat.mm;
       const thermalMarginAll = 4 * PdfPageFormat.mm;
       // Calculate a safe, realistic height in millimeters based on item count.
-      // Base overhead: 110mm (header, metadata, totals, footer) + 8mm per item line.
-      // Clamped between 140mm and 290mm so single pages never blow GPU texture limits on budget devices.
-      final heightMm = (110.0 + (itemCount * 8.0)).clamp(140.0, 290.0);
+      // Base overhead: 150mm (header, metadata, totals, footer) + 14mm per item line.
+      // Clamped between 160mm and 480mm so single pages never blow GPU texture limits on budget devices.
+      final heightMm = (150.0 + (itemCount * 14.0)).clamp(160.0, 480.0);
       return PdfPageFormat(
         thermalWidth,
         heightMm * PdfPageFormat.mm,
@@ -741,6 +741,19 @@ class PdfReportsService {
             // Items Table
             pw.Table(
               border: pw.TableBorder.all(color: PdfColors.grey300),
+              columnWidths: isA4
+                  ? const {
+                      0: pw.FlexColumnWidth(3.5),
+                      1: pw.FlexColumnWidth(1.5),
+                      2: pw.FlexColumnWidth(1.5),
+                      3: pw.FlexColumnWidth(1.8),
+                    }
+                  : const {
+                      0: pw.FlexColumnWidth(3.0),
+                      1: pw.FlexColumnWidth(1.6),
+                      2: pw.FlexColumnWidth(1.6),
+                      3: pw.FlexColumnWidth(1.8),
+                    },
               children: [
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
