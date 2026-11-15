@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/pdf/pdf_preview_screen.dart';
+import '../../../core/pdf/pdf_reports_service.dart';
 import '../../../core/utils/money.dart';
 import '../../../l10n/l10n.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../../onboarding/data/shop_repository.dart';
+import '../../settings/data/settings_repository.dart';
 import '../data/reports_repository.dart';
 import '../domain/shop_financial_overview.dart';
 
@@ -78,10 +81,40 @@ class ShopFinancialReportScreen extends ConsumerWidget {
         title: Text(L10n.t.shopReportTitle),
         actions: [
           overviewAsync.maybeWhen(
-            data: (overview) => IconButton(
-              icon: const Icon(Icons.share_rounded),
-              tooltip: L10n.t.shopReportShare,
-              onPressed: () => _shareReport(context, shopName, overview),
+            data: (overview) => Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.picture_as_pdf_rounded),
+                  tooltip: 'طباعة وتصدير PDF',
+                  onPressed: () async {
+                    final shopPhone = activeShopAsync.value?.phone;
+                    final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+                    final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+                    if (!context.mounted) return;
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => PdfPreviewScreen(
+                          title: 'تقرير المحل الشامل',
+                          fileName: 'تقرير_المحل_الشامل_$dateStr.pdf',
+                          generator: (format) => ref.read(pdfReportsServiceProvider).generateShopOverviewPdf(
+                                overview: overview,
+                                shopName: shopName.isNotEmpty ? shopName : L10n.pdf.main1,
+                                shopPhone: shopPhone,
+                                shopCode: shopCode,
+                                format: format,
+                              ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.share_rounded),
+                  tooltip: L10n.t.shopReportShare,
+                  onPressed: () => _shareReport(context, shopName, overview),
+                ),
+              ],
             ),
             orElse: () => const SizedBox.shrink(),
           ),

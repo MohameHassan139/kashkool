@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/pdf/pdf_preview_screen.dart';
+import '../../../core/pdf/pdf_reports_service.dart';
 import '../../../core/utils/money.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../l10n/l10n.dart';
+import '../../onboarding/data/shop_repository.dart';
+import '../../settings/data/settings_repository.dart';
 import '../data/reports_repository.dart';
 import '../domain/profit_loss_report.dart';
 
@@ -34,6 +39,37 @@ class ProfitLossScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(L10n.t.profitLossTitle),
+        actions: [
+          IconButton(
+            tooltip: 'طباعة وتصدير PDF',
+            icon: const Icon(Icons.picture_as_pdf_rounded),
+            onPressed: () async {
+              final report = reportAsync.value;
+              if (report == null) return;
+              final activeShop = ref.read(activeShopStreamProvider).value;
+              final shopName = activeShop?.name ?? L10n.pdf.main1;
+              final shopPhone = activeShop?.phone;
+              final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+              final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+              if (!context.mounted) return;
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => PdfPreviewScreen(
+                    title: 'تقرير الأرباح والخسائر',
+                    fileName: 'تقرير_المكسب_والخسارة_$dateStr.pdf',
+                    generator: (format) => ref.read(pdfReportsServiceProvider).generateProfitLossPdf(
+                          report: report,
+                          shopName: shopName,
+                          shopPhone: shopPhone,
+                          shopCode: shopCode,
+                          format: format,
+                        ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [

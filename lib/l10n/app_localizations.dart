@@ -7444,6 +7444,18 @@ abstract class AppLocalizations {
   /// **'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍'**
   String get notificationServiceSettingsSendTestSuccess;
 
+  /// No description provided for @notificationServiceDailyScheduledTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'وقت التحصيل 💰'**
+  String get notificationServiceDailyScheduledTitle;
+
+  /// No description provided for @notificationServiceDailyScheduledBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'افتح كشكول وشوف عملاء النهاردة'**
+  String get notificationServiceDailyScheduledBody;
+
   /// No description provided for @navHome.
   ///
   /// In ar_EG, this message translates to:

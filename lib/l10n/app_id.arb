@@ -837,6 +837,8 @@
   "notificationService2": "Pengingat pelanggan yang jatuh tempo",
   "notificationService3": "{dueCount} pelanggan berutang {amountStr} — ketuk untuk menagih",
   "notificationService4": "Pengingat tagihan harian 📒",
+  "notificationServiceDailyScheduledTitle": "Waktunya menagih 💰",
+  "notificationServiceDailyScheduledBody": "Buka Kashkool untuk melihat pelanggan yang jatuh tempo hari ini",
   "backupService1": "File database tidak ditemukan",
   "backupService2": "Cadangan Kashkool - {dateStr}",
   "backupService3": "File yang dipilih tidak ada",

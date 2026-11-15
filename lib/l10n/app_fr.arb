@@ -837,6 +837,8 @@
   "notificationService2": "Rappels des clients à relancer",
   "notificationService3": "{dueCount} clients vous doivent {amountStr} — touchez pour relancer",
   "notificationService4": "Rappel de recouvrement 📒",
+  "notificationServiceDailyScheduledTitle": "C''est l''heure d''encaisser 💰",
+  "notificationServiceDailyScheduledBody": "Ouvrez Kashkool pour voir les clients à relancer aujourd''hui",
   "backupService1": "Fichier de base de données introuvable",
   "backupService2": "Sauvegarde Kashkool - {dateStr}",
   "backupService3": "Le fichier sélectionné n''existe pas",

@@ -4128,6 +4128,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
 
   @override
+  String get notificationServiceDailyScheduledTitle => 'موعد التحصيل اليومي 💰';
+
+  @override
+  String get notificationServiceDailyScheduledBody =>
+      'افتح كشكول لمراجعة العملاء المستحقين اليوم';
+
+  @override
   String get navHome => 'الرئيسية';
 
   @override
@@ -8278,6 +8285,13 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   @override
   String get notificationServiceSettingsSendTestSuccess =>
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+
+  @override
+  String get notificationServiceDailyScheduledTitle => 'وقت التحصيل 💰';
+
+  @override
+  String get notificationServiceDailyScheduledBody =>
+      'افتح كشكول وشوف عملاء النهاردة';
 
   @override
   String get navHome => 'الرئيسية';

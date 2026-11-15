@@ -837,6 +837,8 @@
   "notificationService2": "Ödemesi gelen müşteriler için hatırlatmalar",
   "notificationService3": "{dueCount} müşterinin {amountStr} borcu var — tahsil için dokunun",
   "notificationService4": "Günlük tahsilat hatırlatması 📒",
+  "notificationServiceDailyScheduledTitle": "Tahsilat zamanı 💰",
+  "notificationServiceDailyScheduledBody": "Bugünün ödemesi gelen müşterilerini görmek için Kashkool''u aç",
   "backupService1": "Veritabanı dosyası bulunamadı",
   "backupService2": "Kashkool yedeği - {dateStr}",
   "backupService3": "Seçilen dosya yok",

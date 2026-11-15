@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
+import '../../../core/pdf/pdf_preview_screen.dart';
+import '../../../core/pdf/pdf_reports_service.dart';
 import '../../../core/utils/credit_limit.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/quantity.dart';
@@ -11,6 +13,8 @@ import '../../../features/customers/presentation/add_edit_customer_screen.dart';
 import '../../../features/customers/presentation/widgets/rating_badge.dart';
 import '../../../features/inventory/domain/product_with_stock.dart';
 import '../../../features/inventory/data/inventory_repository.dart';
+import '../../../features/onboarding/data/shop_repository.dart';
+import '../../../features/settings/data/settings_repository.dart';
 import '../../../l10n/l10n.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../data/sale_repository.dart';
@@ -218,9 +222,10 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
       }
     }
 
+    final totalSalePiasters = _totalPiasters;
     setState(() => _saving = true);
     try {
-      await ref.read(saleRepositoryProvider).createSale(
+      final saleId = await ref.read(saleRepositoryProvider).createSale(
             paymentType: _paymentType,
             customerId: _paymentType == SalePaymentType.credit ? customer!.customer.id : null,
             lines: _cart.values
@@ -233,11 +238,17 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                 .toList(growable: false),
           );
       if (!mounted) return;
+      final savedCustomer = customer?.customer;
       setState(() {
         _cart.clear();
         _customerId = null;
       });
       AppGlassToast.showSuccess(context, L10n.t.quickPosSaleSaved);
+      await _showSaleCompletedDialog(
+        saleId: saleId,
+        totalAmountPiasters: totalSalePiasters,
+        customer: savedCustomer,
+      );
     } on ArgumentError catch (error, stackTrace) {
       debugPrint('Quick sale validation failed: $error\n$stackTrace');
       if (!mounted) return;
@@ -292,6 +303,171 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _showSaleCompletedDialog({
+    required String saleId,
+    required int totalAmountPiasters,
+    Customer? customer,
+  }) async {
+    final theme = Theme.of(context);
+
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (bottomSheetContext) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.paymentGreen.withValues(alpha: 0.12),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.check_circle_rounded, color: AppColors.paymentGreen, size: 48),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'تم حفظ البيع بنجاح!',
+                  style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'إجمالي الفاتورة: ${MoneyUtils.formatMoney(totalAmountPiasters)}',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: AppColors.paymentGreen,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                FilledButton.icon(
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  onPressed: () async {
+                    Navigator.of(bottomSheetContext).pop();
+                    await _printInvoiceDirectly(saleId, customer, isThermal: true);
+                  },
+                  icon: const Icon(Icons.receipt_long_rounded),
+                  label: const Text('طباعة بون كاشير حراري (80مم)'),
+                ),
+                const SizedBox(height: 10),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  onPressed: () async {
+                    Navigator.of(bottomSheetContext).pop();
+                    await _openInvoicePreview(saleId, customer);
+                  },
+                  icon: const Icon(Icons.picture_as_pdf_rounded),
+                  label: const Text('معاينة ومشاركة الفاتورة PDF'),
+                ),
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: () => Navigator.of(bottomSheetContext).pop(),
+                  child: const Text('تم · بيع جديد'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _printInvoiceDirectly(String saleId, Customer? customer, {bool isThermal = true}) async {
+    try {
+      final saleRepo = ref.read(saleRepositoryProvider);
+      final sale = await saleRepo.getSale(saleId);
+      final items = await saleRepo.getSaleItems(saleId);
+      if (sale == null || items.isEmpty) return;
+
+      final activeShop = ref.read(activeShopStreamProvider).value;
+      final shopName = activeShop?.name ?? L10n.pdf.main1;
+      final shopPhone = activeShop?.phone;
+      final shopAddress = activeShop?.address;
+      final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+
+      final bytes = await ref.read(pdfReportsServiceProvider).generateSaleInvoicePdf(
+            sale: sale,
+            items: items,
+            customer: customer,
+            shopName: shopName,
+            shopPhone: shopPhone,
+            shopAddress: shopAddress,
+            shopCode: shopCode,
+            format: isThermal ? PdfDocumentFormat.thermal80mm : PdfDocumentFormat.a4,
+          );
+
+      await ref.read(pdfReportsServiceProvider).printPdf(
+            bytes: bytes,
+            name: 'فاتورة_بيع_${sale.id.substring(0, 8)}.pdf',
+          );
+    } catch (e) {
+      if (mounted) {
+        AppGlassToast.showError(context, 'تعذر طباعة الفاتورة: $e');
+      }
+    }
+  }
+
+  Future<void> _openInvoicePreview(String saleId, Customer? customer) async {
+    try {
+      final saleRepo = ref.read(saleRepositoryProvider);
+      final sale = await saleRepo.getSale(saleId);
+      final items = await saleRepo.getSaleItems(saleId);
+      if (sale == null || items.isEmpty) return;
+
+      final activeShop = ref.read(activeShopStreamProvider).value;
+      final shopName = activeShop?.name ?? L10n.pdf.main1;
+      final shopPhone = activeShop?.phone;
+      final shopAddress = activeShop?.address;
+      final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+      final shortId = sale.id.substring(0, 8);
+
+      if (!mounted) return;
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => PdfPreviewScreen(
+            title: 'فاتورة بيع #$shortId',
+            fileName: 'فاتورة_بيع_$shortId.pdf',
+            initialFormat: PdfDocumentFormat.thermal80mm,
+            generator: (format) => ref.read(pdfReportsServiceProvider).generateSaleInvoicePdf(
+                  sale: sale,
+                  items: items,
+                  customer: customer,
+                  shopName: shopName,
+                  shopPhone: shopPhone,
+                  shopAddress: shopAddress,
+                  shopCode: shopCode,
+                  format: format,
+                ),
+          ),
+        ),
+      );
+    } catch (e) {
+      if (mounted) {
+        AppGlassToast.showError(context, 'تعذر فتح الفاتورة: $e');
+      }
+    }
   }
 
   void _showMessage(String message, {bool isError = false}) {

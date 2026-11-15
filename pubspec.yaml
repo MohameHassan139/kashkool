@@ -53,6 +53,9 @@ dependencies:
   connectivity_plus: ^6.1.4
   device_info_plus: ^13.3.0
   phone_numbers_parser: ^9.0.29
+  workmanager: ^0.10.10
+  flutter_timezone: ^5.1.1
+  timezone: ^0.11.2
 
 dev_dependencies:
   flutter_test:

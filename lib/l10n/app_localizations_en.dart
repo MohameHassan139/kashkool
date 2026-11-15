@@ -4165,6 +4165,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Test notification sent! Check your notification tray 👍';
 
   @override
+  String get notificationServiceDailyScheduledTitle => 'Time to collect 💰';
+
+  @override
+  String get notificationServiceDailyScheduledBody =>
+      'Open Kashkool to review today\'s due customers';
+
+  @override
   String get navHome => 'Home';
 
   @override

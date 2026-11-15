@@ -1289,6 +1289,8 @@
   "notificationServiceSettingsSendTest": "Send Test Notification Now",
   "notificationServiceSettingsSendTestSubtitle": "Verify that notifications and sound appear on your phone right now",
   "notificationServiceSettingsSendTestSuccess": "Test notification sent! Check your notification tray 👍",
+  "notificationServiceDailyScheduledTitle": "Time to collect 💰",
+  "notificationServiceDailyScheduledBody": "Open Kashkool to review today''s due customers",
   "navHome": "Home",
   "moreSectionShop": "Shop tools",
   "moreSectionApp": "Communication & settings",

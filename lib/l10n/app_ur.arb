@@ -837,6 +837,8 @@
   "notificationService2": "وصولی والے گاہکوں کی یاد دہانی",
   "notificationService3": "{dueCount} گاہکوں پر {amountStr} ہیں — وصولی کے لیے دبائیں",
   "notificationService4": "روزانہ وصولی کی یاد دہانی 📒",
+  "notificationServiceDailyScheduledTitle": "وصولی کا وقت 💰",
+  "notificationServiceDailyScheduledBody": "آج کے واجب الادا گاہکوں کو دیکھنے کے لیے کشکول کھولیں",
   "backupService1": "ڈیٹابیس فائل نہیں ملی",
   "backupService2": "کشکول بیک اپ - {dateStr}",
   "backupService3": "منتخب فائل موجود نہیں",

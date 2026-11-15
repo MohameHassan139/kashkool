@@ -4132,6 +4132,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
 
   @override
+  String get notificationServiceDailyScheduledTitle => 'Tahsilat zamanı 💰';
+
+  @override
+  String get notificationServiceDailyScheduledBody =>
+      'Bugünün ödemesi gelen müşterilerini görmek için Kashkool\'u aç';
+
+  @override
   String get navHome => 'Ana Sayfa';
 
   @override

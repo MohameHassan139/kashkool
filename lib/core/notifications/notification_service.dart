@@ -1,18 +1,33 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:timezone/data/latest_all.dart' as tzdata;
+import 'package:timezone/timezone.dart' as tz;
 import '../utils/money.dart';
 import '../../l10n/l10n.dart';
+import 'reminder_notifier.dart';
 
 /// Service managing local push notifications for daily collections.
-class NotificationService {
+class NotificationService implements ReminderNotifier {
   static final NotificationService _instance = NotificationService._internal();
   factory NotificationService() => _instance;
   NotificationService._internal();
+
+  /// Notification id of the daily collection reminder. The OS-scheduled fallback
+  /// and the accurate reminder share it, so the user never sees two of them.
+  static const int dailyReminderNotificationId = 1001;
 
   final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   bool _isInitialized = false;
+  bool _isTimeZoneInitialized = false;
+
+  /// The (hour, minute) currently scheduled on the OS, to avoid re-scheduling
+  /// on every app resume / background worker run.
+  int? _scheduledHour;
+  int? _scheduledMinute;
 
   /// Initializes the local notification plugin with platform settings.
   Future<void> initialize({
@@ -87,27 +102,120 @@ class NotificationService {
     }
   }
 
+  @override
+  Future<bool> hasPermission() => isPermissionGranted();
+
+  /// Loads the timezone database and applies the phone's timezone, so a
+  /// reminder scheduled for 20:00 fires at 20:00 local time (DST included).
+  Future<void> _ensureTimeZone() async {
+    if (_isTimeZoneInitialized) return;
+
+    tzdata.initializeTimeZones();
+    try {
+      final info = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(info.identifier));
+    } catch (e) {
+      // Keep the default location; the daily alarm is still scheduled from the
+      // device's local wall clock below.
+      debugPrint('NotificationService: could not resolve timezone: $e');
+    }
+    _isTimeZoneInitialized = true;
+  }
+
+  /// The next occurrence of [hour]:[minute] in local time (today if still ahead).
+  tz.TZDateTime _nextOccurrence(int hour, int minute) {
+    final now = DateTime.now();
+    var next = DateTime(now.year, now.month, now.day, hour, minute);
+    if (!next.isAfter(now)) {
+      next = next.add(const Duration(days: 1));
+    }
+    return tz.TZDateTime.from(next, tz.local);
+  }
+
+  AndroidNotificationDetails get _collectionAndroidDetails => AndroidNotificationDetails(
+        'daily_collection_channel',
+        L10n.t.notificationService1,
+        channelDescription: L10n.t.notificationService2,
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+        enableVibration: true,
+        showWhen: true,
+      );
+
+  /// Schedules a daily reminder at [hour]:[minute] that Android fires on its own,
+  /// even if the app process is closed or the phone was rebooted.
+  ///
+  /// This is the safety net for the background worker: aggressive OEM battery
+  /// managers throttle WorkManager, but the OS alarm still fires.
+  @override
+  Future<void> scheduleDailyReminder({required int hour, required int minute}) async {
+    if (_scheduledHour == hour && _scheduledMinute == minute) return;
+
+    await initialize();
+    await _ensureTimeZone();
+
+    // Android 12+ exact alarms may be denied; fall back to an inexact alarm
+    // instead of failing the daily reminder completely.
+    var scheduleMode = AndroidScheduleMode.inexactAllowWhileIdle;
+    try {
+      final androidImpl = _notificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      final canExact = await androidImpl?.canScheduleExactNotifications();
+      if (canExact == true) {
+        scheduleMode = AndroidScheduleMode.exactAllowWhileIdle;
+      }
+    } catch (_) {}
+
+    await _notificationsPlugin.zonedSchedule(
+      id: dailyReminderNotificationId,
+      title: L10n.t.notificationServiceDailyScheduledTitle,
+      body: L10n.t.notificationServiceDailyScheduledBody,
+      scheduledDate: _nextOccurrence(hour, minute),
+      notificationDetails: NotificationDetails(
+        android: _collectionAndroidDetails,
+        iOS: const DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
+      ),
+      androidScheduleMode: scheduleMode,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: '/collection',
+    );
+
+    _scheduledHour = hour;
+    _scheduledMinute = minute;
+  }
+
+  /// Cancels the OS-scheduled daily reminder (notifications off, or nothing due).
+  @override
+  Future<void> cancelDailyReminder() async {
+    final hadSchedule = _scheduledHour != null || _scheduledMinute != null;
+    _scheduledHour = null;
+    _scheduledMinute = null;
+
+    try {
+      await _notificationsPlugin.cancel(id: dailyReminderNotificationId);
+    } catch (e) {
+      if (hadSchedule) {
+        debugPrint('NotificationService: could not cancel daily reminder: $e');
+      }
+    }
+  }
+
   /// Displays an immediate notification for daily collection reminder.
   /// Skips if dueCount <= 0.
+  @override
   Future<void> showCollectionNotification({
     required int dueCount,
     required int totalPiasters,
   }) async {
     if (dueCount <= 0) return;
 
-    final androidDetails = AndroidNotificationDetails(
-      'daily_collection_channel',
-      L10n.t.notificationService1,
-      channelDescription: L10n.t.notificationService2,
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      enableVibration: true,
-      showWhen: true,
-    );
-
     final notificationDetails = NotificationDetails(
-      android: androidDetails,
+      android: _collectionAndroidDetails,
       iOS: const DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
@@ -119,7 +227,7 @@ class NotificationService {
     final body = L10n.t.notificationService3(dueCount, amountStr);
 
     await _notificationsPlugin.show(
-      id: 1001,
+      id: dailyReminderNotificationId,
       title: L10n.t.notificationService4,
       body: body,
       notificationDetails: notificationDetails,
@@ -128,6 +236,7 @@ class NotificationService {
   }
 
   /// Displays an immediate notification for due and overdue installments.
+  @override
   Future<void> showDueInstallmentsNotification({
     required int count,
     required int totalPiasters,
@@ -167,6 +276,7 @@ class NotificationService {
   }
 
   /// Displays a notification reminding the user to take a backup.
+  @override
   Future<void> showBackupReminderNotification({
     required int daysSinceBackup,
   }) async {
@@ -200,6 +310,7 @@ class NotificationService {
   }
 
   /// Displays an immediate notification for a single item that reached low stock.
+  @override
   Future<void> showLowStockNotification({
     required String productName,
     required String remainingStock,
@@ -244,6 +355,7 @@ class NotificationService {
   }
 
   /// Displays a notification when multiple items need restocking.
+  @override
   Future<void> showMultipleLowStockNotification({
     required int count,
   }) async {

@@ -837,6 +837,8 @@
   "notificationService2": "یادآوری مشتریانی که موعد پرداختشان رسیده",
   "notificationService3": "{dueCount} مشتری {amountStr} بدهکارند — برای وصول بزنید",
   "notificationService4": "یادآوری وصولی روزانه 📒",
+  "notificationServiceDailyScheduledTitle": "وقت دریافت 💰",
+  "notificationServiceDailyScheduledBody": "برای دیدن مشتریان بدهکار امروز، کشکول را باز کنید",
   "backupService1": "فایل پایگاه داده پیدا نشد",
   "backupService2": "پشتیبان کشکول - {dateStr}",
   "backupService3": "فایل انتخاب‌شده وجود ندارد",

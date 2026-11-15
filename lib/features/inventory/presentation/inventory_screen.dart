@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/pdf/pdf_preview_screen.dart';
+import '../../../core/pdf/pdf_reports_service.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/quantity.dart';
 import '../../../l10n/l10n.dart';
+import '../../onboarding/data/shop_repository.dart';
+import '../../settings/data/settings_repository.dart';
 import '../../suppliers/presentation/suppliers_providers.dart';
 import '../domain/product_with_stock.dart';
 import 'inventory_providers.dart';
@@ -48,6 +53,36 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     if (mounted) ref.invalidate(inventoryProductsStreamProvider);
   }
 
+  Future<void> _openInventoryPdf(bool isLowStockOnly, List<ProductWithStock> products) async {
+    final activeShop = ref.read(activeShopStreamProvider).value;
+    final shopName = activeShop?.name ?? L10n.pdf.main1;
+    final shopPhone = activeShop?.phone;
+    final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+    final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    final targetProducts = isLowStockOnly
+        ? products.where((p) => p.isLowStock).toList()
+        : products;
+
+    if (!mounted) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => PdfPreviewScreen(
+          title: isLowStockOnly ? 'كشف النواقص والطلبيات' : 'تقرير جرد المخزون العام',
+          fileName: isLowStockOnly ? 'كشف_النواقص_$dateStr.pdf' : 'تقرير_جرد_المخزون_$dateStr.pdf',
+          generator: (format) => ref.read(pdfReportsServiceProvider).generateInventoryReportPdf(
+                products: targetProducts,
+                shopName: shopName,
+                shopPhone: shopPhone,
+                shopCode: shopCode,
+                isLowStockOnly: isLowStockOnly,
+                format: format,
+              ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final productsAsync = ref.watch(inventoryProductsStreamProvider);
@@ -57,6 +92,44 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(L10n.t.inventoryTitle),
+        actions: [
+          productsAsync.maybeWhen(
+            data: (products) => PopupMenuButton<String>(
+              icon: const Icon(Icons.picture_as_pdf_rounded),
+              tooltip: 'طباعة وتصدير PDF',
+              onSelected: (val) {
+                if (val == 'low_stock') {
+                  _openInventoryPdf(true, products);
+                } else if (val == 'full_inventory') {
+                  _openInventoryPdf(false, products);
+                }
+              },
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'low_stock',
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
+                      SizedBox(width: 8),
+                      Text('كشف النواقص وطلبيات الموردين'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'full_inventory',
+                  child: Row(
+                    children: [
+                      Icon(Icons.inventory_2_outlined, color: Color(0xFF2563EB)),
+                      SizedBox(width: 8),
+                      Text('تقرير جرد المخزون بالكامل'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            orElse: () => const SizedBox.shrink(),
+          ),
+        ],
       ),
       body: Column(
         children: [

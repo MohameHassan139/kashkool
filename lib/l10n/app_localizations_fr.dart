@@ -4156,6 +4156,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
 
   @override
+  String get notificationServiceDailyScheduledTitle =>
+      'C\'est l\'heure d\'encaisser 💰';
+
+  @override
+  String get notificationServiceDailyScheduledBody =>
+      'Ouvrez Kashkool pour voir les clients à relancer aujourd\'hui';
+
+  @override
   String get navHome => 'Accueil';
 
   @override

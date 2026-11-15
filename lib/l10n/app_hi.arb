@@ -837,6 +837,8 @@
   "notificationService2": "वसूली वाले ग्राहकों की याद",
   "notificationService3": "{dueCount} ग्राहकों पर {amountStr} बाकी — वसूली के लिए दबाएँ",
   "notificationService4": "रोज़ की वसूली का रिमाइंडर 📒",
+  "notificationServiceDailyScheduledTitle": "वसूली का समय 💰",
+  "notificationServiceDailyScheduledBody": "आज के बकाया ग्राहकों को देखने के लिए काशकूल खोलें",
   "backupService1": "डेटाबेस फ़ाइल नहीं मिली",
   "backupService2": "काशकूल बैकअप - {dateStr}",
   "backupService3": "चुनी गई फ़ाइल मौजूद नहीं",

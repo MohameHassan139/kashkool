@@ -4112,6 +4112,13 @@ class AppLocalizationsUr extends AppLocalizations {
       'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
 
   @override
+  String get notificationServiceDailyScheduledTitle => 'وصولی کا وقت 💰';
+
+  @override
+  String get notificationServiceDailyScheduledBody =>
+      'آج کے واجب الادا گاہکوں کو دیکھنے کے لیے کشکول کھولیں';
+
+  @override
   String get navHome => 'ہوم';
 
   @override

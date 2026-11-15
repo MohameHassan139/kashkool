@@ -1107,6 +1107,8 @@
   "notificationServiceSettingsSendTest": "إرسال إشعار تجريبي الآن",
   "notificationServiceSettingsSendTestSubtitle": "تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً",
   "notificationServiceSettingsSendTestSuccess": "تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍",
+  "notificationServiceDailyScheduledTitle": "موعد التحصيل اليومي 💰",
+  "notificationServiceDailyScheduledBody": "افتح كشكول لمراجعة العملاء المستحقين اليوم",
   "navHome": "الرئيسية",
   "moreSectionShop": "أدوات المتجر",
   "moreSectionApp": "التواصل والإعدادات",
