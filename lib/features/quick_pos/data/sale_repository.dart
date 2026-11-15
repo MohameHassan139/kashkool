@@ -224,6 +224,20 @@ class SaleRepository {
         .get();
   }
 
+  Future<Sale?> getLastSale() async {
+    return (_db.select(_db.sales)
+          ..where((s) => s.deletedAt.isNull())
+          ..orderBy([(s) => OrderingTerm.desc(s.createdAt)])
+          ..limit(1))
+        .getSingleOrNull();
+  }
+
+  Future<Customer?> getCustomer(String customerId) async {
+    return (_db.select(_db.customers)
+          ..where((c) => c.id.equals(customerId) & c.deletedAt.isNull()))
+        .getSingleOrNull();
+  }
+
   static int calculateLineTotalPiasters({
     required int quantityMilliUnits,
     required int unitPricePiasters,

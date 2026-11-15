@@ -200,24 +200,29 @@ class ProfitLossScreen extends ConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      isNetPositive
-                                          ? Icons.trending_up_rounded
-                                          : Icons.trending_down_rounded,
-                                      color: netColor,
-                                      size: 26,
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          isNetPositive
+                                              ? Icons.trending_up_rounded
+                                              : Icons.trending_down_rounded,
+                                          color: netColor,
+                                          size: 26,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Text(
+                                            l10n.profitLossTotalExpectedNet,
+                                            style: theme.textTheme.titleMedium
+                                                ?.copyWith(
+                                                  color: netColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      l10n.profitLossTotalExpectedNet,
-                                      style: theme.textTheme.titleMedium?.copyWith(
-                                        color: netColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
                                 ),
                                 Container(
                                   padding: const EdgeInsets.symmetric(

@@ -184,7 +184,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     }
   }
 
-  Future<void> _checkout(List<CustomerWithBalance> customers) async {
+  Future<void> _checkout(List<CustomerWithBalance> customers, {bool andPrint = false}) async {
     if (_saving || _cart.isEmpty) return;
 
     CustomerWithBalance? customer;
@@ -243,12 +243,17 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         _cart.clear();
         _customerId = null;
       });
-      AppGlassToast.showSuccess(context, L10n.t.quickPosSaleSaved);
-      await _showSaleCompletedDialog(
-        saleId: saleId,
-        totalAmountPiasters: totalSalePiasters,
-        customer: savedCustomer,
-      );
+      if (andPrint) {
+        AppGlassToast.showSuccess(context, 'تم حفظ البيع وجاري الطباعة...');
+        await _printInvoiceDirectly(saleId, savedCustomer, isThermal: true);
+      } else {
+        AppGlassToast.showSuccess(context, L10n.t.quickPosSaleSaved);
+        await _showSaleCompletedDialog(
+          saleId: saleId,
+          totalAmountPiasters: totalSalePiasters,
+          customer: savedCustomer,
+        );
+      }
     } on ArgumentError catch (error, stackTrace) {
       debugPrint('Quick sale validation failed: $error\n$stackTrace');
       if (!mounted) return;
@@ -470,6 +475,97 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     }
   }
 
+  Future<void> _reprintLastInvoice() async {
+    try {
+      final saleRepo = ref.read(saleRepositoryProvider);
+      final lastSale = await saleRepo.getLastSale();
+      if (lastSale == null) {
+        _showMessage('لا توجد فواتير بيع سابقة بعد');
+        return;
+      }
+      Customer? customer;
+      if (lastSale.customerId != null) {
+        customer = await saleRepo.getCustomer(lastSale.customerId!);
+      }
+      if (!mounted) return;
+      await _openInvoicePreview(lastSale.id, customer);
+    } catch (e) {
+      if (mounted) {
+        AppGlassToast.showError(context, 'تعذر جلب الفاتورة الأخيرة: $e');
+      }
+    }
+  }
+
+  Future<void> _previewCurrentCart(CustomerWithBalance? customer) async {
+    if (_cart.isEmpty) return;
+    try {
+      final now = DateTime.now();
+      const tempSaleId = 'معاينة';
+      final sale = Sale(
+        id: tempSaleId,
+        shopId: 'shop',
+        deviceId: 'device',
+        createdBy: 'user',
+        createdAt: now,
+        updatedAt: now,
+        occurredAt: now,
+        paymentType: _paymentType,
+        totalPiasters: _totalPiasters,
+      );
+      final items = _cart.values.map((line) {
+        final lineTotal = SaleRepository.calculateLineTotalPiasters(
+          quantityMilliUnits: line.quantityMilliUnits,
+          unitPricePiasters: line.product.product.salePricePiasters,
+        );
+        return SaleItem(
+          id: 'item-${line.product.product.id}',
+          shopId: 'shop',
+          deviceId: 'device',
+          createdBy: 'user',
+          createdAt: now,
+          updatedAt: now,
+          saleId: tempSaleId,
+          productId: line.product.product.id,
+          productName: line.product.product.name,
+          unitLabel: line.product.product.unitLabel,
+          quantityMilliUnits: line.quantityMilliUnits,
+          unitPricePiasters: line.product.product.salePricePiasters,
+          unitCostPiasters: line.product.product.purchasePricePiasters,
+          lineTotalPiasters: lineTotal,
+        );
+      }).toList();
+
+      final activeShop = ref.read(activeShopStreamProvider).value;
+      final shopName = activeShop?.name ?? L10n.pdf.main1;
+      final shopPhone = activeShop?.phone;
+      final shopAddress = activeShop?.address;
+      final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+
+      if (!mounted) return;
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => PdfPreviewScreen(
+            title: 'معاينة الفاتورة قبل الحفظ',
+            fileName: 'معاينة_فاتورة.pdf',
+            initialFormat: PdfDocumentFormat.thermal80mm,
+            generator: (format) => ref.read(pdfReportsServiceProvider).generateSaleInvoicePdf(
+                  sale: sale,
+                  items: items,
+                  customer: customer?.customer,
+                  shopName: shopName,
+                  shopPhone: shopPhone,
+                  shopAddress: shopAddress,
+                  shopCode: shopCode,
+                  format: format,
+                ),
+          ),
+        ),
+      );
+    } catch (e) {
+      if (mounted) _showMessage('تعذر معاينة الفاتورة: $e', isError: true);
+    }
+  }
+
   void _showMessage(String message, {bool isError = false}) {
     if (isError) {
       AppGlassToast.showError(context, message);
@@ -508,7 +604,29 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          if (_cart.isNotEmpty)
+          IconButton(
+            tooltip: 'طباعة آخر فاتورة',
+            icon: const Icon(Icons.receipt_long_rounded),
+            onPressed: _reprintLastInvoice,
+          ),
+          if (_cart.isNotEmpty) ...[
+            IconButton(
+              tooltip: 'معاينة الفاتورة قبل الحفظ',
+              icon: const Icon(Icons.remove_red_eye_outlined),
+              onPressed: () {
+                final customers = customersAsync.valueOrNull ?? [];
+                CustomerWithBalance? customer;
+                if (_paymentType == SalePaymentType.credit && _customerId != null) {
+                  for (final c in customers) {
+                    if (c.customer.id == _customerId) {
+                      customer = c;
+                      break;
+                    }
+                  }
+                }
+                _previewCurrentCart(customer);
+              },
+            ),
             IconButton(
               tooltip: strings.quickPosEmptyCart,
               icon: const Icon(Icons.delete_sweep_rounded),
@@ -516,6 +634,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                 setState(() => _cart.clear());
               },
             ),
+          ],
         ],
       ),
       body: SafeArea(
@@ -1107,6 +1226,28 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                       ],
                     ),
                   ),
+                  // Quick Print Button (حفظ وطباعة فورية)
+                  SizedBox(
+                    height: 54,
+                    width: 54,
+                    child: IconButton.filledTonal(
+                      tooltip: 'حفظ وطباعة الفاتورة (حراري 80مم)',
+                      style: IconButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        backgroundColor: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                      ),
+                      onPressed: _cart.isEmpty || _saving
+                          ? null
+                          : _paymentType == SalePaymentType.cash
+                              ? () => _checkout(const [], andPrint: true)
+                              : customersAsync.whenOrNull(
+                                  data: (customers) => () => _checkout(customers, andPrint: true),
+                                ),
+                      icon: const Icon(Icons.print_rounded),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+
                   SizedBox(
                     height: 54,
                     child: FilledButton.icon(
@@ -1753,38 +1894,64 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 54,
-                      child: FilledButton.icon(
-                        style: FilledButton.styleFrom(
-                          backgroundColor: _paymentType == SalePaymentType.cash
-                              ? AppColors.paymentGreen
-                              : theme.colorScheme.primary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                        ),
-                        onPressed: _cart.isEmpty || _saving
-                            ? null
-                            : _paymentType == SalePaymentType.cash
-                                ? () => _checkout(const [])
-                                : customersAsync.whenOrNull(
-                                    data: (customers) => () => _checkout(customers),
-                                  ),
-                        icon: _saving
-                            ? const SizedBox.square(
-                                dimension: 18,
-                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                              )
-                            : Icon(
-                                _paymentType == SalePaymentType.cash
-                                    ? Icons.check_circle_outline_rounded
-                                    : Icons.save_rounded,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 54,
+                            child: OutlinedButton.icon(
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                               ),
-                        label: Text(
-                          _paymentType == SalePaymentType.cash ? 'استلام كاش' : 'تسجيل على الحساب',
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              onPressed: _cart.isEmpty || _saving
+                                  ? null
+                                  : _paymentType == SalePaymentType.cash
+                                      ? () => _checkout(const [], andPrint: true)
+                                      : customersAsync.whenOrNull(
+                                          data: (customers) => () => _checkout(customers, andPrint: true),
+                                        ),
+                              icon: const Icon(Icons.print_rounded),
+                              label: const Text('حفظ وطباعة', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: SizedBox(
+                            height: 54,
+                            child: FilledButton.icon(
+                              style: FilledButton.styleFrom(
+                                backgroundColor: _paymentType == SalePaymentType.cash
+                                    ? AppColors.paymentGreen
+                                    : theme.colorScheme.primary,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                              ),
+                              onPressed: _cart.isEmpty || _saving
+                                  ? null
+                                  : _paymentType == SalePaymentType.cash
+                                      ? () => _checkout(const [])
+                                      : customersAsync.whenOrNull(
+                                          data: (customers) => () => _checkout(customers),
+                                        ),
+                              icon: _saving
+                                  ? const SizedBox.square(
+                                      dimension: 18,
+                                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                    )
+                                  : Icon(
+                                      _paymentType == SalePaymentType.cash
+                                          ? Icons.check_circle_outline_rounded
+                                          : Icons.save_rounded,
+                                    ),
+                              label: Text(
+                                _paymentType == SalePaymentType.cash ? 'استلام كاش' : 'تسجيل على الحساب',
+                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
