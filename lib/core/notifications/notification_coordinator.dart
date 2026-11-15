@@ -45,22 +45,14 @@ class NotificationCoordinator {
     _service.initialize(
       onNotificationTapped: (payload) {
         if (payload != null && payload.isNotEmpty) {
-          try {
-            final router = _ref.read(routerProvider);
-            const tabLocations = {'/', '/customers', '/collection', '/suppliers', '/more'};
-            if (tabLocations.contains(payload)) {
-              router.go(payload);
-            } else {
-              // Screens outside the tab shell (e.g. /settings from the backup
-              // reminder) are pushed so the user always has a way back.
-              unawaited(router.push(payload));
-            }
-          } catch (e) {
-            debugPrint('NotificationCoordinator: failed to navigate to $payload: $e');
-          }
+          _navigate(payload);
         }
       },
     );
+
+    // Tapping a notification while the app was terminated launches it; the
+    // payload is only available once, so route after the first frame.
+    unawaited(_handleLaunchPayload());
 
     // Background worker that keeps reminders accurate while the app is closed.
     unawaited(initializeBackgroundReminderWorker());
@@ -96,6 +88,30 @@ class NotificationCoordinator {
   void _recheck() {
     if (_disposed) return;
     unawaited(checkAndTriggerReminders());
+  }
+
+  Future<void> _handleLaunchPayload() async {
+    final payload = await _service.getLaunchPayload();
+    if (payload == null || payload.isEmpty) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_disposed) _navigate(payload);
+    });
+  }
+
+  void _navigate(String payload) {
+    try {
+      final router = _ref.read(routerProvider);
+      const tabLocations = {'/', '/customers', '/collection', '/suppliers', '/more'};
+      if (tabLocations.contains(payload)) {
+        router.go(payload);
+      } else {
+        // Screens outside the tab shell (e.g. /settings from the backup
+        // reminder) are pushed so the user always has a way back.
+        unawaited(router.push(payload));
+      }
+    } catch (e) {
+      debugPrint('NotificationCoordinator: failed to navigate to $payload: $e');
+    }
   }
 
   void dispose() {

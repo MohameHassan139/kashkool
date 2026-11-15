@@ -87,6 +87,19 @@ class NotificationService implements ReminderNotifier {
     }
   }
 
+  /// Payload of the notification that launched the app from a terminated
+  /// state (Android/iOS only report it once, at startup).
+  Future<String?> getLaunchPayload() async {
+    try {
+      final details = await _notificationsPlugin.getNotificationAppLaunchDetails();
+      if (details?.didNotificationLaunchApp != true) return null;
+      return details?.notificationResponse?.payload;
+    } catch (e) {
+      debugPrint('NotificationService: could not read launch details: $e');
+      return null;
+    }
+  }
+
   /// Checks if notification permission is currently granted.
   Future<bool> isPermissionGranted() async {
     try {
