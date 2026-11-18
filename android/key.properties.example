@@ -1,0 +1,8 @@
+# Release Keystore Configuration Example for Kashkool
+# Copy this file to `android/key.properties` and fill in your actual credentials.
+# NEVER commit `android/key.properties` or `*.jks` to git!
+
+storePassword=your_keystore_password
+keyPassword=your_key_password
+keyAlias=upload
+storeFile=upload-keystore.jks

@@ -181,19 +181,9 @@ class NotificationService implements ReminderNotifier {
     await initialize();
     await _ensureTimeZone();
 
-    // Android 12+ exact alarms may be denied; fall back to an inexact alarm
-    // instead of failing the daily reminder completely.
-    var scheduleMode = AndroidScheduleMode.inexactAllowWhileIdle;
-    try {
-      final androidImpl = _notificationsPlugin
-          .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >();
-      final canExact = await androidImpl?.canScheduleExactNotifications();
-      if (canExact == true) {
-        scheduleMode = AndroidScheduleMode.exactAllowWhileIdle;
-      }
-    } catch (_) {}
+    // Use inexact alarms that allow waking the device from idle (Doze mode)
+    // without requiring the sensitive SCHEDULE_EXACT_ALARM permission on Android 13+.
+    const scheduleMode = AndroidScheduleMode.inexactAllowWhileIdle;
 
     await _notificationsPlugin.zonedSchedule(
       id: dailyReminderNotificationId,

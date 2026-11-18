@@ -138,7 +138,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get inventoryDelete => 'उत्पाद हटाएँ';
 
   @override
-  String get inventoryDeleteConfirm => 'उत्पाद सूची से हट जाएगा, परंतु उसका मूवमेंट इतिहास सुरक्षित रहेगा। क्या आप निश्चित हैं?';
+  String get inventoryDeleteConfirm =>
+      'उत्पाद सूची से हट जाएगा, परंतु उसका मूवमेंट इतिहास सुरक्षित रहेगा। क्या आप निश्चित हैं?';
 
   @override
   String get inventoryDeleted => 'उत्पाद हटाया गया';
@@ -150,25 +151,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get inventoryStockSaved => 'स्टॉक अपडेट किया गया';
 
   @override
-  String get inventoryInvalidQuantity => 'सही मात्रा दर्ज करें (अधिकतम 3 दशमलव अंक)';
+  String get inventoryInvalidQuantity =>
+      'सही मात्रा दर्ज करें (अधिकतम 3 दशमलव अंक)';
 
   @override
   String get inventoryQuantityRequired => 'शून्य से बड़ी मात्रा दर्ज करें';
 
   @override
-  String get inventoryStockCannotBeNegative => 'इतनी मात्रा हटाने के लिए स्टॉक पर्याप्त नहीं है';
+  String get inventoryStockCannotBeNegative =>
+      'इतनी मात्रा हटाने के लिए स्टॉक पर्याप्त नहीं है';
 
   @override
   String get inventoryInvalidPrice => 'सही और गैर-ऋणात्मक मूल्य दर्ज करें';
 
   @override
-  String get inventoryBarcodeExists => 'यह बारकोड पहले से किसी दूसरे उत्पाद से जुड़ा है';
+  String get inventoryBarcodeExists =>
+      'यह बारकोड पहले से किसी दूसरे उत्पाद से जुड़ा है';
 
   @override
-  String get inventoryUnitChangeNotAllowed => 'स्टॉक मूवमेंट दर्ज होने के बाद इकाई नहीं बदली जा सकती';
+  String get inventoryUnitChangeNotAllowed =>
+      'स्टॉक मूवमेंट दर्ज होने के बाद इकाई नहीं बदली जा सकती';
 
   @override
-  String get inventorySaveFailed => 'बदलाव सहेजे नहीं जा सके। जानकारी जाँचें और फिर कोशिश करें।';
+  String get inventorySaveFailed =>
+      'बदलाव सहेजे नहीं जा सके। जानकारी जाँचें और फिर कोशिश करें।';
 
   @override
   String get inventorySupplier => 'सप्लायर (वैकल्पिक)';
@@ -186,7 +192,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get inventorySupplierProducts => 'सप्लायर के उत्पाद';
 
   @override
-  String get inventoryNoSupplierProducts => 'इस सप्लायर से कोई उत्पाद जुड़ा नहीं है';
+  String get inventoryNoSupplierProducts =>
+      'इस सप्लायर से कोई उत्पाद जुड़ा नहीं है';
 
   @override
   String get inventorySupplierCardTitle => 'निर्धारित सप्लायर';
@@ -201,7 +208,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get supplierReturnReason => 'वापसी का कारण (वैकल्पिक)';
 
   @override
-  String get supplierReturnSuccess => 'वापसी सफलतापूर्वक दर्ज की गई और खाता अपडेट हो गया';
+  String get supplierReturnSuccess =>
+      'वापसी सफलतापूर्वक दर्ज की गई और खाता अपडेट हो गया';
 
   @override
   String get purchasePaidAmount => 'अभी चुकाया गया मूल्य';
@@ -267,7 +275,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get profitLossCashSectionTitle => 'प्राप्त नकद लाभ';
 
   @override
-  String get profitLossCashSectionSubtitle => 'नकद बिक्री से खर्च काटने के बाद दराज़ में वास्तव में आया लाभ';
+  String get profitLossCashSectionSubtitle =>
+      'नकद बिक्री से खर्च काटने के बाद दराज़ में वास्तव में आया लाभ';
 
   @override
   String get profitLossCashNet => 'दराज़ में शुद्ध नकद लाभ';
@@ -285,7 +294,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get profitLossCreditSectionTitle => 'उधार का लाभ (ग्राहकों के पास)';
 
   @override
-  String get profitLossCreditSectionSubtitle => 'उधार बेचे गए माल का लाभ जो अभी वसूल नहीं हुआ';
+  String get profitLossCreditSectionSubtitle =>
+      'उधार बेचे गए माल का लाभ जो अभी वसूल नहीं हुआ';
 
   @override
   String get profitLossCreditGross => 'ग्राहकों के पास बकाया लाभ';
@@ -297,7 +307,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get profitLossCreditCogs => 'उधार बेचे गए माल की लागत';
 
   @override
-  String get profitLossTotalExpectedNet => 'कुल अपेक्षित शुद्ध लाभ (नकद + उधार)';
+  String get profitLossTotalExpectedNet =>
+      'कुल अपेक्षित शुद्ध लाभ (नकद + उधार)';
 
   @override
   String get profitLossCashVsCreditRatio => 'नकद और उधार का अनुपात';
@@ -339,10 +350,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get featureManagerTitle => 'दुकान की सुविधाएँ प्रबंधित करें';
 
   @override
-  String get featureManagerSubtitle => 'अपनी दुकान के काम के अनुसार सेक्शन दिखाएँ या छिपाएँ';
+  String get featureManagerSubtitle =>
+      'अपनी दुकान के काम के अनुसार सेक्शन दिखाएँ या छिपाएँ';
 
   @override
-  String get featureManagerNote => 'किसी सुविधा को छिपाने से उसका डेटा नहीं हटता; आप इसे कभी भी एक टैप से वापस चालू कर सकते हैं।';
+  String get featureManagerNote =>
+      'किसी सुविधा को छिपाने से उसका डेटा नहीं हटता; आप इसे कभी भी एक टैप से वापस चालू कर सकते हैं।';
 
   @override
   String get featurePresetTitle => 'एक टैप के तैयार विकल्प';
@@ -351,19 +364,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get featurePresetSimple => 'सिर्फ़ उधार की बही';
 
   @override
-  String get featurePresetSimpleDesc => 'सिर्फ़ ग्राहकों के खाते और वसूली पर ध्यान';
+  String get featurePresetSimpleDesc =>
+      'सिर्फ़ ग्राहकों के खाते और वसूली पर ध्यान';
 
   @override
   String get featurePresetGrocery => 'किराना और सुपरमार्केट';
 
   @override
-  String get featurePresetGroceryDesc => 'त्वरित बिक्री + माल और सप्लायर + दैनिक दराज़';
+  String get featurePresetGroceryDesc =>
+      'त्वरित बिक्री + माल और सप्लायर + दैनिक दराज़';
 
   @override
   String get featurePresetElectronics => 'मोबाइल और इलेक्ट्रॉनिक्स';
 
   @override
-  String get featurePresetElectronicsDesc => 'किस्तें + स्टॉक + त्वरित बिक्री और सप्लायर';
+  String get featurePresetElectronicsDesc =>
+      'किस्तें + स्टॉक + त्वरित बिक्री और सप्लायर';
 
   @override
   String get featurePresetAll => 'सभी सुविधाएँ चालू';
@@ -375,46 +391,54 @@ class AppLocalizationsHi extends AppLocalizations {
   String get featureQuickPosTitle => 'त्वरित बिक्री और पॉइंट ऑफ़ सेल (POS)';
 
   @override
-  String get featureQuickPosDesc => 'जल्दी नकद बिल बनाने और बाकी पैसे निकालने वाली स्क्रीन';
+  String get featureQuickPosDesc =>
+      'जल्दी नकद बिल बनाने और बाकी पैसे निकालने वाली स्क्रीन';
 
   @override
   String get featureSuppliersTitle => 'सप्लायर और खरीद बिल';
 
   @override
-  String get featureSuppliersDesc => 'सप्लायर का उधार, स्टॉक ऑर्डर और वापसी पर नज़र रखें';
+  String get featureSuppliersDesc =>
+      'सप्लायर का उधार, स्टॉक ऑर्डर और वापसी पर नज़र रखें';
 
   @override
   String get featureInstallmentsTitle => 'मासिक किस्तों की बही';
 
   @override
-  String get featureInstallmentsDesc => 'किस्तों की अनुसूची, अनुबंध और भुगतान तिथि की चेतावनियाँ';
+  String get featureInstallmentsDesc =>
+      'किस्तों की अनुसूची, अनुबंध और भुगतान तिथि की चेतावनियाँ';
 
   @override
   String get featureInventoryTitle => 'स्टॉक और उत्पाद प्रबंधन';
 
   @override
-  String get featureInventoryDesc => 'माल दर्ज करें, कम स्टॉक की चेतावनी और मूवमेंट का रिकॉर्ड';
+  String get featureInventoryDesc =>
+      'माल दर्ज करें, कम स्टॉक की चेतावनी और मूवमेंट का रिकॉर्ड';
 
   @override
   String get featureCashDrawerTitle => 'दराज़ और दैनिक बंदी';
 
   @override
-  String get featureCashDrawerDesc => 'दैनिक नकद हिसाब, कमी-बेशी और दिन बंद करना';
+  String get featureCashDrawerDesc =>
+      'दैनिक नकद हिसाब, कमी-बेशी और दिन बंद करना';
 
   @override
   String get featureProfitLossTitle => 'लाभ-हानि और रिपोर्ट';
 
   @override
-  String get featureProfitLossDesc => 'खर्च काटने के बाद शुद्ध लाभ और पूँजी की रिपोर्ट निकालें';
+  String get featureProfitLossDesc =>
+      'खर्च काटने के बाद शुद्ध लाभ और पूँजी की रिपोर्ट निकालें';
 
   @override
   String get featureOffersTitle => 'ऑफ़र और शुभकामना संदेश';
 
   @override
-  String get featureOffersDesc => 'वाट्सऐप से ग्राहक समूहों को ऑफ़र और छूट भेजें';
+  String get featureOffersDesc =>
+      'वाट्सऐप से ग्राहक समूहों को ऑफ़र और छूट भेजें';
 
   @override
-  String get featureCoreAlwaysActive => 'ग्राहक और वसूली मुख्य सुविधाएँ हैं जो हमेशा चालू रहती हैं';
+  String get featureCoreAlwaysActive =>
+      'ग्राहक और वसूली मुख्य सुविधाएँ हैं जो हमेशा चालू रहती हैं';
 
   @override
   String get featureStatusActive => 'चालू';
@@ -480,10 +504,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get quickPosSaveFailed => 'बिक्री दर्ज नहीं हो सकी। फिर कोशिश करें।';
 
   @override
-  String get quickPosInsufficientStock => 'इस मात्रा के लिए स्टॉक पर्याप्त नहीं है';
+  String get quickPosInsufficientStock =>
+      'इस मात्रा के लिए स्टॉक पर्याप्त नहीं है';
 
   @override
-  String get quickPosCashDayClosed => 'आज का दराज़ बंद हो चुका है। नकद बिक्री दर्ज करने के लिए इसे फिर खोलें।';
+  String get quickPosCashDayClosed =>
+      'आज का दराज़ बंद हो चुका है। नकद बिक्री दर्ज करने के लिए इसे फिर खोलें।';
 
   @override
   String get quickPosLoadFailed => 'उत्पाद लोड नहीं हो सके';
@@ -540,7 +566,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get supplierPurchaseSaved => 'खरीद बिल दर्ज किया गया';
 
   @override
-  String get supplierPurchaseSaveFailed => 'खरीद बिल सहेजा नहीं जा सका। फिर कोशिश करें।';
+  String get supplierPurchaseSaveFailed =>
+      'खरीद बिल सहेजा नहीं जा सका। फिर कोशिश करें।';
 
   @override
   String get supplierPurchaseNoInvoices => 'इस सप्लायर का कोई खरीद बिल नहीं';
@@ -561,16 +588,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get supplierPurchaseReturnQuantity => 'वापसी की मात्रा';
 
   @override
-  String get supplierPurchaseReturnSaved => 'वापसी दर्ज की गई और सप्लायर के खाते से कटौती की गई';
+  String get supplierPurchaseReturnSaved =>
+      'वापसी दर्ज की गई और सप्लायर के खाते से कटौती की गई';
 
   @override
-  String get supplierPurchaseReturnLimit => 'माँगी गई मात्रा वापसी योग्य मात्रा या उपलब्ध स्टॉक से अधिक है';
+  String get supplierPurchaseReturnLimit =>
+      'माँगी गई मात्रा वापसी योग्य मात्रा या उपलब्ध स्टॉक से अधिक है';
 
   @override
   String get supplierCreditNote => 'वापसी से मिला सप्लायर क्रेडिट';
 
   @override
-  String get supplierPurchaseInvalidInput => 'मात्रा और मूल्य जाँचें, फिर कोशिश करें';
+  String get supplierPurchaseInvalidInput =>
+      'मात्रा और मूल्य जाँचें, फिर कोशिश करें';
 
   @override
   String get supplierPurchaseLoadError => 'खरीद बिल लोड नहीं हो सके';
@@ -686,13 +716,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noCustomersTitle => 'आपका खाता खाली है!';
 
   @override
-  String get noCustomersSubtitle => 'पहला ग्राहक जोड़ने और उसका हिसाब आसानी से रखने के लिए नीचे बटन दबाएँ';
+  String get noCustomersSubtitle =>
+      'पहला ग्राहक जोड़ने और उसका हिसाब आसानी से रखने के लिए नीचे बटन दबाएँ';
 
   @override
   String get noSearchResults => 'इस नाम या नंबर का कोई ग्राहक नहीं';
 
   @override
-  String get duplicateCustomerWarning => 'चेतावनी: इसी नाम या नंबर का ग्राहक पहले से है';
+  String get duplicateCustomerWarning =>
+      'चेतावनी: इसी नाम या नंबर का ग्राहक पहले से है';
 
   @override
   String get customerDetails => 'ग्राहक विवरण';
@@ -817,7 +849,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get overpaymentTitle => 'रकम उधार से ज़्यादा है!';
 
   @override
-  String overpaymentMessage(String paidAmount, String dueAmount, String creditAmount) {
+  String overpaymentMessage(
+    String paidAmount,
+    String dueAmount,
+    String creditAmount,
+  ) {
     return 'दी गई रकम ($paidAmount) उधार ($dueAmount) से ज़्यादा है। क्या ज़्यादा रकम ($creditAmount) ग्राहक के खाते में जमा करें?';
   }
 
@@ -855,7 +891,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get creditLimitWarningTitle => 'उधार सीमा चेतावनी';
 
   @override
-  String creditLimitExceededDialog(String customerName, String newTotal, String limit) {
+  String creditLimitExceededDialog(
+    String customerName,
+    String newTotal,
+    String limit,
+  ) {
     return '$customerName पर $newTotal हो जाएगा, जबकि सीमा $limit है';
   }
 
@@ -930,7 +970,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noSuppliersTitle => 'सप्लायर खाता खाली है!';
 
   @override
-  String get noSuppliersSubtitle => 'पहला सप्लायर या कंपनी जोड़ने के लिए नीचे बटन दबाएँ';
+  String get noSuppliersSubtitle =>
+      'पहला सप्लायर या कंपनी जोड़ने के लिए नीचे बटन दबाएँ';
 
   @override
   String get noSupplierSearchResults => 'कोई सप्लायर नहीं मिला';
@@ -1065,10 +1106,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noDueCustomersTitle => 'आज कोई वसूली नहीं 🎉';
 
   @override
-  String get noDueCustomersSubtitle => 'सभी ग्राहकों का हिसाब ठीक है या उन्हें हाल ही में याद दिलाया गया।';
+  String get noDueCustomersSubtitle =>
+      'सभी ग्राहकों का हिसाब ठीक है या उन्हें हाल ही में याद दिलाया गया।';
 
   @override
-  String get whatsAppNotInstalled => 'व्हाट्सऐप इंस्टॉल नहीं है। क्या SMS भेजें?';
+  String get whatsAppNotInstalled =>
+      'व्हाट्सऐप इंस्टॉल नहीं है। क्या SMS भेजें?';
 
   @override
   String get openSms => 'SMS भेजें';
@@ -1315,7 +1358,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get readOnlyDayNotice => 'यह दिन बंद है। बदलाव के लिए दिन फिर खोलें दबाएँ।';
+  String get readOnlyDayNotice =>
+      'यह दिन बंद है। बदलाव के लिए दिन फिर खोलें दबाएँ।';
 
   @override
   String get privacyModeTitle => 'प्राइवेसी मोड';
@@ -1350,19 +1394,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notebookImportButton1 => 'अपना खाता ऐप में डालें 📒';
 
   @override
-  String get notebookImportButton2 => 'हर पुरानी एंट्री ज़रूरी नहीं: ग्राहक का नाम और अभी का बकाया काफ़ी है।';
+  String get notebookImportButton2 =>
+      'हर पुरानी एंट्री ज़रूरी नहीं: ग्राहक का नाम और अभी का बकाया काफ़ी है।';
 
   @override
   String get notebookImportButton3 => 'ग्राहक और उनका हिसाब';
 
   @override
-  String get notebookImportButton4 => 'हर ग्राहक की एक लाइन: नाम, फ़ोन और बकाया';
+  String get notebookImportButton4 =>
+      'हर ग्राहक की एक लाइन: नाम, फ़ोन और बकाया';
 
   @override
   String get notebookImportButton5 => 'पुरानी किस्त';
 
   @override
-  String get notebookImportButton6 => 'क़ीमत, चुकाई रकम, बाकी किस्तें और अगली तारीख़';
+  String get notebookImportButton6 =>
+      'क़ीमत, चुकाई रकम, बाकी किस्तें और अगली तारीख़';
 
   @override
   String get notebookImportButton7 => 'खाते से डालें';
@@ -1374,7 +1421,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get oldInstallmentImportScreen2 => 'किस्त सेव हो गई ✓';
 
   @override
-  String oldInstallmentImportScreen3(Object remaining, Object countValue, Object nextDue) {
+  String oldInstallmentImportScreen3(
+    Object remaining,
+    Object countValue,
+    Object nextDue,
+  ) {
     return '$remaining बाकी, $countValue किस्तों में, पहली $nextDue को।';
   }
 
@@ -1385,7 +1436,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get oldInstallmentImportScreen5 => 'एक और किस्त';
 
   @override
-  String get oldInstallmentImportScreen6 => 'सेव करने में दिक़्क़त, कुछ सेव नहीं हुआ';
+  String get oldInstallmentImportScreen6 =>
+      'सेव करने में दिक़्क़त, कुछ सेव नहीं हुआ';
 
   @override
   String get oldInstallmentImportScreen7 => ' हर महीने';
@@ -1394,7 +1446,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get oldInstallmentImportScreen8 => ' हर हफ़्ते';
 
   @override
-  String oldInstallmentImportScreen9(Object remaining, Object count, Object count2, Object monthly) {
+  String oldInstallmentImportScreen9(
+    Object remaining,
+    Object count,
+    Object count2,
+    Object monthly,
+  ) {
     return '$remaining बाकी — $count किस्तें × लगभग $count2$monthly';
   }
 
@@ -1407,7 +1464,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get oldInstallmentImportScreen12 => 'ऐप से पहले शुरू हुई किस्तों के लिए: क़ीमत, अब तक चुकाई रकम और बाकी किस्तों की संख्या लिखें। ऐप सिर्फ़ बाकी शेड्यूल बनाएगा और पुराना भुगतान आज के ड्रॉअर में नहीं गिनेगा।';
+  String get oldInstallmentImportScreen12 =>
+      'ऐप से पहले शुरू हुई किस्तों के लिए: क़ीमत, अब तक चुकाई रकम और बाकी किस्तों की संख्या लिखें। ऐप सिर्फ़ बाकी शेड्यूल बनाएगा और पुराना भुगतान आज के ड्रॉअर में नहीं गिनेगा।';
 
   @override
   String get oldInstallmentImportScreen13 => 'ग्राहक';
@@ -1422,7 +1480,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get oldInstallmentImportScreen16 => 'ग्राहक का नाम लिखें';
 
   @override
-  String get oldInstallmentImportScreen17 => 'ग्राहक का मोबाइल (नया हो तो — वैकल्पिक)';
+  String get oldInstallmentImportScreen17 =>
+      'ग्राहक का मोबाइल (नया हो तो — वैकल्पिक)';
 
   @override
   String get oldInstallmentImportScreen18 => 'गलत मोबाइल नंबर';
@@ -1484,10 +1543,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get oldInstallmentImportScreen36 => 'ज़मानतदार का मोबाइल';
 
   @override
-  String get oldInstallmentImportScreen37 => 'खाते या अनुबंध की फ़ोटो (वैकल्पिक — फ़ोन पर ही रहेंगी)';
+  String get oldInstallmentImportScreen37 =>
+      'खाते या अनुबंध की फ़ोटो (वैकल्पिक — फ़ोन पर ही रहेंगी)';
 
   @override
-  String get oldInstallmentImportScreen38 => 'आप कई फ़ोटो जोड़ सकते हैं: खाते के पन्ने, अनुबंध, ज़मानतदार का आईडी…';
+  String get oldInstallmentImportScreen38 =>
+      'आप कई फ़ोटो जोड़ सकते हैं: खाते के पन्ने, अनुबंध, ज़मानतदार का आईडी…';
 
   @override
   String oldInstallmentImportScreen39(Object photosLength) {
@@ -1564,7 +1625,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notebookImportScreen17 => 'सेव करें';
 
   @override
-  String get notebookImportScreen18 => 'हर ग्राहक एक लाइन में लिखें: नाम, मोबाइल अगर हो, और बकाया रकम। तेज़ी से आगे बढ़ने के लिए कीबोर्ड पर \"अगला\" दबाएँ।';
+  String get notebookImportScreen18 =>
+      'हर ग्राहक एक लाइन में लिखें: नाम, मोबाइल अगर हो, और बकाया रकम। तेज़ी से आगे बढ़ने के लिए कीबोर्ड पर \"अगला\" दबाएँ।';
 
   @override
   String get notebookImportScreen19 => 'आज तक का हिसाब';
@@ -1575,7 +1637,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get notebookImportScreen21 => 'खाते के पन्ने की फ़ोटो (वैकल्पिक): पन्ने के हर ग्राहक के साथ सेव';
+  String get notebookImportScreen21 =>
+      'खाते के पन्ने की फ़ोटो (वैकल्पिक): पन्ने के हर ग्राहक के साथ सेव';
 
   @override
   String notebookImportScreen22(Object pagePhotosLength) {
@@ -1660,7 +1723,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get installmentsScreen1 => 'किस्तें 📋';
 
   @override
-  String get installmentsScreen2 => 'ग्राहक, सामान, मोबाइल या ज़मानतदार से खोजें...';
+  String get installmentsScreen2 =>
+      'ग्राहक, सामान, मोबाइल या ज़मानतदार से खोजें...';
 
   @override
   String get installmentsScreen3 => 'कुल किस्तें';
@@ -1695,7 +1759,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get installmentsScreen12 => 'अभी कोई किस्त प्लान नहीं';
 
   @override
-  String get installmentsScreen13 => 'पहला किस्त प्लान बनाने के लिए (+ नया किस्त प्लान) दबाएँ।';
+  String get installmentsScreen13 =>
+      'पहला किस्त प्लान बनाने के लिए (+ नया किस्त प्लान) दबाएँ।';
 
   @override
   String get installmentsScreen14 => 'नया किस्त प्लान';
@@ -1719,7 +1784,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get installmentPlanDetailsScreen4 => 'किस्त प्लान रद्द करें';
 
   @override
-  String get installmentPlanDetailsScreen5 => 'क्या यह प्लान रद्द करना है? रिमाइंडर बंद होंगे और भुगतान का रिकॉर्ड रहेगा।';
+  String get installmentPlanDetailsScreen5 =>
+      'क्या यह प्लान रद्द करना है? रिमाइंडर बंद होंगे और भुगतान का रिकॉर्ड रहेगा।';
 
   @override
   String get installmentPlanDetailsScreen6 => 'वापस';
@@ -1754,7 +1820,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get installmentPlanDetailsScreen16 => 'किस्त प्लान नहीं मिला या हटा दिया गया';
+  String get installmentPlanDetailsScreen16 =>
+      'किस्त प्लान नहीं मिला या हटा दिया गया';
 
   @override
   String get installmentPlanDetailsScreen17 => 'प्लान हटाएँ';
@@ -1783,7 +1850,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get installmentPlanDetailsScreen24 => 'अनुबंध / रसीद की फ़ोटो';
 
   @override
-  String get installmentPlanDetailsScreen25 => 'दस्तावेज़ पूरा देखने के लिए दबाएँ';
+  String get installmentPlanDetailsScreen25 =>
+      'दस्तावेज़ पूरा देखने के लिए दबाएँ';
 
   @override
   String get installmentPlanDetailsScreen26 => 'किस्त का दस्तावेज़';
@@ -1797,7 +1865,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get installmentPlanDetailsScreen28 => 'कोई भी रकम चुकाएँ';
 
   @override
-  String installmentPlanDetailsScreen29(Object installmentIndex, Object dueDate) {
+  String installmentPlanDetailsScreen29(
+    Object installmentIndex,
+    Object dueDate,
+  ) {
     return 'किस्त नंबर $installmentIndex • $dueDate';
   }
 
@@ -1807,7 +1878,10 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String installmentPlanDetailsScreen31(Object paidPiasters, Object amountPiasters) {
+  String installmentPlanDetailsScreen31(
+    Object paidPiasters,
+    Object amountPiasters,
+  ) {
     return '$amountPiasters में से $paidPiasters चुकाया';
   }
 
@@ -1859,7 +1933,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addInstallmentPlanScreen10 => 'डाउन पेमेंट कुल क़ीमत से कम हो';
 
   @override
-  String get addInstallmentPlanScreen11 => 'किस्त प्लान बन गया और शेड्यूल हो गया ✓';
+  String get addInstallmentPlanScreen11 =>
+      'किस्त प्लान बन गया और शेड्यूल हो गया ✓';
 
   @override
   String addInstallmentPlanScreen12(Object e) {
@@ -1887,7 +1962,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addInstallmentPlanScreen18 => 'जैसे: सैमसंग A15 128GB';
 
   @override
-  String get addInstallmentPlanScreen19 => 'सामान का नाम कम से कम 2 अक्षर का हो';
+  String get addInstallmentPlanScreen19 =>
+      'सामान का नाम कम से कम 2 अक्षर का हो';
 
   @override
   String get addInstallmentPlanScreen20 => 'कुल क़ीमत (₹) *';
@@ -1937,7 +2013,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addInstallmentPlanScreen34 => 'ज़मानतदार का मोबाइल नंबर';
 
   @override
-  String get addInstallmentPlanScreen35 => 'गलत मोबाइल नंबर (010, 011, 012, 015)';
+  String get addInstallmentPlanScreen35 =>
+      'गलत मोबाइल नंबर (010, 011, 012, 015)';
 
   @override
   String get addInstallmentPlanScreen36 => 'दस्तावेज़ की फ़ोटो ले ली ✓';
@@ -1961,7 +2038,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addInstallmentPlanScreen42 => 'ग्राहक के खाते से जोड़ें';
 
   @override
-  String get addInstallmentPlanScreen43 => 'कुल क़ीमत उधार और डाउन पेमेंट भुगतान के रूप में ग्राहक के खाते में दर्ज करें';
+  String get addInstallmentPlanScreen43 =>
+      'कुल क़ीमत उधार और डाउन पेमेंट भुगतान के रूप में ग्राहक के खाते में दर्ज करें';
 
   @override
   String addInstallmentPlanScreen44(Object scheduleLength) {
@@ -1977,7 +2055,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addInstallmentPlanScreen46 => 'प्लान और शेड्यूल सेव करें';
 
   @override
-  String installmentProgressBar1(Object paidCount, Object totalCount, Object percentInt) {
+  String installmentProgressBar1(
+    Object paidCount,
+    Object totalCount,
+    Object percentInt,
+  ) {
     return '$totalCount में से $paidCount किस्तें चुकाईं ($percentInt%)';
   }
 
@@ -2153,7 +2235,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dueInstallmentsTab2 => 'आज कोई किस्त देय या लेट नहीं 🎉';
 
   @override
-  String get dueInstallmentsTab3 => 'सभी किस्त वाले ग्राहक समय पर चुका रहे हैं।';
+  String get dueInstallmentsTab3 =>
+      'सभी किस्त वाले ग्राहक समय पर चुका रहे हैं।';
 
   @override
   String dueInstallmentsTab4(Object dueListLength) {
@@ -2161,7 +2244,11 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String dueInstallmentsTab5(Object itemDescription, Object installmentIndex, Object installmentCount) {
+  String dueInstallmentsTab5(
+    Object itemDescription,
+    Object installmentIndex,
+    Object installmentCount,
+  ) {
     return '$itemDescription • किस्त ($installmentCount में से $installmentIndex)';
   }
 
@@ -2226,7 +2313,10 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String drawerHistoryTab1(Object cashSalesPiasters, Object openingCashPiasters) {
+  String drawerHistoryTab1(
+    Object cashSalesPiasters,
+    Object openingCashPiasters,
+  ) {
     return 'नकद बिक्री: $cashSalesPiasters · शुरुआती: $openingCashPiasters';
   }
 
@@ -2273,13 +2363,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get customerPhotosScreen7 => 'फ़ोटो लोड नहीं हुईं';
 
   @override
-  String get customerPhotosScreen8 => 'इस ग्राहक की अभी कोई फ़ोटो नहीं।\nखाते के पन्नों या किसी काग़ज़ की फ़ोटो लें — फ़ोटो सिर्फ़ इसी फ़ोन पर रहेंगी।';
+  String get customerPhotosScreen8 =>
+      'इस ग्राहक की अभी कोई फ़ोटो नहीं।\nखाते के पन्नों या किसी काग़ज़ की फ़ोटो लें — फ़ोटो सिर्फ़ इसी फ़ोन पर रहेंगी।';
 
   @override
   String get customerPhotosScreen9 => 'फ़ोटो हटाएँ';
 
   @override
-  String customerDetailsScreen1(Object activePlansLength, Object remainingPiasters) {
+  String customerDetailsScreen1(
+    Object activePlansLength,
+    Object remainingPiasters,
+  ) {
     return 'चालू किस्तें ($activePlansLength) • बाकी: $remainingPiasters';
   }
 
@@ -2347,19 +2441,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get ratingExplanationBottomSheet4 => 'बेहतरीन';
 
   @override
-  String get ratingExplanationBottomSheet5 => 'हिसाब साफ़ है या सबसे पुराना उधार 14 दिन से ज़्यादा नहीं।';
+  String get ratingExplanationBottomSheet5 =>
+      'हिसाब साफ़ है या सबसे पुराना उधार 14 दिन से ज़्यादा नहीं।';
 
   @override
   String get ratingExplanationBottomSheet6 => 'निगरानी';
 
   @override
-  String get ratingExplanationBottomSheet7 => 'सबसे पुराना उधार 15 से 45 दिन (याद दिलाना बेहतर है)।';
+  String get ratingExplanationBottomSheet7 =>
+      'सबसे पुराना उधार 15 से 45 दिन (याद दिलाना बेहतर है)।';
 
   @override
   String get ratingExplanationBottomSheet8 => 'लेट';
 
   @override
-  String get ratingExplanationBottomSheet9 => 'सबसे पुराना उधार 45 दिन से ज़्यादा है या उधार सीमा पार हो गई।';
+  String get ratingExplanationBottomSheet9 =>
+      'सबसे पुराना उधार 45 दिन से ज़्यादा है या उधार सीमा पार हो गई।';
 
   @override
   String get ratingExplanationBottomSheet10 => 'नया';
@@ -2398,7 +2495,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsScreen8 => 'काशकूल 📒';
 
   @override
-  String get settingsScreen9 => 'बिना इंटरनेट दुकान का खाता (Offline-First)\nवर्ज़न 1.0.0';
+  String get settingsScreen9 =>
+      'बिना इंटरनेट दुकान का खाता (Offline-First)\nवर्ज़न 1.0.0';
 
   @override
   String get settingsScreen10 => 'जनरल स्टोर';
@@ -2513,7 +2611,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsScreen45 => 'बैकअप एक्सपोर्ट करें (.kashkool)';
 
   @override
-  String get settingsScreen46 => 'खाते और फ़ोटो की कॉपी सेव करके व्हाट्सऐप या ड्राइव पर भेजें';
+  String get settingsScreen46 =>
+      'खाते और फ़ोटो की कॉपी सेव करके व्हाट्सऐप या ड्राइव पर भेजें';
 
   @override
   String get settingsScreen47 => 'बैकअप एक्सपोर्ट हो गया 👍';
@@ -2527,7 +2626,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsScreen49 => 'बैकअप वापस लाएँ';
 
   @override
-  String get settingsScreen50 => 'पहले सेव की गई .kashkool फ़ाइल से हिसाब और फ़ोटो वापस लाएँ';
+  String get settingsScreen50 =>
+      'पहले सेव की गई .kashkool फ़ाइल से हिसाब और फ़ोटो वापस लाएँ';
 
   @override
   String get settingsScreen51 => 'गलत फ़ाइल ❌';
@@ -2542,7 +2642,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsScreen54 => 'वापस लाने की पुष्टि';
 
   @override
-  String get settingsScreen55 => 'ध्यान दें: वापस लाने से ऐप का मौजूदा सारा डेटा फ़ाइल के डेटा से बदल जाएगा।';
+  String get settingsScreen55 =>
+      'ध्यान दें: वापस लाने से ऐप का मौजूदा सारा डेटा फ़ाइल के डेटा से बदल जाएगा।';
 
   @override
   String settingsScreen56(Object exportedAt) {
@@ -2566,7 +2667,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsScreen60 => 'वापस आ गया 🎉';
 
   @override
-  String get settingsScreen61 => 'सारे हिसाब, लेन-देन और फ़ोटो वापस आ गए। सब स्क्रीन ताज़ा करने के लिए ऐप फिर से चालू करें।';
+  String get settingsScreen61 =>
+      'सारे हिसाब, लेन-देन और फ़ोटो वापस आ गए। सब स्क्रीन ताज़ा करने के लिए ऐप फिर से चालू करें।';
 
   @override
   String get settingsScreen62 => 'अभी फिर से चालू करें';
@@ -2604,19 +2706,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsScreen72 => 'सुझाव और सीधी मदद';
 
   @override
-  String get settingsScreen73 => 'https://wa.me/201005083126?text=Hello%2C%20I%20have%20a%20question%20about%20Kashkool';
+  String get settingsScreen73 =>
+      'https://wa.me/201005083126?text=Hello%2C%20I%20have%20a%20question%20about%20Kashkool';
 
   @override
   String get settingsScreen74 => 'प्राइवेसी पॉलिसी और शर्तें';
 
   @override
-  String get settingsScreen75 => 'आपका डेटा आपका है और सिर्फ़ आपके फ़ोन पर रहता है';
+  String get settingsScreen75 =>
+      'आपका डेटा आपका है और सिर्फ़ आपके फ़ोन पर रहता है';
 
   @override
   String get settingsScreen76 => 'काशकूल प्राइवेसी पॉलिसी 🔒';
 
   @override
-  String get settingsScreen77 => '1. काशकूल पूरी तरह बिना इंटरनेट चलता है (Offline-First)।\n\n2. सारे हिसाब, नाम, फ़ोन नंबर, बिल की फ़ोटो और लेन-देन सिर्फ़ आपके फ़ोन पर रहते हैं। कोई डेटा किसी बाहरी सर्वर पर नहीं जाता।\n\n3. फ़ोन बदलने या खोने पर डेटा बचाने के लिए नियमित बैकअप (बैकअप एक्सपोर्ट करें) बनाना आपकी ज़िम्मेदारी है।\n\n4. काशकूल दुकानदारों और व्यापारियों के लिए बना है ताकि वे अपना बकाया सुरक्षित रखें और उधार आसानी से संभालें।';
+  String get settingsScreen77 =>
+      '1. काशकूल पूरी तरह बिना इंटरनेट चलता है (Offline-First)।\n\n2. सारे हिसाब, नाम, फ़ोन नंबर, बिल की फ़ोटो और लेन-देन सिर्फ़ आपके फ़ोन पर रहते हैं। कोई डेटा किसी बाहरी सर्वर पर नहीं जाता।\n\n3. फ़ोन बदलने या खोने पर डेटा बचाने के लिए नियमित बैकअप (बैकअप एक्सपोर्ट करें) बनाना आपकी ज़िम्मेदारी है।\n\n4. काशकूल दुकानदारों और व्यापारियों के लिए बना है ताकि वे अपना बकाया सुरक्षित रखें और उधार आसानी से संभालें।';
 
   @override
   String get settingsScreen78 => 'सिस्टम (ऑटो)';
@@ -2642,7 +2747,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get batteryGuideBottomSheet2 => 'रिमाइंडर चालू रखने की गाइड';
 
   @override
-  String get batteryGuideBottomSheet3 => 'कुछ फ़ोन (जैसे शाओमी, रियलमी, इनफ़िनिक्स और हुआवेई) बैटरी बचाने के लिए बैकग्राउंड में ऐप बंद कर देते हैं। रिमाइंडर समय पर आएँ, इसके लिए ये कदम उठाएँ:';
+  String get batteryGuideBottomSheet3 =>
+      'कुछ फ़ोन (जैसे शाओमी, रियलमी, इनफ़िनिक्स और हुआवेई) बैटरी बचाने के लिए बैकग्राउंड में ऐप बंद कर देते हैं। रिमाइंडर समय पर आएँ, इसके लिए ये कदम उठाएँ:';
 
   @override
   String get batteryGuideBottomSheet4 => 'अभी बैटरी सेटिंग्स खोलें';
@@ -2659,7 +2765,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get backupReminderBanner3 => 'बैकअप बनाने का समय ⚠️';
 
   @override
-  String get backupReminderBanner4 => 'आख़िरी बैकअप को 7 दिन से ज़्यादा हो गए। डेटा सेव करें ताकि फ़ोन खोने या बदलने पर कुछ न खोए।';
+  String get backupReminderBanner4 =>
+      'आख़िरी बैकअप को 7 दिन से ज़्यादा हो गए। डेटा सेव करें ताकि फ़ोन खोने या बदलने पर कुछ न खोए।';
 
   @override
   String get backupReminderBanner5 => 'अभी नहीं';
@@ -2674,7 +2781,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get homeWidgetSettingsCard1 => 'होम स्क्रीन पर हिसाब दिखाएँ';
 
   @override
-  String get homeWidgetSettingsCard2 => 'विजेट ऐप खोले बिना ग्राहकों पर बकाया और आज की वसूली दिखाता है';
+  String get homeWidgetSettingsCard2 =>
+      'विजेट ऐप खोले बिना ग्राहकों पर बकाया और आज की वसूली दिखाता है';
 
   @override
   String get homeWidgetSettingsCard3 => 'विजेट बंद है और कोई रकम नहीं दिखाता';
@@ -2689,16 +2797,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get homeWidgetSettingsCard6 => 'आज के सारांश का विजेट जोड़ें';
 
   @override
-  String get homeWidgetSettingsCard7 => 'बकाया + आज की वसूली + देय ग्राहक + वसूली बटन';
+  String get homeWidgetSettingsCard7 =>
+      'बकाया + आज की वसूली + देय ग्राहक + वसूली बटन';
 
   @override
-  String get homeWidgetSettingsCard8 => 'विजेट जोड़ने के लिए आने वाला मैसेज मंज़ूर करें 👍';
+  String get homeWidgetSettingsCard8 =>
+      'विजेट जोड़ने के लिए आने वाला मैसेज मंज़ूर करें 👍';
 
   @override
   String get homeWidgetSettingsCard9 => 'विजेट ख़ुद जोड़ें 📱';
 
   @override
-  String get homeWidgetSettingsCard10 => 'आपका फ़ोन ऐप को अपने-आप विजेट जोड़ने नहीं देता। ऐसा करें:\n\n1. होम स्क्रीन पर ख़ाली जगह देर तक दबाएँ\n2. \"Widgets\" चुनें\n3. \"Kashkool\" ढूँढकर विजेट स्क्रीन पर खींचें';
+  String get homeWidgetSettingsCard10 =>
+      'आपका फ़ोन ऐप को अपने-आप विजेट जोड़ने नहीं देता। ऐसा करें:\n\n1. होम स्क्रीन पर ख़ाली जगह देर तक दबाएँ\n2. \"Widgets\" चुनें\n3. \"Kashkool\" ढूँढकर विजेट स्क्रीन पर खींचें';
 
   @override
   String get messageTemplateEditorBottomSheet1 => 'अमानत किराना';
@@ -2710,7 +2821,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get messageTemplateEditorBottomSheet3 => 'मोहम्मद अहमद';
 
   @override
-  String get messageTemplateEditorBottomSheet4 => 'मैसेज टेम्पलेट सेव हो गया 👍';
+  String get messageTemplateEditorBottomSheet4 =>
+      'मैसेज टेम्पलेट सेव हो गया 👍';
 
   @override
   String get messageTemplateEditorBottomSheet5 => 'रिमाइंडर मैसेज बदलें 💬';
@@ -2734,10 +2846,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get messageTemplateEditorBottomSheet11 => 'आख़िरी लेन-देन की तारीख़';
 
   @override
-  String get messageTemplateEditorBottomSheet12 => 'रिमाइंडर मैसेज यहाँ लिखें...';
+  String get messageTemplateEditorBottomSheet12 =>
+      'रिमाइंडर मैसेज यहाँ लिखें...';
 
   @override
-  String get messageTemplateEditorBottomSheet13 => 'ग्राहक को ऐसा मैसेज मिलेगा:';
+  String get messageTemplateEditorBottomSheet13 =>
+      'ग्राहक को ऐसा मैसेज मिलेगा:';
 
   @override
   String get messageTemplateEditorBottomSheet14 => 'टेम्पलेट सेव करें';
@@ -2855,7 +2969,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get cloudBackupCard15 => 'कुछ नहीं हटेगा: सिर्फ़ इस फ़ोन पर मौजूद डेटा रहेगा, और आख़िरी बैकअप के बाद फ़ोन पर बदली चीज़ें वैसी ही रहेंगी।';
+  String get cloudBackupCard15 =>
+      'कुछ नहीं हटेगा: सिर्फ़ इस फ़ोन पर मौजूद डेटा रहेगा, और आख़िरी बैकअप के बाद फ़ोन पर बदली चीज़ें वैसी ही रहेंगी।';
 
   @override
   String get cloudBackupCard16 => 'हाँ, वापस लाएँ';
@@ -2874,7 +2989,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get cloudBackupCard20 => ' सब स्क्रीन ताज़ा करने के लिए ऐप बंद करके फिर खोलें।';
+  String get cloudBackupCard20 =>
+      ' सब स्क्रीन ताज़ा करने के लिए ऐप बंद करके फिर खोलें।';
 
   @override
   String get cloudBackupCard21 => 'ऐप बंद करें';
@@ -2883,7 +2999,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudBackupCard22 => 'साइन आउट करें?';
 
   @override
-  String get cloudBackupCard23 => 'आपका डेटा फ़ोन और क्लाउड पर रहेगा, लेकिन फिर से साइन इन तक बैकअप रुक जाएगा।';
+  String get cloudBackupCard23 =>
+      'आपका डेटा फ़ोन और क्लाउड पर रहेगा, लेकिन फिर से साइन इन तक बैकअप रुक जाएगा।';
 
   @override
   String get cloudBackupCard24 => 'साइन आउट';
@@ -2895,7 +3012,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudBackupCard26 => 'क्लाउड बैकअप';
 
   @override
-  String get cloudBackupCard27 => 'गूगल से साइन इन करें ताकि डेटा ऑनलाइन सेव रहे। फ़ोन खो जाए तो किसी भी दूसरे फ़ोन पर वापस लाएँ।';
+  String get cloudBackupCard27 =>
+      'गूगल से साइन इन करें ताकि डेटा ऑनलाइन सेव रहे। फ़ोन खो जाए तो किसी भी दूसरे फ़ोन पर वापस लाएँ।';
 
   @override
   String get cloudBackupCard28 => 'अभी कोई बैकअप नहीं';
@@ -2909,7 +3027,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudBackupCard30 => 'अभी अपलोड हो रहा है…';
 
   @override
-  String get cloudBackupCard31 => 'इंटरनेट का इंतज़ार — वापस आते ही अपने-आप अपलोड होगा';
+  String get cloudBackupCard31 =>
+      'इंटरनेट का इंतज़ार — वापस आते ही अपने-आप अपलोड होगा';
 
   @override
   String get cloudBackupCard32 => 'अपलोड रुक गया, थोड़ी देर में फिर कोशिश होगी';
@@ -2927,7 +3046,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudBackupCard36 => 'अपना डेटा इस फ़ोन पर वापस लाएँ';
 
   @override
-  String get cloudBackupCard37 => 'नए फ़ोन या दोबारा इंस्टॉल के बाद — कुछ नहीं हटाता';
+  String get cloudBackupCard37 =>
+      'नए फ़ोन या दोबारा इंस्टॉल के बाद — कुछ नहीं हटाता';
 
   @override
   String get cloudBackupCard38 => 'साइन आउट';
@@ -2936,7 +3056,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen1 => 'मेरी दुकान';
 
   @override
-  String get onboardingScreen2 => 'ऐप आज़माने के लिए डेमो ग्राहक जोड़े गए, आप उन्हें कभी भी हटा सकते हैं';
+  String get onboardingScreen2 =>
+      'ऐप आज़माने के लिए डेमो ग्राहक जोड़े गए, आप उन्हें कभी भी हटा सकते हैं';
 
   @override
   String get onboardingScreen3 => 'काशकूल की पहली सेटिंग';
@@ -2948,7 +3069,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen5 => 'काशकूल में आपका स्वागत है! 👋';
 
   @override
-  String get onboardingScreen6 => 'उधार, व्हाट्सऐप रिमाइंडर और किस्तों के लिए आसान डिजिटल खाता।';
+  String get onboardingScreen6 =>
+      'उधार, व्हाट्सऐप रिमाइंडर और किस्तों के लिए आसान डिजिटल खाता।';
 
   @override
   String get onboardingScreen7 => 'दुकान का नाम *';
@@ -2963,7 +3085,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen10 => 'दुकान का फ़ोन (वैकल्पिक)';
 
   @override
-  String get onboardingScreen11 => 'रसीदों, विवरण और व्हाट्सऐप मैसेज में दिखता है';
+  String get onboardingScreen11 =>
+      'रसीदों, विवरण और व्हाट्सऐप मैसेज में दिखता है';
 
   @override
   String get onboardingScreen12 => 'किराना और सुपरमार्केट';
@@ -2981,7 +3104,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen16 => 'इलेक्ट्रॉनिक्स और घरेलू सामान';
 
   @override
-  String get onboardingScreen17 => 'उधार बिक्री के अनुबंध, किस्तें अपने-आप चालू';
+  String get onboardingScreen17 =>
+      'उधार बिक्री के अनुबंध, किस्तें अपने-आप चालू';
 
   @override
   String get onboardingScreen18 => 'फ़ार्मेसी और कॉस्मेटिक्स';
@@ -3014,7 +3138,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen27 => 'रिमाइंडर आप तक पहुँचें 🔔';
 
   @override
-  String get onboardingScreen28 => 'ताकि काशकूल आपको रोज़ वसूली और किस्तों की याद दिला सके:';
+  String get onboardingScreen28 =>
+      'ताकि काशकूल आपको रोज़ वसूली और किस्तों की याद दिला सके:';
 
   @override
   String get onboardingScreen29 => 'नोटिफ़िकेशन की अनुमति';
@@ -3023,7 +3148,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen30 => 'नोटिफ़िकेशन चालू हो गए ✅';
 
   @override
-  String get onboardingScreen31 => 'रोज़ की वसूली का सारांश भेजने के लिए नोटिफ़िकेशन की अनुमति चाहिए';
+  String get onboardingScreen31 =>
+      'रोज़ की वसूली का सारांश भेजने के लिए नोटिफ़िकेशन की अनुमति चाहिए';
 
   @override
   String get onboardingScreen32 => 'नोटिफ़िकेशन की अनुमति दें';
@@ -3043,19 +3169,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get onboardingScreen36 => 'तैयार हैं! 🚀';
 
   @override
-  String get onboardingScreen37 => 'आपकी दुकान की जानकारी सेव हो गई। कैसे शुरू करना चाहेंगे?';
+  String get onboardingScreen37 =>
+      'आपकी दुकान की जानकारी सेव हो गई। कैसे शुरू करना चाहेंगे?';
 
   @override
   String get onboardingScreen38 => '+ पहला असली ग्राहक जोड़ें';
 
   @override
-  String get onboardingScreen39 => 'पहला ग्राहक दर्ज करें और तुरंत उधार व भुगतान लिखना शुरू करें';
+  String get onboardingScreen39 =>
+      'पहला ग्राहक दर्ज करें और तुरंत उधार व भुगतान लिखना शुरू करें';
 
   @override
   String get onboardingScreen40 => 'पहले डेमो डेटा से आज़माएँ 💡';
 
   @override
-  String get onboardingScreen41 => 'काशकूल आज़माने के लिए दो डेमो ग्राहक जोड़ता है (एक टैप में हटाएँ)';
+  String get onboardingScreen41 =>
+      'काशकूल आज़माने के लिए दो डेमो ग्राहक जोड़ता है (एक टैप में हटाएँ)';
 
   @override
   String get onboardingScreen42 => 'छोड़ें और होम स्क्रीन पर जाएँ';
@@ -3123,7 +3252,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get trashScreen8 => 'ट्रैश 🗑️';
 
   @override
-  String get trashScreen9 => 'जो कुछ आप हटाते हैं यहाँ आ जाता है, खोता नहीं। कभी भी वापस ला सकते हैं, और क्लाउड बैकअप में भी वापस आएगा।';
+  String get trashScreen9 =>
+      'जो कुछ आप हटाते हैं यहाँ आ जाता है, खोता नहीं। कभी भी वापस ला सकते हैं, और क्लाउड बैकअप में भी वापस आएगा।';
 
   @override
   String get trashScreen10 => 'हटाई गई चीज़ें लोड नहीं हुईं';
@@ -3355,7 +3485,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get googleAuthService1 => 'इस वर्ज़न में क्लाउड बैकअप सेट नहीं';
 
   @override
-  String get googleAuthService2 => 'गूगल ने साइन इन की जानकारी नहीं दी, फिर कोशिश करें';
+  String get googleAuthService2 =>
+      'गूगल ने साइन इन की जानकारी नहीं दी, फिर कोशिश करें';
 
   @override
   String get googleAuthService3 => 'साइन इन रद्द';
@@ -3407,7 +3538,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudBackupService1 => 'गूगल साइन इन उपलब्ध नहीं';
 
   @override
-  String get cloudBackupService2 => 'पहले सेटिंग्स से दुकान की जानकारी पूरी करें';
+  String get cloudBackupService2 =>
+      'पहले सेटिंग्स से दुकान की जानकारी पूरी करें';
 
   @override
   String get cloudBackupService3 => 'दुकान का डेटा तैयार हो रहा है…';
@@ -3439,7 +3571,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get autoBackupCoordinator2 => 'दिक़्क़त हुई, थोड़ी देर में फिर कोशिश होगी';
+  String get autoBackupCoordinator2 =>
+      'दिक़्क़त हुई, थोड़ी देर में फिर कोशिश होगी';
 
   @override
   String get customerRating1 => 'नया ग्राहक (3 से कम लेन-देन)';
@@ -3474,13 +3607,16 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get whatsappTemplate1 => 'नमस्ते {customer_name} 👋\n{shop_name} से बात कर रहे हैं।\nआपका मौजूदा बैलेंस: {balance}\nआख़िरी लेन-देन: {last_transaction_date} - {last_transaction_amount}\nभुगतान के लिए: {payment_info}\nहमारे साथ कारोबार के लिए धन्यवाद 🙏';
+  String get whatsappTemplate1 =>
+      'नमस्ते {customer_name} 👋\n{shop_name} से बात कर रहे हैं।\nआपका मौजूदा बैलेंस: {balance}\nआख़िरी लेन-देन: {last_transaction_date} - {last_transaction_amount}\nभुगतान के लिए: {payment_info}\nहमारे साथ कारोबार के लिए धन्यवाद 🙏';
 
   @override
-  String get whatsappTemplate2 => 'आदरणीय {customer_name},\nयाद दिला दें कि {shop_name} में आपका मौजूदा बैलेंस {balance} है।\nआख़िरी दर्ज लेन-देन: {last_transaction_date} ({last_transaction_amount})\nभुगतान के तरीके: {payment_info}\nसादर।';
+  String get whatsappTemplate2 =>
+      'आदरणीय {customer_name},\nयाद दिला दें कि {shop_name} में आपका मौजूदा बैलेंस {balance} है।\nआख़िरी दर्ज लेन-देन: {last_transaction_date} ({last_transaction_amount})\nभुगतान के तरीके: {payment_info}\nसादर।';
 
   @override
-  String get whatsappTemplate3 => 'नमस्ते {customer_name} 👋\n{shop_name} से बात कर रहे हैं।\n({item}) की किस्त की याद — {installment_count} में से किस्त नंबर {installment_number}:\nदेय रकम: {amount}\nआख़िरी तारीख़: {due_date}\nकुल बाकी: {remaining_total}\nभुगतान के तरीके: {payment_info}\nसमय पर भुगतान के लिए धन्यवाद 🙏';
+  String get whatsappTemplate3 =>
+      'नमस्ते {customer_name} 👋\n{shop_name} से बात कर रहे हैं।\n({item}) की किस्त की याद — {installment_count} में से किस्त नंबर {installment_number}:\nदेय रकम: {amount}\nआख़िरी तारीख़: {due_date}\nकुल बाकी: {remaining_total}\nभुगतान के तरीके: {payment_info}\nसमय पर भुगतान के लिए धन्यवाद 🙏';
 
   @override
   String get whatsappTemplate4 => 'दुकान पर नकद या उपलब्ध ट्रांसफ़र';
@@ -3492,61 +3628,75 @@ class AppLocalizationsHi extends AppLocalizations {
   String get batteryOptimizationHelper1 => 'XOS / HiOS';
 
   @override
-  String get batteryOptimizationHelper2 => 'अपने फ़ोन पर Phone Master ऐप खोलें।';
+  String get batteryOptimizationHelper2 =>
+      'अपने फ़ोन पर Phone Master ऐप खोलें।';
 
   @override
-  String get batteryOptimizationHelper3 => '\"Auto-start\" मैनेजमेंट में जाकर काशकूल चालू करें।';
+  String get batteryOptimizationHelper3 =>
+      '\"Auto-start\" मैनेजमेंट में जाकर काशकूल चालू करें।';
 
   @override
-  String get batteryOptimizationHelper4 => 'ऐप की सेटिंग्स में \"Battery\" खोलें और \"Unrestricted\" चुनें।';
+  String get batteryOptimizationHelper4 =>
+      'ऐप की सेटिंग्स में \"Battery\" खोलें और \"Unrestricted\" चुनें।';
 
   @override
-  String get batteryOptimizationHelper5 => 'हाल की ऐप्स में ऐप को नीचे खींचकर लॉक करें 🔒।';
+  String get batteryOptimizationHelper5 =>
+      'हाल की ऐप्स में ऐप को नीचे खींचकर लॉक करें 🔒।';
 
   @override
   String get batteryOptimizationHelper6 => 'MIUI / HyperOS';
 
   @override
-  String get batteryOptimizationHelper7 => 'ऐप की सेटिंग्स खोलें और \"Autostart\" चालू करें।';
+  String get batteryOptimizationHelper7 =>
+      'ऐप की सेटिंग्स खोलें और \"Autostart\" चालू करें।';
 
   @override
-  String get batteryOptimizationHelper8 => '\"Battery saver\" में \"No restrictions\" चुनें।';
+  String get batteryOptimizationHelper8 =>
+      '\"Battery saver\" में \"No restrictions\" चुनें।';
 
   @override
-  String get batteryOptimizationHelper9 => 'हाल की ऐप्स में काशकूल को देर तक दबाएँ और लॉक आइकन चुनें 🔒।';
+  String get batteryOptimizationHelper9 =>
+      'हाल की ऐप्स में काशकूल को देर तक दबाएँ और लॉक आइकन चुनें 🔒।';
 
   @override
   String get batteryOptimizationHelper10 => 'ColorOS / Realme UI';
 
   @override
-  String get batteryOptimizationHelper11 => 'ऐप सेटिंग्स -> Battery usage में \"Allow background activity\" चालू करें।';
+  String get batteryOptimizationHelper11 =>
+      'ऐप सेटिंग्स -> Battery usage में \"Allow background activity\" चालू करें।';
 
   @override
   String get batteryOptimizationHelper12 => '\"Auto-launch\" चालू करें।';
 
   @override
-  String get batteryOptimizationHelper13 => 'हाल की ऐप्स में तीन बिंदु दबाएँ और \"Lock\" चुनें।';
+  String get batteryOptimizationHelper13 =>
+      'हाल की ऐप्स में तीन बिंदु दबाएँ और \"Lock\" चुनें।';
 
   @override
   String get batteryOptimizationHelper14 => 'One UI';
 
   @override
-  String get batteryOptimizationHelper15 => 'Settings -> Device care -> Battery में जाएँ।';
+  String get batteryOptimizationHelper15 =>
+      'Settings -> Device care -> Battery में जाएँ।';
 
   @override
-  String get batteryOptimizationHelper16 => '\"Background usage limits\" खोलें।';
+  String get batteryOptimizationHelper16 =>
+      '\"Background usage limits\" खोलें।';
 
   @override
-  String get batteryOptimizationHelper17 => 'काशकूल को \"Never sleeping apps\" में जोड़ें।';
+  String get batteryOptimizationHelper17 =>
+      'काशकूल को \"Never sleeping apps\" में जोड़ें।';
 
   @override
   String get batteryOptimizationHelper18 => 'EMUI / MagicOS';
 
   @override
-  String get batteryOptimizationHelper19 => 'Settings -> Battery -> App launch में जाएँ।';
+  String get batteryOptimizationHelper19 =>
+      'Settings -> Battery -> App launch में जाएँ।';
 
   @override
-  String get batteryOptimizationHelper20 => '\"Kashkool\" खोजें, मैनुअल करें और Auto-launch + Run in background चालू करें।';
+  String get batteryOptimizationHelper20 =>
+      '\"Kashkool\" खोजें, मैनुअल करें और Auto-launch + Run in background चालू करें।';
 
   @override
   String get batteryOptimizationHelper21 => 'सिस्टम सेटिंग्स';
@@ -3555,13 +3705,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get batteryOptimizationHelper22 => 'सिस्टम नोटिफ़िकेशन की सुरक्षा';
 
   @override
-  String get batteryOptimizationHelper23 => 'फ़ोन सेटिंग्स में ऐप की जानकारी खोलें।';
+  String get batteryOptimizationHelper23 =>
+      'फ़ोन सेटिंग्स में ऐप की जानकारी खोलें।';
 
   @override
-  String get batteryOptimizationHelper24 => '\"Battery\" खोलें और \"Unrestricted\" चुनें।';
+  String get batteryOptimizationHelper24 =>
+      '\"Battery\" खोलें और \"Unrestricted\" चुनें।';
 
   @override
-  String get batteryOptimizationHelper25 => 'रिमाइंडर आएँ इसके लिए अल्ट्रा पावर सेविंग मोड बंद रखें।';
+  String get batteryOptimizationHelper25 =>
+      'रिमाइंडर आएँ इसके लिए अल्ट्रा पावर सेविंग मोड बंद रखें।';
 
   @override
   String get homeWidgetService1 => 'कोई नहीं';
@@ -3623,13 +3776,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudDeleteAccountTitle => 'क्लाउड अकाउंट हटाएँ';
 
   @override
-  String get cloudDeleteAccountSubtitle => 'क्लाउड बैकअप और अकाउंट हमेशा के लिए हटाता है — फ़ोन का डेटा रहेगा';
+  String get cloudDeleteAccountSubtitle =>
+      'क्लाउड बैकअप और अकाउंट हमेशा के लिए हटाता है — फ़ोन का डेटा रहेगा';
 
   @override
   String get cloudDeleteAccountConfirmTitle => 'अकाउंट हमेशा के लिए हटाएँ?';
 
   @override
-  String get cloudDeleteAccountConfirmBody => 'हम आपका अकाउंट और आपकी दुकानों के सारे क्लाउड बैकअप हटा देंगे। यह वापस नहीं होगा। इस फ़ोन का डेटा वैसा ही रहेगा।';
+  String get cloudDeleteAccountConfirmBody =>
+      'हम आपका अकाउंट और आपकी दुकानों के सारे क्लाउड बैकअप हटा देंगे। यह वापस नहीं होगा। इस फ़ोन का डेटा वैसा ही रहेगा।';
 
   @override
   String get cloudDeleteAccountConfirmButton => 'हमेशा के लिए हटाएँ';
@@ -3641,25 +3796,29 @@ class AppLocalizationsHi extends AppLocalizations {
   String get authFirstTimeTitle => 'कश्कूल में आपका स्वागत है! 👋';
 
   @override
-  String get authFirstTimeQuestion => 'क्या आपके पास पहले से खाता है या आप नए उपयोगकर्ता हैं?';
+  String get authFirstTimeQuestion =>
+      'क्या आपके पास पहले से खाता है या आप नए उपयोगकर्ता हैं?';
 
   @override
   String get authHaveAccount => 'मेरे पास पहले से खाता है';
 
   @override
-  String get authHaveAccountSubtitle => 'लॉग इन करें और आपकी दुकान का सारा डेटा तुरंत वापस आ जाएगा';
+  String get authHaveAccountSubtitle =>
+      'लॉग इन करें और आपकी दुकान का सारा डेटा तुरंत वापस आ जाएगा';
 
   @override
   String get authNewUser => 'नया उपयोगकर्ता';
 
   @override
-  String get authNewUserSubtitle => 'नया कश्कूल शुरू करें और अपनी दुकान चरण-दर-चरण तैयार करें';
+  String get authNewUserSubtitle =>
+      'नया कश्कूल शुरू करें और अपनी दुकान चरण-दर-चरण तैयार करें';
 
   @override
   String get authContinueGuest => 'अतिथि के रूप में जारी रखें (बिना खाते)';
 
   @override
-  String get authContinueGuestSubtitle => 'ऐप का उपयोग पूरी तरह बिना इंटरनेट, केवल फ़ोन पर करें';
+  String get authContinueGuestSubtitle =>
+      'ऐप का उपयोग पूरी तरह बिना इंटरनेट, केवल फ़ोन पर करें';
 
   @override
   String get authLogin => 'लॉग इन';
@@ -3692,13 +3851,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get authSignInWithGoogle => 'Google से लॉग इन करें';
 
   @override
-  String get authSignInWithGoogleSubtitle => 'क्लाउड सिंक और आपकी दुकान का डेटा अपने आप वापस';
+  String get authSignInWithGoogleSubtitle =>
+      'क्लाउड सिंक और आपकी दुकान का डेटा अपने आप वापस';
 
   @override
   String get authSwitchAccount => 'खाता बदलें';
 
   @override
-  String get authSwitchAccountSubtitle => 'दूसरा खाता चुनें या नए खाते से लॉग इन करें';
+  String get authSwitchAccountSubtitle =>
+      'दूसरा खाता चुनें या नए खाते से लॉग इन करें';
 
   @override
   String get authAddAccount => '+ दूसरे खाते से लॉग इन करें';
@@ -3727,7 +3888,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get cloudApiEmailTaken => 'यह ईमेल पहले से पंजीकृत है, लॉग इन करने की कोशिश करें';
+  String get cloudApiEmailTaken =>
+      'यह ईमेल पहले से पंजीकृत है, लॉग इन करने की कोशिश करें';
 
   @override
   String get cloudApiInvalidCredentials => 'ईमेल या पासवर्ड गलत है';
@@ -3736,7 +3898,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get authBackupBeforeSwitchTitle => 'चेतावनी: डेटा सहेजा नहीं गया!';
 
   @override
-  String get authBackupBeforeSwitchBody => 'इस खाते का कुछ डेटा क्लाउड पर सहेजा नहीं गया है। अगर आप अभी खाता बदलते हैं तो स्थानीय डेटा मिट जाएगा और पहले बैकअप किए बिना वापस नहीं मिल सकेगा।';
+  String get authBackupBeforeSwitchBody =>
+      'इस खाते का कुछ डेटा क्लाउड पर सहेजा नहीं गया है। अगर आप अभी खाता बदलते हैं तो स्थानीय डेटा मिट जाएगा और पहले बैकअप किए बिना वापस नहीं मिल सकेगा।';
 
   @override
   String get authBackupFirst => 'पहले बैकअप करें';
@@ -3754,13 +3917,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get authEmailRegisterButton => 'ईमेल से नया खाता बनाएँ';
 
   @override
-  String get authWipingData => 'स्थानीय डेटा मिटाया जा रहा है और खाता बदला जा रहा है…';
+  String get authWipingData =>
+      'स्थानीय डेटा मिटाया जा रहा है और खाता बदला जा रहा है…';
 
   @override
   String get offersBroadcasterTitle => 'ऑफ़र और शुभकामना संदेश';
 
   @override
-  String get offersBroadcasterSubtitle => 'एक टैप में बिना किसी खर्चे वाट्सऐप से ग्राहकों को ऑफ़र और शुभकामनाएँ भेजें';
+  String get offersBroadcasterSubtitle =>
+      'एक टैप में बिना किसी खर्चे वाट्सऐप से ग्राहकों को ऑफ़र और शुभकामनाएँ भेजें';
 
   @override
   String get offersTemplateSection => '1. टेम्पलेट चुनें';
@@ -3799,7 +3964,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get offersAudienceManual => 'मैनुअल चयन';
 
   @override
-  String get offersTipSpam => '💡 सुझाव: वाट्सऐप की पाबंदियों से बचने के लिए एक बार में 50 से ज़्यादा ग्राहकों को न भेजें।';
+  String get offersTipSpam =>
+      '💡 सुझाव: वाट्सऐप की पाबंदियों से बचने के लिए एक बार में 50 से ज़्यादा ग्राहकों को न भेजें।';
 
   @override
   String offersStartCampaign(Object count) {
@@ -3835,10 +4001,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get offersCampaignCompleteTitle => 'सफलतापूर्वक पूरा हुआ! 🎉';
 
   @override
-  String get offersCampaignCompleteSubtitle => 'सभी चुने गए संदेश ग्राहकों को सफलतापूर्वक भेजे गए।';
+  String get offersCampaignCompleteSubtitle =>
+      'सभी चुने गए संदेश ग्राहकों को सफलतापूर्वक भेजे गए।';
 
   @override
-  String get offersNoRecipients => 'ऐसे कोई ग्राहक नहीं मिले जो चुने गए फ़िल्टर से मेल खाते हों और उनके पास फ़ोन नंबर हो';
+  String get offersNoRecipients =>
+      'ऐसे कोई ग्राहक नहीं मिले जो चुने गए फ़िल्टर से मेल खाते हों और उनके पास फ़ोन नंबर हो';
 
   @override
   String offersSelectManualCustomers(Object count) {
@@ -3849,22 +4017,28 @@ class AppLocalizationsHi extends AppLocalizations {
   String get offersSampleCustomerName => 'मोहम्मद अहमद';
 
   @override
-  String get offersInsertPlaceholderHint => 'संदेश में वेरिएबल डालने के लिए टैप करें:';
+  String get offersInsertPlaceholderHint =>
+      'संदेश में वेरिएबल डालने के लिए टैप करें:';
 
   @override
-  String get offersDefaultRamadanText => 'हर साल आप खुश रहें, {customer_name} जी, रमज़ान मुबारक के मौके पर। {shop_name} की ओर से आपके और आपके परिवार के लिए यह महीना मुबारक हो 🌙✨';
+  String get offersDefaultRamadanText =>
+      'हर साल आप खुश रहें, {customer_name} जी, रमज़ान मुबारक के मौके पर। {shop_name} की ओर से आपके और आपके परिवार के लिए यह महीना मुबारक हो 🌙✨';
 
   @override
-  String get offersDefaultEidText => 'ईद मुबारक आपको और आपके परिवार को, {customer_name} जी। {shop_name} की ओर से हर साल आप अच्छे, स्वस्थ और खुश रहें 🎉🐑';
+  String get offersDefaultEidText =>
+      'ईद मुबारक आपको और आपके परिवार को, {customer_name} जी। {shop_name} की ओर से हर साल आप अच्छे, स्वस्थ और खुश रहें 🎉🐑';
 
   @override
-  String get offersDefaultBackToSchoolText => 'हमारे बच्चों के लिए नया पढ़ाई साल खुशहाल और सफल हो, {customer_name} जी। {shop_name} में आपको जो चाहिए सब मिलेगा 📚✏️';
+  String get offersDefaultBackToSchoolText =>
+      'हमारे बच्चों के लिए नया पढ़ाई साल खुशहाल और सफल हो, {customer_name} जी। {shop_name} में आपको जो चाहिए सब मिलेगा 📚✏️';
 
   @override
-  String get offersDefaultNewOfferText => 'नमस्ते {customer_name} जी! {shop_name} में आपके लिए नए और खास ऑफ़र व छूट हैं, कभी भी आने पर हमें खुशी होगी 🎁🔥';
+  String get offersDefaultNewOfferText =>
+      'नमस्ते {customer_name} जी! {shop_name} में आपके लिए नए और खास ऑफ़र व छूट हैं, कभी भी आने पर हमें खुशी होगी 🎁🔥';
 
   @override
-  String get offersDefaultCustomText => 'नमस्ते {customer_name} जी, {shop_name} की ओर से नमस्कार 👋';
+  String get offersDefaultCustomText =>
+      'नमस्ते {customer_name} जी, {shop_name} की ओर से नमस्कार 👋';
 
   @override
   String offersSentSuccessPrompt(Object name) {
@@ -3881,7 +4055,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get offersPreviewCardTitle => 'ग्राहक को दिखने वाला संदेश';
 
   @override
-  String get offersIncludeGrowthFooter => 'संदेश के अंत में कश्कूल की पंक्ति जोड़ें';
+  String get offersIncludeGrowthFooter =>
+      'संदेश के अंत में कश्कूल की पंक्ति जोड़ें';
 
   @override
   String offersCampaignActiveBanner(Object sent, Object total) {
@@ -3889,13 +4064,16 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get notificationServiceInstallmentsChannelName => 'किस्तों की याद दिलाना';
+  String get notificationServiceInstallmentsChannelName =>
+      'किस्तों की याद दिलाना';
 
   @override
-  String get notificationServiceInstallmentsChannelDesc => 'बकाया और लेट किस्तों की भुगतान तिथि की चेतावनियाँ';
+  String get notificationServiceInstallmentsChannelDesc =>
+      'बकाया और लेट किस्तों की भुगतान तिथि की चेतावनियाँ';
 
   @override
-  String get notificationServiceInstallmentsTitle => 'बकाया किस्तों की चेतावनी 🔔';
+  String get notificationServiceInstallmentsTitle =>
+      'बकाया किस्तों की चेतावनी 🔔';
 
   @override
   String notificationServiceInstallmentsBody(Object count, Object amountStr) {
@@ -3906,10 +4084,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notificationServiceBackupChannelName => 'बैकअप की याद दिलाना';
 
   @override
-  String get notificationServiceBackupChannelDesc => 'डेटा खराब होने से बचाने के लिए अपनी बही का बैकअप लेने की समय-समय पर चेतावनी';
+  String get notificationServiceBackupChannelDesc =>
+      'डेटा खराब होने से बचाने के लिए अपनी बही का बैकअप लेने की समय-समय पर चेतावनी';
 
   @override
-  String get notificationServiceBackupTitle => 'चेतावनी: आपको बैकअप करना चाहिए ⚠️';
+  String get notificationServiceBackupTitle =>
+      'चेतावनी: आपको बैकअप करना चाहिए ⚠️';
 
   @override
   String notificationServiceBackupBody(Object days) {
@@ -3920,37 +4100,45 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notificationServiceTestTitle => 'कश्कूल से टेस्ट सूचना 🚀';
 
   @override
-  String get notificationServiceTestBody => 'सूचनाएँ ठीक से काम कर रही हैं और समय पर पहुँच रही हैं 👍';
+  String get notificationServiceTestBody =>
+      'सूचनाएँ ठीक से काम कर रही हैं और समय पर पहुँच रही हैं 👍';
 
   @override
-  String get notificationServiceSettingsReminderTime => 'रोज़ की याद दिलाने का समय';
+  String get notificationServiceSettingsReminderTime =>
+      'रोज़ की याद दिलाने का समय';
 
   @override
-  String get notificationServiceSettingsReminderTimeSubtitle => 'वसूली और बकाया किस्तों की रोज़ चेतावनी का समय';
+  String get notificationServiceSettingsReminderTimeSubtitle =>
+      'वसूली और बकाया किस्तों की रोज़ चेतावनी का समय';
 
   @override
   String get notificationServiceSettingsStatus => 'ऐप की सूचनाएँ';
 
   @override
-  String get notificationServiceSettingsStatusActive => 'चालू हैं और ठीक से काम कर रही हैं ✓';
+  String get notificationServiceSettingsStatusActive =>
+      'चालू हैं और ठीक से काम कर रही हैं ✓';
 
   @override
-  String get notificationServiceSettingsStatusDisabled => 'बंद हैं — अनुमति देने के लिए टैप करें';
+  String get notificationServiceSettingsStatusDisabled =>
+      'बंद हैं — अनुमति देने के लिए टैप करें';
 
   @override
   String get notificationServiceSettingsSendTest => 'अभी टेस्ट सूचना भेजें';
 
   @override
-  String get notificationServiceSettingsSendTestSubtitle => 'अपने फ़ोन पर सूचना और आवाज़ तुरंत दिखने/सुनने की जाँच करें';
+  String get notificationServiceSettingsSendTestSubtitle =>
+      'अपने फ़ोन पर सूचना और आवाज़ तुरंत दिखने/सुनने की जाँच करें';
 
   @override
-  String get notificationServiceSettingsSendTestSuccess => 'टेस्ट सूचना भेजी गई! सूचना पट्टी देखें 👍';
+  String get notificationServiceSettingsSendTestSuccess =>
+      'टेस्ट सूचना भेजी गई! सूचना पट्टी देखें 👍';
 
   @override
   String get notificationServiceDailyScheduledTitle => 'वसूली का समय 💰';
 
   @override
-  String get notificationServiceDailyScheduledBody => 'आज के बकाया ग्राहकों को देखने के लिए काशकूल खोलें';
+  String get notificationServiceDailyScheduledBody =>
+      'आज के बकाया ग्राहकों को देखने के लिए काशकूल खोलें';
 
   @override
   String get navHome => 'होम';
@@ -3986,10 +4174,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get moreShopReportSubtitle => 'कुल स्टॉक, नकदी और उधारी';
 
   @override
-  String get notificationServiceGeneralChannelDesc => 'कश्कोल सामान्य और परीक्षण सूचना चैनल';
+  String get notificationServiceGeneralChannelDesc =>
+      'कश्कोल सामान्य और परीक्षण सूचना चैनल';
 
   @override
-  String get notificationServiceGeneralChannelName => 'सामान्य और परीक्षण सूचनाएं';
+  String get notificationServiceGeneralChannelName =>
+      'सामान्य और परीक्षण सूचनाएं';
 
   @override
   String notificationServiceLowStockBody(Object remainingStock) {
@@ -3997,13 +4187,15 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get notificationServiceLowStockChannelDesc => 'न्यूनतम सीमा पर पहुंचने पर तुरंत सूचना';
+  String get notificationServiceLowStockChannelDesc =>
+      'न्यूनतम सीमा पर पहुंचने पर तुरंत सूचना';
 
   @override
   String get notificationServiceLowStockChannelName => 'कम स्टॉक अलर्ट';
 
   @override
-  String get notificationServiceLowStockNoSupplierSuffix => ' स्टॉक जांचने और ऑर्डर के लिए दबाएं';
+  String get notificationServiceLowStockNoSupplierSuffix =>
+      ' स्टॉक जांचने और ऑर्डर के लिए दबाएं';
 
   @override
   String notificationServiceLowStockSupplierSuffix(Object supplierName) {
@@ -4016,7 +4208,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get notificationServiceMultipleLowStockBody => 'सप्लायर से ऑर्डर करने के लिए कम स्टॉक वाली वस्तुएं देखें।';
+  String get notificationServiceMultipleLowStockBody =>
+      'सप्लायर से ऑर्डर करने के लिए कम स्टॉक वाली वस्तुएं देखें।';
 
   @override
   String notificationServiceMultipleLowStockTitle(Object count) {
@@ -4079,7 +4272,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pdfReportCashInDrawer => 'दराज में नकद';
 
   @override
-  String get pdfReportCashProfitNote => 'कश्कोल नोट: शुद्ध नकद लाभ खर्चों के बाद प्राप्त वास्तविक राशि है। उधार लाभ वसूली के बाद नकद में बदलता है।';
+  String get pdfReportCashProfitNote =>
+      'कश्कोल नोट: शुद्ध नकद लाभ खर्चों के बाद प्राप्त वास्तविक राशि है। उधार लाभ वसूली के बाद नकद में बदलता है।';
 
   @override
   String get pdfReportCashVsCreditTitle => 'नकद बनाम उधार बिक्री तुलना';
@@ -4103,7 +4297,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pdfReportGrandTotal => 'कुल योग';
 
   @override
-  String get pdfReportGrowthFooter => 'कश्कोल ऐप द्वारा निर्मित — निःशुल्क खाता बही';
+  String get pdfReportGrowthFooter =>
+      'कश्कोल ऐप द्वारा निर्मित — निःशुल्क खाता बही';
 
   @override
   String get pdfReportInventoryAtCost => 'लागत मूल्य पर स्टॉक का मूल्य';
@@ -4115,7 +4310,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pdfReportInventorySection => '1. भंडार और इनवेंटरी';
 
   @override
-  String get pdfReportInventorySubtitle => 'स्टॉक मूल्यांकन और उपलब्धता की विस्तृत रिपोर्ट';
+  String get pdfReportInventorySubtitle =>
+      'स्टॉक मूल्यांकन और उपलब्धता की विस्तृत रिपोर्ट';
 
   @override
   String get pdfReportInventoryTitle => 'सामान्य इनवेंटरी मूल्यांकन रिपोर्ट';
@@ -4136,7 +4332,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pdfReportLowStockNeedOrder => 'ऑर्डर की आवश्यकता';
 
   @override
-  String get pdfReportLowStockSubtitle => 'कम स्टॉक वाली वस्तुओं और कीमतों की पूरी सूची';
+  String get pdfReportLowStockSubtitle =>
+      'कम स्टॉक वाली वस्तुओं और कीमतों की पूरी सूची';
 
   @override
   String get pdfReportLowStockTitle => 'कम स्टॉक और सप्लायर ऑर्डर रिपोर्ट';
@@ -4148,7 +4345,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pdfReportMovementUnit => 'प्रविष्टियां';
 
   @override
-  String get pdfReportNetWorthFormula => '= (लागत पर स्टॉक + नकद व बैंक + प्राप्य) - सप्लायर देनदारियां';
+  String get pdfReportNetWorthFormula =>
+      '= (लागत पर स्टॉक + नकद व बैंक + प्राप्य) - सप्लायर देनदारियां';
 
   @override
   String get pdfReportOperatingExpenses => 'परिचालन व्यय (दराज से कटौती)';
@@ -4175,7 +4373,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pdfReportSalesRevenue => 'बिक्री आय';
 
   @override
-  String get pdfReportShopOverviewSubtitle => 'स्टॉक, देनदारियों और नकदी का व्यापक विवरण';
+  String get pdfReportShopOverviewSubtitle =>
+      'स्टॉक, देनदारियों और नकदी का व्यापक विवरण';
 
   @override
   String get pdfReportShopOverviewTitle => 'दुकान की वित्तीय स्थिति रिपोर्ट';
@@ -4238,10 +4437,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get quickPosLastInvoiceNoItems => 'पिछले इनवॉइस में कोई वस्तु नहीं है';
 
   @override
-  String get quickPosNoItemsToPreview => 'इस इनवॉइस में पूर्वावलोकन के लिए कुछ नहीं है';
+  String get quickPosNoItemsToPreview =>
+      'इस इनवॉइस में पूर्वावलोकन के लिए कुछ नहीं है';
 
   @override
-  String get quickPosNoItemsToPrint => 'इस इनवॉइस में प्रिंट करने के लिए कुछ नहीं है';
+  String get quickPosNoItemsToPrint =>
+      'इस इनवॉइस में प्रिंट करने के लिए कुछ नहीं है';
 
   @override
   String get quickPosNoPreviousInvoices => 'अभी तक कोई बिक्री इनवॉइस नहीं है';
@@ -4314,10 +4515,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get quickPosSaveAndPrint => 'सहेजें और प्रिंट करें';
 
   @override
-  String get quickPosSaveAndPrintTooltip => 'बिक्री सहेजें और तुरंत रसीद प्रिंट करें';
+  String get quickPosSaveAndPrintTooltip =>
+      'बिक्री सहेजें और तुरंत रसीद प्रिंट करें';
 
   @override
-  String get quickPosSavingAndPrinting => 'बिक्री सहेजी गई, प्रिंट हो रही है...';
+  String get quickPosSavingAndPrinting =>
+      'बिक्री सहेजी गई, प्रिंट हो रही है...';
 
   @override
   String get quickPosTapToAdd => 'जोड़ने के लिए दबाएं';
@@ -4331,7 +4534,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get inventoryPdfExportTooltip => 'स्टॉक रिपोर्ट PDF प्रिंट और निर्यात करें';
+  String get inventoryPdfExportTooltip =>
+      'स्टॉक रिपोर्ट PDF प्रिंट और निर्यात करें';
 
   @override
   String inventoryPdfFileNameFull(Object dateStr) {
@@ -4347,7 +4551,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get inventoryPdfMenuFull => 'पूर्ण स्टॉक रिपोर्ट प्रिंट करें';
 
   @override
-  String get inventoryPdfMenuLowStock => 'केवल कम स्टॉक वाली वस्तुएं प्रिंट करें';
+  String get inventoryPdfMenuLowStock =>
+      'केवल कम स्टॉक वाली वस्तुएं प्रिंट करें';
 
   @override
   String get inventoryPdfTitleFull => 'सामान्य इनवेंटरी मूल्यांकन रिपोर्ट';
@@ -4356,13 +4561,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get inventoryPdfTitleLowStock => 'कम स्टॉक वस्तुओं की रिपोर्ट';
 
   @override
-  String get notificationServiceSettingsSendTestFailure => 'परीक्षण सूचना भेजने में विफल — कृपया सूचना अनुमतियों की जांच करें';
+  String get notificationServiceSettingsSendTestFailure =>
+      'परीक्षण सूचना भेजने में विफल — कृपया सूचना अनुमतियों की जांच करें';
 
   @override
   String get printExportPdf => 'PDF प्रिंट और निर्यात करें';
 
   @override
-  String get profitLossAccountingTipBody => 'शुद्ध नकद लाभ लागत और खर्चों के बाद गल्ले में बची वास्तविक राशि है। उधार लाभ वसूली पर नकद में बदलता है।';
+  String get profitLossAccountingTipBody =>
+      'शुद्ध नकद लाभ लागत और खर्चों के बाद गल्ले में बची वास्तविक राशि है। उधार लाभ वसूली पर नकद में बदलता है।';
 
   @override
   String get profitLossAccountingTipTitle => 'कश्कोल से लेखांकन सुझाव';
@@ -4397,7 +4604,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get restockCopiedToClipboard => 'ऑर्डर संदेश क्लिपबोर्ड पर कॉपी हो गया!';
+  String get restockCopiedToClipboard =>
+      'ऑर्डर संदेश क्लिपबोर्ड पर कॉपी हो गया!';
 
   @override
   String restockError(Object err) {
@@ -4405,10 +4613,12 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get restockLinkProductsHint => '1-टैप में ऑर्डर करने के लिए स्टॉक स्क्रीन से उत्पादों को इस सप्लायर से लिंक करें।';
+  String get restockLinkProductsHint =>
+      '1-टैप में ऑर्डर करने के लिए स्टॉक स्क्रीन से उत्पादों को इस सप्लायर से लिंक करें।';
 
   @override
-  String get restockMessageFooter => 'कृपया ऑर्डर प्राप्ति और डिलीवरी समय की पुष्टि करें।';
+  String get restockMessageFooter =>
+      'कृपया ऑर्डर प्राप्ति और डिलीवरी समय की पुष्टि करें।';
 
   @override
   String restockMessageGreeting(Object supplierName) {
@@ -4416,7 +4626,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get restockMessageHeader => 'दुकान के लिए निम्नलिखित वस्तुओं का ऑर्डर आवश्यक है:';
+  String get restockMessageHeader =>
+      'दुकान के लिए निम्नलिखित वस्तुओं का ऑर्डर आवश्यक है:';
 
   @override
   String restockMessageItem(Object name, Object qty, Object unit) {
@@ -4432,7 +4643,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get restockMessageThanks => 'बहुत-बहुत धन्यवाद!';
 
   @override
-  String get restockSelectProductsHint => 'व्हाट्सएप पर ऑर्डर करने के लिए कम स्टॉक वाली वस्तुएं और मात्रा चुनें:';
+  String get restockSelectProductsHint =>
+      'व्हाट्सएप पर ऑर्डर करने के लिए कम स्टॉक वाली वस्तुएं और मात्रा चुनें:';
 
   @override
   String get restockSendWhatsApp => 'व्हाट्सएप के माध्यम से ऑर्डर भेजें';
@@ -4441,7 +4653,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get shopReportCashInDrawerLabel => 'दराज में नकद:';
 
   @override
-  String get shopReportCopiedToClipboard => 'वित्तीय स्थिति रिपोर्ट क्लिपबोर्ड पर कॉपी हो गई!';
+  String get shopReportCopiedToClipboard =>
+      'वित्तीय स्थिति रिपोर्ट क्लिपबोर्ड पर कॉपी हो गई!';
 
   @override
   String get shopReportCustomersWithDues => 'उधारी वाले ग्राहक:';
@@ -4460,7 +4673,8 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get shopReportNetWorthFormula => '= (लागत पर स्टॉक + नकद व बैंक + प्राप्य) - सप्लायर देनदारियां';
+  String get shopReportNetWorthFormula =>
+      '= (लागत पर स्टॉक + नकद व बैंक + प्राप्य) - सप्लायर देनदारियां';
 
   @override
   String shopReportSupplierCount(Object count) {

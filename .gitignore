@@ -49,6 +49,14 @@ custom_lint.log
 kashkool-google-backup.zip
 Claude outputs/
 
+# Android signing keys & secrets
+android/key.properties
+*.jks
+*.keystore
+
 # Backend local files
 
 screenshots
+store
+
+.vercel
