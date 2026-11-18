@@ -69,10 +69,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get inventoryUnitRequired => 'فروخت کی اکائی درج کریں';
 
   @override
-  String get inventoryPurchasePrice => 'خریداری کی قیمت (EGP)';
+  String get inventoryPurchasePrice => 'خریداری کی قیمت (روپے)';
 
   @override
-  String get inventorySalePrice => 'فروخت کی قیمت (EGP)';
+  String get inventorySalePrice => 'فروخت کی قیمت (روپے)';
 
   @override
   String get inventoryMinimumStock => 'کم از کم اسٹاک کا انتباہ';
@@ -547,7 +547,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get supplierPurchaseQuantity => 'مقدار';
 
   @override
-  String get supplierPurchaseUnitCost => 'فی اکائی خریداری لاگت (EGP)';
+  String get supplierPurchaseUnitCost => 'فی یونٹ خریداری کی قیمت (روپے)';
 
   @override
   String get supplierPurchaseAddLine => 'آئٹم شامل کریں';
@@ -620,7 +620,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settled => 'بے باق';
 
   @override
-  String get currency => 'EGP';
+  String get currency => 'روپے';
 
   @override
   String get piaster => 'پیاسٹر';
@@ -931,7 +931,7 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get netSettled => 'حساب برابر ہے (0 EGP)';
+  String get netSettled => 'حسابات متوازن ہیں (0 روپے)';
 
   @override
   String get addNewSupplier => 'نیا سپلائر';
@@ -1965,7 +1965,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get addInstallmentPlanScreen19 => 'سامان کا نام کم از کم 2 حروف کا ہو';
 
   @override
-  String get addInstallmentPlanScreen20 => 'کل قیمت (EGP) *';
+  String get addInstallmentPlanScreen20 => 'کل قیمت (روپے) *';
 
   @override
   String get addInstallmentPlanScreen21 => 'مثلاً: 12000';
@@ -1974,7 +1974,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get addInstallmentPlanScreen22 => 'غلط رقم';
 
   @override
-  String get addInstallmentPlanScreen23 => 'پیشگی (EGP)';
+  String get addInstallmentPlanScreen23 => 'پیشگی ادائیگی (روپے)';
 
   @override
   String get addInstallmentPlanScreen24 => 'قسطوں میں ادا ہونے والی رقم:';
@@ -2098,7 +2098,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get payInstallmentDialog6 => 'واجب الادا رقم:';
 
   @override
-  String get payInstallmentDialog7 => 'ادا شدہ رقم (EGP)';
+  String get payInstallmentDialog7 => 'ادا شدہ رقم (روپے)';
 
   @override
   String get payInstallmentDialog8 => 'ادائیگی کا طریقہ';
@@ -2153,7 +2153,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get earlySettlementDialog5 => 'وصول کرنے والی رقم:';
 
   @override
-  String get earlySettlementDialog6 => 'جلد ادائیگی پر رعایت (EGP)';
+  String get earlySettlementDialog6 => 'قبل از وقت ادائیگی پر رعایت (روپے)';
 
   @override
   String get earlySettlementDialog7 => 'ابھی مکمل ادا کریں';
@@ -2308,7 +2308,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String addCashSalesBottomSheet6(Object val) {
-    return '+$val EGP';
+    return '+$val روپے';
   }
 
   @override
@@ -2727,10 +2727,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsScreen78 => 'سسٹم (خودکار)';
 
   @override
-  String get settingsScreen79 => 'ڈیفالٹ ادھار حد (EGP)';
+  String get settingsScreen79 => 'پہلے سے طے شدہ قرض کی حد (روپے)';
 
   @override
-  String get settingsScreen80 => 'رقم (EGP)';
+  String get settingsScreen80 => 'رقم (روپے)';
 
   @override
   String get settingsScreen81 => 'کوئی حد نہ ہو تو خالی چھوڑیں';
@@ -3620,7 +3620,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get whatsappTemplate4 => 'دکان پر نقد یا دستیاب ٹرانسفر';
 
   @override
-  String get money1 => 'EGP';
+  String get money1 => 'روپے';
 
   @override
   String get batteryOptimizationHelper1 => 'XOS / HiOS';

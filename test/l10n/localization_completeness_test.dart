@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/l10n/l10n.dart';
 
 Map<String, dynamic> _readArb(String code) {
@@ -93,5 +94,27 @@ void main() {
     expect(L10n.resolve(const [Locale('ar', 'EG')]), L10n.fallback);
     expect(L10n.resolve(const [Locale('in')]), const Locale('id'));
     expect(L10n.resolve(const []), const Locale('en'));
+  });
+
+  test('currency and MoneyUtils.formatMoney dynamically follow active language', () {
+    final expectedCurrencies = {
+      'ar_EG': 'جنيه',
+      'ar': 'جنيه',
+      'en': 'EGP',
+      'tr': 'TL',
+      'fr': '€',
+      'ur': 'روپے',
+      'hi': '₹',
+      'id': 'Rp',
+      'fa': 'تومان',
+    };
+
+    for (final entry in expectedCurrencies.entries) {
+      final locale = L10n.localeForCode(entry.key)!;
+      L10n.setLocale(locale);
+      expect(L10n.t.currency, equals(entry.value), reason: 'currency mismatch for ${entry.key}');
+      expect(L10n.t.money1, equals(entry.value), reason: 'money1 mismatch for ${entry.key}');
+      expect(MoneyUtils.formatMoney(5000), equals('50 ${entry.value}'), reason: 'formatMoney mismatch for ${entry.key}');
+    }
   });
 }

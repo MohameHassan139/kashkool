@@ -617,7 +617,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settled => 'Kapandı';
 
   @override
-  String get currency => 'EGP';
+  String get currency => 'TL';
 
   @override
   String get piaster => 'Kuruş';
@@ -928,7 +928,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get netSettled => 'Hesaplar dengede (0 EGP)';
+  String get netSettled => 'Hesaplar dengede (0 TL)';
 
   @override
   String get addNewSupplier => 'Yeni tedarikçi';
@@ -1968,7 +1968,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get addInstallmentPlanScreen19 => 'Ürün adı en az 2 karakter olmalı';
 
   @override
-  String get addInstallmentPlanScreen20 => 'Toplam fiyat (EGP) *';
+  String get addInstallmentPlanScreen20 => 'Toplam fiyat (TL) *';
 
   @override
   String get addInstallmentPlanScreen21 => 'örn. 12000';
@@ -1977,7 +1977,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get addInstallmentPlanScreen22 => 'Geçersiz tutar';
 
   @override
-  String get addInstallmentPlanScreen23 => 'Peşinat (EGP)';
+  String get addInstallmentPlanScreen23 => 'Peşinat (TL)';
 
   @override
   String get addInstallmentPlanScreen24 => 'Taksitlendirilecek tutar:';
@@ -2101,7 +2101,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get payInstallmentDialog6 => 'Ödenecek tutar:';
 
   @override
-  String get payInstallmentDialog7 => 'Ödenen tutar (EGP)';
+  String get payInstallmentDialog7 => 'Ödenen tutar (TL)';
 
   @override
   String get payInstallmentDialog8 => 'Ödeme yöntemi';
@@ -2156,7 +2156,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get earlySettlementDialog5 => 'Tahsil edilecek tutar:';
 
   @override
-  String get earlySettlementDialog6 => 'Erken ödeme indirimi (EGP)';
+  String get earlySettlementDialog6 => 'Erken ödeme indirimi (TL)';
 
   @override
   String get earlySettlementDialog7 => 'Şimdi kapat';
@@ -2314,7 +2314,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String addCashSalesBottomSheet6(Object val) {
-    return '+$val EGP';
+    return '+$val TL';
   }
 
   @override
@@ -2735,10 +2735,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsScreen78 => 'Sistem (otomatik)';
 
   @override
-  String get settingsScreen79 => 'Varsayılan borç limiti (EGP)';
+  String get settingsScreen79 => 'Varsayılan borç limiti (TL)';
 
   @override
-  String get settingsScreen80 => 'EGP olarak tutar';
+  String get settingsScreen80 => 'TL olarak tutar';
 
   @override
   String get settingsScreen81 => 'Limitsiz için boş bırakın';
@@ -3636,7 +3636,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get whatsappTemplate4 => 'Dükkânda nakit veya havale';
 
   @override
-  String get money1 => 'EGP';
+  String get money1 => 'TL';
 
   @override
   String get batteryOptimizationHelper1 => 'XOS / HiOS';

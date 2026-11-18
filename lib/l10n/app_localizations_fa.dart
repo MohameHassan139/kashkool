@@ -69,10 +69,10 @@ class AppLocalizationsFa extends AppLocalizations {
   String get inventoryUnitRequired => 'واحد فروش را وارد کنید';
 
   @override
-  String get inventoryPurchasePrice => 'قیمت خرید (جنیه)';
+  String get inventoryPurchasePrice => 'قیمت خرید (تومان)';
 
   @override
-  String get inventorySalePrice => 'قیمت فروش (جنیه)';
+  String get inventorySalePrice => 'قیمت فروش (تومان)';
 
   @override
   String get inventoryMinimumStock =>
@@ -546,7 +546,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get supplierPurchaseQuantity => 'تعداد';
 
   @override
-  String get supplierPurchaseUnitCost => 'قیمت خرید هر واحد (جنیه)';
+  String get supplierPurchaseUnitCost => 'قیمت خرید هر واحد (تومان)';
 
   @override
   String get supplierPurchaseAddLine => 'اضافه کردن کالا';
@@ -618,7 +618,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settled => 'تسویه';
 
   @override
-  String get currency => 'EGP';
+  String get currency => 'تومان';
 
   @override
   String get piaster => 'قروش';
@@ -928,7 +928,7 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
-  String get netSettled => 'حساب‌ها برابر است (0 EGP)';
+  String get netSettled => 'حساب‌ها متعادل هستند (0 تومان)';
 
   @override
   String get addNewSupplier => 'تأمین‌کننده جدید';
@@ -1960,7 +1960,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get addInstallmentPlanScreen19 => 'نام کالا باید حداقل ۲ حرف باشد';
 
   @override
-  String get addInstallmentPlanScreen20 => 'قیمت کل (EGP) *';
+  String get addInstallmentPlanScreen20 => 'قیمت کل (تومان) *';
 
   @override
   String get addInstallmentPlanScreen21 => 'مثلاً: 12000';
@@ -1969,7 +1969,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get addInstallmentPlanScreen22 => 'مبلغ نامعتبر';
 
   @override
-  String get addInstallmentPlanScreen23 => 'پیش‌پرداخت (EGP)';
+  String get addInstallmentPlanScreen23 => 'پیش‌پرداخت (تومان)';
 
   @override
   String get addInstallmentPlanScreen24 => 'مبلغ قابل تقسیط:';
@@ -2091,7 +2091,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get payInstallmentDialog6 => 'مبلغ قسط:';
 
   @override
-  String get payInstallmentDialog7 => 'مبلغ پرداختی (EGP)';
+  String get payInstallmentDialog7 => 'مبلغ پرداخت شده (تومان)';
 
   @override
   String get payInstallmentDialog8 => 'روش پرداخت';
@@ -2146,7 +2146,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get earlySettlementDialog5 => 'مبلغ قابل وصول:';
 
   @override
-  String get earlySettlementDialog6 => 'تخفیف پرداخت زودهنگام (EGP)';
+  String get earlySettlementDialog6 => 'تخفیف تسویه زودهنگام (تومان)';
 
   @override
   String get earlySettlementDialog7 => 'تسویه همین حالا';
@@ -2302,7 +2302,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String addCashSalesBottomSheet6(Object val) {
-    return '+$val EGP';
+    return '+$val تومان';
   }
 
   @override
@@ -2721,10 +2721,10 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsScreen78 => 'سیستم (خودکار)';
 
   @override
-  String get settingsScreen79 => 'سقف بدهی پیش‌فرض (EGP)';
+  String get settingsScreen79 => 'سقف بدهی پیش‌فرض (تومان)';
 
   @override
-  String get settingsScreen80 => 'مبلغ به EGP';
+  String get settingsScreen80 => 'مبلغ به تومان';
 
   @override
   String get settingsScreen81 => 'برای بدون سقف خالی بگذارید';
@@ -3618,7 +3618,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get whatsappTemplate4 => 'نقدی در مغازه یا انتقال موجود';
 
   @override
-  String get money1 => 'EGP';
+  String get money1 => 'تومان';
 
   @override
   String get batteryOptimizationHelper1 => 'XOS / HiOS';

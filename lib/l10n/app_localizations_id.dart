@@ -69,10 +69,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get inventoryUnitRequired => 'Masukkan satuan penjualan';
 
   @override
-  String get inventoryPurchasePrice => 'Harga beli (EGP)';
+  String get inventoryPurchasePrice => 'Harga beli (Rp)';
 
   @override
-  String get inventorySalePrice => 'Harga jual (EGP)';
+  String get inventorySalePrice => 'Harga jual (Rp)';
 
   @override
   String get inventoryMinimumStock => 'Ingatkan saat stok mencapai';
@@ -547,7 +547,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get supplierPurchaseQuantity => 'Jumlah';
 
   @override
-  String get supplierPurchaseUnitCost => 'Harga beli per satuan (EGP)';
+  String get supplierPurchaseUnitCost => 'Harga beli per unit (Rp)';
 
   @override
   String get supplierPurchaseAddLine => 'Tambah barang';
@@ -617,7 +617,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get settled => 'Lunas';
 
   @override
-  String get currency => 'EGP';
+  String get currency => 'Rp';
 
   @override
   String get piaster => 'Pt';
@@ -928,7 +928,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get netSettled => 'Seimbang (0 EGP)';
+  String get netSettled => 'Akun seimbang (0 Rp)';
 
   @override
   String get addNewSupplier => 'Pemasok baru';
@@ -1972,7 +1972,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get addInstallmentPlanScreen19 => 'Nama barang minimal 2 karakter';
 
   @override
-  String get addInstallmentPlanScreen20 => 'Harga total (EGP) *';
+  String get addInstallmentPlanScreen20 => 'Harga total (Rp) *';
 
   @override
   String get addInstallmentPlanScreen21 => 'mis. 12000';
@@ -1981,7 +1981,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get addInstallmentPlanScreen22 => 'Jumlah tidak valid';
 
   @override
-  String get addInstallmentPlanScreen23 => 'Uang muka (EGP)';
+  String get addInstallmentPlanScreen23 => 'Uang muka (Rp)';
 
   @override
   String get addInstallmentPlanScreen24 => 'Jumlah yang dicicil:';
@@ -2104,7 +2104,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get payInstallmentDialog6 => 'Jumlah tagihan:';
 
   @override
-  String get payInstallmentDialog7 => 'Jumlah dibayar (EGP)';
+  String get payInstallmentDialog7 => 'Jumlah yang dibayar (Rp)';
 
   @override
   String get payInstallmentDialog8 => 'Metode pembayaran';
@@ -2159,7 +2159,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get earlySettlementDialog5 => 'Jumlah yang ditagih:';
 
   @override
-  String get earlySettlementDialog6 => 'Diskon pelunasan awal (EGP)';
+  String get earlySettlementDialog6 => 'Diskon pelunasan awal (Rp)';
 
   @override
   String get earlySettlementDialog7 => 'Lunasi sekarang';
@@ -2316,7 +2316,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String addCashSalesBottomSheet6(Object val) {
-    return '+$val EGP';
+    return '+$val Rp';
   }
 
   @override
@@ -2736,10 +2736,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsScreen78 => 'Sistem (otomatis)';
 
   @override
-  String get settingsScreen79 => 'Batas utang default (EGP)';
+  String get settingsScreen79 => 'Batas utang default (Rp)';
 
   @override
-  String get settingsScreen80 => 'Jumlah dalam EGP';
+  String get settingsScreen80 => 'Jumlah dalam Rp';
 
   @override
   String get settingsScreen81 => 'Kosongkan jika tanpa batas';
@@ -3631,7 +3631,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get whatsappTemplate4 => 'Tunai di toko atau transfer';
 
   @override
-  String get money1 => 'EGP';
+  String get money1 => 'Rp';
 
   @override
   String get batteryOptimizationHelper1 => 'XOS / HiOS';

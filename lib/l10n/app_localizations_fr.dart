@@ -71,10 +71,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get inventoryUnitRequired => 'Saisissez l\'unité de vente';
 
   @override
-  String get inventoryPurchasePrice => 'Prix d\'achat (EGP)';
+  String get inventoryPurchasePrice => 'Prix d\'achat (€)';
 
   @override
-  String get inventorySalePrice => 'Prix de vente (EGP)';
+  String get inventorySalePrice => 'Prix de vente (€)';
 
   @override
   String get inventoryMinimumStock => 'M\'alerter quand le stock atteint';
@@ -559,7 +559,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get supplierPurchaseQuantity => 'Quantité';
 
   @override
-  String get supplierPurchaseUnitCost => 'Prix d\'achat unitaire (EGP)';
+  String get supplierPurchaseUnitCost => 'Prix d\'achat unitaire (€)';
 
   @override
   String get supplierPurchaseAddLine => 'Ajouter l\'article';
@@ -631,7 +631,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settled => 'Soldé';
 
   @override
-  String get currency => 'EGP';
+  String get currency => '€';
 
   @override
   String get piaster => 'Pt';
@@ -943,7 +943,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get netSettled => 'Comptes équilibrés (0 EGP)';
+  String get netSettled => 'Comptes équilibrés (0 €)';
 
   @override
   String get addNewSupplier => 'Nouveau fournisseur';
@@ -1990,7 +1990,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le nom doit comporter au moins 2 caractères';
 
   @override
-  String get addInstallmentPlanScreen20 => 'Prix total (EGP) *';
+  String get addInstallmentPlanScreen20 => 'Prix total (€) *';
 
   @override
   String get addInstallmentPlanScreen21 => 'ex. : 12000';
@@ -1999,7 +1999,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addInstallmentPlanScreen22 => 'Montant invalide';
 
   @override
-  String get addInstallmentPlanScreen23 => 'Acompte (EGP)';
+  String get addInstallmentPlanScreen23 => 'Acompte (€)';
 
   @override
   String get addInstallmentPlanScreen24 => 'Montant à échelonner :';
@@ -2124,7 +2124,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get payInstallmentDialog6 => 'Montant dû :';
 
   @override
-  String get payInstallmentDialog7 => 'Montant payé (EGP)';
+  String get payInstallmentDialog7 => 'Montant payé (€)';
 
   @override
   String get payInstallmentDialog8 => 'Mode de paiement';
@@ -2179,7 +2179,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get earlySettlementDialog5 => 'Montant à encaisser :';
 
   @override
-  String get earlySettlementDialog6 => 'Remise pour paiement anticipé (EGP)';
+  String get earlySettlementDialog6 => 'Remise de paiement anticipé (€)';
 
   @override
   String get earlySettlementDialog7 => 'Solder maintenant';
@@ -2339,7 +2339,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String addCashSalesBottomSheet6(Object val) {
-    return '+$val EGP';
+    return '+$val €';
   }
 
   @override
@@ -2763,10 +2763,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsScreen78 => 'Système (automatique)';
 
   @override
-  String get settingsScreen79 => 'Plafond par défaut (EGP)';
+  String get settingsScreen79 => 'Limite de crédit par défaut (€)';
 
   @override
-  String get settingsScreen80 => 'Montant en EGP';
+  String get settingsScreen80 => 'Montant en €';
 
   @override
   String get settingsScreen81 => 'Laissez vide pour aucun plafond';
@@ -3675,7 +3675,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get whatsappTemplate4 => 'Espèces en boutique ou virement';
 
   @override
-  String get money1 => 'EGP';
+  String get money1 => '€';
 
   @override
   String get batteryOptimizationHelper1 => 'XOS / HiOS';
