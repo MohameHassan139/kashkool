@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'adaptive_text.dart';
 
 /// Reusable clean placeholder widget for sections being developed.
 class PlaceholderView extends StatelessWidget {
@@ -26,30 +27,30 @@ class PlaceholderView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(24.0),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+                color: theme.colorScheme.primaryContainer.withValues(
+                  alpha: 0.3,
+                ),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                icon,
-                size: 64,
-                color: theme.colorScheme.primary,
-              ),
+              child: Icon(icon, size: 64, color: theme.colorScheme.primary),
             ),
             const SizedBox(height: 24),
-            Text(
+            AdaptiveText(
               title,
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
+              maxLines: 2,
             ),
             const SizedBox(height: 12),
-            Text(
+            AdaptiveText(
               subtitle,
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
+              maxLines: 3,
             ),
           ],
         ),

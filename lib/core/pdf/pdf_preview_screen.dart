@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:printing/printing.dart';
 
 import '../../core/constants/app_colors.dart';
+import '../../l10n/l10n.dart';
 import 'pdf_reports_service.dart';
 
 /// Interactive preview and print screen for any PDF document in Kashkool.
@@ -67,10 +68,7 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
   Future<void> _handlePrint() async {
     if (_pdfBytes == null) return;
     final pdfService = ref.read(pdfReportsServiceProvider);
-    await pdfService.printPdf(
-      bytes: _pdfBytes!,
-      name: widget.fileName,
-    );
+    await pdfService.printPdf(bytes: _pdfBytes!, name: widget.fileName);
   }
 
   Future<void> _handleShare() async {
@@ -101,14 +99,14 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
                   dropdownColor: theme.cardColor,
                   borderRadius: BorderRadius.circular(12),
                   icon: const Icon(Icons.tune_rounded),
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: PdfDocumentFormat.a4,
-                      child: Text('ورقة A4'),
+                      child: Text(L10n.t.statementFormatA4),
                     ),
                     DropdownMenuItem(
                       value: PdfDocumentFormat.thermal80mm,
-                      child: Text('بون حراري 80مم'),
+                      child: Text(L10n.t.statementFormatReceipt),
                     ),
                   ],
                   onChanged: (newFormat) {
@@ -127,47 +125,56 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
           // Main PDF Preview Area
           Expanded(
             child: _isLoading
-                ? const Center(
+                ? Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CircularProgressIndicator(),
-                        SizedBox(height: 12),
-                        Text('جاري تجهيز ملف الـ PDF...'),
+                        const CircularProgressIndicator(),
+                        const SizedBox(height: 12),
+                        Text(L10n.t.pdfPreviewPreparing),
                       ],
                     ),
                   )
                 : _error != null
-                    ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.error_outline_rounded, size: 48, color: AppColors.debtRed),
-                              const SizedBox(height: 12),
-                              Text('تعذر إنشاء الملف: $_error', textAlign: TextAlign.center),
-                              const SizedBox(height: 16),
-                              FilledButton(
-                                onPressed: _renderPdf,
-                                child: const Text('إعادة المحاولة'),
-                              ),
-                            ],
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.error_outline_rounded,
+                            size: 48,
+                            color: AppColors.debtRed,
                           ),
-                        ),
-                      )
-                    : PdfPreview(
-                        build: (_) async => _pdfBytes!,
-                        useActions: false,
-                        canChangeOrientation: false,
-                        canChangePageFormat: false,
-                        canDebug: false,
-                        maxPageWidth: 450,
-                        dpi: 144,
-                        scrollViewDecoration: BoxDecoration(
-                          color: isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
-                        ),
+                          const SizedBox(height: 12),
+                          Text(
+                            '${L10n.t.pdfPreviewErrorLabel}: $_error',
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          FilledButton(
+                            onPressed: _renderPdf,
+                            child: Text(L10n.t.pdfPreviewRetry),
+                          ),
+                        ],
                       ),
+                    ),
+                  )
+                : PdfPreview(
+                    build: (_) async => _pdfBytes!,
+                    useActions: false,
+                    canChangeOrientation: false,
+                    canChangePageFormat: false,
+                    canDebug: false,
+                    maxPageWidth: 450,
+                    dpi: 144,
+                    scrollViewDecoration: BoxDecoration(
+                      color: isDark
+                          ? const Color(0xFF0F172A)
+                          : const Color(0xFFF1F5F9),
+                    ),
+                  ),
           ),
 
           // Bottom Action Bar
@@ -177,7 +184,9 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
               color: isDark ? const Color(0xFF1E293B) : Colors.white,
               border: Border(
                 top: BorderSide(
-                  color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                  color: isDark
+                      ? const Color(0xFF334155)
+                      : const Color(0xFFE2E8F0),
                 ),
               ),
               boxShadow: [
@@ -197,11 +206,13 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
                     child: OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size.fromHeight(48),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                       onPressed: _pdfBytes == null ? null : _handleShare,
                       icon: const Icon(Icons.share_rounded),
-                      label: const Text('مشاركة PDF'),
+                      label: Text(L10n.t.pdfPreviewShare),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -211,11 +222,13 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
                     child: FilledButton.icon(
                       style: FilledButton.styleFrom(
                         minimumSize: const Size.fromHeight(48),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                       onPressed: _pdfBytes == null ? null : _handlePrint,
                       icon: const Icon(Icons.print_rounded),
-                      label: const Text('طباعة فورية'),
+                      label: Text(L10n.t.pdfPreviewPrint),
                     ),
                   ),
                 ],

@@ -42,16 +42,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inventoryEditProduct => 'تعديل الصنف';
 
   @override
-  String get inventoryNoProducts => 'لسه مفيش أصناف مسجلة';
+  String get inventoryNoProducts => 'لا توجد أصناف مسجلة بعد';
 
   @override
-  String get inventoryNoSearchResults => 'مفيش أصناف مطابقة للبحث';
+  String get inventoryNoSearchResults => 'لا توجد أصناف مطابقة للبحث';
 
   @override
   String get inventoryProductName => 'اسم الصنف';
 
   @override
-  String get inventoryNameRequired => 'اكتب اسم الصنف';
+  String get inventoryNameRequired => 'أدخل اسم الصنف';
 
   @override
   String get inventoryBarcode => 'الباركود (اختياري)';
@@ -66,7 +66,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inventoryUnitExample => 'مثال: قطعة، كجم، لتر';
 
   @override
-  String get inventoryUnitRequired => 'اكتب وحدة البيع';
+  String get inventoryUnitRequired => 'أدخل وحدة البيع';
 
   @override
   String get inventoryPurchasePrice => 'سعر الشراء بالجنيه';
@@ -75,25 +75,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inventorySalePrice => 'سعر البيع بالجنيه';
 
   @override
-  String get inventoryMinimumStock => 'نبّهني لما الكمية توصل';
+  String get inventoryMinimumStock => 'نبّهني عند وصول الكمية إلى';
 
   @override
-  String get inventoryInitialStock => 'الكمية الموجودة حاليًا';
+  String get inventoryInitialStock => 'الكمية المتوفرة حاليًا';
 
   @override
-  String get inventoryCurrentStock => 'الموجود في المخزن';
+  String get inventoryCurrentStock => 'المتوفر في المخزون';
 
   @override
   String get inventoryInStock => 'متوفر';
 
   @override
-  String get inventoryLowStock => 'الكمية قليلة';
+  String get inventoryLowStock => 'الكمية منخفضة';
 
   @override
   String get inventoryAdjustStock => 'تعديل الكمية';
 
   @override
-  String get inventoryAddStock => 'إضافة للمخزون';
+  String get inventoryAddStock => 'إضافة إلى المخزون';
 
   @override
   String get inventoryRemoveStock => 'خصم من المخزون';
@@ -120,13 +120,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inventoryMovementSale => 'بيع';
 
   @override
-  String get inventoryMovementCustomerReturn => 'مرتجع عميل';
+  String get inventoryMovementCustomerReturn => 'مرتجع من عميل';
 
   @override
-  String get inventoryMovementSupplierReturn => 'مرتجع مورد';
+  String get inventoryMovementSupplierReturn => 'مرتجع من مورد';
 
   @override
-  String get inventoryNoMovements => 'مفيش حركات مخزون لسه';
+  String get inventoryNoMovements => 'لا توجد حركات مخزون بعد';
 
   @override
   String get inventorySave => 'حفظ';
@@ -139,7 +139,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get inventoryDeleteConfirm =>
-      'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
+      'لن يظهر الصنف في القائمة، لكن سجل حركاته سيبقى محفوظًا. هل أنت متأكد؟';
 
   @override
   String get inventoryDeleted => 'تم حذف الصنف';
@@ -151,27 +151,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inventoryStockSaved => 'تم تحديث المخزون';
 
   @override
-  String get inventoryInvalidQuantity => 'اكتب كمية صحيحة (لحد 3 أرقام عشرية)';
+  String get inventoryInvalidQuantity =>
+      'أدخل كمية صحيحة (بحد أقصى 3 أرقام عشرية)';
 
   @override
-  String get inventoryQuantityRequired => 'اكتب كمية أكبر من صفر';
+  String get inventoryQuantityRequired => 'أدخل كمية أكبر من صفر';
 
   @override
-  String get inventoryStockCannotBeNegative => 'الكمية الموجودة مش كفاية للخصم';
+  String get inventoryStockCannotBeNegative =>
+      'الكمية المتوفرة غير كافية للخصم';
 
   @override
-  String get inventoryInvalidPrice => 'اكتب سعر صحيح غير سالب';
+  String get inventoryInvalidPrice => 'أدخل سعرًا صحيحًا غير سالب';
 
   @override
-  String get inventoryBarcodeExists => 'الباركود مسجل لصنف تاني';
+  String get inventoryBarcodeExists => 'الباركود مسجل لصنف آخر';
 
   @override
   String get inventoryUnitChangeNotAllowed =>
-      'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
+      'لا يمكن تغيير الوحدة بعد تسجيل حركة للمخزون';
 
   @override
   String get inventorySaveFailed =>
-      'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+      'تعذّر حفظ التغيير. راجع البيانات وحاول مرة أخرى.';
 
   @override
   String get inventorySupplier => 'المورد (اختياري)';
@@ -180,25 +182,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get inventorySupplierNone => 'بدون مورد';
 
   @override
-  String get inventorySupplierFilter => 'تصفية بالمورد';
+  String get inventorySupplierFilter => 'تصفية حسب المورد';
 
   @override
-  String get inventoryFilterAllSuppliers => 'كل الموردين';
+  String get inventoryFilterAllSuppliers => 'جميع الموردين';
 
   @override
   String get inventorySupplierProducts => 'أصناف المورد';
 
   @override
-  String get inventoryNoSupplierProducts => 'مفيش أصناف مربوطة بهذا المورد';
+  String get inventoryNoSupplierProducts => 'لا توجد أصناف مرتبطة بهذا المورد';
 
   @override
-  String get inventorySupplierCardTitle => 'المورد المسئول';
+  String get inventorySupplierCardTitle => 'المورد المسؤول';
 
   @override
-  String get inventoryOrderWhatsApp => 'طلب نواقص عبر واتساب';
+  String get inventoryOrderWhatsApp => 'طلب النواقص عبر واتساب';
 
   @override
-  String get supplierReturn => 'مرتجع للمورد';
+  String get supplierReturn => 'مرتجع إلى المورد';
 
   @override
   String get supplierReturnReason => 'سبب المرتجع (اختياري)';
@@ -208,13 +210,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
 
   @override
-  String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
+  String get purchasePaidAmount => 'المبلغ المدفوع حاليًا';
 
   @override
-  String get purchasePaymentFull => 'دفع كامل';
+  String get purchasePaymentFull => 'سداد كامل';
 
   @override
-  String get purchasePaymentPartial => 'دفع جزء (باقي آجل)';
+  String get purchasePaymentPartial => 'سداد جزئي (الباقي آجل)';
 
   @override
   String get purchasePaymentOnAccount => 'دفعة تحت الحساب';
@@ -223,13 +225,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchasePaymentCredit => 'آجل بالكامل';
 
   @override
-  String get purchaseRemainingDebt => 'المتبقي آجل على المحل';
+  String get purchaseRemainingDebt => 'المتبقي آجلًا على المتجر';
 
   @override
-  String get purchaseAdvanceCredit => 'رصيد زيادة للمحل (تحت الحساب)';
+  String get purchaseAdvanceCredit => 'رصيد إضافي للمتجر (تحت الحساب)';
 
   @override
-  String get profitLossTitle => 'المكسب والخسارة';
+  String get profitLossTitle => 'الربح والخسارة';
 
   @override
   String get profitLossRevenue => 'إجمالي المبيعات';
@@ -259,7 +261,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profitLossPeriodMonth => 'هذا الشهر';
 
   @override
-  String get profitLossPeriodAll => 'كل الفترات';
+  String get profitLossPeriodAll => 'جميع الفترات';
 
   @override
   String get profitLossPositive => 'صافي ربح';
@@ -268,48 +270,48 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profitLossNegative => 'صافي خسارة';
 
   @override
-  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (كاش)';
+  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (نقدًا)';
 
   @override
   String get profitLossCashSectionSubtitle =>
-      'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات';
+      'أرباح دخلت الصندوق فعليًا من المبيعات النقدية بعد خصم المصروفات';
 
   @override
-  String get profitLossCashNet => 'صافي الربح النقدي في الدرج';
+  String get profitLossCashNet => 'صافي الربح النقدي في الصندوق';
 
   @override
-  String get profitLossCashRevenue => 'مبيعات نقدية (كاش)';
+  String get profitLossCashRevenue => 'مبيعات نقدية (نقدًا)';
 
   @override
-  String get profitLossCashCogs => 'تكلفة بضاعة الكاش المباعة';
+  String get profitLossCashCogs => 'تكلفة البضاعة النقدية المباعة';
 
   @override
-  String get profitLossCashGross => 'مجمل ربح الكاش';
+  String get profitLossCashGross => 'مجمل الربح النقدي';
 
   @override
-  String get profitLossCreditSectionTitle => 'أرباح آجلة (عند العملاء)';
+  String get profitLossCreditSectionTitle => 'أرباح آجلة (لدى العملاء)';
 
   @override
   String get profitLossCreditSectionSubtitle =>
-      'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد';
+      'أرباح البضاعة المباعة بالآجل ولم يتم تحصيلها بعد';
 
   @override
-  String get profitLossCreditGross => 'أرباح مؤجلة عند الزبائن';
+  String get profitLossCreditGross => 'أرباح مؤجلة لدى العملاء';
 
   @override
-  String get profitLossCreditRevenue => 'مبيعات بالآجل (شُكك)';
+  String get profitLossCreditRevenue => 'مبيعات بالآجل (ديون)';
 
   @override
-  String get profitLossCreditCogs => 'تكلفة بضاعة الآجل';
+  String get profitLossCreditCogs => 'تكلفة البضاعة المباعة بالآجل';
 
   @override
   String get profitLossTotalExpectedNet => 'إجمالي الربح الكلي (نقدي + آجل)';
 
   @override
-  String get profitLossCashVsCreditRatio => 'نسبة الكاش إلى الآجل';
+  String get profitLossCashVsCreditRatio => 'نسبة النقدي إلى الآجل';
 
   @override
-  String get shopReportTitle => 'تقرير المحل الشامل';
+  String get shopReportTitle => 'التقرير الشامل للمحل';
 
   @override
   String get shopReportInventoryValue => 'قيمة بضاعة المحل';
@@ -324,19 +326,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get shopReportExpectedProfit => 'الربح المتوقع من البضاعة';
 
   @override
-  String get shopReportReceivables => 'لينا عند العملاء (ديون)';
+  String get shopReportReceivables => 'المستحق من العملاء (ديون)';
 
   @override
-  String get shopReportPayables => 'علينا للموردين (ديون)';
+  String get shopReportPayables => 'المستحق للموردين (ديون)';
 
   @override
-  String get shopReportCashDrawer => 'الفلوس في الدرج والخزينة';
+  String get shopReportCashDrawer => 'النقد في الصندوق والخزينة';
 
   @override
   String get shopReportNetWorth => 'صافي رأس مال المحل';
 
   @override
-  String get shopReportLowStockCount => 'أصناف وصلت للنواقص';
+  String get shopReportLowStockCount => 'أصناف منخفضة المخزون';
 
   @override
   String get shopReportShare => 'مشاركة التقرير عبر واتساب';
@@ -346,53 +348,54 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get featureManagerSubtitle =>
-      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
+      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياجات متجرك';
 
   @override
   String get featureManagerNote =>
       'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
 
   @override
-  String get featurePresetTitle => 'أوضاع سريعة بنقرة واحدة';
+  String get featurePresetTitle => 'أنماط سريعة بنقرة واحدة';
 
   @override
-  String get featurePresetSimple => 'كشكول ديون فقط';
+  String get featurePresetSimple => 'كشكول الديون فقط';
 
   @override
   String get featurePresetSimpleDesc =>
-      'تركيز تام على حسابات الزباين والتحصيل فقط';
+      'تركيز تام على حسابات العملاء والتحصيل فقط';
 
   @override
-  String get featurePresetGrocery => 'بقالة وسوبرماركت';
+  String get featurePresetGrocery => 'بقالة ومتجر مواد غذائية';
 
   @override
-  String get featurePresetGroceryDesc => 'بيع سريع + بضاعة وموردين + درج يومي';
+  String get featurePresetGroceryDesc =>
+      'بيع سريع + بضاعة وموردون + صندوق يومي';
 
   @override
-  String get featurePresetElectronics => 'محل موبايل وأجهزة';
+  String get featurePresetElectronics => 'متجر هواتف وأجهزة';
 
   @override
-  String get featurePresetElectronicsDesc => 'أقساط + مخزون + بيع سريع وموردين';
+  String get featurePresetElectronicsDesc => 'أقساط + مخزون + بيع سريع وموردون';
 
   @override
-  String get featurePresetAll => 'تشغيل كل الميزات';
+  String get featurePresetAll => 'تشغيل جميع الميزات';
 
   @override
-  String get featurePresetAllDesc => 'فتح كافة إمكانيات التطبيق';
+  String get featurePresetAllDesc => 'تفعيل كافة إمكانيات التطبيق';
 
   @override
   String get featureQuickPosTitle => 'البيع السريع ونقطة البيع (POS)';
 
   @override
   String get featureQuickPosDesc =>
-      'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
+      'شاشة رئيسية لإنشاء فواتير نقدية سريعة وحساب الباقي';
 
   @override
   String get featureSuppliersTitle => 'الموردون وفواتير الشراء';
 
   @override
   String get featureSuppliersDesc =>
-      'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
+      'متابعة ديون الموردين وطلبات النواقص والمرتجعات';
 
   @override
   String get featureInstallmentsTitle => 'دفتر الأقساط الشهرية';
@@ -406,17 +409,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get featureInventoryDesc =>
-      'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
+      'تسجيل البضاعة وتنبيهات انخفاض المخزون وسجل الحركات';
 
   @override
-  String get featureCashDrawerTitle => 'الصندوق والدرج اليومي';
+  String get featureCashDrawerTitle => 'الصندوق اليومي';
 
   @override
   String get featureCashDrawerDesc =>
       'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
 
   @override
-  String get featureProfitLossTitle => 'المكسب والخسارة والتقارير';
+  String get featureProfitLossTitle => 'الربح والخسارة والتقارير';
 
   @override
   String get featureProfitLossDesc =>
@@ -431,13 +434,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get featureCoreAlwaysActive =>
-      'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
+      'العملاء والتحصيل ميزة أساسية مُفعّلة دائمًا';
 
   @override
-  String get featureStatusActive => 'مفعل';
+  String get featureStatusActive => 'مُفعّل';
 
   @override
-  String get featureStatusHidden => 'مخفي';
+  String get featureStatusHidden => 'مُخفى';
 
   @override
   String get quickPosTitle => 'بيع سريع';
@@ -446,13 +449,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quickPosOpen => 'افتح البيع السريع';
 
   @override
-  String get quickPosSearch => 'ابحث بالاسم أو اكتب الباركود...';
+  String get quickPosSearch => 'ابحث بالاسم أو أدخل الباركود...';
 
   @override
   String get quickPosProducts => 'الأصناف';
 
   @override
-  String get quickPosAdd => 'ضيف للبيع';
+  String get quickPosAdd => 'أضف إلى البيع';
 
   @override
   String get quickPosAvailable => 'المتاح';
@@ -461,13 +464,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quickPosCart => 'أصناف البيع';
 
   @override
-  String get quickPosEmptyCart => 'ضيف أصناف عشان تبدأ البيع';
+  String get quickPosEmptyCart => 'أضف أصنافًا للبدء في البيع';
 
   @override
   String get quickPosQuantity => 'الكمية';
 
   @override
-  String get quickPosQuantityInvalid => 'اكتب كمية صحيحة أكبر من صفر';
+  String get quickPosQuantityInvalid => 'أدخل كمية صحيحة أكبر من صفر';
 
   @override
   String get quickPosCash => 'نقدي';
@@ -476,10 +479,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quickPosCredit => 'على حساب عميل';
 
   @override
-  String get quickPosSelectCustomer => 'اختار العميل';
+  String get quickPosSelectCustomer => 'اختر العميل';
 
   @override
-  String get quickPosCustomerRequired => 'اختار عميل للبيع على الحساب';
+  String get quickPosCustomerRequired => 'اختر عميلًا للبيع على الحساب';
 
   @override
   String get quickPosTotal => 'الإجمالي';
@@ -488,26 +491,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quickPosCompleteSale => 'تأكيد البيع';
 
   @override
-  String get quickPosSaving => 'بيتم حفظ البيع...';
+  String get quickPosSaving => 'جارٍ حفظ البيع...';
 
   @override
   String get quickPosSaleSaved => 'تم تسجيل البيع';
 
   @override
-  String get quickPosSaveFailed => 'ماقدرناش نسجل البيع. حاول تاني.';
+  String get quickPosSaveFailed => 'تعذّر تسجيل البيع. حاول مرة أخرى.';
 
   @override
-  String get quickPosInsufficientStock => 'المخزون مش كفاية للكمية دي';
+  String get quickPosInsufficientStock => 'المخزون غير كافٍ لهذه الكمية';
 
   @override
   String get quickPosCashDayClosed =>
-      'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
+      'تم إقفال الصندوق اليومي. أعد فتحه لتسجيل بيع نقدي.';
 
   @override
-  String get quickPosLoadFailed => 'ماقدرناش نحمّل الأصناف';
+  String get quickPosLoadFailed => 'تعذّر تحميل الأصناف';
 
   @override
-  String get quickPosCustomersLoadFailed => 'ماقدرناش نحمّل العملاء';
+  String get quickPosCustomersLoadFailed => 'تعذّر تحميل العملاء';
 
   @override
   String get quickPosSaleNote => 'بيع سريع';
@@ -522,7 +525,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get supplierPurchaseInvoiceNumber => 'رقم الفاتورة (اختياري)';
 
   @override
-  String get supplierPurchasePaymentType => 'طريقة الحساب';
+  String get supplierPurchasePaymentType => 'طريقة السداد';
 
   @override
   String get supplierPurchaseCash => 'نقدي';
@@ -531,7 +534,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get supplierPurchaseCredit => 'على الحساب';
 
   @override
-  String get supplierPurchaseAddProduct => 'اختار صنف';
+  String get supplierPurchaseAddProduct => 'اختر صنفًا';
 
   @override
   String get supplierPurchaseItems => 'أصناف الفاتورة';
@@ -546,7 +549,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get supplierPurchaseAddLine => 'إضافة الصنف';
 
   @override
-  String get supplierPurchaseNoLines => 'ضيف صنف واحد على الأقل';
+  String get supplierPurchaseNoLines => 'أضف صنفًا واحدًا على الأقل';
 
   @override
   String get supplierPurchaseSave => 'حفظ الفاتورة';
@@ -558,16 +561,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get supplierPurchaseSaved => 'تم تسجيل فاتورة الشراء';
 
   @override
-  String get supplierPurchaseSaveFailed => 'ماقدرناش نسجل الفاتورة. حاول تاني.';
+  String get supplierPurchaseSaveFailed =>
+      'تعذّر تسجيل الفاتورة. حاول مرة أخرى.';
 
   @override
-  String get supplierPurchaseNoInvoices => 'مفيش فواتير شراء للمورد ده';
+  String get supplierPurchaseNoInvoices => 'لا توجد فواتير شراء لهذا المورد';
 
   @override
   String get supplierPurchaseDetails => 'تفاصيل الفاتورة';
 
   @override
-  String get supplierPurchaseReturn => 'إرجاع للمورد';
+  String get supplierPurchaseReturn => 'إرجاع إلى المورد';
 
   @override
   String get supplierPurchaseReturned => 'المرتجع';
@@ -580,7 +584,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get supplierPurchaseReturnSaved =>
-      'تم تسجيل المرتجع واتخصم من حساب المورد';
+      'تم تسجيل المرتجع وخصمه من حساب المورد';
 
   @override
   String get supplierPurchaseReturnLimit =>
@@ -590,10 +594,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get supplierCreditNote => 'رصيد دائن من مرتجع';
 
   @override
-  String get supplierPurchaseInvalidInput => 'راجع الكمية والسعر وحاول تاني';
+  String get supplierPurchaseInvalidInput =>
+      'راجع الكمية والسعر وحاول مرة أخرى';
 
   @override
-  String get supplierPurchaseLoadError => 'ماقدرناش نحمّل فواتير الشراء';
+  String get supplierPurchaseLoadError => 'تعذّر تحميل فواتير الشراء';
 
   @override
   String get navSettings => 'الإعدادات';
@@ -1128,7 +1133,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statementFormatA4 => 'ورقة A4';
 
   @override
-  String get statementFormatReceipt => 'إيصال حراري (80mm)';
+  String get statementFormatReceipt => 'بون حراري 80مم';
 
   @override
   String get dateCol => 'التاريخ';
@@ -2705,7 +2710,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsScreen73 =>
-      'https://wa.me/201000000000?text=السلام%20عليكم%20لدي%20استفسار%20عن%20تطبيق%20كشكول';
+      'https://wa.me/201005083126?text=السلام%20عليكم%20لدي%20استفسار%20عن%20تطبيق%20كشكول';
 
   @override
   String get settingsScreen74 => 'سياسة الخصوصية وشروط الاستخدام';
@@ -4160,6 +4165,590 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get moreSettingsSubtitle => 'بيانات المتجر، الحماية، والنسخ الاحتياطي';
+
+  @override
+  String get moreProfitLossSubtitle => 'صافي أرباح ومصروفات المحل';
+
+  @override
+  String get moreShopReportSubtitle => 'إجمالي البضاعة والفلوس والديون';
+
+  @override
+  String get notificationServiceGeneralChannelDesc =>
+      'قناة إشعارات عامة وتجريبية من تطبيق كشكول';
+
+  @override
+  String get notificationServiceGeneralChannelName => 'إشعارات عامة وتجريبية';
+
+  @override
+  String notificationServiceLowStockBody(Object remainingStock) {
+    return 'المتبقي بالمخزن: $remainingStock';
+  }
+
+  @override
+  String get notificationServiceLowStockChannelDesc =>
+      'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون';
+
+  @override
+  String get notificationServiceLowStockChannelName => 'تنبيهات نواقص المخزون';
+
+  @override
+  String get notificationServiceLowStockNoSupplierSuffix =>
+      ' اضغط لتفقد المخزون وتحديث النواقص';
+
+  @override
+  String notificationServiceLowStockSupplierSuffix(Object supplierName) {
+    return ' المورد: $supplierName — اضغط لطلب البضاعة عبر واتساب';
+  }
+
+  @override
+  String notificationServiceLowStockTitle(Object productName) {
+    return '⚠️ بضاعة وصلت للنواقص: $productName';
+  }
+
+  @override
+  String get notificationServiceMultipleLowStockBody =>
+      'افحص قائمة النواقص في المخزون لطلبها من الموردين فوراً.';
+
+  @override
+  String notificationServiceMultipleLowStockTitle(Object count) {
+    return '⚠️ $count أصناف وصلت للنواقص في المخزن';
+  }
+
+  @override
+  String get pdfInvoiceCash => 'كاش';
+
+  @override
+  String get pdfInvoiceCredit => 'فاتورة بيع آجل (شكك)';
+
+  @override
+  String pdfInvoiceNumber(Object shortSaleId) {
+    return 'رقم الفاتورة: #$shortSaleId';
+  }
+
+  @override
+  String get pdfInvoicePayCash => 'مدفوعة نقداً';
+
+  @override
+  String get pdfInvoicePayOnCredit => 'مسجلة آجل (شكك)';
+
+  @override
+  String get pdfInvoicePaymentMethod => 'طريقة السداد:';
+
+  @override
+  String pdfInvoicePhone(Object phone) {
+    return 'هاتف: $phone';
+  }
+
+  @override
+  String get pdfInvoicePrice => 'السعر';
+
+  @override
+  String get pdfInvoiceThankYou => 'شكراً لتعاملكم معنا!';
+
+  @override
+  String get pdfInvoiceTotal => 'الإجمالي';
+
+  @override
+  String get pdfPreviewErrorLabel => 'تعذر إنشاء الملف';
+
+  @override
+  String get pdfPreviewPreparing => 'جاري تجهيز ملف الـ PDF...';
+
+  @override
+  String get pdfPreviewPrint => 'طباعة فورية';
+
+  @override
+  String get pdfPreviewRetry => 'إعادة المحاولة';
+
+  @override
+  String get pdfPreviewShare => 'مشاركة PDF';
+
+  @override
+  String get pdfReportAvailableAmount => 'المبلغ المتاح';
+
+  @override
+  String get pdfReportCashInDrawer => 'كاش بالدرج (الخزينة النقدية)';
+
+  @override
+  String get pdfReportCashProfitNote =>
+      'تنبيه كشكول: صافي الربح النقدي يمثل الأموال الحقيقية التي دخلت درجك ومحفظتك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.';
+
+  @override
+  String get pdfReportCashVsCreditTitle => 'مقارنة المبيعات النقدية والآجلة';
+
+  @override
+  String get pdfReportCount => 'العدد';
+
+  @override
+  String get pdfReportCustomerUnit => 'عميل';
+
+  @override
+  String get pdfReportDateLabel => 'التاريخ';
+
+  @override
+  String get pdfReportDebtSection => '2. الديون والمستحقات (العملاء والموردين)';
+
+  @override
+  String get pdfReportDigitalBalance =>
+      'رصيد إلكتروني (إنستاباي / فودافون كاش / بنك)';
+
+  @override
+  String get pdfReportGrandTotal => 'الإجمالي الكلي';
+
+  @override
+  String get pdfReportGrowthFooter =>
+      'تم إنشاؤه عبر تطبيق كشكول — دفتر ديون ومبيعات مجاني';
+
+  @override
+  String get pdfReportInventoryAtCost => 'قيمة البضاعة بسعر الشراء (التكلفة)';
+
+  @override
+  String get pdfReportInventoryAtRetail => 'قيمة البضاعة بسعر البيع (المتوقع)';
+
+  @override
+  String get pdfReportInventorySection => '1. بضاعة المخزن والمستودع';
+
+  @override
+  String get pdfReportInventorySubtitle =>
+      'تقرير تفصيلي بحالة المخزون والأصناف المتاحة';
+
+  @override
+  String get pdfReportInventoryTitle => 'تقرير جرد المخزون العام';
+
+  @override
+  String get pdfReportInvoiceUnit => 'فاتورة';
+
+  @override
+  String get pdfReportItemUnit => 'صنف';
+
+  @override
+  String get pdfReportLiquiditySection => '3. السيولة والنقدية المتاحة';
+
+  @override
+  String get pdfReportLowStockLabel => 'النواقص';
+
+  @override
+  String get pdfReportLowStockNeedOrder => 'نواقص بحاجة لطلب';
+
+  @override
+  String get pdfReportLowStockSubtitle =>
+      'بيان كامل بجميع الأصناف والكميات وأسعار التكلفة والبيع';
+
+  @override
+  String get pdfReportLowStockTitle => 'كشف النواقص وطلبيات الموردين';
+
+  @override
+  String get pdfReportMinimum => 'الحد الأدنى';
+
+  @override
+  String get pdfReportMovementUnit => 'حركة';
+
+  @override
+  String get pdfReportNetWorthFormula =>
+      '= (بضاعة المخزن بالتكلفة + النقدية بالدرج والبنك + لينا عند الزباين) - ديون الموردين';
+
+  @override
+  String get pdfReportOperatingExpenses =>
+      'مصروفات تشغيلية (مخصومة من درج الكاش)';
+
+  @override
+  String get pdfReportOutOfStock => 'نواقص (عجز)';
+
+  @override
+  String get pdfReportParty => 'الطرف';
+
+  @override
+  String get pdfReportProductCountLabel => 'عدد الأصناف';
+
+  @override
+  String get pdfReportProfitLossTitle => 'تقرير الأرباح والمصروفات';
+
+  @override
+  String get pdfReportRowNumber => 'م';
+
+  @override
+  String get pdfReportSalesCount => 'عدد الفواتير';
+
+  @override
+  String get pdfReportSalesRevenue => 'إيرادات المبيعات';
+
+  @override
+  String get pdfReportShopOverviewSubtitle =>
+      'جرد شامل للمخزون والديون والسيولة النقدية';
+
+  @override
+  String get pdfReportShopOverviewTitle => 'تقرير المركز المالي للمحل';
+
+  @override
+  String get pdfReportSource => 'المصدر / البند';
+
+  @override
+  String get pdfReportStatus => 'الحالة';
+
+  @override
+  String get pdfReportSupplier => 'المورد';
+
+  @override
+  String get pdfReportSupplierPhone => 'هاتف المورد';
+
+  @override
+  String get pdfReportSupplierUnit => 'مورد';
+
+  @override
+  String get pdfReportTotalCashAvailable => 'إجمالي النقدية المتاحة';
+
+  @override
+  String get pdfReportTotalCost => 'إجمالي التكلفة';
+
+  @override
+  String get pdfReportTotalCostLabel => 'إجمالي القيمة بالتكلفة';
+
+  @override
+  String get pdfReportTotalNetProfit => 'إجمالي صافي أرباح المحل';
+
+  @override
+  String get pdfReportTotalProducts => 'إجمالي الأصناف';
+
+  @override
+  String get pdfReportValueCountHeader => 'القيمة / العدد';
+
+  @override
+  String get quickPosDoneNewSale => 'تم · بيع جديد';
+
+  @override
+  String quickPosFetchLastInvoiceFailed(Object e) {
+    return 'تعذر جلب الفاتورة السابقة: $e';
+  }
+
+  @override
+  String get quickPosInvoiceOptions => 'خيارات الفاتورة';
+
+  @override
+  String quickPosInvoiceTotal(Object total) {
+    return 'إجمالي الفاتورة: $total';
+  }
+
+  @override
+  String quickPosItemsCount(Object count) {
+    return '$count صنف بالسلّة';
+  }
+
+  @override
+  String get quickPosLastInvoiceNoItems =>
+      'الفاتورة السابقة فارغة ولا تحتوي على أصناف';
+
+  @override
+  String get quickPosNoItemsToPreview =>
+      'لا توجد أصناف في هذه الفاتورة للمعاينة';
+
+  @override
+  String get quickPosNoItemsToPrint => 'لا توجد أصناف في هذه الفاتورة للطباعة';
+
+  @override
+  String get quickPosNoPreviousInvoices => 'لا توجد فواتير بيع سابقة بعد';
+
+  @override
+  String quickPosOpenInvoiceFailed(Object e) {
+    return 'تعذر فتح الفاتورة: $e';
+  }
+
+  @override
+  String get quickPosOutOfStock => 'نفدت الكمية بالكامل';
+
+  @override
+  String get quickPosPaymentMethod => 'طريقة الدفع';
+
+  @override
+  String get quickPosPreviewBeforeSave => 'معاينة الفاتورة قبل الحفظ';
+
+  @override
+  String get quickPosPreviewCurrentInvoice => 'معاينة الفاتورة الحالية';
+
+  @override
+  String quickPosPreviewFailed(Object e) {
+    return 'تعذر فتح المعاينة: $e';
+  }
+
+  @override
+  String get quickPosPreviewFileName => 'معاينة_فاتورة.pdf';
+
+  @override
+  String get quickPosPreviewLabel => 'معاينة';
+
+  @override
+  String get quickPosPreviewPrintCurrent => 'طباعة ومعاينة الفاتورة';
+
+  @override
+  String get quickPosPreviewSharePdf => 'معاينة ومشاركة الفاتورة PDF';
+
+  @override
+  String quickPosPrintFailed(Object e) {
+    return 'تعذر طباعة الفاتورة: $e';
+  }
+
+  @override
+  String get quickPosPrintLastInvoice => 'إعادة طباعة آخر فاتورة';
+
+  @override
+  String get quickPosPrintThermalReceipt => 'طباعة بون كاشير حراري (80مم)';
+
+  @override
+  String get quickPosReceiveCash => 'استلام كاش';
+
+  @override
+  String get quickPosRecordOnAccount => 'تسجيل على الحساب';
+
+  @override
+  String quickPosSaleInvoiceFileName(Object shortId) {
+    return 'فاتورة_بيع_$shortId.pdf';
+  }
+
+  @override
+  String quickPosSaleInvoiceTitle(Object shortId) {
+    return 'فاتورة بيع #$shortId';
+  }
+
+  @override
+  String get quickPosSaleSavedSuccessfully => 'تم حفظ البيع بنجاح!';
+
+  @override
+  String get quickPosSaveAndPrint => 'حفظ وطباعة';
+
+  @override
+  String get quickPosSaveAndPrintTooltip => 'حفظ البيع وطباعة بون فوري مباشرة';
+
+  @override
+  String get quickPosSavingAndPrinting => 'تم حفظ البيع وجاري الطباعة...';
+
+  @override
+  String get quickPosTapToAdd => 'اضغط للإضافة';
+
+  @override
+  String get quickPosTapToAddToCart => 'اضغط للإضافة للسلّة';
+
+  @override
+  String genericError(Object err) {
+    return 'حدث خطأ: $err';
+  }
+
+  @override
+  String get inventoryPdfExportTooltip => 'طباعة وتصدير تقرير المخزون PDF';
+
+  @override
+  String inventoryPdfFileNameFull(Object dateStr) {
+    return 'جرد_المخزون_$dateStr.pdf';
+  }
+
+  @override
+  String inventoryPdfFileNameLowStock(Object dateStr) {
+    return 'نواقص_المخزون_$dateStr.pdf';
+  }
+
+  @override
+  String get inventoryPdfMenuFull => 'طباعة جرد المخزون العام (كامل)';
+
+  @override
+  String get inventoryPdfMenuLowStock => 'طباعة كشف النواقص فقط';
+
+  @override
+  String get inventoryPdfTitleFull => 'تقرير جرد المخزون العام';
+
+  @override
+  String get inventoryPdfTitleLowStock => 'كشف نواقص المخزون';
+
+  @override
+  String get notificationServiceSettingsSendTestFailure =>
+      'تعذر إرسال الإشعار التجريبي — تأكد من تفعيل إذن الإشعارات للهاتف';
+
+  @override
+  String get printExportPdf => 'طباعة وتصدير PDF';
+
+  @override
+  String get profitLossAccountingTipBody =>
+      'الأرباح النقدية هي الفلوس الفعلية اللي دخلت درجك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.';
+
+  @override
+  String get profitLossAccountingTipTitle => 'نصيحة محاسبية من كشكول';
+
+  @override
+  String get profitLossCashBadge => 'كاش';
+
+  @override
+  String get profitLossCreditBadge => 'آجل';
+
+  @override
+  String profitLossNetCalculation(Object netCash, Object netCredit) {
+    return '= $netCash كاش + $netCredit شكك';
+  }
+
+  @override
+  String profitLossRecordedSales(Object salesCount) {
+    return 'مسجل $salesCount فاتورة بيع';
+  }
+
+  @override
+  String profitLossReportFileName(Object dateStr) {
+    return 'تقرير_الأرباح_والمصروفات_$dateStr.pdf';
+  }
+
+  @override
+  String get profitLossReportTitle => 'تقرير الأرباح والمصروفات';
+
+  @override
+  String restockAvailable(Object stock, Object unit) {
+    return 'المتاح: $stock $unit';
+  }
+
+  @override
+  String get restockCopiedToClipboard =>
+      'تم نسخ رسالة الطلبية إلى الحافظة بنجاح!';
+
+  @override
+  String restockError(Object err) {
+    return 'تعذر تحميل المنتجات: $err';
+  }
+
+  @override
+  String get restockLinkProductsHint =>
+      'قم بربط المنتجات بهذا المورد من صفحة المخزون لطلبها تلقائياً بضغطة واحدة.';
+
+  @override
+  String get restockMessageFooter =>
+      'برجاء تأكيد استلام الطلب وتحديد موعد التوصيل.';
+
+  @override
+  String restockMessageGreeting(Object supplierName) {
+    return 'السلام عليكم يا $supplierName';
+  }
+
+  @override
+  String get restockMessageHeader => 'محتاجين طلبية بضاعة نواقص للمحل:';
+
+  @override
+  String restockMessageItem(Object name, Object qty, Object unit) {
+    return '• $name — مطلوب: $qty $unit';
+  }
+
+  @override
+  String restockMessageShop(Object shopName) {
+    return 'معاك $shopName';
+  }
+
+  @override
+  String get restockMessageThanks => 'شكراً جزيلاً!';
+
+  @override
+  String get restockSelectProductsHint =>
+      'حدد الأصناف والكميات المطلوبة من النواقص لطلبها عبر واتساب:';
+
+  @override
+  String get restockSendWhatsApp => 'إرسال الطلبية عبر واتساب';
+
+  @override
+  String get shopReportCashInDrawerLabel => 'كاش بالدرج:';
+
+  @override
+  String get shopReportCopiedToClipboard => 'تم نسخ تقرير المركز المالي بنجاح!';
+
+  @override
+  String get shopReportCustomersWithDues => 'عملاء عليهم مستحقات:';
+
+  @override
+  String get shopReportDigitalBalanceLabel =>
+      'رصيد إلكتروني (فودافون كاش / إنستاباي):';
+
+  @override
+  String shopReportFileName(Object dateStr) {
+    return 'المركز_المالي_للمحل_$dateStr.pdf';
+  }
+
+  @override
+  String shopReportLowStockOf(Object count, Object total) {
+    return '$count صنف من أصل $total';
+  }
+
+  @override
+  String get shopReportNetWorthFormula =>
+      '= (بضاعة المخزن بالتكلفة + كاش الدرج والإلكتروني + لينا عند العملاء) - ديون الموردين';
+
+  @override
+  String shopReportSupplierCount(Object count) {
+    return '$count مورد';
+  }
+
+  @override
+  String get shopReportSuppliersOwed => 'موردين لهم حسابات:';
+
+  @override
+  String get shopReportTextCashAvailable => '--- السيولة النقدية المتاحة ---';
+
+  @override
+  String shopReportTextCashInDrawer(Object amount) {
+    return '• كاش بالدرج: $amount';
+  }
+
+  @override
+  String shopReportTextDate(Object dateStr) {
+    return 'التاريخ: $dateStr';
+  }
+
+  @override
+  String shopReportTextDigitalBalance(Object amount) {
+    return '• رصيد إلكتروني (فودافون كاش / إنستاباي): $amount';
+  }
+
+  @override
+  String shopReportTextExpectedProfit(Object profit) {
+    return '• الربح المتوقع عند بيع المخزون: $profit';
+  }
+
+  @override
+  String get shopReportTextFooter => 'تم إنشاء التقرير عبر تطبيق كشكول';
+
+  @override
+  String get shopReportTextInventory => '--- بضاعة المخزن والمستودع ---';
+
+  @override
+  String shopReportTextNetWorth(Object netWorth) {
+    return 'صافي رأس مال المحل: $netWorth';
+  }
+
+  @override
+  String shopReportTextPayables(Object amount, Object count) {
+    return '• علينا للموردين: $amount ($count مورد)';
+  }
+
+  @override
+  String shopReportTextProductCounts(Object total, Object low) {
+    return '• إجمالي الأصناف: $total صنف ($low نواقص بحاجة لطلب)';
+  }
+
+  @override
+  String shopReportTextReceivables(Object amount, Object count) {
+    return '• لينا عند العملاء (شكك): $amount ($count عميل)';
+  }
+
+  @override
+  String shopReportTextShop(Object shopName) {
+    return 'المحل: $shopName';
+  }
+
+  @override
+  String get shopReportTextTitle => '=== تقرير المركز المالي للمحل ===';
+
+  @override
+  String shopReportTextTotalCash(Object amount) {
+    return '• إجمالي النقدية المتاحة: $amount';
+  }
+
+  @override
+  String get shopReportTotalCashLabel => 'إجمالي النقدية المتاحة:';
+
+  @override
+  String get shopReportTotalCustomerDues => 'إجمالي ديون العملاء (شكك):';
+
+  @override
+  String get shopReportTotalSupplierDues => 'إجمالي ديون الموردين:';
 }
 
 /// The translations for Arabic, as used in Egypt (`ar_EG`).
@@ -5286,7 +5875,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
   String get statementFormatA4 => 'ورقة A4';
 
   @override
-  String get statementFormatReceipt => 'إيصال حراري (80mm)';
+  String get statementFormatReceipt => 'بون حراري 80مم';
 
   @override
   String get dateCol => 'التاريخ';
@@ -6865,7 +7454,7 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
 
   @override
   String get settingsScreen73 =>
-      'https://wa.me/201000000000?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول';
+      'https://wa.me/201005083126?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول';
 
   @override
   String get settingsScreen74 => 'سياسة الخصوصية وشروط الاستخدام';
@@ -8319,4 +8908,588 @@ class AppLocalizationsArEg extends AppLocalizationsAr {
 
   @override
   String get moreSettingsSubtitle => 'بيانات المحل، الحماية، والنسخ الاحتياطي';
+
+  @override
+  String get moreProfitLossSubtitle => 'صافي أرباح ومصروفات المحل';
+
+  @override
+  String get moreShopReportSubtitle => 'إجمالي البضاعة والفلوس والديون';
+
+  @override
+  String get notificationServiceGeneralChannelDesc =>
+      'قناة إشعارات عامة وتجريبية من تطبيق كشكول';
+
+  @override
+  String get notificationServiceGeneralChannelName => 'إشعارات عامة وتجريبية';
+
+  @override
+  String notificationServiceLowStockBody(Object remainingStock) {
+    return 'المتبقي بالمخزن: $remainingStock';
+  }
+
+  @override
+  String get notificationServiceLowStockChannelDesc =>
+      'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون';
+
+  @override
+  String get notificationServiceLowStockChannelName => 'تنبيهات نواقص المخزون';
+
+  @override
+  String get notificationServiceLowStockNoSupplierSuffix =>
+      ' اضغط لتفقد المخزون وتحديث النواقص';
+
+  @override
+  String notificationServiceLowStockSupplierSuffix(Object supplierName) {
+    return ' المورد: $supplierName — اضغط لطلب البضاعة عبر واتساب';
+  }
+
+  @override
+  String notificationServiceLowStockTitle(Object productName) {
+    return '⚠️ بضاعة وصلت للنواقص: $productName';
+  }
+
+  @override
+  String get notificationServiceMultipleLowStockBody =>
+      'افحص قائمة النواقص في المخزون لطلبها من الموردين فوراً.';
+
+  @override
+  String notificationServiceMultipleLowStockTitle(Object count) {
+    return '⚠️ $count أصناف وصلت للنواقص في المخزن';
+  }
+
+  @override
+  String get pdfInvoiceCash => 'كاش';
+
+  @override
+  String get pdfInvoiceCredit => 'فاتورة بيع آجل (شكك)';
+
+  @override
+  String pdfInvoiceNumber(Object shortSaleId) {
+    return 'رقم الفاتورة: #$shortSaleId';
+  }
+
+  @override
+  String get pdfInvoicePayCash => 'مدفوعة نقداً';
+
+  @override
+  String get pdfInvoicePayOnCredit => 'مسجلة آجل (شكك)';
+
+  @override
+  String get pdfInvoicePaymentMethod => 'طريقة السداد:';
+
+  @override
+  String pdfInvoicePhone(Object phone) {
+    return 'هاتف: $phone';
+  }
+
+  @override
+  String get pdfInvoicePrice => 'السعر';
+
+  @override
+  String get pdfInvoiceThankYou => 'شكراً لتعاملكم معنا!';
+
+  @override
+  String get pdfInvoiceTotal => 'الإجمالي';
+
+  @override
+  String get pdfPreviewErrorLabel => 'تعذر إنشاء الملف';
+
+  @override
+  String get pdfPreviewPreparing => 'جاري تجهيز ملف الـ PDF...';
+
+  @override
+  String get pdfPreviewPrint => 'طباعة فورية';
+
+  @override
+  String get pdfPreviewRetry => 'إعادة المحاولة';
+
+  @override
+  String get pdfPreviewShare => 'مشاركة PDF';
+
+  @override
+  String get pdfReportAvailableAmount => 'المبلغ المتاح';
+
+  @override
+  String get pdfReportCashInDrawer => 'كاش بالدرج (الخزينة النقدية)';
+
+  @override
+  String get pdfReportCashProfitNote =>
+      'تنبيه كشكول: صافي الربح النقدي يمثل الأموال الحقيقية التي دخلت درجك ومحفظتك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.';
+
+  @override
+  String get pdfReportCashVsCreditTitle => 'مقارنة المبيعات النقدية والآجلة';
+
+  @override
+  String get pdfReportCount => 'العدد';
+
+  @override
+  String get pdfReportCustomerUnit => 'عميل';
+
+  @override
+  String get pdfReportDateLabel => 'التاريخ';
+
+  @override
+  String get pdfReportDebtSection => '2. الديون والمستحقات (العملاء والموردين)';
+
+  @override
+  String get pdfReportDigitalBalance =>
+      'رصيد إلكتروني (إنستاباي / فودافون كاش / بنك)';
+
+  @override
+  String get pdfReportGrandTotal => 'الإجمالي الكلي';
+
+  @override
+  String get pdfReportGrowthFooter =>
+      'تم إنشاؤه عبر تطبيق كشكول — دفتر ديون ومبيعات مجاني';
+
+  @override
+  String get pdfReportInventoryAtCost => 'قيمة البضاعة بسعر الشراء (التكلفة)';
+
+  @override
+  String get pdfReportInventoryAtRetail => 'قيمة البضاعة بسعر البيع (المتوقع)';
+
+  @override
+  String get pdfReportInventorySection => '1. بضاعة المخزن والمستودع';
+
+  @override
+  String get pdfReportInventorySubtitle =>
+      'تقرير تفصيلي بحالة المخزون والأصناف المتاحة';
+
+  @override
+  String get pdfReportInventoryTitle => 'تقرير جرد المخزون العام';
+
+  @override
+  String get pdfReportInvoiceUnit => 'فاتورة';
+
+  @override
+  String get pdfReportItemUnit => 'صنف';
+
+  @override
+  String get pdfReportLiquiditySection => '3. السيولة والنقدية المتاحة';
+
+  @override
+  String get pdfReportLowStockLabel => 'النواقص';
+
+  @override
+  String get pdfReportLowStockNeedOrder => 'نواقص بحاجة لطلب';
+
+  @override
+  String get pdfReportLowStockSubtitle =>
+      'بيان كامل بجميع الأصناف والكميات وأسعار التكلفة والبيع';
+
+  @override
+  String get pdfReportLowStockTitle => 'كشف النواقص وطلبيات الموردين';
+
+  @override
+  String get pdfReportMinimum => 'الحد الأدنى';
+
+  @override
+  String get pdfReportMovementUnit => 'حركة';
+
+  @override
+  String get pdfReportNetWorthFormula =>
+      '= (بضاعة المخزن بالتكلفة + النقدية بالدرج والبنك + لينا عند الزباين) - ديون الموردين';
+
+  @override
+  String get pdfReportOperatingExpenses =>
+      'مصروفات تشغيلية (مخصومة من درج الكاش)';
+
+  @override
+  String get pdfReportOutOfStock => 'نواقص (عجز)';
+
+  @override
+  String get pdfReportParty => 'الطرف';
+
+  @override
+  String get pdfReportProductCountLabel => 'عدد الأصناف';
+
+  @override
+  String get pdfReportProfitLossTitle => 'تقرير الأرباح والمصروفات';
+
+  @override
+  String get pdfReportRowNumber => 'م';
+
+  @override
+  String get pdfReportSalesCount => 'عدد الفواتير';
+
+  @override
+  String get pdfReportSalesRevenue => 'إيرادات المبيعات';
+
+  @override
+  String get pdfReportShopOverviewSubtitle =>
+      'جرد شامل للمخزون والديون والسيولة النقدية';
+
+  @override
+  String get pdfReportShopOverviewTitle => 'تقرير المركز المالي للمحل';
+
+  @override
+  String get pdfReportSource => 'المصدر / البند';
+
+  @override
+  String get pdfReportStatus => 'الحالة';
+
+  @override
+  String get pdfReportSupplier => 'المورد';
+
+  @override
+  String get pdfReportSupplierPhone => 'هاتف المورد';
+
+  @override
+  String get pdfReportSupplierUnit => 'مورد';
+
+  @override
+  String get pdfReportTotalCashAvailable => 'إجمالي النقدية المتاحة';
+
+  @override
+  String get pdfReportTotalCost => 'إجمالي التكلفة';
+
+  @override
+  String get pdfReportTotalCostLabel => 'إجمالي القيمة بالتكلفة';
+
+  @override
+  String get pdfReportTotalNetProfit => 'إجمالي صافي أرباح المحل';
+
+  @override
+  String get pdfReportTotalProducts => 'إجمالي الأصناف';
+
+  @override
+  String get pdfReportValueCountHeader => 'القيمة / العدد';
+
+  @override
+  String get quickPosDoneNewSale => 'تم · بيع جديد';
+
+  @override
+  String quickPosFetchLastInvoiceFailed(Object e) {
+    return 'تعذر جلب الفاتورة السابقة: $e';
+  }
+
+  @override
+  String get quickPosInvoiceOptions => 'خيارات الفاتورة';
+
+  @override
+  String quickPosInvoiceTotal(Object total) {
+    return 'إجمالي الفاتورة: $total';
+  }
+
+  @override
+  String quickPosItemsCount(Object count) {
+    return '$count صنف بالسلّة';
+  }
+
+  @override
+  String get quickPosLastInvoiceNoItems =>
+      'الفاتورة السابقة فارغة ولا تحتوي على أصناف';
+
+  @override
+  String get quickPosNoItemsToPreview =>
+      'لا توجد أصناف في هذه الفاتورة للمعاينة';
+
+  @override
+  String get quickPosNoItemsToPrint => 'لا توجد أصناف في هذه الفاتورة للطباعة';
+
+  @override
+  String get quickPosNoPreviousInvoices => 'لا توجد فواتير بيع سابقة بعد';
+
+  @override
+  String quickPosOpenInvoiceFailed(Object e) {
+    return 'تعذر فتح الفاتورة: $e';
+  }
+
+  @override
+  String get quickPosOutOfStock => 'نفدت الكمية بالكامل';
+
+  @override
+  String get quickPosPaymentMethod => 'طريقة الدفع';
+
+  @override
+  String get quickPosPreviewBeforeSave => 'معاينة الفاتورة قبل الحفظ';
+
+  @override
+  String get quickPosPreviewCurrentInvoice => 'معاينة الفاتورة الحالية';
+
+  @override
+  String quickPosPreviewFailed(Object e) {
+    return 'تعذر فتح المعاينة: $e';
+  }
+
+  @override
+  String get quickPosPreviewFileName => 'معاينة_فاتورة.pdf';
+
+  @override
+  String get quickPosPreviewLabel => 'معاينة';
+
+  @override
+  String get quickPosPreviewPrintCurrent => 'طباعة ومعاينة الفاتورة';
+
+  @override
+  String get quickPosPreviewSharePdf => 'معاينة ومشاركة الفاتورة PDF';
+
+  @override
+  String quickPosPrintFailed(Object e) {
+    return 'تعذر طباعة الفاتورة: $e';
+  }
+
+  @override
+  String get quickPosPrintLastInvoice => 'إعادة طباعة آخر فاتورة';
+
+  @override
+  String get quickPosPrintThermalReceipt => 'طباعة بون كاشير حراري (80مم)';
+
+  @override
+  String get quickPosReceiveCash => 'استلام كاش';
+
+  @override
+  String get quickPosRecordOnAccount => 'تسجيل على الحساب';
+
+  @override
+  String quickPosSaleInvoiceFileName(Object shortId) {
+    return 'فاتورة_بيع_$shortId.pdf';
+  }
+
+  @override
+  String quickPosSaleInvoiceTitle(Object shortId) {
+    return 'فاتورة بيع #$shortId';
+  }
+
+  @override
+  String get quickPosSaleSavedSuccessfully => 'تم حفظ البيع بنجاح!';
+
+  @override
+  String get quickPosSaveAndPrint => 'حفظ وطباعة';
+
+  @override
+  String get quickPosSaveAndPrintTooltip => 'حفظ البيع وطباعة بون فوري مباشرة';
+
+  @override
+  String get quickPosSavingAndPrinting => 'تم حفظ البيع وجاري الطباعة...';
+
+  @override
+  String get quickPosTapToAdd => 'اضغط للإضافة';
+
+  @override
+  String get quickPosTapToAddToCart => 'اضغط للإضافة للسلّة';
+
+  @override
+  String genericError(Object err) {
+    return 'حدث خطأ: $err';
+  }
+
+  @override
+  String get inventoryPdfExportTooltip => 'طباعة وتصدير تقرير المخزون PDF';
+
+  @override
+  String inventoryPdfFileNameFull(Object dateStr) {
+    return 'جرد_المخزون_$dateStr.pdf';
+  }
+
+  @override
+  String inventoryPdfFileNameLowStock(Object dateStr) {
+    return 'نواقص_المخزون_$dateStr.pdf';
+  }
+
+  @override
+  String get inventoryPdfMenuFull => 'طباعة جرد المخزون العام (كامل)';
+
+  @override
+  String get inventoryPdfMenuLowStock => 'طباعة كشف النواقص فقط';
+
+  @override
+  String get inventoryPdfTitleFull => 'تقرير جرد المخزون العام';
+
+  @override
+  String get inventoryPdfTitleLowStock => 'كشف نواقص المخزون';
+
+  @override
+  String get notificationServiceSettingsSendTestFailure =>
+      'تعذر إرسال الإشعار التجريبي — تأكد من تفعيل إذن الإشعارات للهاتف';
+
+  @override
+  String get printExportPdf => 'طباعة وتصدير PDF';
+
+  @override
+  String get profitLossAccountingTipBody =>
+      'الأرباح النقدية هي الفلوس الفعلية اللي دخلت درجك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.';
+
+  @override
+  String get profitLossAccountingTipTitle => 'نصيحة محاسبية من كشكول';
+
+  @override
+  String get profitLossCashBadge => 'كاش';
+
+  @override
+  String get profitLossCreditBadge => 'آجل';
+
+  @override
+  String profitLossNetCalculation(Object netCash, Object netCredit) {
+    return '= $netCash كاش + $netCredit شكك';
+  }
+
+  @override
+  String profitLossRecordedSales(Object salesCount) {
+    return 'مسجل $salesCount فاتورة بيع';
+  }
+
+  @override
+  String profitLossReportFileName(Object dateStr) {
+    return 'تقرير_الأرباح_والمصروفات_$dateStr.pdf';
+  }
+
+  @override
+  String get profitLossReportTitle => 'تقرير الأرباح والمصروفات';
+
+  @override
+  String restockAvailable(Object stock, Object unit) {
+    return 'المتاح: $stock $unit';
+  }
+
+  @override
+  String get restockCopiedToClipboard =>
+      'تم نسخ رسالة الطلبية إلى الحافظة بنجاح!';
+
+  @override
+  String restockError(Object err) {
+    return 'تعذر تحميل المنتجات: $err';
+  }
+
+  @override
+  String get restockLinkProductsHint =>
+      'قم بربط المنتجات بهذا المورد من صفحة المخزون لطلبها تلقائياً بضغطة واحدة.';
+
+  @override
+  String get restockMessageFooter =>
+      'برجاء تأكيد استلام الطلب وتحديد موعد التوصيل.';
+
+  @override
+  String restockMessageGreeting(Object supplierName) {
+    return 'السلام عليكم يا $supplierName';
+  }
+
+  @override
+  String get restockMessageHeader => 'محتاجين طلبية بضاعة نواقص للمحل:';
+
+  @override
+  String restockMessageItem(Object name, Object qty, Object unit) {
+    return '• $name — مطلوب: $qty $unit';
+  }
+
+  @override
+  String restockMessageShop(Object shopName) {
+    return 'معاك $shopName';
+  }
+
+  @override
+  String get restockMessageThanks => 'شكراً جزيلاً!';
+
+  @override
+  String get restockSelectProductsHint =>
+      'حدد الأصناف والكميات المطلوبة من النواقص لطلبها عبر واتساب:';
+
+  @override
+  String get restockSendWhatsApp => 'إرسال الطلبية عبر واتساب';
+
+  @override
+  String get shopReportCashInDrawerLabel => 'كاش بالدرج:';
+
+  @override
+  String get shopReportCopiedToClipboard => 'تم نسخ تقرير المركز المالي بنجاح!';
+
+  @override
+  String get shopReportCustomersWithDues => 'عملاء عليهم مستحقات:';
+
+  @override
+  String get shopReportDigitalBalanceLabel =>
+      'رصيد إلكتروني (فودافون كاش / إنستاباي):';
+
+  @override
+  String shopReportFileName(Object dateStr) {
+    return 'المركز_المالي_للمحل_$dateStr.pdf';
+  }
+
+  @override
+  String shopReportLowStockOf(Object count, Object total) {
+    return '$count صنف من أصل $total';
+  }
+
+  @override
+  String get shopReportNetWorthFormula =>
+      '= (بضاعة المخزن بالتكلفة + كاش الدرج والإلكتروني + لينا عند العملاء) - ديون الموردين';
+
+  @override
+  String shopReportSupplierCount(Object count) {
+    return '$count مورد';
+  }
+
+  @override
+  String get shopReportSuppliersOwed => 'موردين لهم حسابات:';
+
+  @override
+  String get shopReportTextCashAvailable => '--- السيولة النقدية المتاحة ---';
+
+  @override
+  String shopReportTextCashInDrawer(Object amount) {
+    return '• كاش بالدرج: $amount';
+  }
+
+  @override
+  String shopReportTextDate(Object dateStr) {
+    return 'التاريخ: $dateStr';
+  }
+
+  @override
+  String shopReportTextDigitalBalance(Object amount) {
+    return '• رصيد إلكتروني (فودافون كاش / إنستاباي): $amount';
+  }
+
+  @override
+  String shopReportTextExpectedProfit(Object profit) {
+    return '• الربح المتوقع عند بيع المخزون: $profit';
+  }
+
+  @override
+  String get shopReportTextFooter => 'تم إنشاء التقرير عبر تطبيق كشكول';
+
+  @override
+  String get shopReportTextInventory => '--- بضاعة المخزن والمستودع ---';
+
+  @override
+  String shopReportTextNetWorth(Object netWorth) {
+    return 'صافي رأس مال المحل: $netWorth';
+  }
+
+  @override
+  String shopReportTextPayables(Object amount, Object count) {
+    return '• علينا للموردين: $amount ($count مورد)';
+  }
+
+  @override
+  String shopReportTextProductCounts(Object total, Object low) {
+    return '• إجمالي الأصناف: $total صنف ($low نواقص بحاجة لطلب)';
+  }
+
+  @override
+  String shopReportTextReceivables(Object amount, Object count) {
+    return '• لينا عند العملاء (شكك): $amount ($count عميل)';
+  }
+
+  @override
+  String shopReportTextShop(Object shopName) {
+    return 'المحل: $shopName';
+  }
+
+  @override
+  String get shopReportTextTitle => '=== تقرير المركز المالي للمحل ===';
+
+  @override
+  String shopReportTextTotalCash(Object amount) {
+    return '• إجمالي النقدية المتاحة: $amount';
+  }
+
+  @override
+  String get shopReportTotalCashLabel => 'إجمالي النقدية المتاحة:';
+
+  @override
+  String get shopReportTotalCustomerDues => 'إجمالي ديون العملاء (شكك):';
+
+  @override
+  String get shopReportTotalSupplierDues => 'إجمالي ديون الموردين:';
 }

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/money.dart';
 import '../../../../core/utils/whatsapp_template.dart';
+import '../../../../shared/widgets/adaptive_text.dart';
 import '../../../../shared/widgets/glass_toast.dart';
 import '../../../installments/domain/due_installment_item.dart';
 import '../../../installments/presentation/installment_plan_details_screen.dart';
@@ -138,9 +139,11 @@ class DueInstallmentsTab extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      MoneyUtils.formatMoney(totalDuePiasters),
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.debtRed),
+                    Flexible(
+                      child: AdaptiveAmountText(
+                        MoneyUtils.formatMoney(totalDuePiasters),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.debtRed),
+                      ),
                     ),
                   ],
                 ),
@@ -198,41 +201,51 @@ class DueInstallmentsTab extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  AdaptiveText(
                                     item.customer.name,
+                                    maxLines: 1,
                                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                                   ),
                                   const SizedBox(height: 2),
-                                  Text(
+                                  AdaptiveText(
                                     L10n.t.dueInstallmentsTab5(item.plan.itemDescription, item.installment.installmentIndex, item.plan.installmentCount),
+                                    maxLines: 2,
                                     style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                                   ),
                                 ],
                               ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  MoneyUtils.formatMoney(item.remainingForInstallmentPiasters),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    color: isOverdue ? AppColors.debtRed : AppColors.primaryGreen,
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: AdaptiveAmountText(
+                                      MoneyUtils.formatMoney(item.remainingForInstallmentPiasters),
+                                      alignment: AlignmentDirectional.centerEnd,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: isOverdue ? AppColors.debtRed : AppColors.primaryGreen,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 2),
-                                if (isOverdue)
-                                  Text(
-                                    L10n.t.dueInstallmentsTab6(item.daysOverdue),
-                                    style: const TextStyle(color: AppColors.debtRed, fontSize: 11, fontWeight: FontWeight.bold),
-                                  )
-                                else if (isDueToday)
-                                  Text(
-                                    L10n.t.dueInstallmentsTab7,
-                                    style: const TextStyle(color: Colors.blue, fontSize: 11, fontWeight: FontWeight.bold),
-                                  ),
-                              ],
+                                  const SizedBox(height: 2),
+                                  if (isOverdue)
+                                    AdaptiveText(
+                                      L10n.t.dueInstallmentsTab6(item.daysOverdue),
+                                      maxLines: 1,
+                                      style: const TextStyle(color: AppColors.debtRed, fontSize: 11, fontWeight: FontWeight.bold),
+                                    )
+                                  else if (isDueToday)
+                                    AdaptiveText(
+                                      L10n.t.dueInstallmentsTab7,
+                                      maxLines: 1,
+                                      style: const TextStyle(color: Colors.blue, fontSize: 11, fontWeight: FontWeight.bold),
+                                    ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -255,7 +268,11 @@ class DueInstallmentsTab extends ConsumerWidget {
                               ),
                               TextButton.icon(
                                 icon: const Icon(Icons.chat_outlined, size: 16, color: AppColors.primaryGreen),
-                                label: Text(L10n.t.dueInstallmentsTab9, style: const TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
+                                label: AdaptiveText(
+                                  L10n.t.dueInstallmentsTab9,
+                                  maxLines: 1,
+                                  style: const TextStyle(color: AppColors.primaryGreen, fontSize: 13),
+                                ),
                                 onPressed: () => _sendWhatsAppReminder(context: context, ref: ref, item: item),
                               ),
                             ],
@@ -267,7 +284,11 @@ class DueInstallmentsTab extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 12),
                               ),
                               icon: const Icon(Icons.payment_rounded, size: 16),
-                              label: Text(L10n.t.installmentPlanDetailsScreen36, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                              label: AdaptiveText(
+                                L10n.t.installmentPlanDetailsScreen36,
+                                maxLines: 1,
+                                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                              ),
                               onPressed: () {
                                 showDialog(
                                   context: context,

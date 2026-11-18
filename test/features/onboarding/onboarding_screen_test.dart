@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashkool/core/db/app_database.dart';
+import 'package:kashkool/core/theme/app_theme.dart';
 import 'package:kashkool/features/onboarding/data/shop_repository.dart';
+import 'package:kashkool/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:kashkool/l10n/app_localizations.dart';
 import 'package:kashkool/l10n/l10n.dart';
 import 'package:kashkool/main.dart';
 
@@ -100,6 +103,66 @@ void main() {
     expect(find.text('العملاء'), findsWidgets);
 
     // Clean up widget tree and pending stream cancel timers
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(milliseconds: 100));
+  });
+
+  testWidgets('Onboarding wizard renders correctly in Dark Mode across all steps', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          databaseProvider.overrideWithValue(db),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.darkTheme,
+          themeMode: ThemeMode.dark,
+          locale: const Locale('ar', 'EG'),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          home: const Scaffold(body: OnboardingScreen()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Step 0: Account choice in dark mode
+    expect(find.text('تهيئة كشكول لأول مرة'), findsOneWidget);
+    expect(find.text('المتابعة كضيف (بدون حساب)'), findsOneWidget);
+
+    // Proceed to Step 1
+    await tester.tap(find.text('المتابعة كضيف (بدون حساب)'));
+    await tester.pumpAndSettle();
+
+    // Step 1: Shop identity in dark mode
+    expect(find.text('أهلاً بك في كشكول! 👋'), findsWidgets);
+    final nameField = find.byType(TextFormField).first;
+    await tester.enterText(nameField, 'محل دارك مود');
+    await tester.pumpAndSettle();
+
+    // Proceed to Step 2
+    await tester.tap(find.text(L10n.t.onboardingScreen4));
+    await tester.pumpAndSettle();
+
+    // Step 2: Trade type in dark mode
+    expect(find.text('ما هو نوع نشاطك التجاري؟'), findsOneWidget);
+    await tester.tap(find.text('موبايلات وإكسسوارات'));
+    await tester.pumpAndSettle();
+
+    // Proceed to Step 3
+    await tester.tap(find.text('متابعة'));
+    await tester.pumpAndSettle();
+
+    // Step 3: Notifications and battery in dark mode
+    expect(find.text('ضمان وصول الإشعارات والتذكيرات 🔔'), findsOneWidget);
+
+    // Proceed to Step 4
+    await tester.tap(find.text('متابعة'));
+    await tester.pumpAndSettle();
+
+    // Step 4: First action in dark mode
+    expect(find.text('جاهز للانطلاق! 🚀'), findsOneWidget);
+
+    // Clean up
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(milliseconds: 100));
   });

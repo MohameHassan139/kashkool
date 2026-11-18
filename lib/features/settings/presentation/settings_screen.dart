@@ -45,9 +45,7 @@ class SettingsScreen extends ConsumerWidget {
     final themeModeAsync = ref.watch(themeModeProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.navSettings),
-      ),
+      appBar: AppBar(title: Text(l10n.navSettings)),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
@@ -92,7 +90,11 @@ class SettingsScreen extends ConsumerWidget {
 
           // 6. عام والمظهر (General)
           _buildSectionHeader(context, L10n.t.settingsScreen7),
-          _buildGeneralCard(context, ref, themeModeAsync.valueOrNull ?? ThemeMode.system),
+          _buildGeneralCard(
+            context,
+            ref,
+            themeModeAsync.valueOrNull ?? ThemeMode.system,
+          ),
 
           const SizedBox(height: 16),
           // App Version footer
@@ -181,8 +183,13 @@ class SettingsScreen extends ConsumerWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: ListTile(
           leading: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-            child: Icon(Icons.storefront_rounded, color: Theme.of(context).colorScheme.primary),
+            backgroundColor: Theme.of(
+              context,
+            ).colorScheme.primary.withValues(alpha: 0.15),
+            child: Icon(
+              Icons.storefront_rounded,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           title: Text(
             shopName,
@@ -222,7 +229,9 @@ class SettingsScreen extends ConsumerWidget {
             style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
           ),
           trailing: Icon(
-            L10n.isRtl ? Icons.chevron_left_rounded : Icons.chevron_right_rounded,
+            L10n.isRtl
+                ? Icons.chevron_left_rounded
+                : Icons.chevron_right_rounded,
           ),
           onTap: () {
             HapticFeedback.selectionClick();
@@ -255,15 +264,24 @@ class SettingsScreen extends ConsumerWidget {
             SwitchListTile(
               secondary: CircleAvatar(
                 backgroundColor: AppColors.warningAmber.withValues(alpha: 0.15),
-                child: const Icon(Icons.visibility_off_rounded, color: AppColors.warningAmber),
+                child: const Icon(
+                  Icons.visibility_off_rounded,
+                  color: AppColors.warningAmber,
+                ),
               ),
               title: Text(
                 L10n.t.customersScreen2,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen17,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               value: isPrivacy,
               onChanged: (val) async {
@@ -282,18 +300,25 @@ class SettingsScreen extends ConsumerWidget {
                   Icons.lock_rounded,
                   color: hasPin
                       ? AppColors.paymentGreen
-                      : AppColors.secondaryText(Theme.of(context).brightness == Brightness.dark),
+                      : AppColors.secondaryText(
+                          Theme.of(context).brightness == Brightness.dark,
+                        ),
                 ),
               ),
               title: Text(
                 L10n.t.settingsScreen18,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 hasPin ? L10n.t.settingsScreen19 : L10n.t.settingsScreen20,
                 style: TextStyle(
                   fontSize: 12,
-                  color: hasPin ? AppColors.paymentGreen : AppColors.neutralGrey,
+                  color: hasPin
+                      ? AppColors.paymentGreen
+                      : AppColors.neutralGrey,
                 ),
               ),
               trailing: Row(
@@ -304,7 +329,9 @@ class SettingsScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
-                      color: hasPin ? AppColors.paymentGreen : Theme.of(context).colorScheme.primary,
+                      color: hasPin
+                          ? AppColors.paymentGreen
+                          : Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -322,7 +349,10 @@ class SettingsScreen extends ConsumerWidget {
                           Navigator.of(context).pop();
                           await securityService.removePin();
                           if (context.mounted) {
-                            AppGlassToast.showSuccess(context, L10n.t.settingsScreen23);
+                            AppGlassToast.showSuccess(
+                              context,
+                              L10n.t.settingsScreen23,
+                            );
                           }
                         },
                         onCancel: () => Navigator.of(context).pop(),
@@ -337,7 +367,10 @@ class SettingsScreen extends ConsumerWidget {
                         mode: PinLockMode.setup,
                         onSuccess: () {
                           Navigator.of(context).pop();
-                          AppGlassToast.showSuccess(context, L10n.t.settingsScreen24);
+                          AppGlassToast.showSuccess(
+                            context,
+                            L10n.t.settingsScreen24,
+                          );
                         },
                         onCancel: () => Navigator.of(context).pop(),
                       ),
@@ -352,24 +385,39 @@ class SettingsScreen extends ConsumerWidget {
               // Biometric Lock
               SwitchListTile(
                 secondary: CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-                  child: Icon(Icons.fingerprint_rounded, color: Theme.of(context).colorScheme.primary),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.15),
+                  child: Icon(
+                    Icons.fingerprint_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 title: Text(
                   L10n.t.settingsScreen25,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
                 subtitle: Text(
                   L10n.t.settingsScreen26,
-                  style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.neutralGrey,
+                  ),
                 ),
                 value: isBioEnabled,
                 onChanged: (val) async {
                   if (val) {
-                    final canBio = await securityService.isBiometricsAvailable();
+                    final canBio = await securityService
+                        .isBiometricsAvailable();
                     if (!canBio) {
                       if (context.mounted) {
-                        AppGlassToast.showInfo(context, L10n.t.settingsScreen27);
+                        AppGlassToast.showInfo(
+                          context,
+                          L10n.t.settingsScreen27,
+                        );
                       }
                       return;
                     }
@@ -396,16 +444,30 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     title: Text(
                       L10n.t.settingsScreen32,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
                     subtitle: Text(
-                      timeout == 0 ? L10n.t.settingsScreen33 : L10n.t.settingsScreen34(timeout),
-                      style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                      timeout == 0
+                          ? L10n.t.settingsScreen33
+                          : L10n.t.settingsScreen34(timeout),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.neutralGrey,
+                      ),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(timeoutLabel, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        Text(
+                          timeoutLabel,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
                         const SizedBox(width: 4),
                         const Icon(Icons.chevron_left_rounded),
                       ],
@@ -421,13 +483,20 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  void _showLockTimeoutDialog(BuildContext context, WidgetRef ref, int currentTimeout) {
+  void _showLockTimeoutDialog(
+    BuildContext context,
+    WidgetRef ref,
+    int currentTimeout,
+  ) {
     final settingsRepo = ref.read(settingsRepositoryProvider);
     final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: Text(L10n.t.settingsScreen32, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          L10n.t.settingsScreen32,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         children: [
           for (final option in [
             (0, L10n.t.settingsScreen35),
@@ -437,8 +506,12 @@ class SettingsScreen extends ConsumerWidget {
           ])
             ListTile(
               leading: Icon(
-                currentTimeout == option.$1 ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                color: currentTimeout == option.$1 ? theme.colorScheme.primary : null,
+                currentTimeout == option.$1
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked,
+                color: currentTimeout == option.$1
+                    ? theme.colorScheme.primary
+                    : null,
               ),
               title: Text(option.$2),
               onTap: () async {
@@ -455,7 +528,8 @@ class SettingsScreen extends ConsumerWidget {
   Widget _buildRemindersCard(BuildContext context, WidgetRef ref) {
     final hour = ref.watch(reminderTimeHourProvider).valueOrNull ?? 10;
     final minute = ref.watch(reminderTimeMinuteProvider).valueOrNull ?? 0;
-    final notificationsEnabled = ref.watch(notificationsEnabledProvider).valueOrNull ?? true;
+    final notificationsEnabled =
+        ref.watch(notificationsEnabledProvider).valueOrNull ?? true;
     final settingsRepo = ref.read(settingsRepositoryProvider);
 
     final timeOfDay = TimeOfDay(hour: hour, minute: minute);
@@ -472,15 +546,24 @@ class SettingsScreen extends ConsumerWidget {
             ListTile(
               leading: CircleAvatar(
                 backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.15),
-                child: const Icon(Icons.alarm_rounded, color: AppColors.primaryBlue),
+                child: const Icon(
+                  Icons.alarm_rounded,
+                  color: AppColors.primaryBlue,
+                ),
               ),
               title: Text(
                 L10n.t.notificationServiceSettingsReminderTime,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.notificationServiceSettingsReminderTimeSubtitle,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: InkWell(
                 borderRadius: BorderRadius.circular(8),
@@ -490,7 +573,9 @@ class SettingsScreen extends ConsumerWidget {
                     initialTime: timeOfDay,
                     builder: (context, child) {
                       return MediaQuery(
-                        data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+                        data: MediaQuery.of(
+                          context,
+                        ).copyWith(alwaysUse24HourFormat: false),
                         child: child ?? const SizedBox.shrink(),
                       );
                     },
@@ -501,7 +586,10 @@ class SettingsScreen extends ConsumerWidget {
                   }
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(8),
@@ -514,7 +602,9 @@ class SettingsScreen extends ConsumerWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 13,
-                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimaryContainer,
                         ),
                       ),
                       const SizedBox(width: 4),
@@ -543,13 +633,20 @@ class SettingsScreen extends ConsumerWidget {
                         ? AppColors.paymentGreen.withValues(alpha: 0.15)
                         : AppColors.warningAmber.withValues(alpha: 0.15),
                     child: Icon(
-                      isActive ? Icons.notifications_active_rounded : Icons.notifications_off_rounded,
-                      color: isActive ? AppColors.paymentGreen : AppColors.warningAmber,
+                      isActive
+                          ? Icons.notifications_active_rounded
+                          : Icons.notifications_off_rounded,
+                      color: isActive
+                          ? AppColors.paymentGreen
+                          : AppColors.warningAmber,
                     ),
                   ),
                   title: Text(
                     L10n.t.notificationServiceSettingsStatus,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                   subtitle: Text(
                     isActive
@@ -557,7 +654,9 @@ class SettingsScreen extends ConsumerWidget {
                         : L10n.t.notificationServiceSettingsStatusDisabled,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isActive ? AppColors.paymentGreen : AppColors.warningAmber,
+                      color: isActive
+                          ? AppColors.paymentGreen
+                          : AppColors.warningAmber,
                     ),
                   ),
                   value: notificationsEnabled,
@@ -580,15 +679,23 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.notificationServiceSettingsSendTest,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.notificationServiceSettingsSendTestSubtitle,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
               onTap: () async {
-                final success = await ref.read(notificationCoordinatorProvider).sendTestNotification();
+                final success = await ref
+                    .read(notificationCoordinatorProvider)
+                    .sendTestNotification();
                 if (context.mounted) {
                   if (success) {
                     AppGlassToast.showSuccess(
@@ -598,7 +705,7 @@ class SettingsScreen extends ConsumerWidget {
                   } else {
                     AppGlassToast.showError(
                       context,
-                      'فشل إرسال الإشعار. تأكد من تفعيل الإشعارات للتطبيق في إعدادات الهاتف.',
+                      L10n.t.notificationServiceSettingsSendTestFailure,
                     );
                   }
                 }
@@ -609,16 +716,27 @@ class SettingsScreen extends ConsumerWidget {
             // 4. Message Template Editor
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-                child: Icon(Icons.edit_note_rounded, color: Theme.of(context).colorScheme.primary),
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(
+                  Icons.edit_note_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               title: Text(
                 L10n.t.settingsScreen39,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen40,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
               onTap: () => MessageTemplateEditorBottomSheet.show(context),
@@ -633,15 +751,25 @@ class SettingsScreen extends ConsumerWidget {
                   color: Colors.indigo.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.battery_alert_rounded, color: Colors.indigo, size: 22),
+                child: const Icon(
+                  Icons.battery_alert_rounded,
+                  color: Colors.indigo,
+                  size: 22,
+                ),
               ),
               title: Text(
                 L10n.t.settingsScreen41,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen42,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
               onTap: () => BatteryGuideBottomSheet.show(context),
@@ -653,7 +781,11 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   // --- 4. Backup Card ---
-  Widget _buildBackupCard(BuildContext context, WidgetRef ref, DateTime? lastBackup) {
+  Widget _buildBackupCard(
+    BuildContext context,
+    WidgetRef ref,
+    DateTime? lastBackup,
+  ) {
     final dateStr = lastBackup != null
         ? DateFormat('yyyy/MM/dd - hh:mm a').format(lastBackup)
         : L10n.t.settingsScreen43;
@@ -673,16 +805,24 @@ class SettingsScreen extends ConsumerWidget {
                     : AppColors.warningAmber.withValues(alpha: 0.15),
                 child: Icon(
                   Icons.history_rounded,
-                  color: lastBackup != null ? AppColors.paymentGreen : AppColors.warningAmber,
+                  color: lastBackup != null
+                      ? AppColors.paymentGreen
+                      : AppColors.warningAmber,
                 ),
               ),
               title: Text(
                 L10n.t.settingsScreen44,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 dateStr,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
             ),
             const Divider(height: 1),
@@ -690,16 +830,27 @@ class SettingsScreen extends ConsumerWidget {
             // Export button
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-                child: Icon(Icons.upload_file_rounded, color: Theme.of(context).colorScheme.primary),
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(
+                  Icons.upload_file_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               title: Text(
                 L10n.t.settingsScreen45,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen46,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.share_rounded),
               onTap: () async {
@@ -711,7 +862,10 @@ class SettingsScreen extends ConsumerWidget {
                   }
                 } catch (e) {
                   if (context.mounted) {
-                    AppGlassToast.showError(context, L10n.t.settingsScreen48(e));
+                    AppGlassToast.showError(
+                      context,
+                      L10n.t.settingsScreen48(e),
+                    );
                   }
                 }
               },
@@ -722,15 +876,24 @@ class SettingsScreen extends ConsumerWidget {
             ListTile(
               leading: CircleAvatar(
                 backgroundColor: AppColors.warningAmber.withValues(alpha: 0.15),
-                child: const Icon(Icons.download_rounded, color: AppColors.warningAmber),
+                child: const Icon(
+                  Icons.download_rounded,
+                  color: AppColors.warningAmber,
+                ),
               ),
               title: Text(
                 L10n.t.settingsScreen49,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen50,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.folder_open_rounded),
               onTap: () => _handleRestoreBackup(context, ref),
@@ -743,9 +906,7 @@ class SettingsScreen extends ConsumerWidget {
 
   Future<void> _handleRestoreBackup(BuildContext context, WidgetRef ref) async {
     try {
-      final result = await FilePicker.pickFiles(
-        type: FileType.any,
-      );
+      final result = await FilePicker.pickFiles(type: FileType.any);
 
       if (result.isEmpty || result.first.path == null) return;
       final file = File(result.first.path!);
@@ -761,7 +922,10 @@ class SettingsScreen extends ConsumerWidget {
               title: Text(L10n.t.settingsScreen51),
               content: Text(validation.errorMessage ?? L10n.t.settingsScreen52),
               actions: [
-                TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.settingsScreen53)),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: Text(L10n.t.settingsScreen53),
+                ),
               ],
             ),
           );
@@ -776,7 +940,10 @@ class SettingsScreen extends ConsumerWidget {
           builder: (ctx) => AlertDialog(
             title: Row(
               children: [
-                const Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
+                const Icon(
+                  Icons.warning_amber_rounded,
+                  color: AppColors.debtRed,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -792,19 +959,37 @@ class SettingsScreen extends ConsumerWidget {
               children: [
                 Text(
                   L10n.t.settingsScreen55,
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.debtRed),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.debtRed,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 if (validation.exportedAt != null)
-                  Text(L10n.t.settingsScreen56(DateFormat('yyyy/MM/dd hh:mm a').format(validation.exportedAt!))),
+                  Text(
+                    L10n.t.settingsScreen56(
+                      DateFormat(
+                        'yyyy/MM/dd hh:mm a',
+                      ).format(validation.exportedAt!),
+                    ),
+                  ),
                 Text(L10n.t.settingsScreen57(validation.photosCount)),
-                Text(L10n.t.settingsScreen58((validation.fileSizeBytes / 1024).toStringAsFixed(1))),
+                Text(
+                  L10n.t.settingsScreen58(
+                    (validation.fileSizeBytes / 1024).toStringAsFixed(1),
+                  ),
+                ),
               ],
             ),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: Text(L10n.t.installmentPlanDetailsScreen11),
+              ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.debtRed,
+                ),
                 onPressed: () => Navigator.pop(ctx, true),
                 child: Text(L10n.t.settingsScreen59),
               ),
@@ -820,9 +1005,7 @@ class SettingsScreen extends ConsumerWidget {
               barrierDismissible: false,
               builder: (ctx) => AlertDialog(
                 title: Text(L10n.t.settingsScreen60),
-                content: Text(
-                  L10n.t.settingsScreen61,
-                ),
+                content: Text(L10n.t.settingsScreen61),
                 actions: [
                   ElevatedButton(
                     onPressed: () {
@@ -862,17 +1045,26 @@ class SettingsScreen extends ConsumerWidget {
               minVerticalPadding: 14,
               leading: CircleAvatar(
                 backgroundColor: AppColors.paymentGreen.withValues(alpha: 0.15),
-                child: const Icon(Icons.share_rounded, color: AppColors.paymentGreen),
+                child: const Icon(
+                  Icons.share_rounded,
+                  color: AppColors.paymentGreen,
+                ),
               ),
               title: Text(
                 l10n.shareAppTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
               subtitle: Text(
                 shopCode != null
                     ? '${l10n.shareAppSubtitle}\n${l10n.shopCodeLabel(shopCode)}'
                     : l10n.shareAppSubtitle,
-                style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.chevron_left_rounded),
               onTap: () async {
@@ -893,19 +1085,29 @@ class SettingsScreen extends ConsumerWidget {
             // Locked in Free tier
             SwitchListTile(
               secondary: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
                 child: Icon(
                   Icons.lock_rounded,
-                  color: AppColors.secondaryText(Theme.of(context).brightness == Brightness.dark),
+                  color: AppColors.secondaryText(
+                    Theme.of(context).brightness == Brightness.dark,
+                  ),
                 ),
               ),
               title: Text(
                 l10n.growthFooterToggleTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 l10n.growthFooterToggleSubtitle,
-                style: const TextStyle(fontSize: 13, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               value: false,
               onChanged: null,
@@ -917,7 +1119,11 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   // --- 6. General Card ---
-  Widget _buildGeneralCard(BuildContext context, WidgetRef ref, ThemeMode currentTheme) {
+  Widget _buildGeneralCard(
+    BuildContext context,
+    WidgetRef ref,
+    ThemeMode currentTheme,
+  ) {
     final themeLabel = switch (currentTheme) {
       ThemeMode.dark => L10n.t.settingsScreen64,
       ThemeMode.light => L10n.t.settingsScreen65,
@@ -934,23 +1140,42 @@ class SettingsScreen extends ConsumerWidget {
             // Theme selector with dialog
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-                child: Icon(Icons.palette_outlined, color: Theme.of(context).colorScheme.primary),
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.15),
+                child: Icon(
+                  Icons.palette_outlined,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               title: Text(
                 L10n.t.settingsScreen67,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 currentTheme == ThemeMode.system
                     ? L10n.t.settingsScreen68
-                    : (currentTheme == ThemeMode.dark ? L10n.t.settingsScreen64 : L10n.t.settingsScreen65),
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                    : (currentTheme == ThemeMode.dark
+                          ? L10n.t.settingsScreen64
+                          : L10n.t.settingsScreen65),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(themeLabel, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(
+                    themeLabel,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(width: 4),
                   const Icon(Icons.chevron_left_rounded),
                 ],
@@ -962,20 +1187,35 @@ class SettingsScreen extends ConsumerWidget {
             // App language
             Consumer(
               builder: (context, ref, _) {
-                final code = ref.watch(languageCodeProvider).valueOrNull ?? L10n.systemCode;
-                final current = L10n.languages.where((l) => l.code == code).firstOrNull;
+                final code =
+                    ref.watch(languageCodeProvider).valueOrNull ??
+                    L10n.systemCode;
+                final current = L10n.languages
+                    .where((l) => l.code == code)
+                    .firstOrNull;
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-                    child: Icon(Icons.translate_rounded, color: Theme.of(context).colorScheme.primary),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.15),
+                    child: Icon(
+                      Icons.translate_rounded,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                   title: Text(
                     L10n.t.settingsLanguageTitle,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                   subtitle: Text(
                     current?.nativeName ?? L10n.t.settingsLanguageSystem,
-                    style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.neutralGrey,
+                    ),
                   ),
                   trailing: const Icon(Icons.chevron_left_rounded),
                   onTap: () => _showLanguageDialog(context, ref, code),
@@ -992,10 +1232,14 @@ class SettingsScreen extends ConsumerWidget {
                   future: settingsRepo.getDefaultCreditLimitPiasters(),
                   builder: (context, snapshot) {
                     final limitPiasters = snapshot.data;
-                    final limitStr = limitPiasters != null ? MoneyUtils.formatMoney(limitPiasters) : L10n.t.settingsScreen69;
+                    final limitStr = limitPiasters != null
+                        ? MoneyUtils.formatMoney(limitPiasters)
+                        : L10n.t.settingsScreen69;
                     return ListTile(
                       leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.surfaceContainerHighest,
                         child: Icon(
                           Icons.credit_card_rounded,
                           color: Theme.of(context).colorScheme.onSurface,
@@ -1003,14 +1247,24 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       title: Text(
                         L10n.t.settingsScreen70,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
                       subtitle: Text(
                         limitStr,
-                        style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.neutralGrey,
+                        ),
                       ),
                       trailing: const Icon(Icons.edit_outlined),
-                      onTap: () => _showEditCreditLimitDialog(context, ref, limitPiasters),
+                      onTap: () => _showEditCreditLimitDialog(
+                        context,
+                        ref,
+                        limitPiasters,
+                      ),
                     );
                   },
                 );
@@ -1022,15 +1276,24 @@ class SettingsScreen extends ConsumerWidget {
             ListTile(
               leading: CircleAvatar(
                 backgroundColor: AppColors.paymentGreen.withValues(alpha: 0.15),
-                child: const Icon(Icons.chat_bubble_outline_rounded, color: AppColors.paymentGreen),
+                child: const Icon(
+                  Icons.chat_bubble_outline_rounded,
+                  color: AppColors.paymentGreen,
+                ),
               ),
               title: Text(
                 L10n.t.settingsScreen71,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen72,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               trailing: const Icon(Icons.open_in_new_rounded),
               onTap: () async {
@@ -1045,7 +1308,9 @@ class SettingsScreen extends ConsumerWidget {
             // Privacy Policy & Terms
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
                 child: Icon(
                   Icons.privacy_tip_outlined,
                   color: Theme.of(context).colorScheme.onSurface,
@@ -1053,11 +1318,17 @@ class SettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 L10n.t.settingsScreen74,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.settingsScreen75,
-                style: const TextStyle(fontSize: 12, color: AppColors.neutralGrey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.neutralGrey,
+                ),
               ),
               onTap: () {
                 showDialog(
@@ -1071,7 +1342,10 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                     ),
                     actions: [
-                      TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.ratingExplanationBottomSheet12)),
+                      TextButton(
+                        onPressed: () => Navigator.pop(ctx),
+                        child: Text(L10n.t.ratingExplanationBottomSheet12),
+                      ),
                     ],
                   ),
                 );
@@ -1083,7 +1357,11 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  void _showLanguageDialog(BuildContext context, WidgetRef ref, String currentCode) {
+  void _showLanguageDialog(
+    BuildContext context,
+    WidgetRef ref,
+    String currentCode,
+  ) {
     final settingsRepo = ref.read(settingsRepositoryProvider);
     final theme = Theme.of(context);
     final options = <(String, String)>[
@@ -1093,13 +1371,20 @@ class SettingsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: Text(L10n.t.settingsLanguageTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          L10n.t.settingsLanguageTitle,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         children: [
           for (final option in options)
             ListTile(
               leading: Icon(
-                currentCode == option.$1 ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                color: currentCode == option.$1 ? theme.colorScheme.primary : null,
+                currentCode == option.$1
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked,
+                color: currentCode == option.$1
+                    ? theme.colorScheme.primary
+                    : null,
               ),
               title: Text(option.$2),
               onTap: () async {
@@ -1112,13 +1397,20 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  void _showThemeDialog(BuildContext context, WidgetRef ref, ThemeMode currentTheme) {
+  void _showThemeDialog(
+    BuildContext context,
+    WidgetRef ref,
+    ThemeMode currentTheme,
+  ) {
     final settingsRepo = ref.read(settingsRepositoryProvider);
     final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: Text(L10n.t.settingsScreen67, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          L10n.t.settingsScreen67,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         children: [
           for (final option in [
             (ThemeMode.system, L10n.t.settingsScreen78),
@@ -1127,8 +1419,12 @@ class SettingsScreen extends ConsumerWidget {
           ])
             ListTile(
               leading: Icon(
-                currentTheme == option.$1 ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                color: currentTheme == option.$1 ? theme.colorScheme.primary : null,
+                currentTheme == option.$1
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked,
+                color: currentTheme == option.$1
+                    ? theme.colorScheme.primary
+                    : null,
               ),
               title: Text(option.$2),
               onTap: () async {
@@ -1141,9 +1437,15 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  void _showEditCreditLimitDialog(BuildContext context, WidgetRef ref, int? currentPiasters) {
+  void _showEditCreditLimitDialog(
+    BuildContext context,
+    WidgetRef ref,
+    int? currentPiasters,
+  ) {
     final controller = TextEditingController(
-      text: currentPiasters != null ? (currentPiasters / 100).toStringAsFixed(0) : '',
+      text: currentPiasters != null
+          ? (currentPiasters / 100).toStringAsFixed(0)
+          : '',
     );
 
     showDialog(
@@ -1159,12 +1461,17 @@ class SettingsScreen extends ConsumerWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(L10n.t.installmentPlanDetailsScreen11)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(L10n.t.installmentPlanDetailsScreen11),
+          ),
           ElevatedButton(
             onPressed: () async {
               final text = controller.text.trim();
               final pounds = int.tryParse(text);
-              final piasters = (pounds != null && pounds > 0) ? pounds * 100 : null;
+              final piasters = (pounds != null && pounds > 0)
+                  ? pounds * 100
+                  : null;
               final repo = ref.read(settingsRepositoryProvider);
               await repo.setDefaultCreditLimitPiasters(piasters);
               if (ctx.mounted) Navigator.pop(ctx);

@@ -121,6 +121,11 @@ void main() {
     await tester.tap(find.text('استلام كاش'));
     await tester.pumpAndSettle();
 
+    // The sale completion dialog is shown. Dismiss it to return to empty cart.
+    expect(find.text('تم · بيع جديد'), findsOneWidget);
+    await tester.tap(find.text('تم · بيع جديد'));
+    await tester.pumpAndSettle();
+
     // Sale should complete and clear cart
     expect(find.text('ضيف أصناف عشان تبدأ البيع'), findsOneWidget);
 

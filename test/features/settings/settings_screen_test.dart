@@ -40,6 +40,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('بيانات المحل 🏪'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('الحماية والخصوصية 🔒'), 200);
     expect(find.text('الحماية والخصوصية 🔒'), findsOneWidget);
     expect(find.text('قفل التطبيق برمز PIN (4 أرقام)'), findsOneWidget);
     expect(find.text('إعداد'), findsOneWidget);
@@ -85,6 +86,7 @@ void main() {
 
     await tester.pumpAndSettle();
 
+    await tester.scrollUntilVisible(find.text('مفعّل 🔒'), 200);
     expect(find.text('مفعّل 🔒'), findsOneWidget);
     expect(find.text('فتح بالبصمة / Face ID'), findsOneWidget);
 
@@ -104,6 +106,45 @@ void main() {
 
     // Verify setting was updated
     expect(await settingsRepo.getLockTimeoutMinutes(), equals(5));
+
+    await db.close();
+  });
+
+  testWidgets('SettingsScreen has Contact us on WhatsApp with phone 01005083126', (tester) async {
+    tester.view.physicalSize = const Size(360 * 2.0, 640 * 2.0);
+    tester.view.devicePixelRatio = 2.0;
+
+    final db = AppDatabase(NativeDatabase.memory());
+    final settingsRepo = SettingsRepository(db);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          databaseProvider.overrideWithValue(db),
+          settingsRepositoryProvider.overrideWithValue(settingsRepo),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.lightTheme,
+          locale: const Locale('ar', 'EG'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const Directionality(
+            textDirection: TextDirection.rtl,
+            child: SettingsScreen(),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+
+    // Scroll until WhatsApp contact tile is visible
+    final l10n = AppLocalizations.of(tester.element(find.byType(SettingsScreen)))!;
+    expect(l10n.settingsScreen73, contains('201005083126'));
+
+    await tester.scrollUntilVisible(find.text(l10n.settingsScreen71), 200);
+    expect(find.text(l10n.settingsScreen71), findsOneWidget);
+    expect(find.text(l10n.settingsScreen72), findsOneWidget);
 
     await db.close();
   });

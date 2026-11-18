@@ -32,6 +32,12 @@ void main() async {
     languageCode = await container.read(settingsRepositoryProvider).getLanguageCode();
   } catch (_) {}
 
+  // Initialise Intl/L10n before any widget reads a localized string or formats a date.
+  L10n.setLocale(
+    L10n.localeForCode(languageCode) ??
+        L10n.resolve(WidgetsBinding.instance.platformDispatcher.locales),
+  );
+
   runApp(
     UncontrolledProviderScope(
       container: container,
@@ -118,7 +124,14 @@ class _KashkoolAppState extends ConsumerState<KashkoolApp> {
           // language change rebuild every widget once (open screens keep their state).
           WidgetsBinding.instance.addPostFrameCallback((_) => _rebuildEverything());
         }
-        return AppLockWrapper(child: child ?? const SizedBox.shrink());
+        // Keep long translations and large accessibility fonts from breaking layouts:
+        // every route inherits this clamped text scale (screens keep their normal
+        // scaling up to 1.3x, and never overflow at 2x+).
+        return MediaQuery.withClampedTextScaling(
+          minScaleFactor: 0.85,
+          maxScaleFactor: 1.3,
+          child: AppLockWrapper(child: child ?? const SizedBox.shrink()),
+        );
       },
     );
   }

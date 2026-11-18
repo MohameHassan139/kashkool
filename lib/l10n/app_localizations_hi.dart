@@ -21,579 +21,589 @@ class AppLocalizationsHi extends AppLocalizations {
   String get navSuppliers => 'सप्लायर';
 
   @override
-  String get navInventory => 'المخزون';
+  String get navInventory => 'इन्वेंटरी';
 
   @override
   String get navCashDrawer => 'कैश ड्रॉअर';
 
   @override
-  String get inventoryTitle => 'المخزون';
+  String get inventoryTitle => 'इन्वेंटरी';
 
   @override
-  String get inventoryManageButton => 'إدارة الأصناف والمخزون';
+  String get inventoryManageButton => 'उत्पाद और स्टॉक प्रबंधित करें';
 
   @override
-  String get inventorySearchHint => 'ابحث عن صنف أو باركود...';
+  String get inventorySearchHint => 'उत्पाद या बारकोड खोजें...';
 
   @override
-  String get inventoryAddProduct => 'صنف جديد';
+  String get inventoryAddProduct => 'नया उत्पाद';
 
   @override
-  String get inventoryEditProduct => 'تعديل الصنف';
+  String get inventoryEditProduct => 'उत्पाद संपादित करें';
 
   @override
-  String get inventoryNoProducts => 'لسه مفيش أصناف مسجلة';
+  String get inventoryNoProducts => 'अभी कोई उत्पाद नहीं जोड़ा गया';
 
   @override
-  String get inventoryNoSearchResults => 'مفيش أصناف مطابقة للبحث';
+  String get inventoryNoSearchResults => 'आपकी खोज से कोई उत्पाद मेल नहीं खाता';
 
   @override
-  String get inventoryProductName => 'اسم الصنف';
+  String get inventoryProductName => 'उत्पाद का नाम';
 
   @override
-  String get inventoryNameRequired => 'اكتب اسم الصنف';
+  String get inventoryNameRequired => 'उत्पाद का नाम दर्ज करें';
 
   @override
-  String get inventoryBarcode => 'الباركود (اختياري)';
+  String get inventoryBarcode => 'बारकोड (वैकल्पिक)';
 
   @override
-  String get inventoryCategory => 'التصنيف (اختياري)';
+  String get inventoryCategory => 'श्रेणी (वैकल्पिक)';
 
   @override
-  String get inventoryUnit => 'وحدة البيع';
+  String get inventoryUnit => 'बिक्री की इकाई';
 
   @override
-  String get inventoryUnitExample => 'مثال: قطعة، كجم، لتر';
+  String get inventoryUnitExample => 'उदाहरण: टुकड़ा, किग्रा, लीटर';
 
   @override
-  String get inventoryUnitRequired => 'اكتب وحدة البيع';
+  String get inventoryUnitRequired => 'बिक्री की इकाई दर्ज करें';
 
   @override
-  String get inventoryPurchasePrice => 'سعر الشراء بالجنيه';
+  String get inventoryPurchasePrice => 'खरीद मूल्य (EGP)';
 
   @override
-  String get inventorySalePrice => 'سعر البيع بالجنيه';
+  String get inventorySalePrice => 'बिक्री मूल्य (EGP)';
 
   @override
-  String get inventoryMinimumStock => 'نبّهني لما الكمية توصل';
+  String get inventoryMinimumStock => 'स्टॉक इस स्तर पर पहुँचने पर चेतावनी दें';
 
   @override
-  String get inventoryInitialStock => 'الكمية الموجودة حاليًا';
+  String get inventoryInitialStock => 'वर्तमान स्टॉक';
 
   @override
-  String get inventoryCurrentStock => 'الموجود في المخزن';
+  String get inventoryCurrentStock => 'स्टॉक में उपलब्ध';
 
   @override
-  String get inventoryInStock => 'متوفر';
+  String get inventoryInStock => 'उपलब्ध';
 
   @override
-  String get inventoryLowStock => 'الكمية قليلة';
+  String get inventoryLowStock => 'कम स्टॉक';
 
   @override
-  String get inventoryAdjustStock => 'تعديل الكمية';
+  String get inventoryAdjustStock => 'स्टॉक समायोजित करें';
 
   @override
-  String get inventoryAddStock => 'إضافة للمخزون';
+  String get inventoryAddStock => 'स्टॉक में जोड़ें';
 
   @override
-  String get inventoryRemoveStock => 'خصم من المخزون';
+  String get inventoryRemoveStock => 'स्टॉक से हटाएँ';
 
   @override
-  String get inventoryQuantity => 'الكمية';
+  String get inventoryQuantity => 'मात्रा';
 
   @override
-  String get inventoryNote => 'ملاحظة (اختياري)';
+  String get inventoryNote => 'नोट (वैकल्पिक)';
 
   @override
-  String get inventoryMovementHistory => 'حركة المخزون';
+  String get inventoryMovementHistory => 'स्टॉक मूवमेंट';
 
   @override
-  String get inventoryMovementOpening => 'رصيد افتتاحي';
+  String get inventoryMovementOpening => 'प्रारंभिक स्टॉक';
 
   @override
-  String get inventoryMovementAdjustment => 'تعديل يدوي';
+  String get inventoryMovementAdjustment => 'मैनुअल समायोजन';
 
   @override
-  String get inventoryMovementPurchase => 'شراء';
+  String get inventoryMovementPurchase => 'खरीद';
 
   @override
-  String get inventoryMovementSale => 'بيع';
+  String get inventoryMovementSale => 'बिक्री';
 
   @override
-  String get inventoryMovementCustomerReturn => 'مرتجع عميل';
+  String get inventoryMovementCustomerReturn => 'ग्राहक वापसी';
 
   @override
-  String get inventoryMovementSupplierReturn => 'مرتجع مورد';
+  String get inventoryMovementSupplierReturn => 'सप्लायर वापसी';
 
   @override
-  String get inventoryNoMovements => 'مفيش حركات مخزون لسه';
+  String get inventoryNoMovements => 'अभी कोई स्टॉक मूवमेंट नहीं';
 
   @override
-  String get inventorySave => 'حفظ';
+  String get inventorySave => 'सहेजें';
 
   @override
-  String get inventoryCancel => 'إلغاء';
+  String get inventoryCancel => 'रद्द करें';
 
   @override
-  String get inventoryDelete => 'حذف الصنف';
+  String get inventoryDelete => 'उत्पाद हटाएँ';
 
   @override
   String get inventoryDeleteConfirm =>
-      'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
+      'उत्पाद सूची से हट जाएगा, परंतु उसका मूवमेंट इतिहास सुरक्षित रहेगा। क्या आप निश्चित हैं?';
 
   @override
-  String get inventoryDeleted => 'تم حذف الصنف';
+  String get inventoryDeleted => 'उत्पाद हटाया गया';
 
   @override
-  String get inventoryProductSaved => 'تم حفظ الصنف';
+  String get inventoryProductSaved => 'उत्पाद सहेजा गया';
 
   @override
-  String get inventoryStockSaved => 'تم تحديث المخزون';
+  String get inventoryStockSaved => 'स्टॉक अपडेट किया गया';
 
   @override
-  String get inventoryInvalidQuantity => 'اكتب كمية صحيحة (لحد 3 أرقام عشرية)';
+  String get inventoryInvalidQuantity =>
+      'सही मात्रा दर्ज करें (अधिकतम 3 दशमलव अंक)';
 
   @override
-  String get inventoryQuantityRequired => 'اكتب كمية أكبر من صفر';
+  String get inventoryQuantityRequired => 'शून्य से बड़ी मात्रा दर्ज करें';
 
   @override
-  String get inventoryStockCannotBeNegative => 'الكمية الموجودة مش كفاية للخصم';
+  String get inventoryStockCannotBeNegative =>
+      'इतनी मात्रा हटाने के लिए स्टॉक पर्याप्त नहीं है';
 
   @override
-  String get inventoryInvalidPrice => 'اكتب سعر صحيح غير سالب';
+  String get inventoryInvalidPrice => 'सही और गैर-ऋणात्मक मूल्य दर्ज करें';
 
   @override
-  String get inventoryBarcodeExists => 'الباركود مسجل لصنف تاني';
+  String get inventoryBarcodeExists =>
+      'यह बारकोड पहले से किसी दूसरे उत्पाद से जुड़ा है';
 
   @override
   String get inventoryUnitChangeNotAllowed =>
-      'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
+      'स्टॉक मूवमेंट दर्ज होने के बाद इकाई नहीं बदली जा सकती';
 
   @override
   String get inventorySaveFailed =>
-      'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+      'बदलाव सहेजे नहीं जा सके। जानकारी जाँचें और फिर कोशिश करें।';
 
   @override
-  String get inventorySupplier => 'المورد (اختياري)';
+  String get inventorySupplier => 'सप्लायर (वैकल्पिक)';
 
   @override
-  String get inventorySupplierNone => 'بدون مورد';
+  String get inventorySupplierNone => 'बिना सप्लायर';
 
   @override
-  String get inventorySupplierFilter => 'تصفية بالمورد';
+  String get inventorySupplierFilter => 'सप्लायर अनुसार फ़िल्टर';
 
   @override
-  String get inventoryFilterAllSuppliers => 'كل الموردين';
+  String get inventoryFilterAllSuppliers => 'सभी सप्लायर';
 
   @override
-  String get inventorySupplierProducts => 'أصناف المورد';
+  String get inventorySupplierProducts => 'सप्लायर के उत्पाद';
 
   @override
-  String get inventoryNoSupplierProducts => 'مفيش أصناف مربوطة بهذا المورد';
+  String get inventoryNoSupplierProducts =>
+      'इस सप्लायर से कोई उत्पाद जुड़ा नहीं है';
 
   @override
-  String get inventorySupplierCardTitle => 'المورد المسئول';
+  String get inventorySupplierCardTitle => 'निर्धारित सप्लायर';
 
   @override
-  String get inventoryOrderWhatsApp => 'طلب نواقص عبر واتساب';
+  String get inventoryOrderWhatsApp => 'वाट्सऐप से स्टॉक माँगें';
 
   @override
-  String get supplierReturn => 'مرتجع للمورد';
+  String get supplierReturn => 'सप्लायर को वापसी';
 
   @override
-  String get supplierReturnReason => 'سبب المرتجع (اختياري)';
+  String get supplierReturnReason => 'वापसी का कारण (वैकल्पिक)';
 
   @override
   String get supplierReturnSuccess =>
-      'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
+      'वापसी सफलतापूर्वक दर्ज की गई और खाता अपडेट हो गया';
 
   @override
-  String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
+  String get purchasePaidAmount => 'अभी चुकाया गया मूल्य';
 
   @override
-  String get purchasePaymentFull => 'دفع كامل';
+  String get purchasePaymentFull => 'पूरा भुगतान';
 
   @override
-  String get purchasePaymentPartial => 'دفع جزء (باقي آجل)';
+  String get purchasePaymentPartial => 'आंशिक भुगतान (बाकी उधार)';
 
   @override
-  String get purchasePaymentOnAccount => 'دفعة تحت الحساب';
+  String get purchasePaymentOnAccount => 'खाते में जमा';
 
   @override
-  String get purchasePaymentCredit => 'آجل بالكامل';
+  String get purchasePaymentCredit => 'पूरा उधार';
 
   @override
-  String get purchaseRemainingDebt => 'المتبقي آجل على المحل';
+  String get purchaseRemainingDebt => 'दुकान पर बाकी उधार';
 
   @override
-  String get purchaseAdvanceCredit => 'رصيد زيادة للمحل (تحت الحساب)';
+  String get purchaseAdvanceCredit => 'दुकान का अग्रिम शेष (जमा)';
 
   @override
-  String get profitLossTitle => 'المكسب والخسارة';
+  String get profitLossTitle => 'लाभ और हानि';
 
   @override
-  String get profitLossRevenue => 'إجمالي المبيعات';
+  String get profitLossRevenue => 'कुल बिक्री';
 
   @override
-  String get profitLossCogs => 'تكلفة البضاعة المباعة';
+  String get profitLossCogs => 'बेचे गए माल की लागत';
 
   @override
-  String get profitLossGross => 'مجمل الربح';
+  String get profitLossGross => 'सकल लाभ';
 
   @override
-  String get profitLossExpenses => 'المصروفات التشغيلية';
+  String get profitLossExpenses => 'संचालन खर्च';
 
   @override
-  String get profitLossNet => 'صافي الربح / الخسارة';
+  String get profitLossNet => 'शुद्ध लाभ / हानि';
 
   @override
-  String get profitLossMargin => 'نسبة هامش الربح';
+  String get profitLossMargin => 'लाभ मार्जिन';
 
   @override
-  String get profitLossPeriodToday => 'اليوم';
+  String get profitLossPeriodToday => 'आज';
 
   @override
-  String get profitLossPeriodWeek => 'آخر 7 أيام';
+  String get profitLossPeriodWeek => 'पिछले 7 दिन';
 
   @override
-  String get profitLossPeriodMonth => 'هذا الشهر';
+  String get profitLossPeriodMonth => 'इस महीने';
 
   @override
-  String get profitLossPeriodAll => 'كل الفترات';
+  String get profitLossPeriodAll => 'पूरे समय का';
 
   @override
-  String get profitLossPositive => 'صافي ربح';
+  String get profitLossPositive => 'शुद्ध लाभ';
 
   @override
-  String get profitLossNegative => 'صافي خسارة';
+  String get profitLossNegative => 'शुद्ध हानि';
 
   @override
-  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (كاش)';
+  String get profitLossCashSectionTitle => 'प्राप्त नकद लाभ';
 
   @override
   String get profitLossCashSectionSubtitle =>
-      'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات';
+      'नकद बिक्री से खर्च काटने के बाद दराज़ में वास्तव में आया लाभ';
 
   @override
-  String get profitLossCashNet => 'صافي الربح النقدي في الدرج';
+  String get profitLossCashNet => 'दराज़ में शुद्ध नकद लाभ';
 
   @override
-  String get profitLossCashRevenue => 'مبيعات نقدية (كاش)';
+  String get profitLossCashRevenue => 'नकद बिक्री';
 
   @override
-  String get profitLossCashCogs => 'تكلفة بضاعة الكاش المباعة';
+  String get profitLossCashCogs => 'नकद बेचे गए माल की लागत';
 
   @override
-  String get profitLossCashGross => 'مجمل ربح الكاش';
+  String get profitLossCashGross => 'सकल नकद लाभ';
 
   @override
-  String get profitLossCreditSectionTitle => 'أرباح آجلة (عند العملاء)';
+  String get profitLossCreditSectionTitle => 'उधार का लाभ (ग्राहकों के पास)';
 
   @override
   String get profitLossCreditSectionSubtitle =>
-      'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد';
+      'उधार बेचे गए माल का लाभ जो अभी वसूल नहीं हुआ';
 
   @override
-  String get profitLossCreditGross => 'أرباح مؤجلة عند الزبائن';
+  String get profitLossCreditGross => 'ग्राहकों के पास बकाया लाभ';
 
   @override
-  String get profitLossCreditRevenue => 'مبيعات بالآجل (شُكك)';
+  String get profitLossCreditRevenue => 'उधार की बिक्री';
 
   @override
-  String get profitLossCreditCogs => 'تكلفة بضاعة الآجل';
+  String get profitLossCreditCogs => 'उधार बेचे गए माल की लागत';
 
   @override
-  String get profitLossTotalExpectedNet => 'إجمالي الربح الكلي (نقدي + آجل)';
+  String get profitLossTotalExpectedNet =>
+      'कुल अपेक्षित शुद्ध लाभ (नकद + उधार)';
 
   @override
-  String get profitLossCashVsCreditRatio => 'نسبة الكاش إلى الآجل';
+  String get profitLossCashVsCreditRatio => 'नकद और उधार का अनुपात';
 
   @override
-  String get shopReportTitle => 'تقرير المحل الشامل';
+  String get shopReportTitle => 'दुकान की पूरी रिपोर्ट';
 
   @override
-  String get shopReportInventoryValue => 'قيمة بضاعة المحل';
+  String get shopReportInventoryValue => 'दुकान के माल की कीमत';
 
   @override
-  String get shopReportAtCost => 'بسعر الشراء (التكلفة)';
+  String get shopReportAtCost => 'खरीद मूल्य पर (लागत)';
 
   @override
-  String get shopReportAtRetail => 'بسعر البيع (المتوقع)';
+  String get shopReportAtRetail => 'बिक्री मूल्य पर (अपेक्षित)';
 
   @override
-  String get shopReportExpectedProfit => 'الربح المتوقع من البضاعة';
+  String get shopReportExpectedProfit => 'माल से अपेक्षित लाभ';
 
   @override
-  String get shopReportReceivables => 'لينا عند العملاء (ديون)';
+  String get shopReportReceivables => 'ग्राहकों से मिलने वाली राशि (उधार)';
 
   @override
-  String get shopReportPayables => 'علينا للموردين (ديون)';
+  String get shopReportPayables => 'सप्लायर को देने वाली राशि (उधार)';
 
   @override
-  String get shopReportCashDrawer => 'الفلوس في الدرج والخزينة';
+  String get shopReportCashDrawer => 'दराज़ और तिजोरी में पैसा';
 
   @override
-  String get shopReportNetWorth => 'صافي رأس مال المحل';
+  String get shopReportNetWorth => 'दुकान का शुद्ध मूल्य';
 
   @override
-  String get shopReportLowStockCount => 'أصناف وصلت للنواقص';
+  String get shopReportLowStockCount => 'कम स्टॉक वाले उत्पाद';
 
   @override
-  String get shopReportShare => 'مشاركة التقرير عبر واتساب';
+  String get shopReportShare => 'वाट्सऐप से रिपोर्ट साझा करें';
 
   @override
-  String get featureManagerTitle => 'تخصيص ميزات المحل';
+  String get featureManagerTitle => 'दुकान की सुविधाएँ प्रबंधित करें';
 
   @override
   String get featureManagerSubtitle =>
-      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
+      'अपनी दुकान के काम के अनुसार सेक्शन दिखाएँ या छिपाएँ';
 
   @override
   String get featureManagerNote =>
-      'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
+      'किसी सुविधा को छिपाने से उसका डेटा नहीं हटता; आप इसे कभी भी एक टैप से वापस चालू कर सकते हैं।';
 
   @override
-  String get featurePresetTitle => 'أوضاع سريعة بنقرة واحدة';
+  String get featurePresetTitle => 'एक टैप के तैयार विकल्प';
 
   @override
-  String get featurePresetSimple => 'كشكول ديون فقط';
+  String get featurePresetSimple => 'सिर्फ़ उधार की बही';
 
   @override
   String get featurePresetSimpleDesc =>
-      'تركيز تام على حسابات الزباين والتحصيل فقط';
+      'सिर्फ़ ग्राहकों के खाते और वसूली पर ध्यान';
 
   @override
-  String get featurePresetGrocery => 'بقالة وسوبرماركت';
+  String get featurePresetGrocery => 'किराना और सुपरमार्केट';
 
   @override
-  String get featurePresetGroceryDesc => 'بيع سريع + بضاعة وموردين + درج يومي';
+  String get featurePresetGroceryDesc =>
+      'त्वरित बिक्री + माल और सप्लायर + दैनिक दराज़';
 
   @override
-  String get featurePresetElectronics => 'محل موبايل وأجهزة';
+  String get featurePresetElectronics => 'मोबाइल और इलेक्ट्रॉनिक्स';
 
   @override
-  String get featurePresetElectronicsDesc => 'أقساط + مخزون + بيع سريع وموردين';
+  String get featurePresetElectronicsDesc =>
+      'किस्तें + स्टॉक + त्वरित बिक्री और सप्लायर';
 
   @override
-  String get featurePresetAll => 'تشغيل كل الميزات';
+  String get featurePresetAll => 'सभी सुविधाएँ चालू';
 
   @override
-  String get featurePresetAllDesc => 'فتح كافة إمكانيات التطبيق';
+  String get featurePresetAllDesc => 'ऐप की सभी सुविधाएँ खोलें';
 
   @override
-  String get featureQuickPosTitle => 'البيع السريع ونقطة البيع (POS)';
+  String get featureQuickPosTitle => 'त्वरित बिक्री और पॉइंट ऑफ़ सेल (POS)';
 
   @override
   String get featureQuickPosDesc =>
-      'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
+      'जल्दी नकद बिल बनाने और बाकी पैसे निकालने वाली स्क्रीन';
 
   @override
-  String get featureSuppliersTitle => 'الموردون وفواتير الشراء';
+  String get featureSuppliersTitle => 'सप्लायर और खरीद बिल';
 
   @override
   String get featureSuppliersDesc =>
-      'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
+      'सप्लायर का उधार, स्टॉक ऑर्डर और वापसी पर नज़र रखें';
 
   @override
-  String get featureInstallmentsTitle => 'دفتر الأقساط الشهرية';
+  String get featureInstallmentsTitle => 'मासिक किस्तों की बही';
 
   @override
   String get featureInstallmentsDesc =>
-      'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد';
+      'किस्तों की अनुसूची, अनुबंध और भुगतान तिथि की चेतावनियाँ';
 
   @override
-  String get featureInventoryTitle => 'المخزون وإدارة الأصناف';
+  String get featureInventoryTitle => 'स्टॉक और उत्पाद प्रबंधन';
 
   @override
   String get featureInventoryDesc =>
-      'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
+      'माल दर्ज करें, कम स्टॉक की चेतावनी और मूवमेंट का रिकॉर्ड';
 
   @override
-  String get featureCashDrawerTitle => 'الصندوق والدرج اليومي';
+  String get featureCashDrawerTitle => 'दराज़ और दैनिक बंदी';
 
   @override
   String get featureCashDrawerDesc =>
-      'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
+      'दैनिक नकद हिसाब, कमी-बेशी और दिन बंद करना';
 
   @override
-  String get featureProfitLossTitle => 'المكسب والخسارة والتقارير';
+  String get featureProfitLossTitle => 'लाभ-हानि और रिपोर्ट';
 
   @override
   String get featureProfitLossDesc =>
-      'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال';
+      'खर्च काटने के बाद शुद्ध लाभ और पूँजी की रिपोर्ट निकालें';
 
   @override
-  String get featureOffersTitle => 'رسائل العروض والمناسبات';
+  String get featureOffersTitle => 'ऑफ़र और शुभकामना संदेश';
 
   @override
   String get featureOffersDesc =>
-      'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب';
+      'वाट्सऐप से ग्राहक समूहों को ऑफ़र और छूट भेजें';
 
   @override
   String get featureCoreAlwaysActive =>
-      'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
+      'ग्राहक और वसूली मुख्य सुविधाएँ हैं जो हमेशा चालू रहती हैं';
 
   @override
-  String get featureStatusActive => 'مفعل';
+  String get featureStatusActive => 'चालू';
 
   @override
-  String get featureStatusHidden => 'مخفي';
+  String get featureStatusHidden => 'छिपा हुआ';
 
   @override
-  String get quickPosTitle => 'بيع سريع';
+  String get quickPosTitle => 'त्वरित बिक्री';
 
   @override
-  String get quickPosOpen => 'افتح البيع السريع';
+  String get quickPosOpen => 'त्वरित बिक्री खोलें';
 
   @override
-  String get quickPosSearch => 'ابحث بالاسم أو اكتب الباركود...';
+  String get quickPosSearch => 'नाम खोजें या बारकोड टाइप करें...';
 
   @override
-  String get quickPosProducts => 'الأصناف';
+  String get quickPosProducts => 'उत्पाद';
 
   @override
-  String get quickPosAdd => 'ضيف للبيع';
+  String get quickPosAdd => 'बिक्री में जोड़ें';
 
   @override
-  String get quickPosAvailable => 'المتاح';
+  String get quickPosAvailable => 'उपलब्ध';
 
   @override
-  String get quickPosCart => 'أصناف البيع';
+  String get quickPosCart => 'बिक्री के उत्पाद';
 
   @override
-  String get quickPosEmptyCart => 'ضيف أصناف عشان تبدأ البيع';
+  String get quickPosEmptyCart => 'बिक्री शुरू करने के लिए उत्पाद जोड़ें';
 
   @override
-  String get quickPosQuantity => 'الكمية';
+  String get quickPosQuantity => 'मात्रा';
 
   @override
-  String get quickPosQuantityInvalid => 'اكتب كمية صحيحة أكبر من صفر';
+  String get quickPosQuantityInvalid => 'शून्य से बड़ी सही मात्रा दर्ज करें';
 
   @override
-  String get quickPosCash => 'نقدي';
+  String get quickPosCash => 'नकद';
 
   @override
-  String get quickPosCredit => 'على حساب عميل';
+  String get quickPosCredit => 'ग्राहक के खाते पर';
 
   @override
-  String get quickPosSelectCustomer => 'اختار العميل';
+  String get quickPosSelectCustomer => 'ग्राहक चुनें';
 
   @override
-  String get quickPosCustomerRequired => 'اختار عميل للبيع على الحساب';
+  String get quickPosCustomerRequired => 'उधार बिक्री के लिए ग्राहक चुनें';
 
   @override
-  String get quickPosTotal => 'الإجمالي';
+  String get quickPosTotal => 'कुल';
 
   @override
-  String get quickPosCompleteSale => 'تأكيد البيع';
+  String get quickPosCompleteSale => 'बिक्री पूरी करें';
 
   @override
-  String get quickPosSaving => 'بيتم حفظ البيع...';
+  String get quickPosSaving => 'बिक्री सहेजी जा रही है...';
 
   @override
-  String get quickPosSaleSaved => 'تم تسجيل البيع';
+  String get quickPosSaleSaved => 'बिक्री दर्ज की गई';
 
   @override
-  String get quickPosSaveFailed => 'ماقدرناش نسجل البيع. حاول تاني.';
+  String get quickPosSaveFailed => 'बिक्री दर्ज नहीं हो सकी। फिर कोशिश करें।';
 
   @override
-  String get quickPosInsufficientStock => 'المخزون مش كفاية للكمية دي';
+  String get quickPosInsufficientStock =>
+      'इस मात्रा के लिए स्टॉक पर्याप्त नहीं है';
 
   @override
   String get quickPosCashDayClosed =>
-      'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
+      'आज का दराज़ बंद हो चुका है। नकद बिक्री दर्ज करने के लिए इसे फिर खोलें।';
 
   @override
-  String get quickPosLoadFailed => 'ماقدرناش نحمّل الأصناف';
+  String get quickPosLoadFailed => 'उत्पाद लोड नहीं हो सके';
 
   @override
-  String get quickPosCustomersLoadFailed => 'ماقدرناش نحمّل العملاء';
+  String get quickPosCustomersLoadFailed => 'ग्राहक लोड नहीं हो सके';
 
   @override
-  String get quickPosSaleNote => 'بيع سريع';
+  String get quickPosSaleNote => 'त्वरित बिक्री';
 
   @override
-  String get supplierPurchasesTitle => 'مشتريات المورد';
+  String get supplierPurchasesTitle => 'सप्लायर से खरीद';
 
   @override
-  String get supplierPurchaseNew => 'تسجيل شراء';
+  String get supplierPurchaseNew => 'खरीद दर्ज करें';
 
   @override
-  String get supplierPurchaseInvoiceNumber => 'رقم الفاتورة (اختياري)';
+  String get supplierPurchaseInvoiceNumber => 'बिल नंबर (वैकल्पिक)';
 
   @override
-  String get supplierPurchasePaymentType => 'طريقة الحساب';
+  String get supplierPurchasePaymentType => 'भुगतान का तरीका';
 
   @override
-  String get supplierPurchaseCash => 'نقدي';
+  String get supplierPurchaseCash => 'नकद';
 
   @override
-  String get supplierPurchaseCredit => 'على الحساب';
+  String get supplierPurchaseCredit => 'उधार पर';
 
   @override
-  String get supplierPurchaseAddProduct => 'اختار صنف';
+  String get supplierPurchaseAddProduct => 'उत्पाद चुनें';
 
   @override
-  String get supplierPurchaseItems => 'أصناف الفاتورة';
+  String get supplierPurchaseItems => 'बिल के उत्पाद';
 
   @override
-  String get supplierPurchaseQuantity => 'الكمية';
+  String get supplierPurchaseQuantity => 'मात्रा';
 
   @override
-  String get supplierPurchaseUnitCost => 'سعر شراء الوحدة بالجنيه';
+  String get supplierPurchaseUnitCost => 'प्रति इकाई खरीद मूल्य (EGP)';
 
   @override
-  String get supplierPurchaseAddLine => 'إضافة الصنف';
+  String get supplierPurchaseAddLine => 'उत्पाद जोड़ें';
 
   @override
-  String get supplierPurchaseNoLines => 'ضيف صنف واحد على الأقل';
+  String get supplierPurchaseNoLines => 'कम से कम एक उत्पाद जोड़ें';
 
   @override
-  String get supplierPurchaseSave => 'حفظ الفاتورة';
+  String get supplierPurchaseSave => 'बिल सहेजें';
 
   @override
-  String get supplierPurchaseTotal => 'إجمالي الفاتورة';
+  String get supplierPurchaseTotal => 'बिल का कुल';
 
   @override
-  String get supplierPurchaseSaved => 'تم تسجيل فاتورة الشراء';
+  String get supplierPurchaseSaved => 'खरीद बिल दर्ज किया गया';
 
   @override
-  String get supplierPurchaseSaveFailed => 'ماقدرناش نسجل الفاتورة. حاول تاني.';
+  String get supplierPurchaseSaveFailed =>
+      'खरीद बिल सहेजा नहीं जा सका। फिर कोशिश करें।';
 
   @override
-  String get supplierPurchaseNoInvoices => 'مفيش فواتير شراء للمورد ده';
+  String get supplierPurchaseNoInvoices => 'इस सप्लायर का कोई खरीद बिल नहीं';
 
   @override
-  String get supplierPurchaseDetails => 'تفاصيل الفاتورة';
+  String get supplierPurchaseDetails => 'बिल का विवरण';
 
   @override
-  String get supplierPurchaseReturn => 'إرجاع للمورد';
+  String get supplierPurchaseReturn => 'सप्लायर को वापस करें';
 
   @override
-  String get supplierPurchaseReturned => 'المرتجع';
+  String get supplierPurchaseReturned => 'वापस किया गया';
 
   @override
-  String get supplierPurchaseRemaining => 'المتاح للمرتجع';
+  String get supplierPurchaseRemaining => 'वापसी के लिए उपलब्ध';
 
   @override
-  String get supplierPurchaseReturnQuantity => 'كمية المرتجع';
+  String get supplierPurchaseReturnQuantity => 'वापसी की मात्रा';
 
   @override
   String get supplierPurchaseReturnSaved =>
-      'تم تسجيل المرتجع واتخصم من حساب المورد';
+      'वापसी दर्ज की गई और सप्लायर के खाते से कटौती की गई';
 
   @override
   String get supplierPurchaseReturnLimit =>
-      'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون';
+      'माँगी गई मात्रा वापसी योग्य मात्रा या उपलब्ध स्टॉक से अधिक है';
 
   @override
-  String get supplierCreditNote => 'رصيد دائن من مرتجع';
+  String get supplierCreditNote => 'वापसी से मिला सप्लायर क्रेडिट';
 
   @override
-  String get supplierPurchaseInvalidInput => 'راجع الكمية والسعر وحاول تاني';
+  String get supplierPurchaseInvalidInput =>
+      'मात्रा और मूल्य जाँचें, फिर कोशिश करें';
 
   @override
-  String get supplierPurchaseLoadError => 'ماقدرناش نحمّل فواتير الشراء';
+  String get supplierPurchaseLoadError => 'खरीद बिल लोड नहीं हो सके';
 
   @override
   String get navSettings => 'सेटिंग्स';
@@ -2697,7 +2707,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get settingsScreen73 =>
-      'https://wa.me/201000000000?text=Hello%2C%20I%20have%20a%20question%20about%20Kashkool';
+      'https://wa.me/201005083126?text=Hello%2C%20I%20have%20a%20question%20about%20Kashkool';
 
   @override
   String get settingsScreen74 => 'प्राइवेसी पॉलिसी और शर्तें';
@@ -3783,336 +3793,345 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cloudDeleteAccountDone => 'आपका क्लाउड अकाउंट हटा दिया गया';
 
   @override
-  String get authFirstTimeTitle => 'أهلاً بك في كشكول! 👋';
+  String get authFirstTimeTitle => 'कश्कूल में आपका स्वागत है! 👋';
 
   @override
-  String get authFirstTimeQuestion => 'هل عندك حساب بالفعل ولا مستخدم جديد؟';
+  String get authFirstTimeQuestion =>
+      'क्या आपके पास पहले से खाता है या आप नए उपयोगकर्ता हैं?';
 
   @override
-  String get authHaveAccount => 'عندي حساب بالفعل';
+  String get authHaveAccount => 'मेरे पास पहले से खाता है';
 
   @override
   String get authHaveAccountSubtitle =>
-      'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
+      'लॉग इन करें और आपकी दुकान का सारा डेटा तुरंत वापस आ जाएगा';
 
   @override
-  String get authNewUser => 'مستخدم جديد';
+  String get authNewUser => 'नया उपयोगकर्ता';
 
   @override
-  String get authNewUserSubtitle => 'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة';
+  String get authNewUserSubtitle =>
+      'नया कश्कूल शुरू करें और अपनी दुकान चरण-दर-चरण तैयार करें';
 
   @override
-  String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
+  String get authContinueGuest => 'अतिथि के रूप में जारी रखें (बिना खाते)';
 
   @override
   String get authContinueGuestSubtitle =>
-      'استخدم التطبيق محلياً بدون إنترنت خالص';
+      'ऐप का उपयोग पूरी तरह बिना इंटरनेट, केवल फ़ोन पर करें';
 
   @override
-  String get authLogin => 'تسجيل الدخول';
+  String get authLogin => 'लॉग इन';
 
   @override
-  String get authRegister => 'إنشاء حساب جديد';
+  String get authRegister => 'नया खाता बनाएँ';
 
   @override
-  String get authEmail => 'البريد الإلكتروني';
+  String get authEmail => 'ईमेल';
 
   @override
-  String get authPassword => 'كلمة المرور';
+  String get authPassword => 'पासवर्ड';
 
   @override
-  String get authPasswordConfirm => 'تأكيد كلمة المرور';
+  String get authPasswordConfirm => 'पासवर्ड की पुष्टि';
 
   @override
-  String get authNameOptional => 'الاسم (اختياري)';
+  String get authNameOptional => 'नाम (वैकल्पिक)';
 
   @override
-  String get authLoginButton => 'تسجيل الدخول';
+  String get authLoginButton => 'लॉग इन';
 
   @override
-  String get authRegisterButton => 'إنشاء حساب';
+  String get authRegisterButton => 'खाता बनाएँ';
 
   @override
-  String get authOrGoogle => 'أو المتابعة بحساب Google';
+  String get authOrGoogle => 'या Google खाते से जारी रखें';
 
   @override
-  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+  String get authSignInWithGoogle => 'Google से लॉग इन करें';
 
   @override
   String get authSignInWithGoogleSubtitle =>
-      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+      'क्लाउड सिंक और आपकी दुकान का डेटा अपने आप वापस';
 
   @override
-  String get authSwitchAccount => 'تبديل الحساب';
+  String get authSwitchAccount => 'खाता बदलें';
 
   @override
   String get authSwitchAccountSubtitle =>
-      'اختر حساباً آخر أو سجّل دخول بحساب جديد';
+      'दूसरा खाता चुनें या नए खाते से लॉग इन करें';
 
   @override
-  String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
+  String get authAddAccount => '+ दूसरे खाते से लॉग इन करें';
 
   @override
-  String get authCurrentAccount => 'الحساب النشط حالياً';
+  String get authCurrentAccount => 'अभी सक्रिय खाता';
 
   @override
-  String get authPasswordsDontMatch => 'كلمتا المرور غير متطابقتين';
+  String get authPasswordsDontMatch => 'पासवर्ड मेल नहीं खाते';
 
   @override
-  String get authPasswordTooShort => 'كلمة المرور لازم تكون 6 أحرف على الأقل';
+  String get authPasswordTooShort => 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए';
 
   @override
-  String get authInvalidEmail => 'اكتب بريد إلكتروني صحيح';
+  String get authInvalidEmail => 'सही ईमेल दर्ज करें';
 
   @override
-  String get authLoginSuccess => 'تم تسجيل الدخول بنجاح 🎉';
+  String get authLoginSuccess => 'लॉग इन सफल 🎉';
 
   @override
-  String get authRegisterSuccess => 'تم إنشاء الحساب بنجاح 🎉';
+  String get authRegisterSuccess => 'खाता सफलतापूर्वक बन गया 🎉';
 
   @override
   String authSwitchedTo(Object email) {
-    return 'تم التبديل إلى حساب: $email';
+    return 'खाता बदल गया: $email';
   }
 
   @override
-  String get cloudApiEmailTaken => 'البريد ده مسجل قبل كده، جرّب تسجّل دخول';
+  String get cloudApiEmailTaken =>
+      'यह ईमेल पहले से पंजीकृत है, लॉग इन करने की कोशिश करें';
 
   @override
-  String get cloudApiInvalidCredentials => 'البريد أو كلمة المرور مش صحيحة';
+  String get cloudApiInvalidCredentials => 'ईमेल या पासवर्ड गलत है';
 
   @override
-  String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
+  String get authBackupBeforeSwitchTitle => 'चेतावनी: डेटा सहेजा नहीं गया!';
 
   @override
   String get authBackupBeforeSwitchBody =>
-      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
+      'इस खाते का कुछ डेटा क्लाउड पर सहेजा नहीं गया है। अगर आप अभी खाता बदलते हैं तो स्थानीय डेटा मिट जाएगा और पहले बैकअप किए बिना वापस नहीं मिल सकेगा।';
 
   @override
-  String get authBackupFirst => 'اعمل نسخة احتياطية أولاً';
+  String get authBackupFirst => 'पहले बैकअप करें';
 
   @override
-  String get authSwitchWithoutBackup => 'تبديل ومسح البيانات المحلية';
+  String get authSwitchWithoutBackup => 'खाता बदलें और स्थानीय डेटा मिटाएँ';
 
   @override
-  String get authFetchingData => 'جاري جلب بياناتك من السحابة…';
+  String get authFetchingData => 'क्लाउड से आपका डेटा लाया जा रहा है…';
 
   @override
-  String get authEmailLoginButton => 'تسجيل الدخول بالبريد الإلكتروني';
+  String get authEmailLoginButton => 'ईमेल से लॉग इन करें';
 
   @override
-  String get authEmailRegisterButton => 'إنشاء حساب جديد بالبريد';
+  String get authEmailRegisterButton => 'ईमेल से नया खाता बनाएँ';
 
   @override
-  String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
+  String get authWipingData =>
+      'स्थानीय डेटा मिटाया जा रहा है और खाता बदला जा रहा है…';
 
   @override
-  String get offersBroadcasterTitle => 'رسائل العروض والمعايدات';
+  String get offersBroadcasterTitle => 'ऑफ़र और शुभकामना संदेश';
 
   @override
   String get offersBroadcasterSubtitle =>
-      'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة';
+      'एक टैप में बिना किसी खर्चे वाट्सऐप से ग्राहकों को ऑफ़र और शुभकामनाएँ भेजें';
 
   @override
-  String get offersTemplateSection => '1. اختر القالب';
+  String get offersTemplateSection => '1. टेम्पलेट चुनें';
 
   @override
-  String get offersAudienceSection => '2. اختر الجمهور المستهدف';
+  String get offersAudienceSection => '2. लक्ष्य दर्शक चुनें';
 
   @override
-  String get offersMessageSection => '3. نص الرسالة والمعاينة';
+  String get offersMessageSection => '3. संदेश और पूर्वावलोकन';
 
   @override
-  String get offersTemplateRamadan => 'رمضان المبارك 🌙';
+  String get offersTemplateRamadan => 'रमज़ान मुबारक 🌙';
 
   @override
-  String get offersTemplateEid => 'العيد المبارك 🎉';
+  String get offersTemplateEid => 'ईद मुबारक 🎉';
 
   @override
-  String get offersTemplateBackToSchool => 'دخول المدارس 📚';
+  String get offersTemplateBackToSchool => 'स्कूल शुरू 📚';
 
   @override
-  String get offersTemplateNewOffer => 'عروض جديدة 🎁';
+  String get offersTemplateNewOffer => 'नए ऑफ़र 🎁';
 
   @override
-  String get offersTemplateCustom => 'رسالة مخصصة ✍️';
+  String get offersTemplateCustom => 'कस्टम संदेश ✍️';
 
   @override
-  String get offersAudienceAllWithPhone => 'جميع العملاء برقم هاتف';
+  String get offersAudienceAllWithPhone => 'सभी ग्राहक जिनके पास फ़ोन नंबर है';
 
   @override
-  String get offersAudienceGoodRating => 'العملاء الملتزمون بالسداد (أخضر)';
+  String get offersAudienceGoodRating => 'समय पर भुगतान करने वाले ग्राहक (हरा)';
 
   @override
-  String get offersAudienceActive30Days => 'النشطون آخر 30 يوماً';
+  String get offersAudienceActive30Days => 'पिछले 30 दिनों में सक्रिय';
 
   @override
-  String get offersAudienceManual => 'اختيار يدوي مخصص';
+  String get offersAudienceManual => 'मैनुअल चयन';
 
   @override
   String get offersTipSpam =>
-      '💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.';
+      '💡 सुझाव: वाट्सऐप की पाबंदियों से बचने के लिए एक बार में 50 से ज़्यादा ग्राहकों को न भेजें।';
 
   @override
   String offersStartCampaign(Object count) {
-    return 'بدء طابور الإرسال ($count عميل)';
+    return 'भेजने की कतार शुरू करें ($count ग्राहक)';
   }
 
   @override
   String offersResumeCampaign(Object pending) {
-    return 'استئناف الحملة السابقة ($pending متبقي)';
+    return 'पिछला अभियान जारी रखें ($pending बाकी)';
   }
 
   @override
-  String get offersDiscardCampaign => 'بدء حملة جديدة بدلاً منها';
+  String get offersDiscardCampaign => 'इसके बजाय नया अभियान शुरू करें';
 
   @override
-  String get offersQueueTitle => 'طابور الإرسال';
+  String get offersQueueTitle => 'भेजने की कतार';
 
   @override
   String offersProgressLabel(Object sent, Object total, Object percent) {
-    return 'إرسال $sent من $total عميل ($percent%)';
+    return '$total में से $sent ग्राहकों को भेजा गया ($percent%)';
   }
 
   @override
-  String get offersSendViaWhatsApp => 'ابعت عبر واتساب';
+  String get offersSendViaWhatsApp => 'वाट्सऐप से भेजें';
 
   @override
-  String get offersSkipCustomer => 'تخطي العميل';
+  String get offersSkipCustomer => 'ग्राहक छोड़ें';
 
   @override
-  String get offersPauseQueue => 'إيقاف مؤقت والرجوع';
+  String get offersPauseQueue => 'रोकें और वापस जाएँ';
 
   @override
-  String get offersCampaignCompleteTitle => 'تم الانتهاء بنجاح! 🎉';
+  String get offersCampaignCompleteTitle => 'सफलतापूर्वक पूरा हुआ! 🎉';
 
   @override
   String get offersCampaignCompleteSubtitle =>
-      'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.';
+      'सभी चुने गए संदेश ग्राहकों को सफलतापूर्वक भेजे गए।';
 
   @override
   String get offersNoRecipients =>
-      'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف';
+      'ऐसे कोई ग्राहक नहीं मिले जो चुने गए फ़िल्टर से मेल खाते हों और उनके पास फ़ोन नंबर हो';
 
   @override
   String offersSelectManualCustomers(Object count) {
-    return 'تحديد العملاء ($count محدد)';
+    return 'ग्राहक चुनें ($count चुने गए)';
   }
 
   @override
-  String get offersSampleCustomerName => 'محمد أحمد';
+  String get offersSampleCustomerName => 'मोहम्मद अहमद';
 
   @override
-  String get offersInsertPlaceholderHint => 'اضغط لإدراج متغير في الرسالة:';
+  String get offersInsertPlaceholderHint =>
+      'संदेश में वेरिएबल डालने के लिए टैप करें:';
 
   @override
   String get offersDefaultRamadanText =>
-      'كل عام وحضرتك بخير يا {customer_name} بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من {shop_name} 🌙✨';
+      'हर साल आप खुश रहें, {customer_name} जी, रमज़ान मुबारक के मौके पर। {shop_name} की ओर से आपके और आपके परिवार के लिए यह महीना मुबारक हो 🌙✨';
 
   @override
   String get offersDefaultEidText =>
-      'عيد مبارك عليك وعلى أسرتك يا {customer_name}، كل سنة وحضرتك طيب وبصحة وسعادة من {shop_name} 🎉🐑';
+      'ईद मुबारक आपको और आपके परिवार को, {customer_name} जी। {shop_name} की ओर से हर साल आप अच्छे, स्वस्थ और खुश रहें 🎉🐑';
 
   @override
   String get offersDefaultBackToSchoolText =>
-      'عام دراسي جديد سعيد وموفق لأولادنا يا {customer_name}، متوفر لدينا كل ما يلزمكم في {shop_name} 📚✏️';
+      'हमारे बच्चों के लिए नया पढ़ाई साल खुशहाल और सफल हो, {customer_name} जी। {shop_name} में आपको जो चाहिए सब मिलेगा 📚✏️';
 
   @override
   String get offersDefaultNewOfferText =>
-      'أهلاً يا {customer_name}! عندنا عروض وتخفيضات جديدة ومميزة لك في {shop_name}، تشرفنا بزيارتك في أي وقت 🎁🔥';
+      'नमस्ते {customer_name} जी! {shop_name} में आपके लिए नए और खास ऑफ़र व छूट हैं, कभी भी आने पर हमें खुशी होगी 🎁🔥';
 
   @override
   String get offersDefaultCustomText =>
-      'أهلاً يا {customer_name}، تحياتنا لك من {shop_name} 👋';
+      'नमस्ते {customer_name} जी, {shop_name} की ओर से नमस्कार 👋';
 
   @override
   String offersSentSuccessPrompt(Object name) {
-    return 'هل تم إرسال الرسالة إلى $name بنجاح؟';
+    return 'क्या संदेश $name को सफलतापूर्वक भेजा गया?';
   }
 
   @override
-  String get offersYesSent => 'نعم، تم الإرسال';
+  String get offersYesSent => 'हाँ, भेजा गया';
 
   @override
-  String get offersNotSent => 'لم يتم الإرسال';
+  String get offersNotSent => 'नहीं भेजा गया';
 
   @override
-  String get offersPreviewCardTitle => 'معاينة الرسالة للعميل';
+  String get offersPreviewCardTitle => 'ग्राहक को दिखने वाला संदेश';
 
   @override
-  String get offersIncludeGrowthFooter => 'إضافة تذييل كشكول في نهاية الرسالة';
+  String get offersIncludeGrowthFooter =>
+      'संदेश के अंत में कश्कूल की पंक्ति जोड़ें';
 
   @override
   String offersCampaignActiveBanner(Object sent, Object total) {
-    return 'لديك حملة سابقة غير مكتملة ($sent من $total مرسل)';
+    return 'आपका पिछला अभियान अधूरा है ($sent में से $total भेजे गए)';
   }
 
   @override
-  String get notificationServiceInstallmentsChannelName => 'تذكير الأقساط';
+  String get notificationServiceInstallmentsChannelName =>
+      'किस्तों की याद दिलाना';
 
   @override
   String get notificationServiceInstallmentsChannelDesc =>
-      'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة';
+      'बकाया और लेट किस्तों की भुगतान तिथि की चेतावनियाँ';
 
   @override
   String get notificationServiceInstallmentsTitle =>
-      'تنبيه الأقساط المستحقة 🔔';
+      'बकाया किस्तों की चेतावनी 🔔';
 
   @override
   String notificationServiceInstallmentsBody(Object count, Object amountStr) {
-    return 'عندك $count أقساط مستحقة بإجمالي $amountStr — اضغط للمتابعة';
+    return 'आपकी $count किस्तें बकाया हैं, कुल $amountStr — जारी रखने के लिए टैप करें';
   }
 
   @override
-  String get notificationServiceBackupChannelName => 'تذكير النسخ الاحتياطي';
+  String get notificationServiceBackupChannelName => 'बैकअप की याद दिलाना';
 
   @override
   String get notificationServiceBackupChannelDesc =>
-      'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع';
+      'डेटा खराब होने से बचाने के लिए अपनी बही का बैकअप लेने की समय-समय पर चेतावनी';
 
   @override
   String get notificationServiceBackupTitle =>
-      'تنبيه: محتاج تعمل نسخة احتياطية ⚠️';
+      'चेतावनी: आपको बैकअप करना चाहिए ⚠️';
 
   @override
   String notificationServiceBackupBody(Object days) {
-    return 'فات $days أيام بدون حفظ نسخة احتياطية. اضغط لحفظ بياناتك الآن.';
+    return 'बैकअप किए $days दिन हो गए। अभी डेटा सहेजने के लिए टैप करें।';
   }
 
   @override
-  String get notificationServiceTestTitle => 'إشعار تجريبي من كشكول 🚀';
+  String get notificationServiceTestTitle => 'कश्कूल से टेस्ट सूचना 🚀';
 
   @override
   String get notificationServiceTestBody =>
-      'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍';
+      'सूचनाएँ ठीक से काम कर रही हैं और समय पर पहुँच रही हैं 👍';
 
   @override
-  String get notificationServiceSettingsReminderTime => 'وقت التذكير اليومي';
+  String get notificationServiceSettingsReminderTime =>
+      'रोज़ की याद दिलाने का समय';
 
   @override
   String get notificationServiceSettingsReminderTimeSubtitle =>
-      'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة';
+      'वसूली और बकाया किस्तों की रोज़ चेतावनी का समय';
 
   @override
-  String get notificationServiceSettingsStatus => 'إشعارات التطبيق';
+  String get notificationServiceSettingsStatus => 'ऐप की सूचनाएँ';
 
   @override
-  String get notificationServiceSettingsStatusActive => 'مفعلة وتعمل بنجاح ✓';
+  String get notificationServiceSettingsStatusActive =>
+      'चालू हैं और ठीक से काम कर रही हैं ✓';
 
   @override
   String get notificationServiceSettingsStatusDisabled =>
-      'متوقفة — اضغط لمنح الإذن';
+      'बंद हैं — अनुमति देने के लिए टैप करें';
 
   @override
-  String get notificationServiceSettingsSendTest => 'إرسال إشعار تجريبي الآن';
+  String get notificationServiceSettingsSendTest => 'अभी टेस्ट सूचना भेजें';
 
   @override
   String get notificationServiceSettingsSendTestSubtitle =>
-      'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً';
+      'अपने फ़ोन पर सूचना और आवाज़ तुरंत दिखने/सुनने की जाँच करें';
 
   @override
   String get notificationServiceSettingsSendTestSuccess =>
-      'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+      'टेस्ट सूचना भेजी गई! सूचना पट्टी देखें 👍';
 
   @override
   String get notificationServiceDailyScheduledTitle => 'वसूली का समय 💰';
@@ -4147,4 +4166,592 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get moreSettingsSubtitle => 'दुकान की जानकारी, सुरक्षा और बैकअप';
+
+  @override
+  String get moreProfitLossSubtitle => 'दुकान का शुद्ध लाभ और खर्च';
+
+  @override
+  String get moreShopReportSubtitle => 'कुल स्टॉक, नकदी और उधारी';
+
+  @override
+  String get notificationServiceGeneralChannelDesc =>
+      'कश्कोल सामान्य और परीक्षण सूचना चैनल';
+
+  @override
+  String get notificationServiceGeneralChannelName =>
+      'सामान्य और परीक्षण सूचनाएं';
+
+  @override
+  String notificationServiceLowStockBody(Object remainingStock) {
+    return 'स्टॉक में शेष: $remainingStock';
+  }
+
+  @override
+  String get notificationServiceLowStockChannelDesc =>
+      'न्यूनतम सीमा पर पहुंचने पर तुरंत सूचना';
+
+  @override
+  String get notificationServiceLowStockChannelName => 'कम स्टॉक अलर्ट';
+
+  @override
+  String get notificationServiceLowStockNoSupplierSuffix =>
+      ' स्टॉक जांचने और ऑर्डर के लिए दबाएं';
+
+  @override
+  String notificationServiceLowStockSupplierSuffix(Object supplierName) {
+    return ' सप्लायर: $supplierName — व्हाट्सएप पर ऑर्डर के लिए दबाएं';
+  }
+
+  @override
+  String notificationServiceLowStockTitle(Object productName) {
+    return '⚠️ कम स्टॉक चेतावनी: $productName';
+  }
+
+  @override
+  String get notificationServiceMultipleLowStockBody =>
+      'सप्लायर से ऑर्डर करने के लिए कम स्टॉक वाली वस्तुएं देखें।';
+
+  @override
+  String notificationServiceMultipleLowStockTitle(Object count) {
+    return '⚠️ $count वस्तुओं का स्टॉक कम हो गया है';
+  }
+
+  @override
+  String get pdfInvoiceCash => 'नकद';
+
+  @override
+  String get pdfInvoiceCredit => 'उधार बिक्री इनवॉइस';
+
+  @override
+  String pdfInvoiceNumber(Object shortSaleId) {
+    return 'इनवॉइस संख्या: #$shortSaleId';
+  }
+
+  @override
+  String get pdfInvoicePayCash => 'नकद भुगतान किया गया';
+
+  @override
+  String get pdfInvoicePayOnCredit => 'खाते में उधार दर्ज';
+
+  @override
+  String get pdfInvoicePaymentMethod => 'भुगतान का प्रकार:';
+
+  @override
+  String pdfInvoicePhone(Object phone) {
+    return 'फोन: $phone';
+  }
+
+  @override
+  String get pdfInvoicePrice => 'मूल्य';
+
+  @override
+  String get pdfInvoiceThankYou => 'हमारे साथ व्यापार करने के लिए धन्यवाद!';
+
+  @override
+  String get pdfInvoiceTotal => 'कुल योग';
+
+  @override
+  String get pdfPreviewErrorLabel => 'फ़ाइल बनाने में विफल';
+
+  @override
+  String get pdfPreviewPreparing => 'PDF दस्तावेज़ तैयार किया जा रहा है...';
+
+  @override
+  String get pdfPreviewPrint => 'सीधा प्रिंट';
+
+  @override
+  String get pdfPreviewRetry => 'पुनः प्रयास करें';
+
+  @override
+  String get pdfPreviewShare => 'PDF साझा करें';
+
+  @override
+  String get pdfReportAvailableAmount => 'उपलब्ध राशि';
+
+  @override
+  String get pdfReportCashInDrawer => 'दराज में नकद';
+
+  @override
+  String get pdfReportCashProfitNote =>
+      'कश्कोल नोट: शुद्ध नकद लाभ खर्चों के बाद प्राप्त वास्तविक राशि है। उधार लाभ वसूली के बाद नकद में बदलता है।';
+
+  @override
+  String get pdfReportCashVsCreditTitle => 'नकद बनाम उधार बिक्री तुलना';
+
+  @override
+  String get pdfReportCount => 'संख्या';
+
+  @override
+  String get pdfReportCustomerUnit => 'ग्राहक';
+
+  @override
+  String get pdfReportDateLabel => 'तारीख';
+
+  @override
+  String get pdfReportDebtSection => '2. देनदारियां और प्राप्य राशियां';
+
+  @override
+  String get pdfReportDigitalBalance => 'बैंक / डिजिटल वॉलेट शेष';
+
+  @override
+  String get pdfReportGrandTotal => 'कुल योग';
+
+  @override
+  String get pdfReportGrowthFooter =>
+      'कश्कोल ऐप द्वारा निर्मित — निःशुल्क खाता बही';
+
+  @override
+  String get pdfReportInventoryAtCost => 'लागत मूल्य पर स्टॉक का मूल्य';
+
+  @override
+  String get pdfReportInventoryAtRetail => 'बिक्री मूल्य पर स्टॉक का मूल्य';
+
+  @override
+  String get pdfReportInventorySection => '1. भंडार और इनवेंटरी';
+
+  @override
+  String get pdfReportInventorySubtitle =>
+      'स्टॉक मूल्यांकन और उपलब्धता की विस्तृत रिपोर्ट';
+
+  @override
+  String get pdfReportInventoryTitle => 'सामान्य इनवेंटरी मूल्यांकन रिपोर्ट';
+
+  @override
+  String get pdfReportInvoiceUnit => 'इनवॉइस';
+
+  @override
+  String get pdfReportItemUnit => 'वस्तुएं';
+
+  @override
+  String get pdfReportLiquiditySection => '3. उपलब्ध नकदी और तरलता';
+
+  @override
+  String get pdfReportLowStockLabel => 'कमी';
+
+  @override
+  String get pdfReportLowStockNeedOrder => 'ऑर्डर की आवश्यकता';
+
+  @override
+  String get pdfReportLowStockSubtitle =>
+      'कम स्टॉक वाली वस्तुओं और कीमतों की पूरी सूची';
+
+  @override
+  String get pdfReportLowStockTitle => 'कम स्टॉक और सप्लायर ऑर्डर रिपोर्ट';
+
+  @override
+  String get pdfReportMinimum => 'न्यूनतम सीमा';
+
+  @override
+  String get pdfReportMovementUnit => 'प्रविष्टियां';
+
+  @override
+  String get pdfReportNetWorthFormula =>
+      '= (लागत पर स्टॉक + नकद व बैंक + प्राप्य) - सप्लायर देनदारियां';
+
+  @override
+  String get pdfReportOperatingExpenses => 'परिचालन व्यय (दराज से कटौती)';
+
+  @override
+  String get pdfReportOutOfStock => 'स्टॉक समाप्त';
+
+  @override
+  String get pdfReportParty => 'पक्ष / श्रेणी';
+
+  @override
+  String get pdfReportProductCountLabel => 'कुल वस्तुओं की संख्या';
+
+  @override
+  String get pdfReportProfitLossTitle => 'लाभ और हानि रिपोर्ट';
+
+  @override
+  String get pdfReportRowNumber => '#';
+
+  @override
+  String get pdfReportSalesCount => 'बिक्री संख्या';
+
+  @override
+  String get pdfReportSalesRevenue => 'बिक्री आय';
+
+  @override
+  String get pdfReportShopOverviewSubtitle =>
+      'स्टॉक, देनदारियों और नकदी का व्यापक विवरण';
+
+  @override
+  String get pdfReportShopOverviewTitle => 'दुकान की वित्तीय स्थिति रिपोर्ट';
+
+  @override
+  String get pdfReportSource => 'स्रोत / मद';
+
+  @override
+  String get pdfReportStatus => 'स्थिति';
+
+  @override
+  String get pdfReportSupplier => 'सप्लायर';
+
+  @override
+  String get pdfReportSupplierPhone => 'सप्लायर फोन';
+
+  @override
+  String get pdfReportSupplierUnit => 'सप्लायर्स';
+
+  @override
+  String get pdfReportTotalCashAvailable => 'कुल उपलब्ध नकदी';
+
+  @override
+  String get pdfReportTotalCost => 'कुल लागत';
+
+  @override
+  String get pdfReportTotalCostLabel => 'लागत पर कुल मूल्य';
+
+  @override
+  String get pdfReportTotalNetProfit => 'दुकान का कुल शुद्ध लाभ';
+
+  @override
+  String get pdfReportTotalProducts => 'कुल उत्पाद';
+
+  @override
+  String get pdfReportValueCountHeader => 'राशि / संख्या';
+
+  @override
+  String get quickPosDoneNewSale => 'पूर्ण · नई बिक्री';
+
+  @override
+  String quickPosFetchLastInvoiceFailed(Object e) {
+    return 'पिछला इनवॉइस नहीं लाया जा सका: $e';
+  }
+
+  @override
+  String get quickPosInvoiceOptions => 'इनवॉइस विकल्प';
+
+  @override
+  String quickPosInvoiceTotal(Object total) {
+    return 'इनवॉइस कुल: $total';
+  }
+
+  @override
+  String quickPosItemsCount(Object count) {
+    return 'कार्ट में $count वस्तुएं';
+  }
+
+  @override
+  String get quickPosLastInvoiceNoItems => 'पिछले इनवॉइस में कोई वस्तु नहीं है';
+
+  @override
+  String get quickPosNoItemsToPreview =>
+      'इस इनवॉइस में पूर्वावलोकन के लिए कुछ नहीं है';
+
+  @override
+  String get quickPosNoItemsToPrint =>
+      'इस इनवॉइस में प्रिंट करने के लिए कुछ नहीं है';
+
+  @override
+  String get quickPosNoPreviousInvoices => 'अभी तक कोई बिक्री इनवॉइस नहीं है';
+
+  @override
+  String quickPosOpenInvoiceFailed(Object e) {
+    return 'इनवॉइस खोलने में विफल: $e';
+  }
+
+  @override
+  String get quickPosOutOfStock => 'स्टॉक समाप्त';
+
+  @override
+  String get quickPosPaymentMethod => 'भुगतान का प्रकार';
+
+  @override
+  String get quickPosPreviewBeforeSave => 'सहेजने से पहले इनवॉइस देखें';
+
+  @override
+  String get quickPosPreviewCurrentInvoice => 'वर्तमान इनवॉइस देखें';
+
+  @override
+  String quickPosPreviewFailed(Object e) {
+    return 'पूर्वावलोकन खोलने में विफल: $e';
+  }
+
+  @override
+  String get quickPosPreviewFileName => 'इनवॉइस_पूर्वावलोकन.pdf';
+
+  @override
+  String get quickPosPreviewLabel => 'पूर्वावलोकन';
+
+  @override
+  String get quickPosPreviewPrintCurrent => 'प्रिंट और पूर्वावलोकन';
+
+  @override
+  String get quickPosPreviewSharePdf => 'पूर्वावलोकन और PDF साझा करें';
+
+  @override
+  String quickPosPrintFailed(Object e) {
+    return 'इनवॉइस प्रिंट करने में विफल: $e';
+  }
+
+  @override
+  String get quickPosPrintLastInvoice => 'अंतिम इनवॉइस पुनः प्रिंट करें';
+
+  @override
+  String get quickPosPrintThermalReceipt => 'थर्मल रसीद प्रिंट करें (80mm)';
+
+  @override
+  String get quickPosReceiveCash => 'नकद प्राप्त करें';
+
+  @override
+  String get quickPosRecordOnAccount => 'खाते में दर्ज करें';
+
+  @override
+  String quickPosSaleInvoiceFileName(Object shortId) {
+    return 'बिक्री_इनवॉइस_$shortId.pdf';
+  }
+
+  @override
+  String quickPosSaleInvoiceTitle(Object shortId) {
+    return 'बिक्री इनवॉइस #$shortId';
+  }
+
+  @override
+  String get quickPosSaleSavedSuccessfully => 'बिक्री सफलतापूर्वक सहेजी गई!';
+
+  @override
+  String get quickPosSaveAndPrint => 'सहेजें और प्रिंट करें';
+
+  @override
+  String get quickPosSaveAndPrintTooltip =>
+      'बिक्री सहेजें और तुरंत रसीद प्रिंट करें';
+
+  @override
+  String get quickPosSavingAndPrinting =>
+      'बिक्री सहेजी गई, प्रिंट हो रही है...';
+
+  @override
+  String get quickPosTapToAdd => 'जोड़ने के लिए दबाएं';
+
+  @override
+  String get quickPosTapToAddToCart => 'कार्ट में जोड़ने के लिए वस्तु दबाएं';
+
+  @override
+  String genericError(Object err) {
+    return 'त्रुटि उत्पन्न हुई: $err';
+  }
+
+  @override
+  String get inventoryPdfExportTooltip =>
+      'स्टॉक रिपोर्ट PDF प्रिंट और निर्यात करें';
+
+  @override
+  String inventoryPdfFileNameFull(Object dateStr) {
+    return 'सामान्य_स्टॉक_मूल्यांकन_$dateStr.pdf';
+  }
+
+  @override
+  String inventoryPdfFileNameLowStock(Object dateStr) {
+    return 'कम_स्टॉक_रिपोर्ट_$dateStr.pdf';
+  }
+
+  @override
+  String get inventoryPdfMenuFull => 'पूर्ण स्टॉक रिपोर्ट प्रिंट करें';
+
+  @override
+  String get inventoryPdfMenuLowStock =>
+      'केवल कम स्टॉक वाली वस्तुएं प्रिंट करें';
+
+  @override
+  String get inventoryPdfTitleFull => 'सामान्य इनवेंटरी मूल्यांकन रिपोर्ट';
+
+  @override
+  String get inventoryPdfTitleLowStock => 'कम स्टॉक वस्तुओं की रिपोर्ट';
+
+  @override
+  String get notificationServiceSettingsSendTestFailure =>
+      'परीक्षण सूचना भेजने में विफल — कृपया सूचना अनुमतियों की जांच करें';
+
+  @override
+  String get printExportPdf => 'PDF प्रिंट और निर्यात करें';
+
+  @override
+  String get profitLossAccountingTipBody =>
+      'शुद्ध नकद लाभ लागत और खर्चों के बाद गल्ले में बची वास्तविक राशि है। उधार लाभ वसूली पर नकद में बदलता है।';
+
+  @override
+  String get profitLossAccountingTipTitle => 'कश्कोल से लेखांकन सुझाव';
+
+  @override
+  String get profitLossCashBadge => 'नकद';
+
+  @override
+  String get profitLossCreditBadge => 'उधार';
+
+  @override
+  String profitLossNetCalculation(Object netCash, Object netCredit) {
+    return '= $netCash नकद + $netCredit उधार';
+  }
+
+  @override
+  String profitLossRecordedSales(Object salesCount) {
+    return '$salesCount बिक्री इनवॉइस दर्ज हैं';
+  }
+
+  @override
+  String profitLossReportFileName(Object dateStr) {
+    return 'लाभ_हानि_रिपोर्ट_$dateStr.pdf';
+  }
+
+  @override
+  String get profitLossReportTitle => 'लाभ और हानि रिपोर्ट';
+
+  @override
+  String restockAvailable(Object stock, Object unit) {
+    return 'उपलब्ध: $stock $unit';
+  }
+
+  @override
+  String get restockCopiedToClipboard =>
+      'ऑर्डर संदेश क्लिपबोर्ड पर कॉपी हो गया!';
+
+  @override
+  String restockError(Object err) {
+    return 'उत्पाद लोड करने में विफल: $err';
+  }
+
+  @override
+  String get restockLinkProductsHint =>
+      '1-टैप में ऑर्डर करने के लिए स्टॉक स्क्रीन से उत्पादों को इस सप्लायर से लिंक करें।';
+
+  @override
+  String get restockMessageFooter =>
+      'कृपया ऑर्डर प्राप्ति और डिलीवरी समय की पुष्टि करें।';
+
+  @override
+  String restockMessageGreeting(Object supplierName) {
+    return 'नमस्ते $supplierName';
+  }
+
+  @override
+  String get restockMessageHeader =>
+      'दुकान के लिए निम्नलिखित वस्तुओं का ऑर्डर आवश्यक है:';
+
+  @override
+  String restockMessageItem(Object name, Object qty, Object unit) {
+    return '• $name — आवश्यक: $qty $unit';
+  }
+
+  @override
+  String restockMessageShop(Object shopName) {
+    return '$shopName की ओर से';
+  }
+
+  @override
+  String get restockMessageThanks => 'बहुत-बहुत धन्यवाद!';
+
+  @override
+  String get restockSelectProductsHint =>
+      'व्हाट्सएप पर ऑर्डर करने के लिए कम स्टॉक वाली वस्तुएं और मात्रा चुनें:';
+
+  @override
+  String get restockSendWhatsApp => 'व्हाट्सएप के माध्यम से ऑर्डर भेजें';
+
+  @override
+  String get shopReportCashInDrawerLabel => 'दराज में नकद:';
+
+  @override
+  String get shopReportCopiedToClipboard =>
+      'वित्तीय स्थिति रिपोर्ट क्लिपबोर्ड पर कॉपी हो गई!';
+
+  @override
+  String get shopReportCustomersWithDues => 'उधारी वाले ग्राहक:';
+
+  @override
+  String get shopReportDigitalBalanceLabel => 'बैंक / डिजिटल वॉलेट शेष:';
+
+  @override
+  String shopReportFileName(Object dateStr) {
+    return 'दुकान_वित्तीय_स्थिति_$dateStr.pdf';
+  }
+
+  @override
+  String shopReportLowStockOf(Object count, Object total) {
+    return '$total में से $count वस्तुएं कम हैं';
+  }
+
+  @override
+  String get shopReportNetWorthFormula =>
+      '= (लागत पर स्टॉक + नकद व बैंक + प्राप्य) - सप्लायर देनदारियां';
+
+  @override
+  String shopReportSupplierCount(Object count) {
+    return '$count सप्लायर्स';
+  }
+
+  @override
+  String get shopReportSuppliersOwed => 'देनदारी वाले सप्लायर्स:';
+
+  @override
+  String get shopReportTextCashAvailable => '--- उपलब्ध नकदी और तरलता ---';
+
+  @override
+  String shopReportTextCashInDrawer(Object amount) {
+    return '• दराज में नकद: $amount';
+  }
+
+  @override
+  String shopReportTextDate(Object dateStr) {
+    return 'तारीख: $dateStr';
+  }
+
+  @override
+  String shopReportTextDigitalBalance(Object amount) {
+    return '• बैंक / वॉलेट: $amount';
+  }
+
+  @override
+  String shopReportTextExpectedProfit(Object profit) {
+    return '• स्टॉक से अपेक्षित लाभ: $profit';
+  }
+
+  @override
+  String get shopReportTextFooter => 'रिपोर्ट कश्कोल ऐप द्वारा तैयार की गई है';
+
+  @override
+  String get shopReportTextInventory => '--- भंडार और इनवेंटरी ---';
+
+  @override
+  String shopReportTextNetWorth(Object netWorth) {
+    return 'दुकान की कुल संपत्ति: $netWorth';
+  }
+
+  @override
+  String shopReportTextPayables(Object amount, Object count) {
+    return '• सप्लायर देनदारियां: $amount ($count सप्लायर्स)';
+  }
+
+  @override
+  String shopReportTextProductCounts(Object total, Object low) {
+    return '• कुल उत्पाद: $total ($low कम स्टॉक)';
+  }
+
+  @override
+  String shopReportTextReceivables(Object amount, Object count) {
+    return '• ग्राहक प्राप्य: $amount ($count ग्राहक)';
+  }
+
+  @override
+  String shopReportTextShop(Object shopName) {
+    return 'दुकान: $shopName';
+  }
+
+  @override
+  String get shopReportTextTitle => '=== दुकान वित्तीय स्थिति रिपोर्ट ===';
+
+  @override
+  String shopReportTextTotalCash(Object amount) {
+    return '• कुल उपलब्ध नकदी: $amount';
+  }
+
+  @override
+  String get shopReportTotalCashLabel => 'कुल उपलब्ध नकदी:';
+
+  @override
+  String get shopReportTotalCustomerDues => 'कुल ग्राहक उधारी:';
+
+  @override
+  String get shopReportTotalSupplierDues => 'कुल सप्लायर देनदारियां:';
 }

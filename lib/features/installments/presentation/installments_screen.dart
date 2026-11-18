@@ -199,24 +199,26 @@ class _InstallmentsScreenState extends ConsumerState<InstallmentsScreen> {
               data: (plans) {
                 if (plans.isEmpty) {
                   return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.receipt_long_outlined,
-                            size: 64,
+                            size: 56,
                             color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
                           Text(
                             _searchController.text.isNotEmpty
                                 ? L10n.t.installmentsScreen11
                                 : L10n.t.installmentsScreen12,
+                            textAlign: TextAlign.center,
                             style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 6),
                           Text(
                             L10n.t.installmentsScreen13,
                             textAlign: TextAlign.center,

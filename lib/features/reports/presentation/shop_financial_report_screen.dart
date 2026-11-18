@@ -20,30 +20,72 @@ class ShopFinancialReportScreen extends ConsumerWidget {
   String _buildReportText(String shopName, ShopFinancialOverview overview) {
     final buffer = StringBuffer();
     final dateStr = DateFormat('yyyy/MM/dd - hh:mm a').format(overview.generatedAt);
+    final strings = L10n.t;
 
-    buffer.writeln('📊 تقرير المحل المالي الشامل');
+    buffer.writeln(strings.shopReportTextTitle);
     if (shopName.isNotEmpty) {
-      buffer.writeln('🏪 محل: $shopName');
+      buffer.writeln(strings.shopReportTextShop(shopName));
     }
-    buffer.writeln('🕒 التاريخ: $dateStr');
+    buffer.writeln(strings.shopReportTextDate(dateStr));
     buffer.writeln('---------------------------');
-    buffer.writeln('💰 صافي رأس مال المحل: ${MoneyUtils.formatMoney(overview.netWorthPiasters)}');
+    buffer.writeln(
+      strings.shopReportTextNetWorth(
+        MoneyUtils.formatMoney(overview.netWorthPiasters),
+      ),
+    );
     buffer.writeln();
-    buffer.writeln('📦 بضاعة المخزن:');
-    buffer.writeln('• بسعر الشراء (التكلفة): ${MoneyUtils.formatMoney(overview.inventoryCostPiasters)}');
-    buffer.writeln('• بسعر البيع (المتوقع): ${MoneyUtils.formatMoney(overview.inventoryRetailPiasters)}');
-    buffer.writeln('• الربح المتوقع: ${MoneyUtils.formatMoney(overview.inventoryExpectedProfitPiasters)}');
-    buffer.writeln('• إجمالي الأصناف: ${overview.totalProductCount} (نواقص: ${overview.lowStockCount})');
+    buffer.writeln(strings.shopReportTextInventory);
+    buffer.writeln(
+      '• ${strings.shopReportAtCost}: '
+      '${MoneyUtils.formatMoney(overview.inventoryCostPiasters)}',
+    );
+    buffer.writeln(
+      '• ${strings.shopReportAtRetail}: '
+      '${MoneyUtils.formatMoney(overview.inventoryRetailPiasters)}',
+    );
+    buffer.writeln(
+      strings.shopReportTextExpectedProfit(
+        MoneyUtils.formatMoney(overview.inventoryExpectedProfitPiasters),
+      ),
+    );
+    buffer.writeln(
+      strings.shopReportTextProductCounts(
+        overview.totalProductCount,
+        overview.lowStockCount,
+      ),
+    );
     buffer.writeln();
-    buffer.writeln('👥 لينا عند الزباين (ديون): ${MoneyUtils.formatMoney(overview.customerReceivablesPiasters)} (${overview.customerDebtCount} عميل)');
-    buffer.writeln('🚚 علينا للموردين (ديون): ${MoneyUtils.formatMoney(overview.supplierPayablesPiasters)} (${overview.supplierDebtCount} مورد)');
+    buffer.writeln(
+      strings.shopReportTextReceivables(
+        MoneyUtils.formatMoney(overview.customerReceivablesPiasters),
+        overview.customerDebtCount,
+      ),
+    );
+    buffer.writeln(
+      strings.shopReportTextPayables(
+        MoneyUtils.formatMoney(overview.supplierPayablesPiasters),
+        overview.supplierDebtCount,
+      ),
+    );
     buffer.writeln();
-    buffer.writeln('💵 النقدية المتاحة:');
-    buffer.writeln('• كاش بالدرج: ${MoneyUtils.formatMoney(overview.cashInDrawerPiasters)}');
-    buffer.writeln('• رصيد إلكتروني (إنستاباي/محافظ): ${MoneyUtils.formatMoney(overview.digitalBalancePiasters)}');
-    buffer.writeln('• إجمالي الفلوس بالدرج والبنك: ${MoneyUtils.formatMoney(overview.totalCashAndBankPiasters)}');
+    buffer.writeln(strings.shopReportTextCashAvailable);
+    buffer.writeln(
+      strings.shopReportTextCashInDrawer(
+        MoneyUtils.formatMoney(overview.cashInDrawerPiasters),
+      ),
+    );
+    buffer.writeln(
+      strings.shopReportTextDigitalBalance(
+        MoneyUtils.formatMoney(overview.digitalBalancePiasters),
+      ),
+    );
+    buffer.writeln(
+      strings.shopReportTextTotalCash(
+        MoneyUtils.formatMoney(overview.totalCashAndBankPiasters),
+      ),
+    );
     buffer.writeln('---------------------------');
-    buffer.writeln('تم استخراج التقرير بواسطة كشكول 📒');
+    buffer.writeln(strings.shopReportTextFooter);
     return buffer.toString();
   }
 
@@ -63,7 +105,7 @@ class ShopFinancialReportScreen extends ConsumerWidget {
     if (context.mounted) {
       AppGlassToast.showSuccess(
         context,
-        'تم نسخ ملخص التقرير للحافظة بنجاح',
+        L10n.t.shopReportCopiedToClipboard,
       );
     }
   }
@@ -86,7 +128,7 @@ class ShopFinancialReportScreen extends ConsumerWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.picture_as_pdf_rounded),
-                  tooltip: 'طباعة وتصدير PDF',
+                  tooltip: L10n.t.printExportPdf,
                   onPressed: () async {
                     final shopPhone = activeShopAsync.value?.phone;
                     final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
@@ -95,8 +137,8 @@ class ShopFinancialReportScreen extends ConsumerWidget {
                     await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => PdfPreviewScreen(
-                          title: 'تقرير المحل الشامل',
-                          fileName: 'تقرير_المحل_الشامل_$dateStr.pdf',
+                          title: L10n.t.shopReportTitle,
+                          fileName: L10n.t.shopReportFileName(dateStr),
                           generator: (format) => ref.read(pdfReportsServiceProvider).generateShopOverviewPdf(
                                 overview: overview,
                                 shopName: shopName.isNotEmpty ? shopName : L10n.pdf.main1,
@@ -122,7 +164,7 @@ class ShopFinancialReportScreen extends ConsumerWidget {
       ),
       body: overviewAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, _) => Center(child: Text('خطأ: $err')),
+        error: (err, _) => Center(child: Text(L10n.t.genericError(err))),
         data: (overview) {
           return ListView(
             padding: const EdgeInsets.all(16),
@@ -167,8 +209,8 @@ class ShopFinancialReportScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      '(بضاعة المخزن + الفلوس بالدرج + ديون الزباين) - ديون الموردين',
+                    Text(
+                      L10n.t.shopReportNetWorthFormula,
                       style: TextStyle(
                         color: Colors.white60,
                         fontSize: 12,
@@ -203,7 +245,10 @@ class ShopFinancialReportScreen extends ConsumerWidget {
                   ),
                   _InfoRow(
                     label: L10n.t.shopReportLowStockCount,
-                    value: '${overview.lowStockCount} من أصل ${overview.totalProductCount}',
+                    value: L10n.t.shopReportLowStockOf(
+                      overview.lowStockCount,
+                      overview.totalProductCount,
+                    ),
                     color: overview.lowStockCount > 0 ? AppColors.debtRed : null,
                   ),
                 ],
@@ -218,14 +263,14 @@ class ShopFinancialReportScreen extends ConsumerWidget {
                 iconColor: AppColors.paymentGreen,
                 rows: [
                   _InfoRow(
-                    label: 'إجمالي المبالغ المطلوبة من العملاء',
+                    label: L10n.t.shopReportTotalCustomerDues,
                     value: MoneyUtils.formatMoney(overview.customerReceivablesPiasters),
                     color: AppColors.paymentGreen,
                     isBold: true,
                   ),
                   _InfoRow(
-                    label: 'عدد العملاء الذين عليهم مبالغ',
-                    value: '${overview.customerDebtCount} عميل',
+                    label: L10n.t.shopReportCustomersWithDues,
+                    value: L10n.t.dueCustomersCount(overview.customerDebtCount),
                   ),
                 ],
               ),
@@ -239,14 +284,14 @@ class ShopFinancialReportScreen extends ConsumerWidget {
                 iconColor: AppColors.debtRed,
                 rows: [
                   _InfoRow(
-                    label: 'إجمالي المستحق عليك للموردين',
+                    label: L10n.t.shopReportTotalSupplierDues,
                     value: MoneyUtils.formatMoney(overview.supplierPayablesPiasters),
                     color: AppColors.debtRed,
                     isBold: true,
                   ),
                   _InfoRow(
-                    label: 'عدد الموردين المستحق لهم',
-                    value: '${overview.supplierDebtCount} مورد',
+                    label: L10n.t.shopReportSuppliersOwed,
+                    value: L10n.t.shopReportSupplierCount(overview.supplierDebtCount),
                   ),
                 ],
               ),
@@ -260,15 +305,15 @@ class ShopFinancialReportScreen extends ConsumerWidget {
                 iconColor: const Color(0xFFF59E0B),
                 rows: [
                   _InfoRow(
-                    label: 'كاش في درج المحل',
+                    label: L10n.t.shopReportCashInDrawerLabel,
                     value: MoneyUtils.formatMoney(overview.cashInDrawerPiasters),
                   ),
                   _InfoRow(
-                    label: 'رصيد محافظ وإنستاباي',
+                    label: L10n.t.shopReportDigitalBalanceLabel,
                     value: MoneyUtils.formatMoney(overview.digitalBalancePiasters),
                   ),
                   _InfoRow(
-                    label: 'إجمالي النقدية',
+                    label: L10n.t.shopReportTotalCashLabel,
                     value: MoneyUtils.formatMoney(overview.totalCashAndBankPiasters),
                     color: const Color(0xFFF59E0B),
                     isBold: true,

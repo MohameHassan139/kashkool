@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart' show Intl;
 import 'app_localizations.dart';
 
 /// A language the user can pick in Settings → Language.
@@ -55,9 +59,13 @@ abstract final class L10n {
   static bool get pdfIsRtl => _locale.languageCode != 'hi' && isRtl;
 
   static void setLocale(Locale locale) {
-    if (locale == _locale) return;
     _locale = locale;
     _t = lookupAppLocalizations(locale);
+    // DateFormat/NumberFormat calls across the app have no explicit locale;
+    // Intl.defaultLocale makes them follow the selected language (AM/PM,
+    // month and weekday names, digit grouping).
+    Intl.defaultLocale = locale.toString();
+    unawaited(initializeDateFormatting(locale.toString()).catchError((Object _) {}));
   }
 
   /// The saved setting (`system`, `ar_EG`, `en`, …) → a locale, or null to follow the phone.

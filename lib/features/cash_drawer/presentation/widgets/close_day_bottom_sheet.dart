@@ -5,6 +5,7 @@ import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/adaptive_text.dart';
 import 'package:kashkool/shared/widgets/glass_toast.dart';
 
 /// Modal bottom sheet for performing end-of-day drawer closing and counting.
@@ -160,12 +161,14 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    MoneyUtils.formatMoney(expected),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
+                  Flexible(
+                    child: AdaptiveAmountText(
+                      MoneyUtils.formatMoney(expected),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
                     ),
                   ),
                 ],
@@ -235,28 +238,33 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
                                   : AppColors.warningAmber,
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          diff == 0
-                              ? l10n.drawerBalanced
-                              : diff < 0
-                                  ? l10n.drawerShortage
-                                  : l10n.drawerSurplus,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: diff == 0
-                                ? AppColors.paymentGreen
+                        Flexible(
+                          child: AdaptiveText(
+                            diff == 0
+                                ? l10n.drawerBalanced
                                 : diff < 0
-                                    ? AppColors.debtRed
-                                    : AppColors.warningAmber,
+                                    ? l10n.drawerShortage
+                                    : l10n.drawerSurplus,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: diff == 0
+                                  ? AppColors.paymentGreen
+                                  : diff < 0
+                                      ? AppColors.debtRed
+                                      : AppColors.warningAmber,
+                            ),
                           ),
                         ),
                       ],
                     ),
                     if (diff != 0) ...[
                       const SizedBox(height: 8),
-                      Text(
+                      AdaptiveText(
                         l10n.differenceAmount(MoneyUtils.formatMoney(diff)),
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -287,8 +295,9 @@ class _CloseDayBottomSheetState extends ConsumerState<CloseDayBottomSheet> {
               child: FilledButton.icon(
                 onPressed: (_enteredActualPiasters == null || _isSubmitting) ? null : _submit,
                 icon: const Icon(Icons.lock_rounded, size: 24),
-                label: Text(
+                label: AdaptiveText(
                   l10n.confirmCloseDay,
+                  maxLines: 1,
                   style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 style: FilledButton.styleFrom(

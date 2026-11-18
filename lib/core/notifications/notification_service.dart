@@ -35,7 +35,9 @@ class NotificationService implements ReminderNotifier {
   }) async {
     if (_isInitialized) return;
 
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidSettings = AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
     const darwinSettings = DarwinInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
@@ -64,14 +66,18 @@ class NotificationService implements ReminderNotifier {
   Future<bool> requestPermissions() async {
     try {
       final androidImpl = _notificationsPlugin
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
       if (androidImpl != null) {
         final granted = await androidImpl.requestNotificationsPermission();
         return granted ?? false;
       }
 
       final iosImpl = _notificationsPlugin
-          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+          .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin
+          >();
       if (iosImpl != null) {
         final granted = await iosImpl.requestPermissions(
           alert: true,
@@ -91,7 +97,8 @@ class NotificationService implements ReminderNotifier {
   /// state (Android/iOS only report it once, at startup).
   Future<String?> getLaunchPayload() async {
     try {
-      final details = await _notificationsPlugin.getNotificationAppLaunchDetails();
+      final details = await _notificationsPlugin
+          .getNotificationAppLaunchDetails();
       if (details?.didNotificationLaunchApp != true) return null;
       return details?.notificationResponse?.payload;
     } catch (e) {
@@ -104,7 +111,9 @@ class NotificationService implements ReminderNotifier {
   Future<bool> isPermissionGranted() async {
     try {
       final androidImpl = _notificationsPlugin
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
       if (androidImpl != null) {
         final granted = await androidImpl.areNotificationsEnabled();
         return granted ?? false;
@@ -145,7 +154,8 @@ class NotificationService implements ReminderNotifier {
     return tz.TZDateTime.from(next, tz.local);
   }
 
-  AndroidNotificationDetails get _collectionAndroidDetails => AndroidNotificationDetails(
+  AndroidNotificationDetails get _collectionAndroidDetails =>
+      AndroidNotificationDetails(
         'daily_collection_channel',
         L10n.t.notificationService1,
         channelDescription: L10n.t.notificationService2,
@@ -162,7 +172,10 @@ class NotificationService implements ReminderNotifier {
   /// This is the safety net for the background worker: aggressive OEM battery
   /// managers throttle WorkManager, but the OS alarm still fires.
   @override
-  Future<void> scheduleDailyReminder({required int hour, required int minute}) async {
+  Future<void> scheduleDailyReminder({
+    required int hour,
+    required int minute,
+  }) async {
     if (_scheduledHour == hour && _scheduledMinute == minute) return;
 
     await initialize();
@@ -173,7 +186,9 @@ class NotificationService implements ReminderNotifier {
     var scheduleMode = AndroidScheduleMode.inexactAllowWhileIdle;
     try {
       final androidImpl = _notificationsPlugin
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
       final canExact = await androidImpl?.canScheduleExactNotifications();
       if (canExact == true) {
         scheduleMode = AndroidScheduleMode.exactAllowWhileIdle;
@@ -330,10 +345,10 @@ class NotificationService implements ReminderNotifier {
     String? supplierName,
     String? supplierPhone,
   }) async {
-    const androidDetails = AndroidNotificationDetails(
+    final androidDetails = AndroidNotificationDetails(
       'low_stock_channel',
-      'تنبيهات نواقص البضاعة',
-      channelDescription: 'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون',
+      L10n.t.notificationServiceLowStockChannelName,
+      channelDescription: L10n.t.notificationServiceLowStockChannelDesc,
       importance: Importance.high,
       priority: Priority.high,
       playSound: true,
@@ -341,26 +356,26 @@ class NotificationService implements ReminderNotifier {
       showWhen: true,
     );
 
-    const notificationDetails = NotificationDetails(
+    final notificationDetails = NotificationDetails(
       android: androidDetails,
-      iOS: DarwinNotificationDetails(
+      iOS: const DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
       ),
     );
 
-    String body = 'المتبقي بالمخزن: $remainingStock.';
+    String body = L10n.t.notificationServiceLowStockBody(remainingStock);
     if (supplierName != null && supplierName.isNotEmpty) {
-      body += ' المورد: $supplierName — اضغط لطلب البضاعة عبر واتساب';
+      body += L10n.t.notificationServiceLowStockSupplierSuffix(supplierName);
     } else {
-      body += ' اضغط لتفقد المخزون وتحديث النواقص';
+      body += L10n.t.notificationServiceLowStockNoSupplierSuffix;
     }
 
     final notifId = 2000 + (productName.hashCode.abs() % 900);
     await _notificationsPlugin.show(
       id: notifId,
-      title: '⚠️ بضاعة وصلت للنواقص: $productName',
+      title: L10n.t.notificationServiceLowStockTitle(productName),
       body: body,
       notificationDetails: notificationDetails,
       payload: '/inventory',
@@ -369,15 +384,13 @@ class NotificationService implements ReminderNotifier {
 
   /// Displays a notification when multiple items need restocking.
   @override
-  Future<void> showMultipleLowStockNotification({
-    required int count,
-  }) async {
+  Future<void> showMultipleLowStockNotification({required int count}) async {
     if (count <= 0) return;
 
-    const androidDetails = AndroidNotificationDetails(
+    final androidDetails = AndroidNotificationDetails(
       'low_stock_channel',
-      'تنبيهات نواقص البضاعة',
-      channelDescription: 'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون',
+      L10n.t.notificationServiceLowStockChannelName,
+      channelDescription: L10n.t.notificationServiceLowStockChannelDesc,
       importance: Importance.high,
       priority: Priority.high,
       playSound: true,
@@ -385,9 +398,9 @@ class NotificationService implements ReminderNotifier {
       showWhen: true,
     );
 
-    const notificationDetails = NotificationDetails(
+    final notificationDetails = NotificationDetails(
       android: androidDetails,
-      iOS: DarwinNotificationDetails(
+      iOS: const DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
@@ -396,8 +409,8 @@ class NotificationService implements ReminderNotifier {
 
     await _notificationsPlugin.show(
       id: 2999,
-      title: '⚠️ تنبيه: يوجد $count أصناف وصلت لحد النواقص!',
-      body: 'افحص قائمة النواقص في المخزون لطلبها من الموردين فوراً.',
+      title: L10n.t.notificationServiceMultipleLowStockTitle(count),
+      body: L10n.t.notificationServiceMultipleLowStockBody,
       notificationDetails: notificationDetails,
       payload: '/inventory',
     );
@@ -405,10 +418,10 @@ class NotificationService implements ReminderNotifier {
 
   /// Displays a test notification to verify delivery and permissions immediately.
   Future<void> showTestNotification() async {
-    const androidDetails = AndroidNotificationDetails(
+    final androidDetails = AndroidNotificationDetails(
       'kashkool_general_channel',
-      'إشعارات كشكول',
-      channelDescription: 'إشعارات عامة وتجريبية',
+      L10n.t.notificationServiceGeneralChannelName,
+      channelDescription: L10n.t.notificationServiceGeneralChannelDesc,
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
@@ -416,9 +429,9 @@ class NotificationService implements ReminderNotifier {
       showWhen: true,
     );
 
-    const notificationDetails = NotificationDetails(
+    final notificationDetails = NotificationDetails(
       android: androidDetails,
-      iOS: DarwinNotificationDetails(
+      iOS: const DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,

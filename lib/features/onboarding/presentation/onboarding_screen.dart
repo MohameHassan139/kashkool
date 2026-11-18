@@ -346,8 +346,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             title: L10n.t.authSignInWithGoogle,
             subtitle: L10n.t.authSignInWithGoogleSubtitle,
             icon: Icons.account_circle_rounded,
-            iconColor: AppColors.primaryBlue,
-            iconBgColor: AppColors.primaryBlue.withValues(alpha: 0.12),
+            iconColor: isDark ? theme.colorScheme.primary : AppColors.primaryBlue,
+            iconBgColor: isDark ? theme.colorScheme.primary.withValues(alpha: 0.15) : AppColors.primaryBlue.withValues(alpha: 0.12),
             isLoading: _isGoogleSigningIn,
             onTap: _onGoogleSignInPressed,
           ),
@@ -428,7 +428,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     subtitle,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isDark ? Colors.grey[400] : Colors.grey[600],
+                      color: AppColors.secondaryText(isDark),
                       height: 1.3,
                     ),
                   ),
@@ -441,7 +441,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     height: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Icon(Icons.chevron_left_rounded, color: AppColors.neutralGrey),
+                : Icon(Icons.chevron_left_rounded, color: AppColors.secondaryText(isDark)),
           ],
         ),
       ),
@@ -452,6 +452,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   // STEP 1: Shop Identity
   // -------------------------------------------------------------
   Widget _buildStep1ShopIdentity() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Form(
@@ -464,13 +467,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: AppColors.primaryNavy.withValues(alpha: 0.08),
+                  color: isDark
+                      ? theme.colorScheme.primary.withValues(alpha: 0.15)
+                      : AppColors.primaryNavy.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.storefront_rounded,
                   size: 64,
-                  color: AppColors.primaryNavy,
+                  color: isDark ? theme.colorScheme.primary : AppColors.primaryNavy,
                 ),
               ),
             ),
@@ -483,7 +488,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             const SizedBox(height: 8),
             Text(
               L10n.t.onboardingScreen6,
-              style: TextStyle(fontSize: 14, color: Colors.grey[700], height: 1.4),
+              style: TextStyle(
+                fontSize: 14,
+                color: AppColors.secondaryText(isDark),
+                height: 1.4,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
@@ -494,10 +503,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               decoration: InputDecoration(
                 labelText: L10n.t.onboardingScreen7,
                 hintText: L10n.t.onboardingScreen8,
-                prefixIcon: const Icon(Icons.store_rounded),
+                prefixIcon: Icon(
+                  Icons.store_rounded,
+                  color: isDark ? theme.colorScheme.primary : null,
+                ),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: isDark ? const Color(0xFF1F2937) : Colors.white,
               ),
               validator: (val) {
                 if (val == null || val.trim().length < 2) {
@@ -515,11 +527,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               decoration: InputDecoration(
                 labelText: L10n.t.onboardingScreen10,
                 hintText: '01XXXXXXXXX',
-                prefixIcon: const Icon(Icons.phone_rounded),
+                prefixIcon: Icon(
+                  Icons.phone_rounded,
+                  color: isDark ? theme.colorScheme.primary : null,
+                ),
                 helperText: L10n.t.onboardingScreen11,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: isDark ? const Color(0xFF1F2937) : Colors.white,
               ),
               validator: (val) {
                 final text = val?.trim() ?? '';
@@ -540,6 +555,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   // STEP 2: Trade Type
   // -------------------------------------------------------------
   Widget _buildStep2TradeType() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     final tradeTypes = [
       {
         'id': 'grocery',
@@ -585,7 +603,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 6),
           Text(
             L10n.t.onboardingScreen23,
-            style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+            style: TextStyle(
+              fontSize: 13,
+              color: AppColors.secondaryText(isDark),
+            ),
           ),
           const SizedBox(height: 18),
 
@@ -604,12 +625,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? AppColors.primaryNavy.withValues(alpha: 0.05)
-                        : Colors.white,
+                        ? (isDark
+                            ? theme.colorScheme.primary.withValues(alpha: 0.15)
+                            : AppColors.primaryNavy.withValues(alpha: 0.05))
+                        : (isDark ? const Color(0xFF1F2937) : Colors.white),
                     border: Border.all(
                       color: isSelected
-                          ? AppColors.primaryNavy
-                          : Colors.grey.withValues(alpha: 0.3),
+                          ? theme.colorScheme.primary
+                          : (isDark
+                              ? const Color(0xFF374151)
+                              : Colors.grey.withValues(alpha: 0.3)),
                       width: isSelected ? 2 : 1,
                     ),
                     borderRadius: BorderRadius.circular(14),
@@ -620,13 +645,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? AppColors.primaryNavy
-                              : Colors.grey[100],
+                              ? theme.colorScheme.primary
+                              : (isDark ? const Color(0xFF374151) : Colors.grey[100]),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           trade['icon'] as IconData,
-                          color: isSelected ? Colors.white : Colors.grey[700],
+                          color: isSelected
+                              ? (isDark ? Colors.black87 : Colors.white)
+                              : (isDark ? Colors.grey[300] : Colors.grey[700]),
                           size: 26,
                         ),
                       ),
@@ -643,8 +670,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                     color: isSelected
-                                        ? AppColors.primaryNavy
-                                        : Colors.black87,
+                                        ? theme.colorScheme.primary
+                                        : (isDark ? Colors.white : Colors.black87),
                                   ),
                                 ),
                                 if (isInstallmentTrade) ...[
@@ -653,14 +680,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
-                                      color: AppColors.paymentGreen
-                                          .withValues(alpha: 0.15),
+                                      color: isDark
+                                          ? AppColors.paymentGreenDark.withValues(alpha: 0.2)
+                                          : AppColors.paymentGreen.withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Text(
                                       L10n.t.onboardingScreen24,
-                                      style: const TextStyle(
-                                        color: AppColors.paymentGreen,
+                                      style: TextStyle(
+                                        color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -674,7 +702,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               trade['desc'] as String,
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey[600],
+                                color: AppColors.secondaryText(isDark),
                               ),
                             ),
                           ],
@@ -684,7 +712,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         isSelected
                             ? Icons.radio_button_checked_rounded
                             : Icons.radio_button_unchecked_rounded,
-                        color: isSelected ? AppColors.primaryNavy : Colors.grey,
+                        color: isSelected
+                            ? theme.colorScheme.primary
+                            : AppColors.secondaryText(isDark),
                       ),
                     ],
                   ),
@@ -704,7 +734,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ),
             subtitle: Text(
               L10n.t.onboardingScreen26,
-              style: const TextStyle(fontSize: 12),
+              style: TextStyle(
+                fontSize: 12,
+                color: AppColors.secondaryText(isDark),
+              ),
             ),
             onChanged: (val) => setState(() => _enableInstallments = val),
           ),
@@ -717,6 +750,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   // STEP 3: Notifications & Background Battery Survival
   // -------------------------------------------------------------
   Widget _buildStep3NotificationsAndBattery() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final guide = _batteryGuide;
 
     return SingleChildScrollView(
@@ -731,7 +766,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 6),
           Text(
             L10n.t.onboardingScreen28,
-            style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+            style: TextStyle(
+              fontSize: 13,
+              color: AppColors.secondaryText(isDark),
+            ),
           ),
           const SizedBox(height: 20),
 
@@ -750,8 +788,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: _notificationGranted
-                              ? AppColors.paymentGreen.withValues(alpha: 0.12)
-                              : Colors.amber.withValues(alpha: 0.15),
+                              ? AppColors.paymentContainer(isDark)
+                              : (isDark ? const Color(0xFF451A03) : Colors.amber.withValues(alpha: 0.15)),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -759,8 +797,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               ? Icons.check_circle_rounded
                               : Icons.notifications_active_rounded,
                           color: _notificationGranted
-                              ? AppColors.paymentGreen
-                              : Colors.amber[800],
+                              ? (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen)
+                              : (isDark ? AppColors.warningAmberDark : Colors.amber[800]),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -777,7 +815,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               _notificationGranted
                                   ? L10n.t.onboardingScreen30
                                   : L10n.t.onboardingScreen31,
-                              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.secondaryText(isDark),
+                              ),
                             ),
                           ],
                         ),
@@ -795,7 +836,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       icon: const Icon(Icons.security_rounded),
                       label: Text(L10n.t.onboardingScreen32),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.primaryNavy,
+                        foregroundColor: isDark ? theme.colorScheme.primary : AppColors.primaryNavy,
+                        side: BorderSide(
+                          color: isDark
+                              ? theme.colorScheme.primary.withValues(alpha: 0.5)
+                              : AppColors.primaryNavy.withValues(alpha: 0.3),
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -810,7 +856,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           // 2. Battery Optimization Guide Card
           Card(
             elevation: 1,
-            color: Colors.blueGrey[50],
+            color: isDark ? const Color(0xFF1E293B) : Colors.blueGrey[50],
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -819,7 +865,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.battery_alert_rounded, color: Colors.indigo),
+                      Icon(
+                        Icons.battery_alert_rounded,
+                        color: isDark ? AppColors.primaryBlueDark : Colors.indigo,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -835,7 +884,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     const SizedBox(height: 4),
                     Text(
                       guide.osName,
-                      style: TextStyle(fontSize: 11, color: Colors.indigo[800], fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: isDark ? AppColors.primaryBlueDark : Colors.indigo[800],
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                   const Divider(height: 24),
@@ -850,12 +903,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           children: [
                             CircleAvatar(
                               radius: 10,
-                              backgroundColor: Colors.indigo.withValues(alpha: 0.15),
+                              backgroundColor: isDark
+                                  ? theme.colorScheme.primary.withValues(alpha: 0.2)
+                                  : Colors.indigo.withValues(alpha: 0.15),
                               child: Text(
                                 '${entry.key + 1}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 11,
-                                  color: Colors.indigo,
+                                  color: isDark ? theme.colorScheme.primary : Colors.indigo,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -877,8 +932,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     icon: const Icon(Icons.tune_rounded, size: 18),
                     label: Text(L10n.t.onboardingScreen35),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo,
-                      foregroundColor: Colors.white,
+                      backgroundColor: isDark ? theme.colorScheme.primary : Colors.indigo,
+                      foregroundColor: isDark ? Colors.black87 : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -897,6 +952,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   // STEP 4: First Action
   // -------------------------------------------------------------
   Widget _buildStep4FirstAction() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -907,13 +965,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: AppColors.paymentGreen.withValues(alpha: 0.12),
+                color: isDark
+                    ? AppColors.paymentGreenDark.withValues(alpha: 0.15)
+                    : AppColors.paymentGreen.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.check_circle_outline_rounded,
                 size: 64,
-                color: AppColors.paymentGreen,
+                color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
               ),
             ),
           ),
@@ -926,7 +986,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 8),
           Text(
             L10n.t.onboardingScreen37,
-            style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+            style: TextStyle(
+              fontSize: 14,
+              color: AppColors.secondaryText(isDark),
+              height: 1.4,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 28),
@@ -945,12 +1009,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: AppColors.primaryNavy.withValues(alpha: 0.1),
+                        color: isDark
+                            ? theme.colorScheme.primary.withValues(alpha: 0.15)
+                            : AppColors.primaryNavy.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.person_add_alt_1_rounded,
-                        color: AppColors.primaryNavy,
+                        color: isDark ? theme.colorScheme.primary : AppColors.primaryNavy,
                         size: 28,
                       ),
                     ),
@@ -966,12 +1032,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           const SizedBox(height: 3),
                           Text(
                             L10n.t.onboardingScreen39,
-                            style: const TextStyle(fontSize: 12, color: Colors.black54),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.secondaryText(isDark),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 16,
+                      color: AppColors.secondaryText(isDark),
+                    ),
                   ],
                 ),
               ),
@@ -984,7 +1057,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             onPressed: () => _finishOnboarding(),
             child: Text(
               L10n.t.onboardingScreen42,
-              style: const TextStyle(color: Colors.grey, fontSize: 14),
+              style: TextStyle(
+                color: AppColors.secondaryText(isDark),
+                fontSize: 14,
+              ),
             ),
           ),
         ],

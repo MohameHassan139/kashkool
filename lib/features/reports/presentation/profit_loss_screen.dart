@@ -41,7 +41,7 @@ class ProfitLossScreen extends ConsumerWidget {
         title: Text(L10n.t.profitLossTitle),
         actions: [
           IconButton(
-            tooltip: 'طباعة وتصدير PDF',
+            tooltip: l10n.printExportPdf,
             icon: const Icon(Icons.picture_as_pdf_rounded),
             onPressed: () async {
               final report = reportAsync.value;
@@ -55,8 +55,8 @@ class ProfitLossScreen extends ConsumerWidget {
               await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => PdfPreviewScreen(
-                    title: 'تقرير الأرباح والخسائر',
-                    fileName: 'تقرير_المكسب_والخسارة_$dateStr.pdf',
+                    title: l10n.profitLossReportTitle,
+                    fileName: l10n.profitLossReportFileName(dateStr),
                     generator: (format) => ref.read(pdfReportsServiceProvider).generateProfitLossPdf(
                           report: report,
                           shopName: shopName,
@@ -103,7 +103,7 @@ class ProfitLossScreen extends ConsumerWidget {
             child: reportAsync.when(
               loading: () =>
                   const Center(child: CircularProgressIndicator()),
-              error: (err, _) => Center(child: Text('خطأ: $err')),
+              error: (err, _) => Center(child: Text(l10n.genericError(err))),
               data: (report) {
                 final isNetPositive = report.netProfitPiasters >= 0;
                 final isCashPositive = report.cashNetProfitPiasters >= 0;
@@ -135,7 +135,7 @@ class ProfitLossScreen extends ConsumerWidget {
                                 amount: report.cashNetProfitPiasters,
                                 color: cashColor,
                                 icon: Icons.account_balance_wallet_rounded,
-                                badgeText: 'نقدية فعلية بالدرج',
+                                badgeText: l10n.profitLossCashBadge,
                                 salesCount: report.cashSalesCount,
                               ),
                             ),
@@ -149,7 +149,7 @@ class ProfitLossScreen extends ConsumerWidget {
                                 amount: report.creditGrossProfitPiasters,
                                 color: creditColor,
                                 icon: Icons.schedule_rounded,
-                                badgeText: 'مؤجل عند الزبائن',
+                                badgeText: l10n.profitLossCreditBadge,
                                 salesCount: report.creditSalesCount,
                               ),
                             ),
@@ -164,7 +164,7 @@ class ProfitLossScreen extends ConsumerWidget {
                           amount: report.cashNetProfitPiasters,
                           color: cashColor,
                           icon: Icons.account_balance_wallet_rounded,
-                          badgeText: 'نقدية فعلية بالدرج',
+                          badgeText: l10n.profitLossCashBadge,
                           salesCount: report.cashSalesCount,
                         ),
                         const SizedBox(height: 12),
@@ -176,7 +176,7 @@ class ProfitLossScreen extends ConsumerWidget {
                           amount: report.creditGrossProfitPiasters,
                           color: creditColor,
                           icon: Icons.schedule_rounded,
-                          badgeText: 'مؤجل عند الزبائن',
+                          badgeText: l10n.profitLossCreditBadge,
                           salesCount: report.creditSalesCount,
                         ),
                       ],
@@ -254,7 +254,14 @@ class ProfitLossScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              'صافي الأرباح الكلي = صافي الكاش بالدرج (${MoneyUtils.formatMoney(report.cashNetProfitPiasters)}) + أرباح الآجل عند الزبائن (${MoneyUtils.formatMoney(report.creditGrossProfitPiasters)})',
+                              l10n.profitLossNetCalculation(
+                                MoneyUtils.formatMoney(
+                                  report.cashNetProfitPiasters,
+                                ),
+                                MoneyUtils.formatMoney(
+                                  report.creditGrossProfitPiasters,
+                                ),
+                              ),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 12,
@@ -457,7 +464,7 @@ class ProfitLossScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'معلومة محاسبية تهمك في إدارة محلك',
+                                    l10n.profitLossAccountingTipTitle,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 13,
@@ -468,7 +475,7 @@ class ProfitLossScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    '• الأرباح النقدية: هي السيولة الحقيقية التي دخلت درجك وخزنتك بالفعل بعد خصم المصروفات.\n• الأرباح الآجلة: هي أرباح بضاعة خرجت للزبائن شُكك ومسجلة في حساباتهم، وستتحول إلى سيولة في يدك فور سدادهم في التحصيل.',
+                                    l10n.profitLossAccountingTipBody,
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: isDark
@@ -583,7 +590,7 @@ class ProfitLossScreen extends ConsumerWidget {
           if (salesCount > 0) ...[
             const SizedBox(height: 6),
             Text(
-              '($salesCount عملية بيع مسجلة)',
+              L10n.t.profitLossRecordedSales(salesCount),
               style: TextStyle(
                 fontSize: 10,
                 color: isDark ? const Color(0xFF64748B) : const Color(0xFF94A3B8),

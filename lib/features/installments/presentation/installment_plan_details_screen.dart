@@ -7,6 +7,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/utils/money.dart';
 import '../../../core/utils/whatsapp_template.dart';
+import '../../../shared/widgets/adaptive_text.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../../settings/data/settings_repository.dart';
 import '../data/installment_repository.dart';
@@ -50,9 +51,12 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     final wallet = await settingsRepo.getShopWallet();
 
     final List<String> paymentParts = [];
-    if (instapay.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen1(instapay));
-    if (wallet.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen2(wallet));
-    if (phoneNum.isNotEmpty) paymentParts.add(L10n.t.installmentPlanDetailsScreen3(phoneNum));
+    if (instapay.isNotEmpty)
+      paymentParts.add(L10n.t.installmentPlanDetailsScreen1(instapay));
+    if (wallet.isNotEmpty)
+      paymentParts.add(L10n.t.installmentPlanDetailsScreen2(wallet));
+    if (phoneNum.isNotEmpty)
+      paymentParts.add(L10n.t.installmentPlanDetailsScreen3(phoneNum));
 
     final message = WhatsAppTemplateUtils.renderInstallmentReminder(
       customerName: customerName,
@@ -85,9 +89,15 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
         title: Text(L10n.t.installmentPlanDetailsScreen4),
         content: Text(L10n.t.installmentPlanDetailsScreen5),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen6)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(L10n.t.installmentPlanDetailsScreen6),
+          ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed, foregroundColor: Colors.white),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.debtRed,
+              foregroundColor: Colors.white,
+            ),
             onPressed: () => Navigator.pop(ctx, true),
             child: Text(L10n.t.installmentPlanDetailsScreen7),
           ),
@@ -98,7 +108,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     if (confirmed == true && context.mounted) {
       await ref.read(installmentRepositoryProvider).cancelPlan(planId);
       if (context.mounted) {
-        AppGlassToast.showSuccess(context, L10n.t.installmentPlanDetailsScreen8);
+        AppGlassToast.showSuccess(
+          context,
+          L10n.t.installmentPlanDetailsScreen8,
+        );
       }
     }
   }
@@ -110,9 +123,15 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
         title: Text(L10n.t.installmentPlanDetailsScreen9),
         content: Text(L10n.t.installmentPlanDetailsScreen10),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(L10n.t.installmentPlanDetailsScreen11)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(L10n.t.installmentPlanDetailsScreen11),
+          ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.debtRed, foregroundColor: Colors.white),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.debtRed,
+              foregroundColor: Colors.white,
+            ),
             onPressed: () => Navigator.pop(ctx, true),
             child: Text(L10n.t.installmentPlanDetailsScreen12),
           ),
@@ -124,7 +143,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
       await ref.read(installmentRepositoryProvider).deletePlan(planId);
       if (context.mounted) {
         Navigator.pop(context);
-        AppGlassToast.showSuccess(context, L10n.t.installmentPlanDetailsScreen13);
+        AppGlassToast.showSuccess(
+          context,
+          L10n.t.installmentPlanDetailsScreen13,
+        );
       }
     }
   }
@@ -136,7 +158,8 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
     final dateFmt = DateFormat('yyyy/MM/dd');
 
     return planAsync.when(
-      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(
         appBar: AppBar(title: Text(L10n.t.installmentPlanDetailsScreen14)),
         body: Center(child: Text(L10n.t.installmentPlanDetailsScreen15(e))),
@@ -151,12 +174,17 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
 
         final plan = item.plan;
         final customer = item.customer;
-        final isCompleted = plan.status == PlanStatus.completed || item.isFullyPaid;
+        final isCompleted =
+            plan.status == PlanStatus.completed || item.isFullyPaid;
         final isCancelled = plan.status == PlanStatus.cancelled;
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(plan.itemDescription, style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: AdaptiveText(
+              plan.itemDescription,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              maxLines: 1,
+            ),
             actions: [
               PopupMenuButton<String>(
                 onSelected: (val) {
@@ -165,10 +193,16 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                 },
                 itemBuilder: (ctx) => [
                   if (!isCompleted && !isCancelled)
-                    PopupMenuItem(value: 'cancel', child: Text(L10n.t.installmentPlanDetailsScreen7)),
+                    PopupMenuItem(
+                      value: 'cancel',
+                      child: Text(L10n.t.installmentPlanDetailsScreen7),
+                    ),
                   PopupMenuItem(
                     value: 'delete',
-                    child: Text(L10n.t.installmentPlanDetailsScreen17, style: const TextStyle(color: AppColors.debtRed)),
+                    child: Text(
+                      L10n.t.installmentPlanDetailsScreen17,
+                      style: const TextStyle(color: AppColors.debtRed),
+                    ),
                   ),
                 ],
               ),
@@ -182,7 +216,11 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6)),
+                  side: BorderSide(
+                    color: theme.colorScheme.outlineVariant.withValues(
+                      alpha: 0.6,
+                    ),
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
@@ -195,7 +233,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                           CircleAvatar(
                             radius: 24,
                             backgroundColor: theme.colorScheme.primaryContainer,
-                            child: const Icon(Icons.person, color: AppColors.primaryGreen),
+                            child: const Icon(
+                              Icons.person,
+                              color: AppColors.primaryGreen,
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -204,11 +245,16 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                               children: [
                                 Text(
                                   customer.name,
-                                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 if (customer.phone != null) ...[
                                   const SizedBox(height: 2),
-                                  Text(customer.phone!, style: theme.textTheme.bodyMedium),
+                                  Text(
+                                    customer.phone!,
+                                    style: theme.textTheme.bodyMedium,
+                                  ),
                                 ],
                               ],
                             ),
@@ -227,39 +273,70 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       // Financial Breakdown Table
                       Row(
                         children: [
-                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen18)),
-                          Text(MoneyUtils.formatMoney(plan.totalPricePiasters),
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen19)),
-                          Text(MoneyUtils.formatMoney(plan.downPaymentPiasters),
-                              style: const TextStyle(fontWeight: FontWeight.w600)),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen20)),
-                          Text(
-                            MoneyUtils.formatMoney(item.totalPaidWithDownPaymentPiasters),
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryGreen),
+                          Expanded(
+                            child: Text(L10n.t.installmentPlanDetailsScreen18),
+                          ),
+                          Flexible(
+                            child: AdaptiveAmountText(
+                              MoneyUtils.formatMoney(plan.totalPricePiasters),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          Expanded(child: Text(L10n.t.installmentPlanDetailsScreen21)),
-                          Text(
-                            MoneyUtils.formatMoney(item.remainingPiasters),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: item.remainingPiasters > 0 ? AppColors.debtRed : AppColors.primaryGreen,
+                          Expanded(
+                            child: Text(L10n.t.installmentPlanDetailsScreen19),
+                          ),
+                          Flexible(
+                            child: AdaptiveAmountText(
+                              MoneyUtils.formatMoney(plan.downPaymentPiasters),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(L10n.t.installmentPlanDetailsScreen20),
+                          ),
+                          Flexible(
+                            child: AdaptiveAmountText(
+                              MoneyUtils.formatMoney(
+                                item.totalPaidWithDownPaymentPiasters,
+                              ),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primaryGreen,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(L10n.t.installmentPlanDetailsScreen21),
+                          ),
+                          Flexible(
+                            child: AdaptiveAmountText(
+                              MoneyUtils.formatMoney(item.remainingPiasters),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: item.remainingPiasters > 0
+                                    ? AppColors.debtRed
+                                    : AppColors.primaryGreen,
+                              ),
                             ),
                           ),
                         ],
@@ -276,12 +353,16 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       ),
 
                       // Action Button: Early Settlement
-                      if (!isCompleted && !isCancelled && item.remainingPiasters > 0) ...[
+                      if (!isCompleted &&
+                          !isCancelled &&
+                          item.remainingPiasters > 0) ...[
                         const SizedBox(height: 16),
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondaryContainer,
-                            foregroundColor: theme.colorScheme.onSecondaryContainer,
+                            backgroundColor:
+                                theme.colorScheme.secondaryContainer,
+                            foregroundColor:
+                                theme.colorScheme.onSecondaryContainer,
                             minimumSize: const Size.fromHeight(48),
                           ),
                           icon: const Icon(Icons.verified_rounded),
@@ -310,12 +391,17 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
               const SizedBox(height: 16),
 
               // 2. Guarantor Card (if present)
-              if (plan.guarantorName != null && plan.guarantorName!.trim().isNotEmpty) ...[
+              if (plan.guarantorName != null &&
+                  plan.guarantorName!.trim().isNotEmpty) ...[
                 Card(
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
-                    side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5)),
+                    side: BorderSide(
+                      color: theme.colorScheme.outlineVariant.withValues(
+                        alpha: 0.5,
+                      ),
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(14),
@@ -324,21 +410,36 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                         const CircleAvatar(
                           radius: 20,
                           backgroundColor: Colors.amber,
-                          child: Icon(Icons.shield_rounded, color: Colors.white, size: 20),
+                          child: Icon(
+                            Icons.shield_rounded,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(L10n.t.installmentPlanDetailsScreen23(plan.guarantorName!),
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              if (plan.guarantorPhone != null && plan.guarantorPhone!.isNotEmpty)
-                                Text(plan.guarantorPhone!, style: theme.textTheme.bodySmall),
+                              Text(
+                                L10n.t.installmentPlanDetailsScreen23(
+                                  plan.guarantorName!,
+                                ),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              if (plan.guarantorPhone != null &&
+                                  plan.guarantorPhone!.isNotEmpty)
+                                Text(
+                                  plan.guarantorPhone!,
+                                  style: theme.textTheme.bodySmall,
+                                ),
                             ],
                           ),
                         ),
-                        if (plan.guarantorPhone != null && plan.guarantorPhone!.isNotEmpty) ...[
+                        if (plan.guarantorPhone != null &&
+                            plan.guarantorPhone!.isNotEmpty) ...[
                           IconButton.filledTonal(
                             icon: const Icon(Icons.call_rounded, size: 18),
                             onPressed: () => _callPhone(plan.guarantorPhone!),
@@ -355,7 +456,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
               if (plan.photoPath != null && plan.photoPath!.isNotEmpty) ...[
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.photo_library_outlined, color: AppColors.primaryGreen),
+                  leading: const Icon(
+                    Icons.photo_library_outlined,
+                    color: AppColors.primaryGreen,
+                  ),
                   title: Text(L10n.t.installmentPlanDetailsScreen24),
                   subtitle: Text(L10n.t.installmentPlanDetailsScreen25),
                   trailing: const Icon(Icons.chevron_left_rounded),
@@ -367,7 +471,9 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             AppBar(
-                              title: Text(L10n.t.installmentPlanDetailsScreen26),
+                              title: Text(
+                                L10n.t.installmentPlanDetailsScreen26,
+                              ),
                               leading: IconButton(
                                 icon: const Icon(Icons.close),
                                 onPressed: () => Navigator.pop(ctx),
@@ -394,8 +500,12 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      L10n.t.installmentPlanDetailsScreen27(item.installments.length),
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      L10n.t.installmentPlanDetailsScreen27(
+                        item.installments.length,
+                      ),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -408,7 +518,9 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                           context: context,
                           builder: (ctx) => PayInstallmentDialog(
                             planId: plan.id,
-                            defaultAmountPiasters: item.nextDueInstallment?.amountPiasters ?? 100000,
+                            defaultAmountPiasters:
+                                item.nextDueInstallment?.amountPiasters ??
+                                100000,
                             itemDescription: plan.itemDescription,
                           ),
                         );
@@ -442,8 +554,10 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                       color: isPaid
                           ? AppColors.primaryGreen.withValues(alpha: 0.3)
                           : (isOverdue
-                              ? AppColors.debtRed.withValues(alpha: 0.5)
-                              : theme.colorScheme.outlineVariant.withValues(alpha: 0.4)),
+                                ? AppColors.debtRed.withValues(alpha: 0.5)
+                                : theme.colorScheme.outlineVariant.withValues(
+                                    alpha: 0.4,
+                                  )),
                     ),
                   ),
                   child: Padding(
@@ -456,18 +570,28 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                             CircleAvatar(
                               radius: 16,
                               backgroundColor: isPaid
-                                  ? AppColors.primaryGreen.withValues(alpha: 0.15)
+                                  ? AppColors.primaryGreen.withValues(
+                                      alpha: 0.15,
+                                    )
                                   : (isOverdue
-                                      ? AppColors.debtRed.withValues(alpha: 0.15)
-                                      : theme.colorScheme.primaryContainer),
+                                        ? AppColors.debtRed.withValues(
+                                            alpha: 0.15,
+                                          )
+                                        : theme.colorScheme.primaryContainer),
                               child: isPaid
-                                  ? const Icon(Icons.check, color: AppColors.primaryGreen, size: 18)
+                                  ? const Icon(
+                                      Icons.check,
+                                      color: AppColors.primaryGreen,
+                                      size: 18,
+                                    )
                                   : Text(
                                       '${inst.installmentIndex}',
                                       style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold,
-                                        color: isOverdue ? AppColors.debtRed : theme.colorScheme.primary,
+                                        color: isOverdue
+                                            ? AppColors.debtRed
+                                            : theme.colorScheme.primary,
                                       ),
                                     ),
                             ),
@@ -477,38 +601,88 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    L10n.t.installmentPlanDetailsScreen29(inst.installmentIndex, dateFmt.format(inst.dueDate)),
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    L10n.t.installmentPlanDetailsScreen29(
+                                      inst.installmentIndex,
+                                      dateFmt.format(inst.dueDate),
+                                    ),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   const SizedBox(height: 2),
                                   if (isPaid)
                                     Text(
-                                      L10n.t.installmentPlanDetailsScreen30(MoneyUtils.formatMoney(inst.paidPiasters)),
-                                      style: const TextStyle(color: AppColors.primaryGreen, fontSize: 12),
+                                      L10n.t.installmentPlanDetailsScreen30(
+                                        MoneyUtils.formatMoney(
+                                          inst.paidPiasters,
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                        color: AppColors.primaryGreen,
+                                        fontSize: 12,
+                                      ),
                                     )
                                   else if (isPartial)
                                     Text(
-                                      L10n.t.installmentPlanDetailsScreen31(MoneyUtils.formatMoney(inst.paidPiasters), MoneyUtils.formatMoney(inst.amountPiasters)),
-                                      style: const TextStyle(color: AppColors.warningAmber, fontSize: 12),
+                                      L10n.t.installmentPlanDetailsScreen31(
+                                        MoneyUtils.formatMoney(
+                                          inst.paidPiasters,
+                                        ),
+                                        MoneyUtils.formatMoney(
+                                          inst.amountPiasters,
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                        color: AppColors.warningAmber,
+                                        fontSize: 12,
+                                      ),
                                     )
                                   else if (isOverdue)
-                                    Text(L10n.t.installmentPlanDetailsScreen32,
-                                        style: const TextStyle(color: AppColors.debtRed, fontSize: 12, fontWeight: FontWeight.bold))
+                                    Text(
+                                      L10n.t.installmentPlanDetailsScreen32,
+                                      style: const TextStyle(
+                                        color: AppColors.debtRed,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
                                   else if (isDueToday)
-                                    Text(L10n.t.installmentPlanDetailsScreen33,
-                                        style: const TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold))
+                                    Text(
+                                      L10n.t.installmentPlanDetailsScreen33,
+                                      style: const TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
                                   else
-                                    Text(L10n.t.installmentPlanDetailsScreen34(MoneyUtils.formatMoney(inst.amountPiasters)),
-                                        style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 12)),
+                                    Text(
+                                      L10n.t.installmentPlanDetailsScreen34(
+                                        MoneyUtils.formatMoney(
+                                          inst.amountPiasters,
+                                        ),
+                                      ),
+                                      style: TextStyle(
+                                        color:
+                                            theme.colorScheme.onSurfaceVariant,
+                                        fontSize: 12,
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
-                            Text(
-                              MoneyUtils.formatMoney(inst.amountPiasters - inst.paidPiasters),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: isPaid ? AppColors.primaryGreen : (isOverdue ? AppColors.debtRed : null),
+                            Flexible(
+                              child: AdaptiveAmountText(
+                                MoneyUtils.formatMoney(
+                                  inst.amountPiasters - inst.paidPiasters,
+                                ),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: isPaid
+                                      ? AppColors.primaryGreen
+                                      : (isOverdue ? AppColors.debtRed : null),
+                                ),
                               ),
                             ),
                           ],
@@ -526,10 +700,21 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                             runSpacing: 4,
                             children: [
                               // WhatsApp Reminder
-                              if (customer.phone != null && customer.phone!.isNotEmpty)
+                              if (customer.phone != null &&
+                                  customer.phone!.isNotEmpty)
                                 TextButton.icon(
-                                  icon: const Icon(Icons.chat_outlined, size: 16, color: AppColors.primaryGreen),
-                                  label: Text(L10n.t.installmentPlanDetailsScreen35, style: const TextStyle(color: AppColors.primaryGreen, fontSize: 13)),
+                                  icon: const Icon(
+                                    Icons.chat_outlined,
+                                    size: 16,
+                                    color: AppColors.primaryGreen,
+                                  ),
+                                  label: Text(
+                                    L10n.t.installmentPlanDetailsScreen35,
+                                    style: const TextStyle(
+                                      color: AppColors.primaryGreen,
+                                      fontSize: 13,
+                                    ),
+                                  ),
                                   onPressed: () {
                                     _sendWhatsAppReminder(
                                       context: context,
@@ -539,9 +724,12 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                       itemDescription: plan.itemDescription,
                                       installmentNumber: inst.installmentIndex,
                                       installmentCount: plan.installmentCount,
-                                      amountPiasters: inst.amountPiasters - inst.paidPiasters,
+                                      amountPiasters:
+                                          inst.amountPiasters -
+                                          inst.paidPiasters,
                                       dueDate: inst.dueDate,
-                                      remainingTotalPiasters: item.remainingPiasters,
+                                      remainingTotalPiasters:
+                                          item.remainingPiasters,
                                     );
                                   },
                                 ),
@@ -552,17 +740,31 @@ class InstallmentPlanDetailsScreen extends ConsumerWidget {
                                   backgroundColor: AppColors.primaryGreen,
                                   foregroundColor: Colors.white,
                                   minimumSize: const Size(90, 36),
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
                                 ),
-                                icon: const Icon(Icons.payment_rounded, size: 16),
-                                label: Text(L10n.t.installmentPlanDetailsScreen36, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                                icon: const Icon(
+                                  Icons.payment_rounded,
+                                  size: 16,
+                                ),
+                                label: AdaptiveText(
+                                  L10n.t.installmentPlanDetailsScreen36,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                ),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
                                     builder: (ctx) => PayInstallmentDialog(
                                       planId: plan.id,
                                       installment: inst,
-                                      defaultAmountPiasters: inst.amountPiasters - inst.paidPiasters,
+                                      defaultAmountPiasters:
+                                          inst.amountPiasters -
+                                          inst.paidPiasters,
                                       itemDescription: plan.itemDescription,
                                     ),
                                   );

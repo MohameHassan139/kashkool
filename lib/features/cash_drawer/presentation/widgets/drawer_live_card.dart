@@ -6,6 +6,7 @@ import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/data/cash_drawer_repository.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/adaptive_text.dart';
 import 'package:kashkool/shared/widgets/glass_toast.dart';
 import 'close_day_bottom_sheet.dart';
 import 'edit_opening_cash_dialog.dart';
@@ -65,75 +66,93 @@ class DrawerLiveCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Top row: Label & Status badge
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Icon(Icons.point_of_sale_rounded, color: theme.colorScheme.primary, size: 28),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          l10n.expectedInDrawer,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.onSurface,
+            // Top row: Label & Status badge (LayoutBuilder + Wrap + Flexible prevents overflow on any screen / language / font scale)
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 6,
+                  children: [
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: constraints.maxWidth),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.point_of_sale_rounded, color: theme.colorScheme.primary, size: 28),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: AdaptiveText(
+                              l10n.expectedInDrawer,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.onSurface,
+                              ),
+                              maxLines: 1,
+                            ),
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: isClosed
-                        ? (isDark ? const Color(0xFF374151) : Colors.grey.shade200)
-                        : AppColors.paymentContainer(isDark),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isClosed ? Icons.lock_outline_rounded : Icons.lock_open_rounded,
-                        size: 14,
-                        color: isClosed
-                            ? (isDark ? const Color(0xFFD1D5DB) : Colors.grey.shade700)
-                            : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        isClosed ? l10n.dayIsClosed : l10n.dayIsOpen,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                    ),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: constraints.maxWidth),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
                           color: isClosed
-                              ? (isDark ? const Color(0xFFF3F4F6) : Colors.grey.shade800)
-                              : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
+                              ? (isDark ? const Color(0xFF374151) : Colors.grey.shade200)
+                              : AppColors.paymentContainer(isDark),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              isClosed ? Icons.lock_outline_rounded : Icons.lock_open_rounded,
+                              size: 14,
+                              color: isClosed
+                                  ? (isDark ? const Color(0xFFD1D5DB) : Colors.grey.shade700)
+                                  : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
+                            ),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                isClosed ? l10n.dayIsClosed : l10n.dayIsOpen,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: isClosed
+                                      ? (isDark ? const Color(0xFFF3F4F6) : Colors.grey.shade800)
+                                      : (isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen),
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ],
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 12),
 
             // Big Expected Amount
-            Text(
-              MoneyUtils.formatMoney(summary.expectedDrawerPiasters),
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.w900,
-                color: theme.colorScheme.primary,
-                letterSpacing: -0.5,
+            SizedBox(
+              width: double.infinity,
+              child: AdaptiveAmountText(
+                MoneyUtils.formatMoney(summary.expectedDrawerPiasters),
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w900,
+                  color: theme.colorScheme.primary,
+                  letterSpacing: -0.5,
+                ),
               ),
-              textAlign: TextAlign.start,
             ),
             const SizedBox(height: 16),
 
@@ -151,16 +170,20 @@ class DrawerLiveCard extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Row(
-                  children: [
-                    Text(
-                      MoneyUtils.formatMoney(summary.openingCashPiasters),
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.onSurface,
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: AdaptiveAmountText(
+                          MoneyUtils.formatMoney(summary.openingCashPiasters),
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.onSurface,
+                          ),
+                        ),
                       ),
-                    ),
                     if (!isClosed) ...[
                       const SizedBox(width: 4),
                       IconButton(
@@ -175,7 +198,8 @@ class DrawerLiveCard extends ConsumerWidget {
                         tooltip: l10n.editOpeningCash,
                       ),
                     ],
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -193,12 +217,14 @@ class DrawerLiveCard extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    MoneyUtils.formatMoney(summary.actualCountPiasters!),
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.onSurface,
+                  Flexible(
+                    child: AdaptiveAmountText(
+                      MoneyUtils.formatMoney(summary.actualCountPiasters!),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ],
@@ -227,14 +253,16 @@ class DrawerLiveCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 8),
                   if (summary.differencePiasters != null && summary.differencePiasters != 0)
-                    Text(
-                      MoneyUtils.formatMoney(summary.differencePiasters!),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: summary.differencePiasters! < 0
-                            ? AppColors.debtRed
-                            : AppColors.warningAmber,
+                    Flexible(
+                      child: AdaptiveAmountText(
+                        MoneyUtils.formatMoney(summary.differencePiasters!),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: summary.differencePiasters! < 0
+                              ? AppColors.debtRed
+                              : AppColors.warningAmber,
+                        ),
                       ),
                     ),
                 ],

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/adaptive_text.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../data/settings_repository.dart';
 import '../domain/app_features.dart';
@@ -48,9 +49,7 @@ class FeatureManagerScreen extends ConsumerWidget {
         ref.watch(enabledFeaturesStreamProvider).valueOrNull ?? {};
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.featureManagerTitle),
-      ),
+      appBar: AppBar(title: Text(l10n.featureManagerTitle)),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
         children: [
@@ -61,7 +60,9 @@ class FeatureManagerScreen extends ConsumerWidget {
               color: isDark ? const Color(0xFF1E293B) : const Color(0xFFEFF6FF),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: isDark ? const Color(0xFF334155) : const Color(0xFFBFDBFE),
+                color: isDark
+                    ? const Color(0xFF334155)
+                    : const Color(0xFFBFDBFE),
               ),
             ),
             child: Row(
@@ -69,7 +70,9 @@ class FeatureManagerScreen extends ConsumerWidget {
               children: [
                 Icon(
                   Icons.info_outline_rounded,
-                  color: isDark ? const Color(0xFF60A5FA) : const Color(0xFF2563EB),
+                  color: isDark
+                      ? const Color(0xFF60A5FA)
+                      : const Color(0xFF2563EB),
                   size: 24,
                 ),
                 const SizedBox(width: 12),
@@ -145,7 +148,9 @@ class FeatureManagerScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.4,
+              ),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Row(
@@ -165,8 +170,10 @@ class FeatureManagerScreen extends ConsumerWidget {
                   ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.paymentGreen.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
@@ -195,73 +202,80 @@ class FeatureManagerScreen extends ConsumerWidget {
           const SizedBox(height: 8),
 
           for (final feature in AppFeature.values) ...[
-            Builder(builder: (context) {
-              final isEnabled = enabledSet.contains(feature);
-              return Card(
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(
-                    color: isDark
-                        ? const Color(0xFF334155)
-                        : const Color(0xFFE2E8F0),
+            Builder(
+              builder: (context) {
+                final isEnabled = enabledSet.contains(feature);
+                return Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: BorderSide(
+                      color: isDark
+                          ? const Color(0xFF334155)
+                          : const Color(0xFFE2E8F0),
+                    ),
                   ),
-                ),
-                margin: const EdgeInsets.only(bottom: 10),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 10,
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 22,
-                        backgroundColor: feature.color.withValues(alpha: 0.12),
-                        child: Icon(
-                          feature.icon,
-                          color: feature.color,
-                          size: 24,
+                  margin: const EdgeInsets.only(bottom: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 22,
+                          backgroundColor: feature.color.withValues(
+                            alpha: 0.12,
+                          ),
+                          child: Icon(
+                            feature.icon,
+                            color: feature.color,
+                            size: 24,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              feature.title(l10n),
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                feature.title(l10n),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 3),
-                            Text(
-                              feature.description(l10n),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: isDark
-                                    ? const Color(0xFF94A3B8)
-                                    : const Color(0xFF64748B),
-                                height: 1.3,
+                              const SizedBox(height: 3),
+                              Text(
+                                feature.description(l10n),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: isDark
+                                      ? const Color(0xFF94A3B8)
+                                      : const Color(0xFF64748B),
+                                  height: 1.3,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Switch(
-                        value: isEnabled,
-                        activeThumbColor: feature.color,
-                        activeTrackColor: feature.color.withValues(alpha: 0.4),
-                        onChanged: (val) => unawaited(_toggleFeature(ref, feature, val)),
-                      ),
-                    ],
+                        const SizedBox(width: 8),
+                        Switch(
+                          value: isEnabled,
+                          activeThumbColor: feature.color,
+                          activeTrackColor: feature.color.withValues(
+                            alpha: 0.4,
+                          ),
+                          onChanged: (val) =>
+                              unawaited(_toggleFeature(ref, feature, val)),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              },
+            ),
           ],
         ],
       ),
@@ -312,19 +326,22 @@ class _PresetCard extends StatelessWidget {
                     child: Icon(preset.icon, size: 18, color: preset.color),
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: preset.color.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(
+                    child: AdaptiveText(
                       'تطبيق',
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                         color: preset.color,
                       ),
+                      maxLines: 1,
                     ),
                   ),
                 ],
@@ -332,17 +349,16 @@ class _PresetCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  AdaptiveText(
                     preset.title(l10n),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
                     ),
                     maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 3),
-                  Text(
+                  AdaptiveText(
                     preset.description(l10n),
                     style: TextStyle(
                       fontSize: 10,
@@ -352,7 +368,6 @@ class _PresetCard extends StatelessWidget {
                       height: 1.2,
                     ),
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

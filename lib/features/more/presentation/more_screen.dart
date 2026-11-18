@@ -18,13 +18,27 @@ class MoreScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final isInventoryEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.inventory));
-    final isCashDrawerEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.cashDrawer));
-    final isProfitLossEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.profitLoss));
-    final isInstallmentsEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.installments));
-    final isOffersEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.offers));
+    final isInventoryEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.inventory),
+    );
+    final isCashDrawerEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.cashDrawer),
+    );
+    final isProfitLossEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.profitLoss),
+    );
+    final isInstallmentsEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.installments),
+    );
+    final isOffersEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.offers),
+    );
 
-    final hasShopSectionItems = isInventoryEnabled || isCashDrawerEnabled || isProfitLossEnabled || isInstallmentsEnabled;
+    final hasShopSectionItems =
+        isInventoryEnabled ||
+        isCashDrawerEnabled ||
+        isProfitLossEnabled ||
+        isInstallmentsEnabled;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,24 +57,37 @@ class MoreScreen extends ConsumerWidget {
             color: theme.colorScheme.primaryContainer.withValues(alpha: 0.35),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: theme.colorScheme.primary.withValues(alpha: 0.2)),
+              side: BorderSide(
+                color: theme.colorScheme.primary.withValues(alpha: 0.2),
+              ),
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 4,
+              ),
               leading: CircleAvatar(
                 backgroundColor: theme.colorScheme.primary,
                 child: const Icon(Icons.tune_rounded, color: Colors.white),
               ),
               title: Text(
                 L10n.t.featureManagerTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
               subtitle: Text(
                 L10n.t.featureManagerSubtitle,
-                style: TextStyle(fontSize: 12, color: AppColors.secondaryText(isDark)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.secondaryText(isDark),
+                ),
               ),
               trailing: Icon(
-                L10n.isRtl ? Icons.chevron_left_rounded : Icons.chevron_right_rounded,
+                L10n.isRtl
+                    ? Icons.chevron_left_rounded
+                    : Icons.chevron_right_rounded,
                 color: theme.hintColor,
               ),
               onTap: () => context.push('/settings/features'),
@@ -93,7 +120,7 @@ class MoreScreen extends ConsumerWidget {
                 icon: Icons.trending_up_rounded,
                 color: AppColors.paymentGreen,
                 title: L10n.t.profitLossTitle,
-                subtitle: 'صافي أرباح ومصروفات المحل',
+                subtitle: L10n.t.moreProfitLossSubtitle,
                 isDark: isDark,
                 onTap: () => context.push('/profit-loss'),
               ),
@@ -101,7 +128,7 @@ class MoreScreen extends ConsumerWidget {
               icon: Icons.analytics_outlined,
               color: const Color(0xFF6366F1),
               title: L10n.t.shopReportTitle,
-              subtitle: 'إجمالي البضاعة والفلوس والديون',
+              subtitle: L10n.t.moreShopReportSubtitle,
               isDark: isDark,
               onTap: () => context.push('/shop-overview'),
             ),
@@ -206,7 +233,10 @@ class _MoreTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         leading: CircleAvatar(
           backgroundColor: color.withValues(alpha: isDark ? 0.25 : 0.12),
-          child: Icon(icon, color: isDark ? color.withValues(alpha: 0.9) : color),
+          child: Icon(
+            icon,
+            color: isDark ? color.withValues(alpha: 0.9) : color,
+          ),
         ),
         title: Text(
           title,

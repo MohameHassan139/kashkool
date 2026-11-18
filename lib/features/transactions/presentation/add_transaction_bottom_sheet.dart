@@ -10,6 +10,7 @@ import '../../../core/db/app_database.dart';
 import '../../../core/utils/credit_limit.dart';
 import '../../../core/utils/money.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/adaptive_text.dart';
 import '../../../shared/widgets/glass_toast.dart';
 import '../../customers/data/customer_repository.dart';
 import '../data/transaction_repository.dart';
@@ -36,10 +37,12 @@ class AddTransactionBottomSheet extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<AddTransactionBottomSheet> createState() => _AddTransactionBottomSheetState();
+  ConsumerState<AddTransactionBottomSheet> createState() =>
+      _AddTransactionBottomSheetState();
 }
 
-class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottomSheet> {
+class _AddTransactionBottomSheetState
+    extends ConsumerState<AddTransactionBottomSheet> {
   late TransactionType _type;
   late int? _currentCreditLimit;
   PaymentMethod _method = PaymentMethod.cash;
@@ -109,7 +112,9 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
     final pounds = total / MoneyUtils.piastersPerPound;
 
     setState(() {
-      _amountString = pounds % 1 == 0 ? pounds.toInt().toString() : pounds.toStringAsFixed(2);
+      _amountString = pounds % 1 == 0
+          ? pounds.toInt().toString()
+          : pounds.toStringAsFixed(2);
     });
   }
 
@@ -137,7 +142,11 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
   String _formatDateLabel(AppLocalizations l10n) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final dateOnly = DateTime(_occurredAt.year, _occurredAt.month, _occurredAt.day);
+    final dateOnly = DateTime(
+      _occurredAt.year,
+      _occurredAt.month,
+      _occurredAt.day,
+    );
 
     if (dateOnly == today) {
       return l10n.today;
@@ -228,7 +237,10 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
     }
   }
 
-  Future<int?> _showChangeLimitDialog(BuildContext context, int currentLimit) async {
+  Future<int?> _showChangeLimitDialog(
+    BuildContext context,
+    int currentLimit,
+  ) async {
     final l10n = AppLocalizations.of(context)!;
     final controller = TextEditingController(
       text: (currentLimit / MoneyUtils.piastersPerPound).toStringAsFixed(0),
@@ -370,12 +382,17 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
       );
 
       if (action == 'change_limit' && mounted) {
-        final newLimit = await _showChangeLimitDialog(context, _currentCreditLimit!);
+        final newLimit = await _showChangeLimitDialog(
+          context,
+          _currentCreditLimit!,
+        );
         if (newLimit != null) {
           setState(() => _currentCreditLimit = newLimit);
           if (widget.partyType == PartyType.customer) {
             final customerRepo = ref.read(customerRepositoryProvider);
-            final customerWithBal = await customerRepo.getCustomerWithBalance(widget.partyId);
+            final customerWithBal = await customerRepo.getCustomerWithBalance(
+              widget.partyId,
+            );
             if (customerWithBal != null) {
               await customerRepo.updateCustomer(
                 id: widget.partyId,
@@ -408,7 +425,9 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
         type: _type,
         amountPiasters: piasters,
         method: _type == TransactionType.payment ? _method : null,
-        note: _noteController.text.trim().isNotEmpty ? _noteController.text.trim() : null,
+        note: _noteController.text.trim().isNotEmpty
+            ? _noteController.text.trim()
+            : null,
         photoPath: persistentPhoto,
         occurredAt: _occurredAt,
       );
@@ -474,7 +493,9 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                   width: 48,
                   height: 5,
                   decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1),
+                    color: isDark
+                        ? const Color(0xFF334155)
+                        : const Color(0xFFCBD5E1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -482,7 +503,10 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
 
               // Title Bar with Type Selector Toggle
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
                 child: Row(
                   children: [
                     // Type selector segment
@@ -490,7 +514,9 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                          color: isDark
+                              ? const Color(0xFF1E293B)
+                              : const Color(0xFFF1F5F9),
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: Row(
@@ -498,13 +524,19 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                             // عليه (Debt)
                             Expanded(
                               child: InkWell(
-                                onTap: () => setState(() => _type = TransactionType.debt),
+                                onTap: () => setState(
+                                  () => _type = TransactionType.debt,
+                                ),
                                 borderRadius: BorderRadius.circular(10),
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: isDebt ? AppColors.debtRed : Colors.transparent,
+                                    color: isDebt
+                                        ? AppColors.debtRed
+                                        : Colors.transparent,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
@@ -512,7 +544,9 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                                         ? l10n.iOweHim
                                         : l10n.debt,
                                     style: TextStyle(
-                                      color: isDebt ? Colors.white : AppColors.neutralGrey,
+                                      color: isDebt
+                                          ? Colors.white
+                                          : AppColors.neutralGrey,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
@@ -523,13 +557,19 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                             // دفع (Payment)
                             Expanded(
                               child: InkWell(
-                                onTap: () => setState(() => _type = TransactionType.payment),
+                                onTap: () => setState(
+                                  () => _type = TransactionType.payment,
+                                ),
                                 borderRadius: BorderRadius.circular(10),
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: !isDebt ? AppColors.paymentGreen : Colors.transparent,
+                                    color: !isDebt
+                                        ? AppColors.paymentGreen
+                                        : Colors.transparent,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
@@ -537,7 +577,9 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                                         ? l10n.iPaidHim
                                         : l10n.payment,
                                     style: TextStyle(
-                                      color: !isDebt ? Colors.white : AppColors.neutralGrey,
+                                      color: !isDebt
+                                          ? Colors.white
+                                          : AppColors.neutralGrey,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
@@ -561,10 +603,15 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
               // Huge Amount Display
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF8FAFC),
+                  color: isDark
+                      ? const Color(0xFF1E293B)
+                      : const Color(0xFFF8FAFC),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: accentColor.withValues(alpha: 0.3),
@@ -576,20 +623,25 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
-                    Text(
-                      _amountString.isEmpty ? '0' : _amountString,
-                      style: theme.textTheme.displayMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: accentColor,
-                        letterSpacing: -1,
+                    Flexible(
+                      child: AdaptiveAmountText(
+                        _amountString.isEmpty ? '0' : _amountString,
+                        style: theme.textTheme.displayMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: accentColor,
+                          letterSpacing: -1,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      l10n.currency,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: AppColors.neutralGrey,
-                        fontWeight: FontWeight.bold,
+                    Flexible(
+                      child: AdaptiveText(
+                        l10n.currency,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: AppColors.neutralGrey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
                       ),
                     ),
                   ],
@@ -602,7 +654,10 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
               // Payment Method Choice Chips (if type == payment)
               if (!isDebt) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -610,25 +665,29 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                         ChoiceChip(
                           label: Text(l10n.methodCash),
                           selected: _method == PaymentMethod.cash,
-                          onSelected: (_) => setState(() => _method = PaymentMethod.cash),
+                          onSelected: (_) =>
+                              setState(() => _method = PaymentMethod.cash),
                         ),
                         const SizedBox(width: 8),
                         ChoiceChip(
                           label: Text(l10n.methodInstapay),
                           selected: _method == PaymentMethod.instapay,
-                          onSelected: (_) => setState(() => _method = PaymentMethod.instapay),
+                          onSelected: (_) =>
+                              setState(() => _method = PaymentMethod.instapay),
                         ),
                         const SizedBox(width: 8),
                         ChoiceChip(
                           label: Text(l10n.methodWallet),
                           selected: _method == PaymentMethod.wallet,
-                          onSelected: (_) => setState(() => _method = PaymentMethod.wallet),
+                          onSelected: (_) =>
+                              setState(() => _method = PaymentMethod.wallet),
                         ),
                         const SizedBox(width: 8),
                         ChoiceChip(
                           label: Text(l10n.methodOther),
                           selected: _method == PaymentMethod.other,
-                          onSelected: (_) => setState(() => _method = PaymentMethod.other),
+                          onSelected: (_) =>
+                              setState(() => _method = PaymentMethod.other),
                         ),
                       ],
                     ),
@@ -638,23 +697,36 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
 
               // Secondary Row: Date picker, Note, Voice dictation, and Photo
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
                 child: Row(
                   children: [
                     // Date button
-                    OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                        minimumSize: const Size(0, 44),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    Flexible(
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 6,
+                          ),
+                          minimumSize: const Size(0, 44),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.calendar_today_rounded,
+                          size: 16,
+                        ),
+                        label: AdaptiveText(
+                          _formatDateLabel(l10n),
+                          style: const TextStyle(fontSize: 13),
+                          maxLines: 1,
+                        ),
+                        onPressed: _pickDate,
                       ),
-                      icon: const Icon(Icons.calendar_today_rounded, size: 16),
-                      label: Text(
-                        _formatDateLabel(l10n),
-                        style: const TextStyle(fontSize: 13),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      onPressed: _pickDate,
                     ),
                     const SizedBox(width: 8),
 
@@ -664,32 +736,51 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                         controller: _noteController,
                         decoration: InputDecoration(
                           hintText: l10n.noteOptional,
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
                           isDense: true,
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           suffixIcon: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
                                 icon: Icon(
-                                  _isListening ? Icons.mic_rounded : Icons.mic_none_rounded,
+                                  _isListening
+                                      ? Icons.mic_rounded
+                                      : Icons.mic_none_rounded,
                                   size: 20,
-                                  color: _isListening ? AppColors.debtRed : null,
+                                  color: _isListening
+                                      ? AppColors.debtRed
+                                      : null,
                                 ),
                                 tooltip: l10n.voiceDictation,
                                 padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
                                 onPressed: () => _toggleVoiceDictation(l10n),
                               ),
                               IconButton(
                                 icon: Icon(
-                                  _selectedPhotoPath != null ? Icons.photo_rounded : Icons.camera_alt_outlined,
+                                  _selectedPhotoPath != null
+                                      ? Icons.photo_rounded
+                                      : Icons.camera_alt_outlined,
                                   size: 20,
-                                  color: _selectedPhotoPath != null ? accentColor : null,
+                                  color: _selectedPhotoPath != null
+                                      ? accentColor
+                                      : null,
                                 ),
                                 tooltip: l10n.attachPhoto,
                                 padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
                                 onPressed: _pickPhoto,
                               ),
                               const SizedBox(width: 4),
@@ -705,7 +796,10 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
               // Selected photo preview thumbnail if attached
               if (_selectedPhotoPath != null) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
                   child: Row(
                     children: [
                       ClipRRect(
@@ -721,13 +815,19 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                       Expanded(
                         child: Text(
                           l10n.attachPhoto,
-                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.cancel_rounded, color: AppColors.debtRed),
+                        icon: const Icon(
+                          Icons.cancel_rounded,
+                          color: AppColors.debtRed,
+                        ),
                         tooltip: l10n.removePhoto,
-                        onPressed: () => setState(() => _selectedPhotoPath = null),
+                        onPressed: () =>
+                            setState(() => _selectedPhotoPath = null),
                       ),
                     ],
                   ),
@@ -736,7 +836,10 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
 
               // Custom Numeric Keypad
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 child: NumericKeypad(
                   onKeyPress: _onKeyPress,
                   onBackspace: _onBackspace,
@@ -746,7 +849,10 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
 
               // Save Button (min 56dp height)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: accentColor,
@@ -761,11 +867,17 @@ class _AddTransactionBottomSheetState extends ConsumerState<AddTransactionBottom
                       ? const SizedBox(
                           height: 24,
                           width: 24,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.5,
+                          ),
                         )
                       : Text(
                           l10n.save,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                 ),
               ),

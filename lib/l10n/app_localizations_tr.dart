@@ -21,579 +21,588 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navSuppliers => 'Tedarikçiler';
 
   @override
-  String get navInventory => 'المخزون';
+  String get navInventory => 'Envanter';
 
   @override
   String get navCashDrawer => 'Kasa';
 
   @override
-  String get inventoryTitle => 'المخزون';
+  String get inventoryTitle => 'Envanter';
 
   @override
-  String get inventoryManageButton => 'إدارة الأصناف والمخزون';
+  String get inventoryManageButton => 'Ürünleri ve stoğu yönet';
 
   @override
-  String get inventorySearchHint => 'ابحث عن صنف أو باركود...';
+  String get inventorySearchHint => 'Ürün veya barkod ara...';
 
   @override
-  String get inventoryAddProduct => 'صنف جديد';
+  String get inventoryAddProduct => 'Yeni ürün';
 
   @override
-  String get inventoryEditProduct => 'تعديل الصنف';
+  String get inventoryEditProduct => 'Ürünü düzenle';
 
   @override
-  String get inventoryNoProducts => 'لسه مفيش أصناف مسجلة';
+  String get inventoryNoProducts => 'Henüz ürün eklenmedi';
 
   @override
-  String get inventoryNoSearchResults => 'مفيش أصناف مطابقة للبحث';
+  String get inventoryNoSearchResults => 'Aramaya uygun ürün yok';
 
   @override
-  String get inventoryProductName => 'اسم الصنف';
+  String get inventoryProductName => 'Ürün adı';
 
   @override
-  String get inventoryNameRequired => 'اكتب اسم الصنف';
+  String get inventoryNameRequired => 'Ürün adını girin';
 
   @override
-  String get inventoryBarcode => 'الباركود (اختياري)';
+  String get inventoryBarcode => 'Barkod (isteğe bağlı)';
 
   @override
-  String get inventoryCategory => 'التصنيف (اختياري)';
+  String get inventoryCategory => 'Kategori (isteğe bağlı)';
 
   @override
-  String get inventoryUnit => 'وحدة البيع';
+  String get inventoryUnit => 'Satış birimi';
 
   @override
-  String get inventoryUnitExample => 'مثال: قطعة، كجم، لتر';
+  String get inventoryUnitExample => 'Örn: adet, kg, litre';
 
   @override
-  String get inventoryUnitRequired => 'اكتب وحدة البيع';
+  String get inventoryUnitRequired => 'Satış birimini girin';
 
   @override
-  String get inventoryPurchasePrice => 'سعر الشراء بالجنيه';
+  String get inventoryPurchasePrice => 'Alış fiyatı (TL)';
 
   @override
-  String get inventorySalePrice => 'سعر البيع بالجنيه';
+  String get inventorySalePrice => 'Satış fiyatı (TL)';
 
   @override
-  String get inventoryMinimumStock => 'نبّهني لما الكمية توصل';
+  String get inventoryMinimumStock => 'Stok şu seviyeye düşünce uyar';
 
   @override
-  String get inventoryInitialStock => 'الكمية الموجودة حاليًا';
+  String get inventoryInitialStock => 'Şu anki stok';
 
   @override
-  String get inventoryCurrentStock => 'الموجود في المخزن';
+  String get inventoryCurrentStock => 'Stokta';
 
   @override
-  String get inventoryInStock => 'متوفر';
+  String get inventoryInStock => 'Mevcut';
 
   @override
-  String get inventoryLowStock => 'الكمية قليلة';
+  String get inventoryLowStock => 'Stok az';
 
   @override
-  String get inventoryAdjustStock => 'تعديل الكمية';
+  String get inventoryAdjustStock => 'Stoğu düzelt';
 
   @override
-  String get inventoryAddStock => 'إضافة للمخزون';
+  String get inventoryAddStock => 'Stoğa ekle';
 
   @override
-  String get inventoryRemoveStock => 'خصم من المخزون';
+  String get inventoryRemoveStock => 'Stoktan düş';
 
   @override
-  String get inventoryQuantity => 'الكمية';
+  String get inventoryQuantity => 'Miktar';
 
   @override
-  String get inventoryNote => 'ملاحظة (اختياري)';
+  String get inventoryNote => 'Not (isteğe bağlı)';
 
   @override
-  String get inventoryMovementHistory => 'حركة المخزون';
+  String get inventoryMovementHistory => 'Stok hareketleri';
 
   @override
-  String get inventoryMovementOpening => 'رصيد افتتاحي';
+  String get inventoryMovementOpening => 'Açılış stoğu';
 
   @override
-  String get inventoryMovementAdjustment => 'تعديل يدوي';
+  String get inventoryMovementAdjustment => 'Elle düzeltme';
 
   @override
-  String get inventoryMovementPurchase => 'شراء';
+  String get inventoryMovementPurchase => 'Alış';
 
   @override
-  String get inventoryMovementSale => 'بيع';
+  String get inventoryMovementSale => 'Satış';
 
   @override
-  String get inventoryMovementCustomerReturn => 'مرتجع عميل';
+  String get inventoryMovementCustomerReturn => 'Müşteri iadesi';
 
   @override
-  String get inventoryMovementSupplierReturn => 'مرتجع مورد';
+  String get inventoryMovementSupplierReturn => 'Tedarikçi iadesi';
 
   @override
-  String get inventoryNoMovements => 'مفيش حركات مخزون لسه';
+  String get inventoryNoMovements => 'Henüz stok hareketi yok';
 
   @override
-  String get inventorySave => 'حفظ';
+  String get inventorySave => 'Kaydet';
 
   @override
-  String get inventoryCancel => 'إلغاء';
+  String get inventoryCancel => 'İptal';
 
   @override
-  String get inventoryDelete => 'حذف الصنف';
+  String get inventoryDelete => 'Ürünü sil';
 
   @override
   String get inventoryDeleteConfirm =>
-      'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
+      'Ürün listeden gizlenecek, hareket kayıtları kalacak. Emin misiniz?';
 
   @override
-  String get inventoryDeleted => 'تم حذف الصنف';
+  String get inventoryDeleted => 'Ürün silindi';
 
   @override
-  String get inventoryProductSaved => 'تم حفظ الصنف';
+  String get inventoryProductSaved => 'Ürün kaydedildi';
 
   @override
-  String get inventoryStockSaved => 'تم تحديث المخزون';
+  String get inventoryStockSaved => 'Stok güncellendi';
 
   @override
-  String get inventoryInvalidQuantity => 'اكتب كمية صحيحة (لحد 3 أرقام عشرية)';
+  String get inventoryInvalidQuantity =>
+      'Geçerli bir miktar girin (en fazla 3 ondalık basamak)';
 
   @override
-  String get inventoryQuantityRequired => 'اكتب كمية أكبر من صفر';
+  String get inventoryQuantityRequired => 'Sıfırdan büyük bir miktar girin';
 
   @override
-  String get inventoryStockCannotBeNegative => 'الكمية الموجودة مش كفاية للخصم';
+  String get inventoryStockCannotBeNegative =>
+      'Bu miktarı düşmek için yeterli stok yok';
 
   @override
-  String get inventoryInvalidPrice => 'اكتب سعر صحيح غير سالب';
+  String get inventoryInvalidPrice =>
+      'Geçerli, negatif olmayan bir fiyat girin';
 
   @override
-  String get inventoryBarcodeExists => 'الباركود مسجل لصنف تاني';
+  String get inventoryBarcodeExists => 'Bu barkod başka bir ürüne kayıtlı';
 
   @override
   String get inventoryUnitChangeNotAllowed =>
-      'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
+      'Stok hareketi oluştuktan sonra birim değiştirilemez';
 
   @override
   String get inventorySaveFailed =>
-      'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+      'Kaydedilemedi. Bilgileri kontrol edip tekrar deneyin.';
 
   @override
-  String get inventorySupplier => 'المورد (اختياري)';
+  String get inventorySupplier => 'Tedarikçi (isteğe bağlı)';
 
   @override
-  String get inventorySupplierNone => 'بدون مورد';
+  String get inventorySupplierNone => 'Tedarikçisiz';
 
   @override
-  String get inventorySupplierFilter => 'تصفية بالمورد';
+  String get inventorySupplierFilter => 'Tedarikçiye göre filtrele';
 
   @override
-  String get inventoryFilterAllSuppliers => 'كل الموردين';
+  String get inventoryFilterAllSuppliers => 'Tüm tedarikçiler';
 
   @override
-  String get inventorySupplierProducts => 'أصناف المورد';
+  String get inventorySupplierProducts => 'Tedarikçinin ürünleri';
 
   @override
-  String get inventoryNoSupplierProducts => 'مفيش أصناف مربوطة بهذا المورد';
+  String get inventoryNoSupplierProducts => 'Bu tedarikçiye bağlı ürün yok';
 
   @override
-  String get inventorySupplierCardTitle => 'المورد المسئول';
+  String get inventorySupplierCardTitle => 'Sorumlu tedarikçi';
 
   @override
-  String get inventoryOrderWhatsApp => 'طلب نواقص عبر واتساب';
+  String get inventoryOrderWhatsApp => 'WhatsApp ile sipariş ver';
 
   @override
-  String get supplierReturn => 'مرتجع للمورد';
+  String get supplierReturn => 'Tedarikçiye iade';
 
   @override
-  String get supplierReturnReason => 'سبب المرتجع (اختياري)';
+  String get supplierReturnReason => 'İade nedeni (isteğe bağlı)';
 
   @override
-  String get supplierReturnSuccess =>
-      'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
+  String get supplierReturnSuccess => 'İade kaydedildi ve hesaptan düşüldü';
 
   @override
-  String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
+  String get purchasePaidAmount => 'Şu an ödenen tutar';
 
   @override
-  String get purchasePaymentFull => 'دفع كامل';
+  String get purchasePaymentFull => 'Tam ödeme';
 
   @override
-  String get purchasePaymentPartial => 'دفع جزء (باقي آجل)';
+  String get purchasePaymentPartial => 'Kısmi ödeme (kalan borç)';
 
   @override
-  String get purchasePaymentOnAccount => 'دفعة تحت الحساب';
+  String get purchasePaymentOnAccount => 'Hesaba avans';
 
   @override
-  String get purchasePaymentCredit => 'آجل بالكامل';
+  String get purchasePaymentCredit => 'Tamamen vadeli';
 
   @override
-  String get purchaseRemainingDebt => 'المتبقي آجل على المحل';
+  String get purchaseRemainingDebt => 'Dükkanın kalan borcu';
 
   @override
-  String get purchaseAdvanceCredit => 'رصيد زيادة للمحل (تحت الحساب)';
+  String get purchaseAdvanceCredit => 'Dükkanın fazla bakiyesi (avans)';
 
   @override
-  String get profitLossTitle => 'المكسب والخسارة';
+  String get profitLossTitle => 'Kâr ve Zarar';
 
   @override
-  String get profitLossRevenue => 'إجمالي المبيعات';
+  String get profitLossRevenue => 'Toplam satış';
 
   @override
-  String get profitLossCogs => 'تكلفة البضاعة المباعة';
+  String get profitLossCogs => 'Satılan malın maliyeti';
 
   @override
-  String get profitLossGross => 'مجمل الربح';
+  String get profitLossGross => 'Brüt kâr';
 
   @override
-  String get profitLossExpenses => 'المصروفات التشغيلية';
+  String get profitLossExpenses => 'Faaliyet giderleri';
 
   @override
-  String get profitLossNet => 'صافي الربح / الخسارة';
+  String get profitLossNet => 'Net kâr / zarar';
 
   @override
-  String get profitLossMargin => 'نسبة هامش الربح';
+  String get profitLossMargin => 'Kâr marjı';
 
   @override
-  String get profitLossPeriodToday => 'اليوم';
+  String get profitLossPeriodToday => 'Bugün';
 
   @override
-  String get profitLossPeriodWeek => 'آخر 7 أيام';
+  String get profitLossPeriodWeek => 'Son 7 gün';
 
   @override
-  String get profitLossPeriodMonth => 'هذا الشهر';
+  String get profitLossPeriodMonth => 'Bu ay';
 
   @override
-  String get profitLossPeriodAll => 'كل الفترات';
+  String get profitLossPeriodAll => 'Tüm zamanlar';
 
   @override
-  String get profitLossPositive => 'صافي ربح';
+  String get profitLossPositive => 'Net kâr';
 
   @override
-  String get profitLossNegative => 'صافي خسارة';
+  String get profitLossNegative => 'Net zarar';
 
   @override
-  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (كاش)';
+  String get profitLossCashSectionTitle => 'Nakit kâr (elde edilen)';
 
   @override
   String get profitLossCashSectionSubtitle =>
-      'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات';
+      'Nakit satışlardan, giderler düşüldükten sonra kasaya giren kâr';
 
   @override
-  String get profitLossCashNet => 'صافي الربح النقدي في الدرج';
+  String get profitLossCashNet => 'Kasadaki net nakit kâr';
 
   @override
-  String get profitLossCashRevenue => 'مبيعات نقدية (كاش)';
+  String get profitLossCashRevenue => 'Nakit satışlar';
 
   @override
-  String get profitLossCashCogs => 'تكلفة بضاعة الكاش المباعة';
+  String get profitLossCashCogs => 'Satılan nakit malın maliyeti';
 
   @override
-  String get profitLossCashGross => 'مجمل ربح الكاش';
+  String get profitLossCashGross => 'Brüt nakit kâr';
 
   @override
-  String get profitLossCreditSectionTitle => 'أرباح آجلة (عند العملاء)';
+  String get profitLossCreditSectionTitle => 'Vadeli kâr (müşterilerde)';
 
   @override
   String get profitLossCreditSectionSubtitle =>
-      'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد';
+      'Vadeli satılan malın kârı, henüz tahsil edilmedi';
 
   @override
-  String get profitLossCreditGross => 'أرباح مؤجلة عند الزبائن';
+  String get profitLossCreditGross => 'Müşterilerdeki vadeli kâr';
 
   @override
-  String get profitLossCreditRevenue => 'مبيعات بالآجل (شُكك)';
+  String get profitLossCreditRevenue => 'Vadeli satışlar (borç)';
 
   @override
-  String get profitLossCreditCogs => 'تكلفة بضاعة الآجل';
+  String get profitLossCreditCogs => 'Vadeli malın maliyeti';
 
   @override
-  String get profitLossTotalExpectedNet => 'إجمالي الربح الكلي (نقدي + آجل)';
+  String get profitLossTotalExpectedNet =>
+      'Toplam beklenen kâr (nakit + vadeli)';
 
   @override
-  String get profitLossCashVsCreditRatio => 'نسبة الكاش إلى الآجل';
+  String get profitLossCashVsCreditRatio => 'Nakit / vadeli oranı';
 
   @override
-  String get shopReportTitle => 'تقرير المحل الشامل';
+  String get shopReportTitle => 'Dükkan kapsamlı raporu';
 
   @override
-  String get shopReportInventoryValue => 'قيمة بضاعة المحل';
+  String get shopReportInventoryValue => 'Stok değeri';
 
   @override
-  String get shopReportAtCost => 'بسعر الشراء (التكلفة)';
+  String get shopReportAtCost => 'Alış fiyatıyla (maliyet)';
 
   @override
-  String get shopReportAtRetail => 'بسعر البيع (المتوقع)';
+  String get shopReportAtRetail => 'Satış fiyatıyla (beklenen)';
 
   @override
-  String get shopReportExpectedProfit => 'الربح المتوقع من البضاعة';
+  String get shopReportExpectedProfit => 'Stoktan beklenen kâr';
 
   @override
-  String get shopReportReceivables => 'لينا عند العملاء (ديون)';
+  String get shopReportReceivables => 'Müşterilerden alacaklar (borçlar)';
 
   @override
-  String get shopReportPayables => 'علينا للموردين (ديون)';
+  String get shopReportPayables => 'Tedarikçilere borçlar';
 
   @override
-  String get shopReportCashDrawer => 'الفلوس في الدرج والخزينة';
+  String get shopReportCashDrawer => 'Kasa ve kasadaki para';
 
   @override
-  String get shopReportNetWorth => 'صافي رأس مال المحل';
+  String get shopReportNetWorth => 'Dükkanın net varlığı';
 
   @override
-  String get shopReportLowStockCount => 'أصناف وصلت للنواقص';
+  String get shopReportLowStockCount => 'Stoğu azalan ürünler';
 
   @override
-  String get shopReportShare => 'مشاركة التقرير عبر واتساب';
+  String get shopReportShare => 'Raporu WhatsApp ile paylaş';
 
   @override
-  String get featureManagerTitle => 'تخصيص ميزات المحل';
+  String get featureManagerTitle => 'Dükkan özelliklerini özelleştir';
 
   @override
   String get featureManagerSubtitle =>
-      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
+      'Dükkanınıza uygun bölümleri gösterin veya gizleyin';
 
   @override
   String get featureManagerNote =>
-      'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
+      'Bir özelliği gizlemek verilerini silmez; istediğiniz zaman geri açabilirsiniz.';
 
   @override
-  String get featurePresetTitle => 'أوضاع سريعة بنقرة واحدة';
+  String get featurePresetTitle => 'Tek dokunuşla hazır ayarlar';
 
   @override
-  String get featurePresetSimple => 'كشكول ديون فقط';
+  String get featurePresetSimple => 'Sadece borç defteri';
 
   @override
   String get featurePresetSimpleDesc =>
-      'تركيز تام على حسابات الزباين والتحصيل فقط';
+      'Tamamen müşteri borçları ve tahsilata odaklan';
 
   @override
-  String get featurePresetGrocery => 'بقالة وسوبرماركت';
+  String get featurePresetGrocery => 'Bakkal ve süpermarket';
 
   @override
-  String get featurePresetGroceryDesc => 'بيع سريع + بضاعة وموردين + درج يومي';
+  String get featurePresetGroceryDesc =>
+      'Hızlı satış + stok ve tedarikçiler + günlük kasa';
 
   @override
-  String get featurePresetElectronics => 'محل موبايل وأجهزة';
+  String get featurePresetElectronics => 'Telefon ve elektronik dükkanı';
 
   @override
-  String get featurePresetElectronicsDesc => 'أقساط + مخزون + بيع سريع وموردين';
+  String get featurePresetElectronicsDesc =>
+      'Taksit + stok + hızlı satış ve tedarikçiler';
 
   @override
-  String get featurePresetAll => 'تشغيل كل الميزات';
+  String get featurePresetAll => 'Tüm özellikler açık';
 
   @override
-  String get featurePresetAllDesc => 'فتح كافة إمكانيات التطبيق';
+  String get featurePresetAllDesc => 'Uygulamanın tüm özelliklerini aç';
 
   @override
-  String get featureQuickPosTitle => 'البيع السريع ونقطة البيع (POS)';
+  String get featureQuickPosTitle => 'Hızlı satış ve satış noktası (POS)';
 
   @override
   String get featureQuickPosDesc =>
-      'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
+      'Hızlı nakit fatura ve para üstü hesaplama ekranı';
 
   @override
-  String get featureSuppliersTitle => 'الموردون وفواتير الشراء';
+  String get featureSuppliersTitle => 'Tedarikçiler ve alış faturaları';
 
   @override
   String get featureSuppliersDesc =>
-      'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
+      'Tedarikçi borçları, siparişler ve iadeleri takip et';
 
   @override
-  String get featureInstallmentsTitle => 'دفتر الأقساط الشهرية';
+  String get featureInstallmentsTitle => 'Aylık taksit defteri';
 
   @override
   String get featureInstallmentsDesc =>
-      'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد';
+      'Taksit planları, sözleşmeler ve ödeme tarihi hatırlatmaları';
 
   @override
-  String get featureInventoryTitle => 'المخزون وإدارة الأصناف';
+  String get featureInventoryTitle => 'Stok ve ürün yönetimi';
 
   @override
   String get featureInventoryDesc =>
-      'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
+      'Mal kaydı, stok uyarıları ve hareket geçmişi';
 
   @override
-  String get featureCashDrawerTitle => 'الصندوق والدرج اليومي';
+  String get featureCashDrawerTitle => 'Kasa ve günlük kapanış';
 
   @override
   String get featureCashDrawerDesc =>
-      'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
+      'Günlük nakit akışı, eksik/fazla ve kapanış hesabı';
 
   @override
-  String get featureProfitLossTitle => 'المكسب والخسارة والتقارير';
+  String get featureProfitLossTitle => 'Kâr/zarar ve raporlar';
 
   @override
   String get featureProfitLossDesc =>
-      'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال';
+      'Giderler düşüldükten sonraki net kârı ve sermaye raporunu hesapla';
 
   @override
-  String get featureOffersTitle => 'رسائل العروض والمناسبات';
+  String get featureOffersTitle => 'Kampanya ve tebrik mesajları';
 
   @override
   String get featureOffersDesc =>
-      'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب';
+      'WhatsApp ile müşteri gruplarına kampanya ve indirim gönder';
 
   @override
   String get featureCoreAlwaysActive =>
-      'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
+      'Müşteriler ve tahsilat her zaman açık temel özelliklerdir';
 
   @override
-  String get featureStatusActive => 'مفعل';
+  String get featureStatusActive => 'Açık';
 
   @override
-  String get featureStatusHidden => 'مخفي';
+  String get featureStatusHidden => 'Gizli';
 
   @override
-  String get quickPosTitle => 'بيع سريع';
+  String get quickPosTitle => 'Hızlı satış';
 
   @override
-  String get quickPosOpen => 'افتح البيع السريع';
+  String get quickPosOpen => 'Hızlı satışı aç';
 
   @override
-  String get quickPosSearch => 'ابحث بالاسم أو اكتب الباركود...';
+  String get quickPosSearch => 'Adla ara veya barkod yaz...';
 
   @override
-  String get quickPosProducts => 'الأصناف';
+  String get quickPosProducts => 'Ürünler';
 
   @override
-  String get quickPosAdd => 'ضيف للبيع';
+  String get quickPosAdd => 'Satışa ekle';
 
   @override
-  String get quickPosAvailable => 'المتاح';
+  String get quickPosAvailable => 'Mevcut';
 
   @override
-  String get quickPosCart => 'أصناف البيع';
+  String get quickPosCart => 'Satış ürünleri';
 
   @override
-  String get quickPosEmptyCart => 'ضيف أصناف عشان تبدأ البيع';
+  String get quickPosEmptyCart => 'Satışa başlamak için ürün ekleyin';
 
   @override
-  String get quickPosQuantity => 'الكمية';
+  String get quickPosQuantity => 'Miktar';
 
   @override
-  String get quickPosQuantityInvalid => 'اكتب كمية صحيحة أكبر من صفر';
+  String get quickPosQuantityInvalid =>
+      'Sıfırdan büyük, geçerli bir miktar girin';
 
   @override
-  String get quickPosCash => 'نقدي';
+  String get quickPosCash => 'Nakit';
 
   @override
-  String get quickPosCredit => 'على حساب عميل';
+  String get quickPosCredit => 'Müşteri hesabına';
 
   @override
-  String get quickPosSelectCustomer => 'اختار العميل';
+  String get quickPosSelectCustomer => 'Müşteri seçin';
 
   @override
-  String get quickPosCustomerRequired => 'اختار عميل للبيع على الحساب';
+  String get quickPosCustomerRequired => 'Vadeli satış için bir müşteri seçin';
 
   @override
-  String get quickPosTotal => 'الإجمالي';
+  String get quickPosTotal => 'Toplam';
 
   @override
-  String get quickPosCompleteSale => 'تأكيد البيع';
+  String get quickPosCompleteSale => 'Satışı tamamla';
 
   @override
-  String get quickPosSaving => 'بيتم حفظ البيع...';
+  String get quickPosSaving => 'Satış kaydediliyor...';
 
   @override
-  String get quickPosSaleSaved => 'تم تسجيل البيع';
+  String get quickPosSaleSaved => 'Satış kaydedildi';
 
   @override
-  String get quickPosSaveFailed => 'ماقدرناش نسجل البيع. حاول تاني.';
+  String get quickPosSaveFailed => 'Satış kaydedilemedi. Tekrar deneyin.';
 
   @override
-  String get quickPosInsufficientStock => 'المخزون مش كفاية للكمية دي';
+  String get quickPosInsufficientStock => 'Bu miktar için yeterli stok yok';
 
   @override
   String get quickPosCashDayClosed =>
-      'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
+      'Bugünün kasası kapalı. Nakit satış yapmak için tekrar açın.';
 
   @override
-  String get quickPosLoadFailed => 'ماقدرناش نحمّل الأصناف';
+  String get quickPosLoadFailed => 'Ürünler yüklenemedi';
 
   @override
-  String get quickPosCustomersLoadFailed => 'ماقدرناش نحمّل العملاء';
+  String get quickPosCustomersLoadFailed => 'Müşteriler yüklenemedi';
 
   @override
-  String get quickPosSaleNote => 'بيع سريع';
+  String get quickPosSaleNote => 'Hızlı satış';
 
   @override
-  String get supplierPurchasesTitle => 'مشتريات المورد';
+  String get supplierPurchasesTitle => 'Tedarikçi alışları';
 
   @override
-  String get supplierPurchaseNew => 'تسجيل شراء';
+  String get supplierPurchaseNew => 'Alış kaydet';
 
   @override
-  String get supplierPurchaseInvoiceNumber => 'رقم الفاتورة (اختياري)';
+  String get supplierPurchaseInvoiceNumber => 'Fatura numarası (isteğe bağlı)';
 
   @override
-  String get supplierPurchasePaymentType => 'طريقة الحساب';
+  String get supplierPurchasePaymentType => 'Ödeme şekli';
 
   @override
-  String get supplierPurchaseCash => 'نقدي';
+  String get supplierPurchaseCash => 'Nakit';
 
   @override
-  String get supplierPurchaseCredit => 'على الحساب';
+  String get supplierPurchaseCredit => 'Vadeli';
 
   @override
-  String get supplierPurchaseAddProduct => 'اختار صنف';
+  String get supplierPurchaseAddProduct => 'Ürün seçin';
 
   @override
-  String get supplierPurchaseItems => 'أصناف الفاتورة';
+  String get supplierPurchaseItems => 'Fatura kalemleri';
 
   @override
-  String get supplierPurchaseQuantity => 'الكمية';
+  String get supplierPurchaseQuantity => 'Miktar';
 
   @override
-  String get supplierPurchaseUnitCost => 'سعر شراء الوحدة بالجنيه';
+  String get supplierPurchaseUnitCost => 'Birim alış fiyatı (TL)';
 
   @override
-  String get supplierPurchaseAddLine => 'إضافة الصنف';
+  String get supplierPurchaseAddLine => 'Ürün ekle';
 
   @override
-  String get supplierPurchaseNoLines => 'ضيف صنف واحد على الأقل';
+  String get supplierPurchaseNoLines => 'En az bir ürün ekleyin';
 
   @override
-  String get supplierPurchaseSave => 'حفظ الفاتورة';
+  String get supplierPurchaseSave => 'Faturayı kaydet';
 
   @override
-  String get supplierPurchaseTotal => 'إجمالي الفاتورة';
+  String get supplierPurchaseTotal => 'Fatura toplamı';
 
   @override
-  String get supplierPurchaseSaved => 'تم تسجيل فاتورة الشراء';
+  String get supplierPurchaseSaved => 'Alış faturası kaydedildi';
 
   @override
-  String get supplierPurchaseSaveFailed => 'ماقدرناش نسجل الفاتورة. حاول تاني.';
+  String get supplierPurchaseSaveFailed =>
+      'Alış faturası kaydedilemedi. Tekrar deneyin.';
 
   @override
-  String get supplierPurchaseNoInvoices => 'مفيش فواتير شراء للمورد ده';
+  String get supplierPurchaseNoInvoices =>
+      'Bu tedarikçiye ait alış faturası yok';
 
   @override
-  String get supplierPurchaseDetails => 'تفاصيل الفاتورة';
+  String get supplierPurchaseDetails => 'Fatura detayları';
 
   @override
-  String get supplierPurchaseReturn => 'إرجاع للمورد';
+  String get supplierPurchaseReturn => 'Tedarikçiye iade';
 
   @override
-  String get supplierPurchaseReturned => 'المرتجع';
+  String get supplierPurchaseReturned => 'İade edilen';
 
   @override
-  String get supplierPurchaseRemaining => 'المتاح للمرتجع';
+  String get supplierPurchaseRemaining => 'İade edilebilir';
 
   @override
-  String get supplierPurchaseReturnQuantity => 'كمية المرتجع';
+  String get supplierPurchaseReturnQuantity => 'İade miktarı';
 
   @override
   String get supplierPurchaseReturnSaved =>
-      'تم تسجيل المرتجع واتخصم من حساب المورد';
+      'İade kaydedildi ve tedarikçi hesabına işlendi';
 
   @override
   String get supplierPurchaseReturnLimit =>
-      'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون';
+      'Miktar, iade edilebilir tutarı veya mevcut stoğu aşıyor';
 
   @override
-  String get supplierCreditNote => 'رصيد دائن من مرتجع';
+  String get supplierCreditNote => 'İadeden alacak';
 
   @override
-  String get supplierPurchaseInvalidInput => 'راجع الكمية والسعر وحاول تاني';
+  String get supplierPurchaseInvalidInput =>
+      'Miktarı ve fiyatı kontrol edip tekrar deneyin';
 
   @override
-  String get supplierPurchaseLoadError => 'ماقدرناش نحمّل فواتير الشراء';
+  String get supplierPurchaseLoadError => 'Alış faturaları yüklenemedi';
 
   @override
   String get navSettings => 'Ayarlar';
@@ -1129,7 +1138,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get statementFormatA4 => 'A4 kâğıt';
 
   @override
-  String get statementFormatReceipt => 'Termal fiş (80mm)';
+  String get statementFormatReceipt => 'Termal Fiş (80mm)';
 
   @override
   String get dateCol => 'Tarih';
@@ -2706,7 +2715,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsScreen73 =>
-      'https://wa.me/201000000000?text=Merhaba%2C%20Kashkool%20hakk%C4%B1nda%20bir%20sorum%20var';
+      'https://wa.me/201005083126?text=Merhaba%2C%20Kashkool%20hakk%C4%B1nda%20bir%20sorum%20var';
 
   @override
   String get settingsScreen74 => 'Gizlilik politikası ve kullanım koşulları';
@@ -3800,336 +3809,344 @@ class AppLocalizationsTr extends AppLocalizations {
   String get cloudDeleteAccountDone => 'Bulut hesabınız silindi';
 
   @override
-  String get authFirstTimeTitle => 'أهلاً بك في كشكول! 👋';
+  String get authFirstTimeTitle => 'Kashkool\'a hoş geldiniz! 👋';
 
   @override
-  String get authFirstTimeQuestion => 'هل عندك حساب بالفعل ولا مستخدم جديد؟';
+  String get authFirstTimeQuestion =>
+      'Zaten hesabınız var mı, yoksa yeni misiniz?';
 
   @override
-  String get authHaveAccount => 'عندي حساب بالفعل';
+  String get authHaveAccount => 'Zaten hesabım var';
 
   @override
   String get authHaveAccountSubtitle =>
-      'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
+      'Giriş yapın, dükkanınızın tüm verileri hemen geri gelsin';
 
   @override
-  String get authNewUser => 'مستخدم جديد';
+  String get authNewUser => 'Yeni kullanıcı';
 
   @override
-  String get authNewUserSubtitle => 'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة';
+  String get authNewUserSubtitle =>
+      'Yeni bir Kashkool başlatın ve dükkanınızı adım adım hazırlayın';
 
   @override
-  String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
+  String get authContinueGuest => 'Misafir olarak devam et (hesapsız)';
 
   @override
   String get authContinueGuestSubtitle =>
-      'استخدم التطبيق محلياً بدون إنترنت خالص';
+      'Uygulamayı tamamen çevrimdışı kullanın';
 
   @override
-  String get authLogin => 'تسجيل الدخول';
+  String get authLogin => 'Giriş yap';
 
   @override
-  String get authRegister => 'إنشاء حساب جديد';
+  String get authRegister => 'Yeni hesap oluştur';
 
   @override
-  String get authEmail => 'البريد الإلكتروني';
+  String get authEmail => 'E-posta';
 
   @override
-  String get authPassword => 'كلمة المرور';
+  String get authPassword => 'Şifre';
 
   @override
-  String get authPasswordConfirm => 'تأكيد كلمة المرور';
+  String get authPasswordConfirm => 'Şifreyi onayla';
 
   @override
-  String get authNameOptional => 'الاسم (اختياري)';
+  String get authNameOptional => 'Ad (isteğe bağlı)';
 
   @override
-  String get authLoginButton => 'تسجيل الدخول';
+  String get authLoginButton => 'Giriş yap';
 
   @override
-  String get authRegisterButton => 'إنشاء حساب';
+  String get authRegisterButton => 'Hesap oluştur';
 
   @override
-  String get authOrGoogle => 'أو المتابعة بحساب Google';
+  String get authOrGoogle => 'veya Google hesabıyla devam et';
 
   @override
-  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+  String get authSignInWithGoogle => 'Google hesabıyla giriş yap';
 
   @override
   String get authSignInWithGoogleSubtitle =>
-      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+      'Otomatik bulut senkronizasyonu ve dükkan verilerinin geri yüklenmesi';
 
   @override
-  String get authSwitchAccount => 'تبديل الحساب';
+  String get authSwitchAccount => 'Hesap değiştir';
 
   @override
   String get authSwitchAccountSubtitle =>
-      'اختر حساباً آخر أو سجّل دخول بحساب جديد';
+      'Başka bir hesap seçin veya yeni bir hesapla giriş yapın';
 
   @override
-  String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
+  String get authAddAccount => '+ Başka bir hesapla giriş yap';
 
   @override
-  String get authCurrentAccount => 'الحساب النشط حالياً';
+  String get authCurrentAccount => 'Şu anki aktif hesap';
 
   @override
-  String get authPasswordsDontMatch => 'كلمتا المرور غير متطابقتين';
+  String get authPasswordsDontMatch => 'Şifreler eşleşmiyor';
 
   @override
-  String get authPasswordTooShort => 'كلمة المرور لازم تكون 6 أحرف على الأقل';
+  String get authPasswordTooShort => 'Şifre en az 6 karakter olmalı';
 
   @override
-  String get authInvalidEmail => 'اكتب بريد إلكتروني صحيح';
+  String get authInvalidEmail => 'Geçerli bir e-posta adresi girin';
 
   @override
-  String get authLoginSuccess => 'تم تسجيل الدخول بنجاح 🎉';
+  String get authLoginSuccess => 'Giriş başarılı 🎉';
 
   @override
-  String get authRegisterSuccess => 'تم إنشاء الحساب بنجاح 🎉';
+  String get authRegisterSuccess => 'Hesap başarıyla oluşturuldu 🎉';
 
   @override
   String authSwitchedTo(Object email) {
-    return 'تم التبديل إلى حساب: $email';
+    return 'Şu hesaba geçildi: $email';
   }
 
   @override
-  String get cloudApiEmailTaken => 'البريد ده مسجل قبل كده، جرّب تسجّل دخول';
+  String get cloudApiEmailTaken =>
+      'Bu e-posta zaten kayıtlı, giriş yapmayı deneyin';
 
   @override
-  String get cloudApiInvalidCredentials => 'البريد أو كلمة المرور مش صحيحة';
+  String get cloudApiInvalidCredentials => 'E-posta veya şifre hatalı';
 
   @override
-  String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
+  String get authBackupBeforeSwitchTitle =>
+      'Dikkat: Kaydedilmemiş veriler var!';
 
   @override
   String get authBackupBeforeSwitchBody =>
-      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
+      'Bu hesap için buluta yedeklenmemiş veriler var. Şimdi hesap değiştirirseniz yerel veriler silinir ve ancak önce yedek alırsanız geri getirebilirsiniz.';
 
   @override
-  String get authBackupFirst => 'اعمل نسخة احتياطية أولاً';
+  String get authBackupFirst => 'Önce yedek al';
 
   @override
-  String get authSwitchWithoutBackup => 'تبديل ومسح البيانات المحلية';
+  String get authSwitchWithoutBackup => 'Değiştir ve yerel verileri sil';
 
   @override
-  String get authFetchingData => 'جاري جلب بياناتك من السحابة…';
+  String get authFetchingData => 'Verileriniz buluttan alınıyor…';
 
   @override
-  String get authEmailLoginButton => 'تسجيل الدخول بالبريد الإلكتروني';
+  String get authEmailLoginButton => 'E-posta ile giriş yap';
 
   @override
-  String get authEmailRegisterButton => 'إنشاء حساب جديد بالبريد';
+  String get authEmailRegisterButton => 'E-posta ile yeni hesap oluştur';
 
   @override
-  String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
+  String get authWipingData => 'Yerel veriler silinip hesap değiştiriliyor…';
 
   @override
-  String get offersBroadcasterTitle => 'رسائل العروض والمعايدات';
+  String get offersBroadcasterTitle => 'Kampanya ve tebrik mesajları';
 
   @override
   String get offersBroadcasterSubtitle =>
-      'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة';
+      'Kampanya ve tebriklerinizi tek dokunuşla, ücretsiz olarak WhatsApp\'ta gönderin';
 
   @override
-  String get offersTemplateSection => '1. اختر القالب';
+  String get offersTemplateSection => '1. Şablon seçin';
 
   @override
-  String get offersAudienceSection => '2. اختر الجمهور المستهدف';
+  String get offersAudienceSection => '2. Hedef kitleyi seçin';
 
   @override
-  String get offersMessageSection => '3. نص الرسالة والمعاينة';
+  String get offersMessageSection => '3. Mesaj metni ve önizleme';
 
   @override
-  String get offersTemplateRamadan => 'رمضان المبارك 🌙';
+  String get offersTemplateRamadan => 'Mübarek Ramazan 🌙';
 
   @override
-  String get offersTemplateEid => 'العيد المبارك 🎉';
+  String get offersTemplateEid => 'Mübarek Bayram 🎉';
 
   @override
-  String get offersTemplateBackToSchool => 'دخول المدارس 📚';
+  String get offersTemplateBackToSchool => 'Okul dönemi 📚';
 
   @override
-  String get offersTemplateNewOffer => 'عروض جديدة 🎁';
+  String get offersTemplateNewOffer => 'Yeni kampanyalar 🎁';
 
   @override
-  String get offersTemplateCustom => 'رسالة مخصصة ✍️';
+  String get offersTemplateCustom => 'Özel mesaj ✍️';
 
   @override
-  String get offersAudienceAllWithPhone => 'جميع العملاء برقم هاتف';
+  String get offersAudienceAllWithPhone =>
+      'Telefon numarası olan tüm müşteriler';
 
   @override
-  String get offersAudienceGoodRating => 'العملاء الملتزمون بالسداد (أخضر)';
+  String get offersAudienceGoodRating => 'Ödemelerini düzenli yapanlar (yeşil)';
 
   @override
-  String get offersAudienceActive30Days => 'النشطون آخر 30 يوماً';
+  String get offersAudienceActive30Days => 'Son 30 günde aktif olanlar';
 
   @override
-  String get offersAudienceManual => 'اختيار يدوي مخصص';
+  String get offersAudienceManual => 'Elle özel seçim';
 
   @override
   String get offersTipSpam =>
-      '💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.';
+      '💡 İpucu: WhatsApp kısıtlamalarından kaçınmak için tek seferde 50\'den fazla müşteriye göndermeyin.';
 
   @override
   String offersStartCampaign(Object count) {
-    return 'بدء طابور الإرسال ($count عميل)';
+    return 'Gönderim kuyruğunu başlat ($count müşteri)';
   }
 
   @override
   String offersResumeCampaign(Object pending) {
-    return 'استئناف الحملة السابقة ($pending متبقي)';
+    return 'Önceki kampanyayı sürdür ($pending kaldı)';
   }
 
   @override
-  String get offersDiscardCampaign => 'بدء حملة جديدة بدلاً منها';
+  String get offersDiscardCampaign => 'Bunun yerine yeni kampanya başlat';
 
   @override
-  String get offersQueueTitle => 'طابور الإرسال';
+  String get offersQueueTitle => 'Gönderim kuyruğu';
 
   @override
   String offersProgressLabel(Object sent, Object total, Object percent) {
-    return 'إرسال $sent من $total عميل ($percent%)';
+    return '$sent / $total müşteriye gönderildi ($percent%)';
   }
 
   @override
-  String get offersSendViaWhatsApp => 'ابعت عبر واتساب';
+  String get offersSendViaWhatsApp => 'WhatsApp ile gönder';
 
   @override
-  String get offersSkipCustomer => 'تخطي العميل';
+  String get offersSkipCustomer => 'Müşteriyi atla';
 
   @override
-  String get offersPauseQueue => 'إيقاف مؤقت والرجوع';
+  String get offersPauseQueue => 'Duraklat ve geri dön';
 
   @override
-  String get offersCampaignCompleteTitle => 'تم الانتهاء بنجاح! 🎉';
+  String get offersCampaignCompleteTitle => 'Başarıyla tamamlandı! 🎉';
 
   @override
   String get offersCampaignCompleteSubtitle =>
-      'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.';
+      'Seçilen tüm mesajlar müşterilerinize gönderildi.';
 
   @override
   String get offersNoRecipients =>
-      'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف';
+      'Seçilen filtreye uyan ve telefon numarası olan müşteri yok';
 
   @override
   String offersSelectManualCustomers(Object count) {
-    return 'تحديد العملاء ($count محدد)';
+    return 'Müşteri seç ($count seçili)';
   }
 
   @override
-  String get offersSampleCustomerName => 'محمد أحمد';
+  String get offersSampleCustomerName => 'Mehmet Yılmaz';
 
   @override
-  String get offersInsertPlaceholderHint => 'اضغط لإدراج متغير في الرسالة:';
+  String get offersInsertPlaceholderHint =>
+      'Mesaja bir değişken eklemek için dokunun:';
 
   @override
   String get offersDefaultRamadanText =>
-      'كل عام وحضرتك بخير يا {customer_name} بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من {shop_name} 🌙✨';
+      'Mübarek Ramazan ayı vesilesiyle iyi yıllar dileriz {customer_name}! Size ve ailenize bereketli bir ay diler {shop_name} 🌙✨';
 
   @override
   String get offersDefaultEidText =>
-      'عيد مبارك عليك وعلى أسرتك يا {customer_name}، كل سنة وحضرتك طيب وبصحة وسعادة من {shop_name} 🎉🐑';
+      'Bayramınız mübarek olsun {customer_name}, size ve ailenize sağlık ve mutluluk dileriz {shop_name} 🎉🐑';
 
   @override
   String get offersDefaultBackToSchoolText =>
-      'عام دراسي جديد سعيد وموفق لأولادنا يا {customer_name}، متوفر لدينا كل ما يلزمكم في {shop_name} 📚✏️';
+      'Çocuklarımız için mutlu ve başarılı bir eğitim yılı olsun {customer_name}, her ihtiyacınız için {shop_name} 📚✏️';
 
   @override
   String get offersDefaultNewOfferText =>
-      'أهلاً يا {customer_name}! عندنا عروض وتخفيضات جديدة ومميزة لك في {shop_name}، تشرفنا بزيارتك في أي وقت 🎁🔥';
+      'Merhaba {customer_name}! {shop_name}da size özel yeni indirimlerimiz var, dilediğiniz zaman bekleriz 🎁🔥';
 
   @override
   String get offersDefaultCustomText =>
-      'أهلاً يا {customer_name}، تحياتنا لك من {shop_name} 👋';
+      'Merhaba {customer_name}, {shop_name}den selamlar 👋';
 
   @override
   String offersSentSuccessPrompt(Object name) {
-    return 'هل تم إرسال الرسالة إلى $name بنجاح؟';
+    return '$name kişisine mesaj başarıyla gönderildi mi?';
   }
 
   @override
-  String get offersYesSent => 'نعم، تم الإرسال';
+  String get offersYesSent => 'Evet, gönderildi';
 
   @override
-  String get offersNotSent => 'لم يتم الإرسال';
+  String get offersNotSent => 'Gönderilmedi';
 
   @override
-  String get offersPreviewCardTitle => 'معاينة الرسالة للعميل';
+  String get offersPreviewCardTitle => 'Müşterinin göreceği mesaj önizlemesi';
 
   @override
-  String get offersIncludeGrowthFooter => 'إضافة تذييل كشكول في نهاية الرسالة';
+  String get offersIncludeGrowthFooter => 'Mesajın sonuna Kashkool imzası ekle';
 
   @override
   String offersCampaignActiveBanner(Object sent, Object total) {
-    return 'لديك حملة سابقة غير مكتملة ($sent من $total مرسل)';
+    return 'Tamamlanmamış bir kampanyanız var ($sent / $total gönderildi)';
   }
 
   @override
-  String get notificationServiceInstallmentsChannelName => 'تذكير الأقساط';
+  String get notificationServiceInstallmentsChannelName =>
+      'Taksit hatırlatıcısı';
 
   @override
   String get notificationServiceInstallmentsChannelDesc =>
-      'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة';
+      'Yaklaşan ve gecikmiş taksit ödeme tarihleri için bildirimler';
 
   @override
-  String get notificationServiceInstallmentsTitle =>
-      'تنبيه الأقساط المستحقة 🔔';
+  String get notificationServiceInstallmentsTitle => 'Yaklaşan taksitler 🔔';
 
   @override
   String notificationServiceInstallmentsBody(Object count, Object amountStr) {
-    return 'عندك $count أقساط مستحقة بإجمالي $amountStr — اضغط للمتابعة';
+    return '$count taksitiniz var, toplam $amountStr tutarında — devam etmek için dokunun';
   }
 
   @override
-  String get notificationServiceBackupChannelName => 'تذكير النسخ الاحتياطي';
+  String get notificationServiceBackupChannelName => 'Yedekleme hatırlatıcısı';
 
   @override
   String get notificationServiceBackupChannelDesc =>
-      'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع';
+      'Defter verilerinizi kaybolmaya karşı korumak için düzenli hatırlatma';
 
   @override
   String get notificationServiceBackupTitle =>
-      'تنبيه: محتاج تعمل نسخة احتياطية ⚠️';
+      'Uyarı: Yedek almanız gerekiyor ⚠️';
 
   @override
   String notificationServiceBackupBody(Object days) {
-    return 'فات $days أيام بدون حفظ نسخة احتياطية. اضغط لحفظ بياناتك الآن.';
+    return 'Yedek alalı $days gün geçti. Verilerinizi şimdi kaydetmek için dokunun.';
   }
 
   @override
-  String get notificationServiceTestTitle => 'إشعار تجريبي من كشكول 🚀';
+  String get notificationServiceTestTitle => 'Kashkool\'dan test bildirimi 🚀';
 
   @override
   String get notificationServiceTestBody =>
-      'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍';
+      'Bildirimler sorunsuz çalışıyor ve zamanında geliyor 👍';
 
   @override
-  String get notificationServiceSettingsReminderTime => 'وقت التذكير اليومي';
+  String get notificationServiceSettingsReminderTime =>
+      'Günlük hatırlatma saati';
 
   @override
   String get notificationServiceSettingsReminderTimeSubtitle =>
-      'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة';
+      'Tahsilat ve yaklaşan taksitler için günlük hatırlatma saati';
 
   @override
-  String get notificationServiceSettingsStatus => 'إشعارات التطبيق';
+  String get notificationServiceSettingsStatus => 'Uygulama bildirimleri';
 
   @override
-  String get notificationServiceSettingsStatusActive => 'مفعلة وتعمل بنجاح ✓';
+  String get notificationServiceSettingsStatusActive => 'Açık ve çalışıyor ✓';
 
   @override
   String get notificationServiceSettingsStatusDisabled =>
-      'متوقفة — اضغط لمنح الإذن';
+      'Kapalı — izin vermek için dokunun';
 
   @override
-  String get notificationServiceSettingsSendTest => 'إرسال إشعار تجريبي الآن';
+  String get notificationServiceSettingsSendTest =>
+      'Şimdi test bildirimi gönder';
 
   @override
   String get notificationServiceSettingsSendTestSubtitle =>
-      'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً';
+      'Bildirimin ve sesin telefonunuzda hemen göründüğünü kontrol edin';
 
   @override
   String get notificationServiceSettingsSendTestSuccess =>
-      'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+      'Test bildirimi gönderildi! Bildirim çubuğunu kontrol edin 👍';
 
   @override
   String get notificationServiceDailyScheduledTitle => 'Tahsilat zamanı 💰';
@@ -4164,4 +4181,592 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get moreSettingsSubtitle => 'Mağaza bilgileri, güvenlik ve yedekleme';
+
+  @override
+  String get moreProfitLossSubtitle => 'Dükkan net kârı ve işletme giderleri';
+
+  @override
+  String get moreShopReportSubtitle => 'Toplam stok, nakit ve alacaklar';
+
+  @override
+  String get notificationServiceGeneralChannelDesc =>
+      'Kashkool genel ve test bildirim kanalı';
+
+  @override
+  String get notificationServiceGeneralChannelName =>
+      'Genel ve Test Bildirimleri';
+
+  @override
+  String notificationServiceLowStockBody(Object remainingStock) {
+    return 'Stokta kalan: $remainingStock';
+  }
+
+  @override
+  String get notificationServiceLowStockChannelDesc =>
+      'Bir ürün asgari seviyeye indiğinde anlık uyarı';
+
+  @override
+  String get notificationServiceLowStockChannelName => 'Düşük Stok Uyarıları';
+
+  @override
+  String get notificationServiceLowStockNoSupplierSuffix =>
+      ' Stoğu incelemek ve yenilemek için dokunun';
+
+  @override
+  String notificationServiceLowStockSupplierSuffix(Object supplierName) {
+    return ' Tedarikçi: $supplierName — WhatsApp ile sipariş için dokunun';
+  }
+
+  @override
+  String notificationServiceLowStockTitle(Object productName) {
+    return '⚠️ Düşük stok uyarısı: $productName';
+  }
+
+  @override
+  String get notificationServiceMultipleLowStockBody =>
+      'Tedarikçilerden sipariş vermek için eksik ürünleri inceleyin.';
+
+  @override
+  String notificationServiceMultipleLowStockTitle(Object count) {
+    return '⚠️ $count ürünün stoğu azaldı';
+  }
+
+  @override
+  String get pdfInvoiceCash => 'Nakit';
+
+  @override
+  String get pdfInvoiceCredit => 'Veresiye Satış Faturası';
+
+  @override
+  String pdfInvoiceNumber(Object shortSaleId) {
+    return 'Fatura No: #$shortSaleId';
+  }
+
+  @override
+  String get pdfInvoicePayCash => 'Nakit Ödendi';
+
+  @override
+  String get pdfInvoicePayOnCredit => 'Hesaba Yazıldı (Veresiye)';
+
+  @override
+  String get pdfInvoicePaymentMethod => 'Ödeme Yöntemi:';
+
+  @override
+  String pdfInvoicePhone(Object phone) {
+    return 'Tel: $phone';
+  }
+
+  @override
+  String get pdfInvoicePrice => 'Fiyat';
+
+  @override
+  String get pdfInvoiceThankYou =>
+      'Bizi tercih ettiğiniz için teşekkür ederiz!';
+
+  @override
+  String get pdfInvoiceTotal => 'Toplam';
+
+  @override
+  String get pdfPreviewErrorLabel => 'Dosya oluşturulamadı';
+
+  @override
+  String get pdfPreviewPreparing => 'PDF belgesi hazırlanıyor...';
+
+  @override
+  String get pdfPreviewPrint => 'Doğrudan Yazdır';
+
+  @override
+  String get pdfPreviewRetry => 'Tekrar Dene';
+
+  @override
+  String get pdfPreviewShare => 'PDF Paylaş';
+
+  @override
+  String get pdfReportAvailableAmount => 'Mevcut Tutar';
+
+  @override
+  String get pdfReportCashInDrawer => 'Kasada Nakit';
+
+  @override
+  String get pdfReportCashProfitNote =>
+      'Kashkool Notu: Net nakit kâr, masraflar ödendikten sonra kasaya giren reel paradır. Veresiye kârları tahsilatla nakde dönüşür.';
+
+  @override
+  String get pdfReportCashVsCreditTitle =>
+      'Nakit ve Veresiye Satış Karşılaştırması';
+
+  @override
+  String get pdfReportCount => 'Adet';
+
+  @override
+  String get pdfReportCustomerUnit => 'müşteri';
+
+  @override
+  String get pdfReportDateLabel => 'Tarih';
+
+  @override
+  String get pdfReportDebtSection => '2. Borçlar ve Alacaklar';
+
+  @override
+  String get pdfReportDigitalBalance => 'Banka / Dijital Cüzdan Bakiyesi';
+
+  @override
+  String get pdfReportGrandTotal => 'Genel Toplam';
+
+  @override
+  String get pdfReportGrowthFooter =>
+      'Kashkool ile oluşturuldu — Ücretsiz Veresiye Defteri';
+
+  @override
+  String get pdfReportInventoryAtCost => 'Maliyet Fiyatıyla Stok Değeri';
+
+  @override
+  String get pdfReportInventoryAtRetail => 'Satış Fiyatıyla Stok Değeri';
+
+  @override
+  String get pdfReportInventorySection => '1. Stok ve Depo';
+
+  @override
+  String get pdfReportInventorySubtitle =>
+      'Ayrıntılı stok değerleme ve durum raporu';
+
+  @override
+  String get pdfReportInventoryTitle => 'Genel Stok Envanter Raporu';
+
+  @override
+  String get pdfReportInvoiceUnit => 'fatura';
+
+  @override
+  String get pdfReportItemUnit => 'ürün';
+
+  @override
+  String get pdfReportLiquiditySection => '3. Mevcut Nakit ve Likidite';
+
+  @override
+  String get pdfReportLowStockLabel => 'Eksikler';
+
+  @override
+  String get pdfReportLowStockNeedOrder => 'sipariş gerekli';
+
+  @override
+  String get pdfReportLowStockSubtitle =>
+      'Eksik ürünler, miktarlar, maliyet ve satış fiyatları listesi';
+
+  @override
+  String get pdfReportLowStockTitle => 'Eksik Stok ve Tedarikçi Sipariş Raporu';
+
+  @override
+  String get pdfReportMinimum => 'Asgari';
+
+  @override
+  String get pdfReportMovementUnit => 'hareket';
+
+  @override
+  String get pdfReportNetWorthFormula =>
+      '= (Maliyetle Stok + Kasa & Banka + Alacaklar) - Tedarikçi Borçları';
+
+  @override
+  String get pdfReportOperatingExpenses =>
+      'İşletme Giderleri (kasadan düşülen)';
+
+  @override
+  String get pdfReportOutOfStock => 'Tükenen Ürünler';
+
+  @override
+  String get pdfReportParty => 'Taraf / Kalem';
+
+  @override
+  String get pdfReportProductCountLabel => 'Toplam Ürün Sayısı';
+
+  @override
+  String get pdfReportProfitLossTitle => 'Kâr ve Zarar Raporu';
+
+  @override
+  String get pdfReportRowNumber => 'No';
+
+  @override
+  String get pdfReportSalesCount => 'Satış Sayısı';
+
+  @override
+  String get pdfReportSalesRevenue => 'Satış Geliri';
+
+  @override
+  String get pdfReportShopOverviewSubtitle =>
+      'Stok, alacak ve nakit durumunun kapsamlı özeti';
+
+  @override
+  String get pdfReportShopOverviewTitle => 'Dükkan Finansal Durum Raporu';
+
+  @override
+  String get pdfReportSource => 'Kaynak / Kalem';
+
+  @override
+  String get pdfReportStatus => 'Durum';
+
+  @override
+  String get pdfReportSupplier => 'Tedarikçi';
+
+  @override
+  String get pdfReportSupplierPhone => 'Tedarikçi Tel';
+
+  @override
+  String get pdfReportSupplierUnit => 'tedarikçi';
+
+  @override
+  String get pdfReportTotalCashAvailable => 'Toplam Kullanılabilir Nakit';
+
+  @override
+  String get pdfReportTotalCost => 'Toplam Maliyet';
+
+  @override
+  String get pdfReportTotalCostLabel => 'Maliyet Üzerinden Toplam Değer';
+
+  @override
+  String get pdfReportTotalNetProfit => 'Dükkan Toplam Net Kârı';
+
+  @override
+  String get pdfReportTotalProducts => 'Toplam Ürünler';
+
+  @override
+  String get pdfReportValueCountHeader => 'Tutar / Adet';
+
+  @override
+  String get quickPosDoneNewSale => 'Tamam · Yeni Satış';
+
+  @override
+  String quickPosFetchLastInvoiceFailed(Object e) {
+    return 'Önceki fatura getirilemedi: $e';
+  }
+
+  @override
+  String get quickPosInvoiceOptions => 'Fatura Seçenekleri';
+
+  @override
+  String quickPosInvoiceTotal(Object total) {
+    return 'Fatura Toplamı: $total';
+  }
+
+  @override
+  String quickPosItemsCount(Object count) {
+    return 'Sepette $count ürün';
+  }
+
+  @override
+  String get quickPosLastInvoiceNoItems => 'Önceki fatura boş';
+
+  @override
+  String get quickPosNoItemsToPreview => 'Önizlenecek ürün yok';
+
+  @override
+  String get quickPosNoItemsToPrint => 'Yazdırılacak ürün yok';
+
+  @override
+  String get quickPosNoPreviousInvoices => 'Henüz kayıtlı satış faturası yok';
+
+  @override
+  String quickPosOpenInvoiceFailed(Object e) {
+    return 'Fatura açılamadı: $e';
+  }
+
+  @override
+  String get quickPosOutOfStock => 'Tükendi';
+
+  @override
+  String get quickPosPaymentMethod => 'Ödeme Yöntemi';
+
+  @override
+  String get quickPosPreviewBeforeSave => 'Kaydetmeden önce faturayı önizle';
+
+  @override
+  String get quickPosPreviewCurrentInvoice => 'Mevcut faturayı önizle';
+
+  @override
+  String quickPosPreviewFailed(Object e) {
+    return 'Önizleme açılamadı: $e';
+  }
+
+  @override
+  String get quickPosPreviewFileName => 'fatura_onizleme.pdf';
+
+  @override
+  String get quickPosPreviewLabel => 'Önizleme';
+
+  @override
+  String get quickPosPreviewPrintCurrent => 'Faturayı Yazdır ve Önizle';
+
+  @override
+  String get quickPosPreviewSharePdf => 'Önizle ve PDF Paylaş';
+
+  @override
+  String quickPosPrintFailed(Object e) {
+    return 'Fatura yazdırılamadı: $e';
+  }
+
+  @override
+  String get quickPosPrintLastInvoice => 'Son faturayı yeniden yazdır';
+
+  @override
+  String get quickPosPrintThermalReceipt => 'Termal Fiş Yazdır (80mm)';
+
+  @override
+  String get quickPosReceiveCash => 'Nakit Al';
+
+  @override
+  String get quickPosRecordOnAccount => 'Hesaba Yaz';
+
+  @override
+  String quickPosSaleInvoiceFileName(Object shortId) {
+    return 'satis_faturasi_$shortId.pdf';
+  }
+
+  @override
+  String quickPosSaleInvoiceTitle(Object shortId) {
+    return 'Satış Faturası #$shortId';
+  }
+
+  @override
+  String get quickPosSaleSavedSuccessfully => 'Satış başarıyla kaydedildi!';
+
+  @override
+  String get quickPosSaveAndPrint => 'Kaydet ve Yazdır';
+
+  @override
+  String get quickPosSaveAndPrintTooltip =>
+      'Satışı kaydet ve anında fiş yazdır';
+
+  @override
+  String get quickPosSavingAndPrinting => 'Satış kaydedildi, yazdırılıyor...';
+
+  @override
+  String get quickPosTapToAdd => 'Eklemek için dokunun';
+
+  @override
+  String get quickPosTapToAddToCart => 'Sepete eklemek için dokunun';
+
+  @override
+  String genericError(Object err) {
+    return 'Bir hata oluştu: $err';
+  }
+
+  @override
+  String get inventoryPdfExportTooltip =>
+      'Stok raporunu PDF olarak yazdır ve dışa aktar';
+
+  @override
+  String inventoryPdfFileNameFull(Object dateStr) {
+    return 'genel_stok_sayimi_$dateStr.pdf';
+  }
+
+  @override
+  String inventoryPdfFileNameLowStock(Object dateStr) {
+    return 'eksik_stok_raporu_$dateStr.pdf';
+  }
+
+  @override
+  String get inventoryPdfMenuFull => 'Genel Stok Sayımını Yazdır (Tam)';
+
+  @override
+  String get inventoryPdfMenuLowStock => 'Sadece Eksik Ürünleri Yazdır';
+
+  @override
+  String get inventoryPdfTitleFull => 'Genel Stok Envanter Raporu';
+
+  @override
+  String get inventoryPdfTitleLowStock => 'Eksik Stok Raporu';
+
+  @override
+  String get notificationServiceSettingsSendTestFailure =>
+      'Test bildirimi gönderilemedi — lütfen bildirim izinlerini kontrol edin';
+
+  @override
+  String get printExportPdf => 'PDF Yazdır ve Paylaş';
+
+  @override
+  String get profitLossAccountingTipBody =>
+      'Net nakit kâr, maliyet ve masraflar ödendikten sonra kasanıza giren gerçek paradır. Veresiye kârları tahsilatla nakde dönüşür.';
+
+  @override
+  String get profitLossAccountingTipTitle => 'Kashkool\'dan Muhasebe İpucu';
+
+  @override
+  String get profitLossCashBadge => 'Nakit';
+
+  @override
+  String get profitLossCreditBadge => 'Veresiye';
+
+  @override
+  String profitLossNetCalculation(Object netCash, Object netCredit) {
+    return '= $netCash Nakit + $netCredit Veresiye';
+  }
+
+  @override
+  String profitLossRecordedSales(Object salesCount) {
+    return '$salesCount satış faturası kayıtlı';
+  }
+
+  @override
+  String profitLossReportFileName(Object dateStr) {
+    return 'kar_zarar_raporu_$dateStr.pdf';
+  }
+
+  @override
+  String get profitLossReportTitle => 'Kâr ve Zarar Raporu';
+
+  @override
+  String restockAvailable(Object stock, Object unit) {
+    return 'Mevcut: $stock $unit';
+  }
+
+  @override
+  String get restockCopiedToClipboard => 'Sipariş mesajı panoya kopyalandı!';
+
+  @override
+  String restockError(Object err) {
+    return 'Ürünler yüklenemedi: $err';
+  }
+
+  @override
+  String get restockLinkProductsHint =>
+      'Tek dokunuşla sipariş vermek için stok sayfasından ürünleri bu tedarikçiyle eşleştirin.';
+
+  @override
+  String get restockMessageFooter =>
+      'Lütfen siparişin alındığını ve teslimat zamanını teyit edin.';
+
+  @override
+  String restockMessageGreeting(Object supplierName) {
+    return 'Merhaba $supplierName';
+  }
+
+  @override
+  String get restockMessageHeader =>
+      'Dükkan için aşağıdaki eksik ürünlerin siparişi gerekmektedir:';
+
+  @override
+  String restockMessageItem(Object name, Object qty, Object unit) {
+    return '• $name — İstenen: $qty $unit';
+  }
+
+  @override
+  String restockMessageShop(Object shopName) {
+    return '$shopName dükkanından';
+  }
+
+  @override
+  String get restockMessageThanks => 'Çok teşekkür ederiz!';
+
+  @override
+  String get restockSelectProductsHint =>
+      'WhatsApp ile sipariş vermek için eksik ürünleri ve miktarları seçin:';
+
+  @override
+  String get restockSendWhatsApp => 'Siparişi WhatsApp ile Gönder';
+
+  @override
+  String get shopReportCashInDrawerLabel => 'Kasada Nakit:';
+
+  @override
+  String get shopReportCopiedToClipboard =>
+      'Finansal durum raporu panoya kopyalandı!';
+
+  @override
+  String get shopReportCustomersWithDues => 'Borcu olan müşteriler:';
+
+  @override
+  String get shopReportDigitalBalanceLabel =>
+      'Banka / Dijital Cüzdan Bakiyesi:';
+
+  @override
+  String shopReportFileName(Object dateStr) {
+    return 'dukkan_finansal_durum_$dateStr.pdf';
+  }
+
+  @override
+  String shopReportLowStockOf(Object count, Object total) {
+    return '$total üründen $count tanesi eksik';
+  }
+
+  @override
+  String get shopReportNetWorthFormula =>
+      '= (Maliyetle Stok + Kasa & Banka + Alacaklar) - Tedarikçi Borçları';
+
+  @override
+  String shopReportSupplierCount(Object count) {
+    return '$count tedarikçi';
+  }
+
+  @override
+  String get shopReportSuppliersOwed => 'Ödeme yapılacak tedarikçiler:';
+
+  @override
+  String get shopReportTextCashAvailable => '--- Mevcut Nakit ve Likidite ---';
+
+  @override
+  String shopReportTextCashInDrawer(Object amount) {
+    return '• Kasada Nakit: $amount';
+  }
+
+  @override
+  String shopReportTextDate(Object dateStr) {
+    return 'Tarih: $dateStr';
+  }
+
+  @override
+  String shopReportTextDigitalBalance(Object amount) {
+    return '• Banka / Cüzdan: $amount';
+  }
+
+  @override
+  String shopReportTextExpectedProfit(Object profit) {
+    return '• Stoktan Beklenen Kâr: $profit';
+  }
+
+  @override
+  String get shopReportTextFooter =>
+      'Rapor Kashkool uygulaması ile oluşturuldu';
+
+  @override
+  String get shopReportTextInventory => '--- Stok ve Depo ---';
+
+  @override
+  String shopReportTextNetWorth(Object netWorth) {
+    return 'Dükkan Net Varlığı: $netWorth';
+  }
+
+  @override
+  String shopReportTextPayables(Object amount, Object count) {
+    return '• Tedarikçilere Borç: $amount ($count tedarikçi)';
+  }
+
+  @override
+  String shopReportTextProductCounts(Object total, Object low) {
+    return '• Toplam Ürün: $total ($low eksik ürün)';
+  }
+
+  @override
+  String shopReportTextReceivables(Object amount, Object count) {
+    return '• Müşteri Alacakları: $amount ($count müşteri)';
+  }
+
+  @override
+  String shopReportTextShop(Object shopName) {
+    return 'Dükkan: $shopName';
+  }
+
+  @override
+  String get shopReportTextTitle => '=== Dükkan Finansal Durum Raporu ===';
+
+  @override
+  String shopReportTextTotalCash(Object amount) {
+    return '• Toplam Kullanılabilir Nakit: $amount';
+  }
+
+  @override
+  String get shopReportTotalCashLabel => 'Toplam Kullanılabilir Nakit:';
+
+  @override
+  String get shopReportTotalCustomerDues => 'Toplam Müşteri Alacakları:';
+
+  @override
+  String get shopReportTotalSupplierDues => 'Toplam Tedarikçi Borçları:';
 }

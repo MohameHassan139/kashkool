@@ -491,7 +491,7 @@
   "statementThisMonth": "هذا الشهر",
   "statementCustomRange": "فترة مخصصة",
   "statementFormatA4": "ورقة A4",
-  "statementFormatReceipt": "إيصال حراري (80mm)",
+  "statementFormatReceipt": "بون حراري 80مم",
   "dateCol": "التاريخ",
   "descriptionCol": "البيان",
   "debtCol": "عليه",
@@ -1548,7 +1548,7 @@
   "settingsScreen70": "حد الدين الافتراضي للعميل الجديد",
   "settingsScreen71": "تواصل معنا عبر واتساب",
   "settingsScreen72": "للاقتراحات والمساعدة الفنية المباشرة",
-  "settingsScreen73": "https://wa.me/201000000000?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول",
+  "settingsScreen73": "https://wa.me/201005083126?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول",
   "settingsScreen74": "سياسة الخصوصية وشروط الاستخدام",
   "settingsScreen75": "بياناتك ملكك بالكامل ومتخزنة على تليفونك فقط بدون إنترنت",
   "settingsScreen76": "سياسة الخصوصية في كشكول 🔒",
@@ -2349,5 +2349,443 @@
   "moreInstallmentsTitle": "الأقساط",
   "moreInstallmentsSubtitle": "خطط الأقساط ومواعيد الدفع",
   "moreOffersSubtitle": "رسائل العروض والمعايدات لعملائك",
-  "moreSettingsSubtitle": "بيانات المحل، الحماية، والنسخ الاحتياطي"
+  "moreSettingsSubtitle": "بيانات المحل، الحماية، والنسخ الاحتياطي",
+  "moreProfitLossSubtitle": "صافي أرباح ومصروفات المحل",
+  "moreShopReportSubtitle": "إجمالي البضاعة والفلوس والديون",
+  "notificationServiceGeneralChannelDesc": "قناة إشعارات عامة وتجريبية من تطبيق كشكول",
+  "notificationServiceGeneralChannelName": "إشعارات عامة وتجريبية",
+  "notificationServiceLowStockBody": "المتبقي بالمخزن: {remainingStock}",
+  "@notificationServiceLowStockBody": {
+    "placeholders": {
+      "remainingStock": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceLowStockChannelDesc": "تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون",
+  "notificationServiceLowStockChannelName": "تنبيهات نواقص المخزون",
+  "notificationServiceLowStockNoSupplierSuffix": " اضغط لتفقد المخزون وتحديث النواقص",
+  "notificationServiceLowStockSupplierSuffix": " المورد: {supplierName} — اضغط لطلب البضاعة عبر واتساب",
+  "@notificationServiceLowStockSupplierSuffix": {
+    "placeholders": {
+      "supplierName": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceLowStockTitle": "⚠️ بضاعة وصلت للنواقص: {productName}",
+  "@notificationServiceLowStockTitle": {
+    "placeholders": {
+      "productName": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationServiceMultipleLowStockBody": "افحص قائمة النواقص في المخزون لطلبها من الموردين فوراً.",
+  "notificationServiceMultipleLowStockTitle": "⚠️ {count} أصناف وصلت للنواقص في المخزن",
+  "@notificationServiceMultipleLowStockTitle": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "pdfInvoiceCash": "كاش",
+  "pdfInvoiceCredit": "فاتورة بيع آجل (شكك)",
+  "pdfInvoiceNumber": "رقم الفاتورة: #{shortSaleId}",
+  "pdfInvoicePayCash": "مدفوعة نقداً",
+  "pdfInvoicePayOnCredit": "مسجلة آجل (شكك)",
+  "pdfInvoicePaymentMethod": "طريقة السداد:",
+  "pdfInvoicePhone": "هاتف: {phone}",
+  "pdfInvoicePrice": "السعر",
+  "pdfInvoiceThankYou": "شكراً لتعاملكم معنا!",
+  "pdfInvoiceTotal": "الإجمالي",
+  "pdfPreviewErrorLabel": "تعذر إنشاء الملف",
+  "pdfPreviewPreparing": "جاري تجهيز ملف الـ PDF...",
+  "pdfPreviewPrint": "طباعة فورية",
+  "pdfPreviewRetry": "إعادة المحاولة",
+  "pdfPreviewShare": "مشاركة PDF",
+  "pdfReportAvailableAmount": "المبلغ المتاح",
+  "pdfReportCashInDrawer": "كاش بالدرج (الخزينة النقدية)",
+  "pdfReportCashProfitNote": "تنبيه كشكول: صافي الربح النقدي يمثل الأموال الحقيقية التي دخلت درجك ومحفظتك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.",
+  "pdfReportCashVsCreditTitle": "مقارنة المبيعات النقدية والآجلة",
+  "pdfReportCount": "العدد",
+  "pdfReportCustomerUnit": "عميل",
+  "pdfReportDateLabel": "التاريخ",
+  "pdfReportDebtSection": "2. الديون والمستحقات (العملاء والموردين)",
+  "pdfReportDigitalBalance": "رصيد إلكتروني (إنستاباي / فودافون كاش / بنك)",
+  "pdfReportGrandTotal": "الإجمالي الكلي",
+  "pdfReportGrowthFooter": "تم إنشاؤه عبر تطبيق كشكول — دفتر ديون ومبيعات مجاني",
+  "pdfReportInventoryAtCost": "قيمة البضاعة بسعر الشراء (التكلفة)",
+  "pdfReportInventoryAtRetail": "قيمة البضاعة بسعر البيع (المتوقع)",
+  "pdfReportInventorySection": "1. بضاعة المخزن والمستودع",
+  "pdfReportInventorySubtitle": "تقرير تفصيلي بحالة المخزون والأصناف المتاحة",
+  "pdfReportInventoryTitle": "تقرير جرد المخزون العام",
+  "pdfReportInvoiceUnit": "فاتورة",
+  "pdfReportItemUnit": "صنف",
+  "pdfReportLiquiditySection": "3. السيولة والنقدية المتاحة",
+  "pdfReportLowStockLabel": "النواقص",
+  "pdfReportLowStockNeedOrder": "نواقص بحاجة لطلب",
+  "pdfReportLowStockSubtitle": "بيان كامل بجميع الأصناف والكميات وأسعار التكلفة والبيع",
+  "pdfReportLowStockTitle": "كشف النواقص وطلبيات الموردين",
+  "pdfReportMinimum": "الحد الأدنى",
+  "pdfReportMovementUnit": "حركة",
+  "pdfReportNetWorthFormula": "= (بضاعة المخزن بالتكلفة + النقدية بالدرج والبنك + لينا عند الزباين) - ديون الموردين",
+  "pdfReportOperatingExpenses": "مصروفات تشغيلية (مخصومة من درج الكاش)",
+  "pdfReportOutOfStock": "نواقص (عجز)",
+  "pdfReportParty": "الطرف",
+  "pdfReportProductCountLabel": "عدد الأصناف",
+  "pdfReportProfitLossTitle": "تقرير الأرباح والمصروفات",
+  "pdfReportRowNumber": "م",
+  "pdfReportSalesCount": "عدد الفواتير",
+  "pdfReportSalesRevenue": "إيرادات المبيعات",
+  "pdfReportShopOverviewSubtitle": "جرد شامل للمخزون والديون والسيولة النقدية",
+  "pdfReportShopOverviewTitle": "تقرير المركز المالي للمحل",
+  "pdfReportSource": "المصدر / البند",
+  "pdfReportStatus": "الحالة",
+  "pdfReportSupplier": "المورد",
+  "pdfReportSupplierPhone": "هاتف المورد",
+  "pdfReportSupplierUnit": "مورد",
+  "pdfReportTotalCashAvailable": "إجمالي النقدية المتاحة",
+  "pdfReportTotalCost": "إجمالي التكلفة",
+  "pdfReportTotalCostLabel": "إجمالي القيمة بالتكلفة",
+  "pdfReportTotalNetProfit": "إجمالي صافي أرباح المحل",
+  "pdfReportTotalProducts": "إجمالي الأصناف",
+  "pdfReportValueCountHeader": "القيمة / العدد",
+  "quickPosDoneNewSale": "تم · بيع جديد",
+  "quickPosFetchLastInvoiceFailed": "تعذر جلب الفاتورة السابقة: {e}",
+  "@quickPosFetchLastInvoiceFailed": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosInvoiceOptions": "خيارات الفاتورة",
+  "quickPosInvoiceTotal": "إجمالي الفاتورة: {total}",
+  "@quickPosInvoiceTotal": {
+    "placeholders": {
+      "total": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosItemsCount": "{count} صنف بالسلّة",
+  "@quickPosItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosLastInvoiceNoItems": "الفاتورة السابقة فارغة ولا تحتوي على أصناف",
+  "quickPosNoItemsToPreview": "لا توجد أصناف في هذه الفاتورة للمعاينة",
+  "quickPosNoItemsToPrint": "لا توجد أصناف في هذه الفاتورة للطباعة",
+  "quickPosNoPreviousInvoices": "لا توجد فواتير بيع سابقة بعد",
+  "quickPosOpenInvoiceFailed": "تعذر فتح الفاتورة: {e}",
+  "@quickPosOpenInvoiceFailed": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosOutOfStock": "نفدت الكمية بالكامل",
+  "quickPosPaymentMethod": "طريقة الدفع",
+  "quickPosPreviewBeforeSave": "معاينة الفاتورة قبل الحفظ",
+  "quickPosPreviewCurrentInvoice": "معاينة الفاتورة الحالية",
+  "quickPosPreviewFailed": "تعذر فتح المعاينة: {e}",
+  "@quickPosPreviewFailed": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosPreviewFileName": "معاينة_فاتورة.pdf",
+  "quickPosPreviewLabel": "معاينة",
+  "quickPosPreviewPrintCurrent": "طباعة ومعاينة الفاتورة",
+  "quickPosPreviewSharePdf": "معاينة ومشاركة الفاتورة PDF",
+  "quickPosPrintFailed": "تعذر طباعة الفاتورة: {e}",
+  "@quickPosPrintFailed": {
+    "placeholders": {
+      "e": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosPrintLastInvoice": "إعادة طباعة آخر فاتورة",
+  "quickPosPrintThermalReceipt": "طباعة بون كاشير حراري (80مم)",
+  "quickPosReceiveCash": "استلام كاش",
+  "quickPosRecordOnAccount": "تسجيل على الحساب",
+  "quickPosSaleInvoiceFileName": "فاتورة_بيع_{shortId}.pdf",
+  "@quickPosSaleInvoiceFileName": {
+    "placeholders": {
+      "shortId": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosSaleInvoiceTitle": "فاتورة بيع #{shortId}",
+  "@quickPosSaleInvoiceTitle": {
+    "placeholders": {
+      "shortId": {
+        "type": "Object"
+      }
+    }
+  },
+  "quickPosSaleSavedSuccessfully": "تم حفظ البيع بنجاح!",
+  "quickPosSaveAndPrint": "حفظ وطباعة",
+  "quickPosSaveAndPrintTooltip": "حفظ البيع وطباعة بون فوري مباشرة",
+  "quickPosSavingAndPrinting": "تم حفظ البيع وجاري الطباعة...",
+  "quickPosTapToAdd": "اضغط للإضافة",
+  "quickPosTapToAddToCart": "اضغط للإضافة للسلّة",
+  "genericError": "حدث خطأ: {err}",
+  "@genericError": {
+    "placeholders": {
+      "err": {
+        "type": "Object"
+      }
+    }
+  },
+  "inventoryPdfExportTooltip": "طباعة وتصدير تقرير المخزون PDF",
+  "inventoryPdfFileNameFull": "جرد_المخزون_{dateStr}.pdf",
+  "@inventoryPdfFileNameFull": {
+    "placeholders": {
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "inventoryPdfFileNameLowStock": "نواقص_المخزون_{dateStr}.pdf",
+  "@inventoryPdfFileNameLowStock": {
+    "placeholders": {
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "inventoryPdfMenuFull": "طباعة جرد المخزون العام (كامل)",
+  "inventoryPdfMenuLowStock": "طباعة كشف النواقص فقط",
+  "inventoryPdfTitleFull": "تقرير جرد المخزون العام",
+  "inventoryPdfTitleLowStock": "كشف نواقص المخزون",
+  "notificationServiceSettingsSendTestFailure": "تعذر إرسال الإشعار التجريبي — تأكد من تفعيل إذن الإشعارات للهاتف",
+  "printExportPdf": "طباعة وتصدير PDF",
+  "profitLossAccountingTipBody": "الأرباح النقدية هي الفلوس الفعلية اللي دخلت درجك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.",
+  "profitLossAccountingTipTitle": "نصيحة محاسبية من كشكول",
+  "profitLossCashBadge": "كاش",
+  "profitLossCreditBadge": "آجل",
+  "profitLossNetCalculation": "= {netCash} كاش + {netCredit} شكك",
+  "@profitLossNetCalculation": {
+    "placeholders": {
+      "netCash": {
+        "type": "Object"
+      },
+      "netCredit": {
+        "type": "Object"
+      }
+    }
+  },
+  "profitLossRecordedSales": "مسجل {salesCount} فاتورة بيع",
+  "@profitLossRecordedSales": {
+    "placeholders": {
+      "salesCount": {
+        "type": "Object"
+      }
+    }
+  },
+  "profitLossReportFileName": "تقرير_الأرباح_والمصروفات_{dateStr}.pdf",
+  "@profitLossReportFileName": {
+    "placeholders": {
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "profitLossReportTitle": "تقرير الأرباح والمصروفات",
+  "restockAvailable": "المتاح: {stock} {unit}",
+  "@restockAvailable": {
+    "placeholders": {
+      "stock": {
+        "type": "Object"
+      },
+      "unit": {
+        "type": "Object"
+      }
+    }
+  },
+  "restockCopiedToClipboard": "تم نسخ رسالة الطلبية إلى الحافظة بنجاح!",
+  "restockError": "تعذر تحميل المنتجات: {err}",
+  "@restockError": {
+    "placeholders": {
+      "err": {
+        "type": "Object"
+      }
+    }
+  },
+  "restockLinkProductsHint": "قم بربط المنتجات بهذا المورد من صفحة المخزون لطلبها تلقائياً بضغطة واحدة.",
+  "restockMessageFooter": "برجاء تأكيد استلام الطلب وتحديد موعد التوصيل.",
+  "restockMessageGreeting": "السلام عليكم يا {supplierName}",
+  "@restockMessageGreeting": {
+    "placeholders": {
+      "supplierName": {
+        "type": "Object"
+      }
+    }
+  },
+  "restockMessageHeader": "محتاجين طلبية بضاعة نواقص للمحل:",
+  "restockMessageItem": "• {name} — مطلوب: {qty} {unit}",
+  "@restockMessageItem": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      },
+      "qty": {
+        "type": "Object"
+      },
+      "unit": {
+        "type": "Object"
+      }
+    }
+  },
+  "restockMessageShop": "معاك {shopName}",
+  "@restockMessageShop": {
+    "placeholders": {
+      "shopName": {
+        "type": "Object"
+      }
+    }
+  },
+  "restockMessageThanks": "شكراً جزيلاً!",
+  "restockSelectProductsHint": "حدد الأصناف والكميات المطلوبة من النواقص لطلبها عبر واتساب:",
+  "restockSendWhatsApp": "إرسال الطلبية عبر واتساب",
+  "shopReportCashInDrawerLabel": "كاش بالدرج:",
+  "shopReportCopiedToClipboard": "تم نسخ تقرير المركز المالي بنجاح!",
+  "shopReportCustomersWithDues": "عملاء عليهم مستحقات:",
+  "shopReportDigitalBalanceLabel": "رصيد إلكتروني (فودافون كاش / إنستاباي):",
+  "shopReportFileName": "المركز_المالي_للمحل_{dateStr}.pdf",
+  "@shopReportFileName": {
+    "placeholders": {
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportLowStockOf": "{count} صنف من أصل {total}",
+  "@shopReportLowStockOf": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      },
+      "total": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportNetWorthFormula": "= (بضاعة المخزن بالتكلفة + كاش الدرج والإلكتروني + لينا عند العملاء) - ديون الموردين",
+  "shopReportSupplierCount": "{count} مورد",
+  "@shopReportSupplierCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportSuppliersOwed": "موردين لهم حسابات:",
+  "shopReportTextCashAvailable": "--- السيولة النقدية المتاحة ---",
+  "shopReportTextCashInDrawer": "• كاش بالدرج: {amount}",
+  "@shopReportTextCashInDrawer": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextDate": "التاريخ: {dateStr}",
+  "@shopReportTextDate": {
+    "placeholders": {
+      "dateStr": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextDigitalBalance": "• رصيد إلكتروني (فودافون كاش / إنستاباي): {amount}",
+  "@shopReportTextDigitalBalance": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextExpectedProfit": "• الربح المتوقع عند بيع المخزون: {profit}",
+  "@shopReportTextExpectedProfit": {
+    "placeholders": {
+      "profit": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextFooter": "تم إنشاء التقرير عبر تطبيق كشكول",
+  "shopReportTextInventory": "--- بضاعة المخزن والمستودع ---",
+  "shopReportTextNetWorth": "صافي رأس مال المحل: {netWorth}",
+  "@shopReportTextNetWorth": {
+    "placeholders": {
+      "netWorth": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextPayables": "• علينا للموردين: {amount} ({count} مورد)",
+  "@shopReportTextPayables": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextProductCounts": "• إجمالي الأصناف: {total} صنف ({low} نواقص بحاجة لطلب)",
+  "@shopReportTextProductCounts": {
+    "placeholders": {
+      "total": {
+        "type": "Object"
+      },
+      "low": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextReceivables": "• لينا عند العملاء (شكك): {amount} ({count} عميل)",
+  "@shopReportTextReceivables": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextShop": "المحل: {shopName}",
+  "@shopReportTextShop": {
+    "placeholders": {
+      "shopName": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTextTitle": "=== تقرير المركز المالي للمحل ===",
+  "shopReportTextTotalCash": "• إجمالي النقدية المتاحة: {amount}",
+  "@shopReportTextTotalCash": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "shopReportTotalCashLabel": "إجمالي النقدية المتاحة:",
+  "shopReportTotalCustomerDues": "إجمالي ديون العملاء (شكك):",
+  "shopReportTotalSupplierDues": "إجمالي ديون الموردين:"
 }

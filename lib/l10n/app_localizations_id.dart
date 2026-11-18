@@ -21,579 +21,588 @@ class AppLocalizationsId extends AppLocalizations {
   String get navSuppliers => 'Pemasok';
 
   @override
-  String get navInventory => 'المخزون';
+  String get navInventory => 'Inventaris';
 
   @override
   String get navCashDrawer => 'Laci Kas';
 
   @override
-  String get inventoryTitle => 'المخزون';
+  String get inventoryTitle => 'Inventaris';
 
   @override
-  String get inventoryManageButton => 'إدارة الأصناف والمخزون';
+  String get inventoryManageButton => 'Kelola produk dan stok';
 
   @override
-  String get inventorySearchHint => 'ابحث عن صنف أو باركود...';
+  String get inventorySearchHint => 'Cari produk atau barcode...';
 
   @override
-  String get inventoryAddProduct => 'صنف جديد';
+  String get inventoryAddProduct => 'Produk baru';
 
   @override
-  String get inventoryEditProduct => 'تعديل الصنف';
+  String get inventoryEditProduct => 'Edit produk';
 
   @override
-  String get inventoryNoProducts => 'لسه مفيش أصناف مسجلة';
+  String get inventoryNoProducts => 'Belum ada produk';
 
   @override
-  String get inventoryNoSearchResults => 'مفيش أصناف مطابقة للبحث';
+  String get inventoryNoSearchResults => 'Tidak ada produk yang cocok';
 
   @override
-  String get inventoryProductName => 'اسم الصنف';
+  String get inventoryProductName => 'Nama produk';
 
   @override
-  String get inventoryNameRequired => 'اكتب اسم الصنف';
+  String get inventoryNameRequired => 'Masukkan nama produk';
 
   @override
-  String get inventoryBarcode => 'الباركود (اختياري)';
+  String get inventoryBarcode => 'Barcode (opsional)';
 
   @override
-  String get inventoryCategory => 'التصنيف (اختياري)';
+  String get inventoryCategory => 'Kategori (opsional)';
 
   @override
-  String get inventoryUnit => 'وحدة البيع';
+  String get inventoryUnit => 'Satuan penjualan';
 
   @override
-  String get inventoryUnitExample => 'مثال: قطعة، كجم، لتر';
+  String get inventoryUnitExample => 'Contoh: pcs, kg, liter';
 
   @override
-  String get inventoryUnitRequired => 'اكتب وحدة البيع';
+  String get inventoryUnitRequired => 'Masukkan satuan penjualan';
 
   @override
-  String get inventoryPurchasePrice => 'سعر الشراء بالجنيه';
+  String get inventoryPurchasePrice => 'Harga beli (EGP)';
 
   @override
-  String get inventorySalePrice => 'سعر البيع بالجنيه';
+  String get inventorySalePrice => 'Harga jual (EGP)';
 
   @override
-  String get inventoryMinimumStock => 'نبّهني لما الكمية توصل';
+  String get inventoryMinimumStock => 'Ingatkan saat stok mencapai';
 
   @override
-  String get inventoryInitialStock => 'الكمية الموجودة حاليًا';
+  String get inventoryInitialStock => 'Stok saat ini';
 
   @override
-  String get inventoryCurrentStock => 'الموجود في المخزن';
+  String get inventoryCurrentStock => 'Stok tersedia';
 
   @override
-  String get inventoryInStock => 'متوفر';
+  String get inventoryInStock => 'Tersedia';
 
   @override
-  String get inventoryLowStock => 'الكمية قليلة';
+  String get inventoryLowStock => 'Stok menipis';
 
   @override
-  String get inventoryAdjustStock => 'تعديل الكمية';
+  String get inventoryAdjustStock => 'Ubah stok';
 
   @override
-  String get inventoryAddStock => 'إضافة للمخزون';
+  String get inventoryAddStock => 'Tambah stok';
 
   @override
-  String get inventoryRemoveStock => 'خصم من المخزون';
+  String get inventoryRemoveStock => 'Kurangi stok';
 
   @override
-  String get inventoryQuantity => 'الكمية';
+  String get inventoryQuantity => 'Jumlah';
 
   @override
-  String get inventoryNote => 'ملاحظة (اختياري)';
+  String get inventoryNote => 'Catatan (opsional)';
 
   @override
-  String get inventoryMovementHistory => 'حركة المخزون';
+  String get inventoryMovementHistory => 'Riwayat stok';
 
   @override
-  String get inventoryMovementOpening => 'رصيد افتتاحي';
+  String get inventoryMovementOpening => 'Stok awal';
 
   @override
-  String get inventoryMovementAdjustment => 'تعديل يدوي';
+  String get inventoryMovementAdjustment => 'Penyesuaian manual';
 
   @override
-  String get inventoryMovementPurchase => 'شراء';
+  String get inventoryMovementPurchase => 'Pembelian';
 
   @override
-  String get inventoryMovementSale => 'بيع';
+  String get inventoryMovementSale => 'Penjualan';
 
   @override
-  String get inventoryMovementCustomerReturn => 'مرتجع عميل';
+  String get inventoryMovementCustomerReturn => 'Retur pelanggan';
 
   @override
-  String get inventoryMovementSupplierReturn => 'مرتجع مورد';
+  String get inventoryMovementSupplierReturn => 'Retur supplier';
 
   @override
-  String get inventoryNoMovements => 'مفيش حركات مخزون لسه';
+  String get inventoryNoMovements => 'Belum ada pergerakan stok';
 
   @override
-  String get inventorySave => 'حفظ';
+  String get inventorySave => 'Simpan';
 
   @override
-  String get inventoryCancel => 'إلغاء';
+  String get inventoryCancel => 'Batal';
 
   @override
-  String get inventoryDelete => 'حذف الصنف';
+  String get inventoryDelete => 'Hapus produk';
 
   @override
   String get inventoryDeleteConfirm =>
-      'الصنف مش هيظهر في القائمة، لكن سجل حركته هيفضل محفوظ. متأكد؟';
+      'Produk akan disembunyikan, tapi riwayatnya tetap tersimpan. Yakin?';
 
   @override
-  String get inventoryDeleted => 'تم حذف الصنف';
+  String get inventoryDeleted => 'Produk dihapus';
 
   @override
-  String get inventoryProductSaved => 'تم حفظ الصنف';
+  String get inventoryProductSaved => 'Produk tersimpan';
 
   @override
-  String get inventoryStockSaved => 'تم تحديث المخزون';
+  String get inventoryStockSaved => 'Stok diperbarui';
 
   @override
-  String get inventoryInvalidQuantity => 'اكتب كمية صحيحة (لحد 3 أرقام عشرية)';
+  String get inventoryInvalidQuantity =>
+      'Masukkan jumlah yang benar (maksimal 3 angka desimal)';
 
   @override
-  String get inventoryQuantityRequired => 'اكتب كمية أكبر من صفر';
+  String get inventoryQuantityRequired => 'Masukkan jumlah lebih dari nol';
 
   @override
-  String get inventoryStockCannotBeNegative => 'الكمية الموجودة مش كفاية للخصم';
+  String get inventoryStockCannotBeNegative =>
+      'Stok tidak cukup untuk dikurangi';
 
   @override
-  String get inventoryInvalidPrice => 'اكتب سعر صحيح غير سالب';
+  String get inventoryInvalidPrice =>
+      'Masukkan harga yang benar (tidak negatif)';
 
   @override
-  String get inventoryBarcodeExists => 'الباركود مسجل لصنف تاني';
+  String get inventoryBarcodeExists => 'Barcode sudah dipakai produk lain';
 
   @override
   String get inventoryUnitChangeNotAllowed =>
-      'مش ممكن تغيير الوحدة بعد تسجيل حركة للمخزون';
+      'Satuan tidak bisa diubah setelah ada pergerakan stok';
 
   @override
   String get inventorySaveFailed =>
-      'ماقدرناش نحفظ التغيير. راجع البيانات وحاول تاني.';
+      'Gagal menyimpan. Periksa data lalu coba lagi.';
 
   @override
-  String get inventorySupplier => 'المورد (اختياري)';
+  String get inventorySupplier => 'Supplier (opsional)';
 
   @override
-  String get inventorySupplierNone => 'بدون مورد';
+  String get inventorySupplierNone => 'Tanpa supplier';
 
   @override
-  String get inventorySupplierFilter => 'تصفية بالمورد';
+  String get inventorySupplierFilter => 'Filter berdasarkan supplier';
 
   @override
-  String get inventoryFilterAllSuppliers => 'كل الموردين';
+  String get inventoryFilterAllSuppliers => 'Semua supplier';
 
   @override
-  String get inventorySupplierProducts => 'أصناف المورد';
+  String get inventorySupplierProducts => 'Produk supplier';
 
   @override
-  String get inventoryNoSupplierProducts => 'مفيش أصناف مربوطة بهذا المورد';
+  String get inventoryNoSupplierProducts =>
+      'Tidak ada produk untuk supplier ini';
 
   @override
-  String get inventorySupplierCardTitle => 'المورد المسئول';
+  String get inventorySupplierCardTitle => 'Supplier yang ditugaskan';
 
   @override
-  String get inventoryOrderWhatsApp => 'طلب نواقص عبر واتساب';
+  String get inventoryOrderWhatsApp => 'Pesan lewat WhatsApp';
 
   @override
-  String get supplierReturn => 'مرتجع للمورد';
+  String get supplierReturn => 'Retur ke supplier';
 
   @override
-  String get supplierReturnReason => 'سبب المرتجع (اختياري)';
+  String get supplierReturnReason => 'Alasan retur (opsional)';
 
   @override
   String get supplierReturnSuccess =>
-      'تم تسجيل المرتجع بنجاح وخصم المبلغ من الحساب';
+      'Retur berhasil dicatat dan saldo diperbarui';
 
   @override
-  String get purchasePaidAmount => 'المبلغ المدفوع حالياً';
+  String get purchasePaidAmount => 'Jumlah dibayar sekarang';
 
   @override
-  String get purchasePaymentFull => 'دفع كامل';
+  String get purchasePaymentFull => 'Bayar penuh';
 
   @override
-  String get purchasePaymentPartial => 'دفع جزء (باقي آجل)';
+  String get purchasePaymentPartial => 'Bayar sebagian (sisa kredit)';
 
   @override
-  String get purchasePaymentOnAccount => 'دفعة تحت الحساب';
+  String get purchasePaymentOnAccount => 'Setoran ke rekening';
 
   @override
-  String get purchasePaymentCredit => 'آجل بالكامل';
+  String get purchasePaymentCredit => 'Kredit penuh';
 
   @override
-  String get purchaseRemainingDebt => 'المتبقي آجل على المحل';
+  String get purchaseRemainingDebt => 'Sisa utang toko';
 
   @override
-  String get purchaseAdvanceCredit => 'رصيد زيادة للمحل (تحت الحساب)';
+  String get purchaseAdvanceCredit => 'Saldo lebih toko (setoran)';
 
   @override
-  String get profitLossTitle => 'المكسب والخسارة';
+  String get profitLossTitle => 'Laba & Rugi';
 
   @override
-  String get profitLossRevenue => 'إجمالي المبيعات';
+  String get profitLossRevenue => 'Total penjualan';
 
   @override
-  String get profitLossCogs => 'تكلفة البضاعة المباعة';
+  String get profitLossCogs => 'Biaya barang terjual';
 
   @override
-  String get profitLossGross => 'مجمل الربح';
+  String get profitLossGross => 'Laba kotor';
 
   @override
-  String get profitLossExpenses => 'المصروفات التشغيلية';
+  String get profitLossExpenses => 'Biaya operasional';
 
   @override
-  String get profitLossNet => 'صافي الربح / الخسارة';
+  String get profitLossNet => 'Laba / Rugi bersih';
 
   @override
-  String get profitLossMargin => 'نسبة هامش الربح';
+  String get profitLossMargin => 'Margin laba';
 
   @override
-  String get profitLossPeriodToday => 'اليوم';
+  String get profitLossPeriodToday => 'Hari ini';
 
   @override
-  String get profitLossPeriodWeek => 'آخر 7 أيام';
+  String get profitLossPeriodWeek => '7 hari terakhir';
 
   @override
-  String get profitLossPeriodMonth => 'هذا الشهر';
+  String get profitLossPeriodMonth => 'Bulan ini';
 
   @override
-  String get profitLossPeriodAll => 'كل الفترات';
+  String get profitLossPeriodAll => 'Semua waktu';
 
   @override
-  String get profitLossPositive => 'صافي ربح';
+  String get profitLossPositive => 'Laba bersih';
 
   @override
-  String get profitLossNegative => 'صافي خسارة';
+  String get profitLossNegative => 'Rugi bersih';
 
   @override
-  String get profitLossCashSectionTitle => 'أرباح نقدية محصّلة (كاش)';
+  String get profitLossCashSectionTitle => 'Laba tunai yang sudah diterima';
 
   @override
   String get profitLossCashSectionSubtitle =>
-      'أرباح دخلت الدرج فعلياً من مبيعات الكاش بعد خصم المصروفات';
+      'Laba dari penjualan tunai yang sudah masuk laci setelah dikurangi biaya';
 
   @override
-  String get profitLossCashNet => 'صافي الربح النقدي في الدرج';
+  String get profitLossCashNet => 'Laba tunai bersih di laci';
 
   @override
-  String get profitLossCashRevenue => 'مبيعات نقدية (كاش)';
+  String get profitLossCashRevenue => 'Penjualan tunai';
 
   @override
-  String get profitLossCashCogs => 'تكلفة بضاعة الكاش المباعة';
+  String get profitLossCashCogs => 'Biaya barang tunai terjual';
 
   @override
-  String get profitLossCashGross => 'مجمل ربح الكاش';
+  String get profitLossCashGross => 'Laba kotor tunai';
 
   @override
-  String get profitLossCreditSectionTitle => 'أرباح آجلة (عند العملاء)';
+  String get profitLossCreditSectionTitle => 'Laba kredit (belum ditagih)';
 
   @override
   String get profitLossCreditSectionSubtitle =>
-      'أرباح البضاعة المباعة شُكك ولم يتم تحصيلها بعد';
+      'Laba barang yang dijual kredit dan belum ditagih';
 
   @override
-  String get profitLossCreditGross => 'أرباح مؤجلة عند الزبائن';
+  String get profitLossCreditGross => 'Laba tertunda di pelanggan';
 
   @override
-  String get profitLossCreditRevenue => 'مبيعات بالآجل (شُكك)';
+  String get profitLossCreditRevenue => 'Penjualan kredit';
 
   @override
-  String get profitLossCreditCogs => 'تكلفة بضاعة الآجل';
+  String get profitLossCreditCogs => 'Biaya barang kredit';
 
   @override
-  String get profitLossTotalExpectedNet => 'إجمالي الربح الكلي (نقدي + آجل)';
+  String get profitLossTotalExpectedNet =>
+      'Total perkiraan laba (tunai + kredit)';
 
   @override
-  String get profitLossCashVsCreditRatio => 'نسبة الكاش إلى الآجل';
+  String get profitLossCashVsCreditRatio => 'Perbandingan tunai dan kredit';
 
   @override
-  String get shopReportTitle => 'تقرير المحل الشامل';
+  String get shopReportTitle => 'Laporan lengkap toko';
 
   @override
-  String get shopReportInventoryValue => 'قيمة بضاعة المحل';
+  String get shopReportInventoryValue => 'Nilai barang toko';
 
   @override
-  String get shopReportAtCost => 'بسعر الشراء (التكلفة)';
+  String get shopReportAtCost => 'Harga beli (modal)';
 
   @override
-  String get shopReportAtRetail => 'بسعر البيع (المتوقع)';
+  String get shopReportAtRetail => 'Harga jual (perkiraan)';
 
   @override
-  String get shopReportExpectedProfit => 'الربح المتوقع من البضاعة';
+  String get shopReportExpectedProfit => 'Perkiraan laba barang';
 
   @override
-  String get shopReportReceivables => 'لينا عند العملاء (ديون)';
+  String get shopReportReceivables => 'Piutang pelanggan';
 
   @override
-  String get shopReportPayables => 'علينا للموردين (ديون)';
+  String get shopReportPayables => 'Utang ke supplier';
 
   @override
-  String get shopReportCashDrawer => 'الفلوس في الدرج والخزينة';
+  String get shopReportCashDrawer => 'Uang di laci dan brankas';
 
   @override
-  String get shopReportNetWorth => 'صافي رأس مال المحل';
+  String get shopReportNetWorth => 'Nilai bersih toko';
 
   @override
-  String get shopReportLowStockCount => 'أصناف وصلت للنواقص';
+  String get shopReportLowStockCount => 'Barang yang stoknya menipis';
 
   @override
-  String get shopReportShare => 'مشاركة التقرير عبر واتساب';
+  String get shopReportShare => 'Bagikan laporan via WhatsApp';
 
   @override
-  String get featureManagerTitle => 'تخصيص ميزات المحل';
+  String get featureManagerTitle => 'Atur fitur toko';
 
   @override
   String get featureManagerSubtitle =>
-      'أظهر أو أخفِ الأقسام حسب طبيعة واحتياج محلك';
+      'Tampilkan atau sembunyikan bagian sesuai kebutuhan toko';
 
   @override
   String get featureManagerNote =>
-      'إخفاء أي ميزة لا يحذف بياناتها، ويمكنك إعادتها في أي وقت بنقرة واحدة.';
+      'Menyembunyikan fitur tidak menghapus datanya, dan bisa aktif lagi kapan saja.';
 
   @override
-  String get featurePresetTitle => 'أوضاع سريعة بنقرة واحدة';
+  String get featurePresetTitle => 'Pilihan cepat sekali ketuk';
 
   @override
-  String get featurePresetSimple => 'كشكول ديون فقط';
+  String get featurePresetSimple => 'Buku utang saja';
 
   @override
   String get featurePresetSimpleDesc =>
-      'تركيز تام على حسابات الزباين والتحصيل فقط';
+      'Fokus penuh pada piutang dan penagihan pelanggan';
 
   @override
-  String get featurePresetGrocery => 'بقالة وسوبرماركت';
+  String get featurePresetGrocery => 'Toko kelontong & swalayan';
 
   @override
-  String get featurePresetGroceryDesc => 'بيع سريع + بضاعة وموردين + درج يومي';
+  String get featurePresetGroceryDesc =>
+      'Jual cepat + stok & supplier + laci harian';
 
   @override
-  String get featurePresetElectronics => 'محل موبايل وأجهزة';
+  String get featurePresetElectronics => 'Toko hp & elektronik';
 
   @override
-  String get featurePresetElectronicsDesc => 'أقساط + مخزون + بيع سريع وموردين';
+  String get featurePresetElectronicsDesc =>
+      'Kredit + stok + jual cepat & supplier';
 
   @override
-  String get featurePresetAll => 'تشغيل كل الميزات';
+  String get featurePresetAll => 'Aktifkan semua fitur';
 
   @override
-  String get featurePresetAllDesc => 'فتح كافة إمكانيات التطبيق';
+  String get featurePresetAllDesc => 'Buka semua kemampuan aplikasi';
 
   @override
-  String get featureQuickPosTitle => 'البيع السريع ونقطة البيع (POS)';
+  String get featureQuickPosTitle => 'Jual cepat & kasir (POS)';
 
   @override
   String get featureQuickPosDesc =>
-      'شاشة رئيسية لإنشاء فواتير كاش سريعة وحساب الباقي';
+      'Layar untuk buat faktur tunai cepat dan hitung kembalian';
 
   @override
-  String get featureSuppliersTitle => 'الموردون وفواتير الشراء';
+  String get featureSuppliersTitle => 'Supplier & faktur pembelian';
 
   @override
   String get featureSuppliersDesc =>
-      'متابعة ديون الموردين وطلبيات النواقص والمرتجعات';
+      'Pantau utang supplier, pesanan stok, dan retur';
 
   @override
-  String get featureInstallmentsTitle => 'دفتر الأقساط الشهرية';
+  String get featureInstallmentsTitle => 'Buku kredit bulanan';
 
   @override
   String get featureInstallmentsDesc =>
-      'جدولة الأقساط وعقود الشراء وتنبيهات مواعيد السداد';
+      'Jadwal kredit, kontrak, dan pengingat tanggal bayar';
 
   @override
-  String get featureInventoryTitle => 'المخزون وإدارة الأصناف';
+  String get featureInventoryTitle => 'Stok & pengelolaan barang';
 
   @override
   String get featureInventoryDesc =>
-      'تسجيل البضاعة وتنبيهات النواقص وسجل الحركات';
+      'Catat barang, peringatan stok tipis, dan riwayat pergerakan';
 
   @override
-  String get featureCashDrawerTitle => 'الصندوق والدرج اليومي';
+  String get featureCashDrawerTitle => 'Kas & laci harian';
 
   @override
   String get featureCashDrawerDesc =>
-      'حساب حركة النقدية اليومية والعجز والزيادة والإقفال';
+      'Hitung uang harian, selisih, dan tutup hari';
 
   @override
-  String get featureProfitLossTitle => 'المكسب والخسارة والتقارير';
+  String get featureProfitLossTitle => 'Laba rugi & laporan';
 
   @override
   String get featureProfitLossDesc =>
-      'حساب صافي الأرباح بعد خصم المصروفات وتقرير رأس المال';
+      'Hitung laba bersih setelah biaya dan laporan modal';
 
   @override
-  String get featureOffersTitle => 'رسائل العروض والمناسبات';
+  String get featureOffersTitle => 'Pesan promo & ucapan';
 
   @override
   String get featureOffersDesc =>
-      'إرسال عروض وتخفيضات لمجموعات العملاء عبر واتساب';
+      'Kirim promo dan ucapan ke pelanggan lewat WhatsApp';
 
   @override
-  String get featureCoreAlwaysActive =>
-      'العملاء والتحصيل ميزة أساسية مفعلة دائماً';
+  String get featureCoreAlwaysActive => 'Pelanggan & penagihan selalu aktif';
 
   @override
-  String get featureStatusActive => 'مفعل';
+  String get featureStatusActive => 'Aktif';
 
   @override
-  String get featureStatusHidden => 'مخفي';
+  String get featureStatusHidden => 'Disembunyikan';
 
   @override
-  String get quickPosTitle => 'بيع سريع';
+  String get quickPosTitle => 'Jual cepat';
 
   @override
-  String get quickPosOpen => 'افتح البيع السريع';
+  String get quickPosOpen => 'Buka jual cepat';
 
   @override
-  String get quickPosSearch => 'ابحث بالاسم أو اكتب الباركود...';
+  String get quickPosSearch => 'Cari nama atau ketik barcode...';
 
   @override
-  String get quickPosProducts => 'الأصناف';
+  String get quickPosProducts => 'Produk';
 
   @override
-  String get quickPosAdd => 'ضيف للبيع';
+  String get quickPosAdd => 'Tambah ke penjualan';
 
   @override
-  String get quickPosAvailable => 'المتاح';
+  String get quickPosAvailable => 'Tersedia';
 
   @override
-  String get quickPosCart => 'أصناف البيع';
+  String get quickPosCart => 'Barang dijual';
 
   @override
-  String get quickPosEmptyCart => 'ضيف أصناف عشان تبدأ البيع';
+  String get quickPosEmptyCart => 'Tambah produk untuk mulai jualan';
 
   @override
-  String get quickPosQuantity => 'الكمية';
+  String get quickPosQuantity => 'Jumlah';
 
   @override
-  String get quickPosQuantityInvalid => 'اكتب كمية صحيحة أكبر من صفر';
+  String get quickPosQuantityInvalid =>
+      'Masukkan jumlah yang benar lebih dari nol';
 
   @override
-  String get quickPosCash => 'نقدي';
+  String get quickPosCash => 'Tunai';
 
   @override
-  String get quickPosCredit => 'على حساب عميل';
+  String get quickPosCredit => 'Kredit pelanggan';
 
   @override
-  String get quickPosSelectCustomer => 'اختار العميل';
+  String get quickPosSelectCustomer => 'Pilih pelanggan';
 
   @override
-  String get quickPosCustomerRequired => 'اختار عميل للبيع على الحساب';
+  String get quickPosCustomerRequired => 'Pilih pelanggan untuk jualan kredit';
 
   @override
-  String get quickPosTotal => 'الإجمالي';
+  String get quickPosTotal => 'Total';
 
   @override
-  String get quickPosCompleteSale => 'تأكيد البيع';
+  String get quickPosCompleteSale => 'Selesaikan penjualan';
 
   @override
-  String get quickPosSaving => 'بيتم حفظ البيع...';
+  String get quickPosSaving => 'Menyimpan penjualan...';
 
   @override
-  String get quickPosSaleSaved => 'تم تسجيل البيع';
+  String get quickPosSaleSaved => 'Penjualan dicatat';
 
   @override
-  String get quickPosSaveFailed => 'ماقدرناش نسجل البيع. حاول تاني.';
+  String get quickPosSaveFailed => 'Gagal mencatat penjualan. Coba lagi.';
 
   @override
-  String get quickPosInsufficientStock => 'المخزون مش كفاية للكمية دي';
+  String get quickPosInsufficientStock => 'Stok tidak cukup untuk jumlah ini';
 
   @override
   String get quickPosCashDayClosed =>
-      'الدرج بتاع النهارده اتقفل. افتحه تاني عشان تسجل بيع نقدي.';
+      'Laci hari ini sudah ditutup. Buka lagi untuk catat jualan tunai.';
 
   @override
-  String get quickPosLoadFailed => 'ماقدرناش نحمّل الأصناف';
+  String get quickPosLoadFailed => 'Gagal memuat produk';
 
   @override
-  String get quickPosCustomersLoadFailed => 'ماقدرناش نحمّل العملاء';
+  String get quickPosCustomersLoadFailed => 'Gagal memuat pelanggan';
 
   @override
-  String get quickPosSaleNote => 'بيع سريع';
+  String get quickPosSaleNote => 'Jual cepat';
 
   @override
-  String get supplierPurchasesTitle => 'مشتريات المورد';
+  String get supplierPurchasesTitle => 'Pembelian supplier';
 
   @override
-  String get supplierPurchaseNew => 'تسجيل شراء';
+  String get supplierPurchaseNew => 'Catat pembelian';
 
   @override
-  String get supplierPurchaseInvoiceNumber => 'رقم الفاتورة (اختياري)';
+  String get supplierPurchaseInvoiceNumber => 'Nomor faktur (opsional)';
 
   @override
-  String get supplierPurchasePaymentType => 'طريقة الحساب';
+  String get supplierPurchasePaymentType => 'Cara pembayaran';
 
   @override
-  String get supplierPurchaseCash => 'نقدي';
+  String get supplierPurchaseCash => 'Tunai';
 
   @override
-  String get supplierPurchaseCredit => 'على الحساب';
+  String get supplierPurchaseCredit => 'Kredit';
 
   @override
-  String get supplierPurchaseAddProduct => 'اختار صنف';
+  String get supplierPurchaseAddProduct => 'Pilih produk';
 
   @override
-  String get supplierPurchaseItems => 'أصناف الفاتورة';
+  String get supplierPurchaseItems => 'Barang faktur';
 
   @override
-  String get supplierPurchaseQuantity => 'الكمية';
+  String get supplierPurchaseQuantity => 'Jumlah';
 
   @override
-  String get supplierPurchaseUnitCost => 'سعر شراء الوحدة بالجنيه';
+  String get supplierPurchaseUnitCost => 'Harga beli per satuan (EGP)';
 
   @override
-  String get supplierPurchaseAddLine => 'إضافة الصنف';
+  String get supplierPurchaseAddLine => 'Tambah barang';
 
   @override
-  String get supplierPurchaseNoLines => 'ضيف صنف واحد على الأقل';
+  String get supplierPurchaseNoLines => 'Tambah minimal satu produk';
 
   @override
-  String get supplierPurchaseSave => 'حفظ الفاتورة';
+  String get supplierPurchaseSave => 'Simpan faktur';
 
   @override
-  String get supplierPurchaseTotal => 'إجمالي الفاتورة';
+  String get supplierPurchaseTotal => 'Total faktur';
 
   @override
-  String get supplierPurchaseSaved => 'تم تسجيل فاتورة الشراء';
+  String get supplierPurchaseSaved => 'Faktur pembelian dicatat';
 
   @override
-  String get supplierPurchaseSaveFailed => 'ماقدرناش نسجل الفاتورة. حاول تاني.';
+  String get supplierPurchaseSaveFailed => 'Gagal menyimpan faktur. Coba lagi.';
 
   @override
-  String get supplierPurchaseNoInvoices => 'مفيش فواتير شراء للمورد ده';
+  String get supplierPurchaseNoInvoices =>
+      'Belum ada faktur pembelian dari supplier ini';
 
   @override
-  String get supplierPurchaseDetails => 'تفاصيل الفاتورة';
+  String get supplierPurchaseDetails => 'Detail faktur';
 
   @override
-  String get supplierPurchaseReturn => 'إرجاع للمورد';
+  String get supplierPurchaseReturn => 'Retur ke supplier';
 
   @override
-  String get supplierPurchaseReturned => 'المرتجع';
+  String get supplierPurchaseReturned => 'Diretur';
 
   @override
-  String get supplierPurchaseRemaining => 'المتاح للمرتجع';
+  String get supplierPurchaseRemaining => 'Bisa diretur';
 
   @override
-  String get supplierPurchaseReturnQuantity => 'كمية المرتجع';
+  String get supplierPurchaseReturnQuantity => 'Jumlah retur';
 
   @override
   String get supplierPurchaseReturnSaved =>
-      'تم تسجيل المرتجع واتخصم من حساب المورد';
+      'Retur dicatat dan saldo supplier dikurangi';
 
   @override
   String get supplierPurchaseReturnLimit =>
-      'الكمية المطلوبة أكبر من المتاح للمرتجع أو المخزون';
+      'Jumlah melebihi batas retur atau stok yang ada';
 
   @override
-  String get supplierCreditNote => 'رصيد دائن من مرتجع';
+  String get supplierCreditNote => 'Saldo kredit dari retur';
 
   @override
-  String get supplierPurchaseInvalidInput => 'راجع الكمية والسعر وحاول تاني';
+  String get supplierPurchaseInvalidInput =>
+      'Periksa jumlah dan harga lalu coba lagi';
 
   @override
-  String get supplierPurchaseLoadError => 'ماقدرناش نحمّل فواتير الشراء';
+  String get supplierPurchaseLoadError => 'Gagal memuat faktur pembelian';
 
   @override
   String get navSettings => 'Pengaturan';
@@ -1129,7 +1138,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get statementFormatA4 => 'Kertas A4';
 
   @override
-  String get statementFormatReceipt => 'Struk termal (80mm)';
+  String get statementFormatReceipt => 'Struk Termal (80mm)';
 
   @override
   String get dateCol => 'Tanggal';
@@ -2707,7 +2716,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get settingsScreen73 =>
-      'https://wa.me/201000000000?text=Halo%2C%20saya%20punya%20pertanyaan%20tentang%20Kashkool';
+      'https://wa.me/201005083126?text=Halo%2C%20saya%20punya%20pertanyaan%20tentang%20Kashkool';
 
   @override
   String get settingsScreen74 => 'Kebijakan privasi & ketentuan';
@@ -3792,336 +3801,341 @@ class AppLocalizationsId extends AppLocalizations {
   String get cloudDeleteAccountDone => 'Akun cloud Anda telah dihapus';
 
   @override
-  String get authFirstTimeTitle => 'أهلاً بك في كشكول! 👋';
+  String get authFirstTimeTitle => 'Selamat datang di Kashkool! 👋';
 
   @override
-  String get authFirstTimeQuestion => 'هل عندك حساب بالفعل ولا مستخدم جديد؟';
+  String get authFirstTimeQuestion => 'Sudah punya akun atau pengguna baru?';
 
   @override
-  String get authHaveAccount => 'عندي حساب بالفعل';
+  String get authHaveAccount => 'Sudah punya akun';
 
   @override
   String get authHaveAccountSubtitle =>
-      'سجّل دخولك وهنرجعلك كل بيانات محلك فوراً';
+      'Masuk dan semua data toko langsung kembali';
 
   @override
-  String get authNewUser => 'مستخدم جديد';
+  String get authNewUser => 'Pengguna baru';
 
   @override
-  String get authNewUserSubtitle => 'ابدأ كشكول جديد وجهّز محلك خطوة بخطوة';
+  String get authNewUserSubtitle =>
+      'Mulai Kashkool baru dan siapkan toko langkah demi langkah';
 
   @override
-  String get authContinueGuest => 'المتابعة كضيف (بدون حساب)';
+  String get authContinueGuest => 'Lanjut sebagai tamu (tanpa akun)';
 
   @override
   String get authContinueGuestSubtitle =>
-      'استخدم التطبيق محلياً بدون إنترنت خالص';
+      'Pakai aplikasi lokal tanpa internet sama sekali';
 
   @override
-  String get authLogin => 'تسجيل الدخول';
+  String get authLogin => 'Masuk';
 
   @override
-  String get authRegister => 'إنشاء حساب جديد';
+  String get authRegister => 'Buat akun baru';
 
   @override
-  String get authEmail => 'البريد الإلكتروني';
+  String get authEmail => 'Email';
 
   @override
-  String get authPassword => 'كلمة المرور';
+  String get authPassword => 'Kata sandi';
 
   @override
-  String get authPasswordConfirm => 'تأكيد كلمة المرور';
+  String get authPasswordConfirm => 'Konfirmasi kata sandi';
 
   @override
-  String get authNameOptional => 'الاسم (اختياري)';
+  String get authNameOptional => 'Nama (opsional)';
 
   @override
-  String get authLoginButton => 'تسجيل الدخول';
+  String get authLoginButton => 'Masuk';
 
   @override
-  String get authRegisterButton => 'إنشاء حساب';
+  String get authRegisterButton => 'Daftar';
 
   @override
-  String get authOrGoogle => 'أو المتابعة بحساب Google';
+  String get authOrGoogle => 'Atau lanjut dengan akun Google';
 
   @override
-  String get authSignInWithGoogle => 'تسجيل الدخول بحساب Google';
+  String get authSignInWithGoogle => 'Masuk dengan akun Google';
 
   @override
   String get authSignInWithGoogleSubtitle =>
-      'مزامنة سحابية واسترجاع بيانات محلك تلقائياً';
+      'Sinkronisasi cloud dan pemulihan data toko otomatis';
 
   @override
-  String get authSwitchAccount => 'تبديل الحساب';
+  String get authSwitchAccount => 'Ganti akun';
 
   @override
   String get authSwitchAccountSubtitle =>
-      'اختر حساباً آخر أو سجّل دخول بحساب جديد';
+      'Pilih akun lain atau masuk dengan akun baru';
 
   @override
-  String get authAddAccount => '+ تسجيل الدخول بحساب آخر';
+  String get authAddAccount => '+ Masuk dengan akun lain';
 
   @override
-  String get authCurrentAccount => 'الحساب النشط حالياً';
+  String get authCurrentAccount => 'Akun yang sedang aktif';
 
   @override
-  String get authPasswordsDontMatch => 'كلمتا المرور غير متطابقتين';
+  String get authPasswordsDontMatch => 'Kata sandi tidak sama';
 
   @override
-  String get authPasswordTooShort => 'كلمة المرور لازم تكون 6 أحرف على الأقل';
+  String get authPasswordTooShort => 'Kata sandi minimal 6 karakter';
 
   @override
-  String get authInvalidEmail => 'اكتب بريد إلكتروني صحيح';
+  String get authInvalidEmail => 'Masukkan email yang benar';
 
   @override
-  String get authLoginSuccess => 'تم تسجيل الدخول بنجاح 🎉';
+  String get authLoginSuccess => 'Berhasil masuk 🎉';
 
   @override
-  String get authRegisterSuccess => 'تم إنشاء الحساب بنجاح 🎉';
+  String get authRegisterSuccess => 'Akun berhasil dibuat 🎉';
 
   @override
   String authSwitchedTo(Object email) {
-    return 'تم التبديل إلى حساب: $email';
+    return 'Beralih ke akun: $email';
   }
 
   @override
-  String get cloudApiEmailTaken => 'البريد ده مسجل قبل كده، جرّب تسجّل دخول';
+  String get cloudApiEmailTaken => 'Email ini sudah terdaftar, coba masuk';
 
   @override
-  String get cloudApiInvalidCredentials => 'البريد أو كلمة المرور مش صحيحة';
+  String get cloudApiInvalidCredentials => 'Email atau kata sandi salah';
 
   @override
-  String get authBackupBeforeSwitchTitle => 'تنبيه: بيانات غير محفوظة!';
+  String get authBackupBeforeSwitchTitle => 'Perhatian: data belum tersimpan!';
 
   @override
   String get authBackupBeforeSwitchBody =>
-      'يوجد بيانات لم يتم حفظ نسخة منها على السحابة لهذا الحساب. لو بدّلت الحساب دلوقتي، البيانات المحلية هتتمسح ومش هتعرف ترجعها إلا لو عملت نسخة أولاً.';
+      'Ada data yang belum dicadangkan ke cloud untuk akun ini. Jika ganti akun sekarang, data lokal akan terhapus dan tidak bisa kembali kecuali Anda buat cadangan dulu.';
 
   @override
-  String get authBackupFirst => 'اعمل نسخة احتياطية أولاً';
+  String get authBackupFirst => 'Cadangkan dulu';
 
   @override
-  String get authSwitchWithoutBackup => 'تبديل ومسح البيانات المحلية';
+  String get authSwitchWithoutBackup => 'Ganti dan hapus data lokal';
 
   @override
-  String get authFetchingData => 'جاري جلب بياناتك من السحابة…';
+  String get authFetchingData => 'Mengambil data Anda dari cloud…';
 
   @override
-  String get authEmailLoginButton => 'تسجيل الدخول بالبريد الإلكتروني';
+  String get authEmailLoginButton => 'Masuk dengan email';
 
   @override
-  String get authEmailRegisterButton => 'إنشاء حساب جديد بالبريد';
+  String get authEmailRegisterButton => 'Daftar dengan email';
 
   @override
-  String get authWipingData => 'جاري مسح البيانات المحلية وتبديل الحساب…';
+  String get authWipingData => 'Menghapus data lokal dan mengganti akun…';
 
   @override
-  String get offersBroadcasterTitle => 'رسائل العروض والمعايدات';
+  String get offersBroadcasterTitle => 'Pesan promo & ucapan';
 
   @override
   String get offersBroadcasterSubtitle =>
-      'أرسل عروضك وتهانيك لعملائك عبر واتساب بضغطة واحدة وبدون تكلفة';
+      'Kirim promo dan ucapan ke pelanggan lewat WhatsApp sekali ketuk dan gratis';
 
   @override
-  String get offersTemplateSection => '1. اختر القالب';
+  String get offersTemplateSection => '1. Pilih template';
 
   @override
-  String get offersAudienceSection => '2. اختر الجمهور المستهدف';
+  String get offersAudienceSection => '2. Pilih penerima';
 
   @override
-  String get offersMessageSection => '3. نص الرسالة والمعاينة';
+  String get offersMessageSection => '3. Isi pesan & pratinjau';
 
   @override
-  String get offersTemplateRamadan => 'رمضان المبارك 🌙';
+  String get offersTemplateRamadan => 'Ramadan berkah 🌙';
 
   @override
-  String get offersTemplateEid => 'العيد المبارك 🎉';
+  String get offersTemplateEid => 'Selamat Hari Raya 🎉';
 
   @override
-  String get offersTemplateBackToSchool => 'دخول المدارس 📚';
+  String get offersTemplateBackToSchool => 'Masuk sekolah 📚';
 
   @override
-  String get offersTemplateNewOffer => 'عروض جديدة 🎁';
+  String get offersTemplateNewOffer => 'Promo baru 🎁';
 
   @override
-  String get offersTemplateCustom => 'رسالة مخصصة ✍️';
+  String get offersTemplateCustom => 'Pesan sendiri ✍️';
 
   @override
-  String get offersAudienceAllWithPhone => 'جميع العملاء برقم هاتف';
+  String get offersAudienceAllWithPhone => 'Semua pelanggan yang punya nomor';
 
   @override
-  String get offersAudienceGoodRating => 'العملاء الملتزمون بالسداد (أخضر)';
+  String get offersAudienceGoodRating => 'Pelanggan yang rajin bayar (hijau)';
 
   @override
-  String get offersAudienceActive30Days => 'النشطون آخر 30 يوماً';
+  String get offersAudienceActive30Days => 'Aktif 30 hari terakhir';
 
   @override
-  String get offersAudienceManual => 'اختيار يدوي مخصص';
+  String get offersAudienceManual => 'Pilih sendiri';
 
   @override
   String get offersTipSpam =>
-      '💡 نصيحة: يُفضل ألا تزيد الحملة عن 50 عميل في المرة الواحدة لتجنب قيود واتساب.';
+      '💡 Tips: jangan kirim lebih dari 50 pelanggan sekali agar WhatsApp tidak membatasi.';
 
   @override
   String offersStartCampaign(Object count) {
-    return 'بدء طابور الإرسال ($count عميل)';
+    return 'Mulai antrean kirim ($count pelanggan)';
   }
 
   @override
   String offersResumeCampaign(Object pending) {
-    return 'استئناف الحملة السابقة ($pending متبقي)';
+    return 'Lanjutkan kampanye ($pending tersisa)';
   }
 
   @override
-  String get offersDiscardCampaign => 'بدء حملة جديدة بدلاً منها';
+  String get offersDiscardCampaign => 'Mulai kampanye baru saja';
 
   @override
-  String get offersQueueTitle => 'طابور الإرسال';
+  String get offersQueueTitle => 'Antrean pengiriman';
 
   @override
   String offersProgressLabel(Object sent, Object total, Object percent) {
-    return 'إرسال $sent من $total عميل ($percent%)';
+    return 'Mengirim $sent dari $total pelanggan ($percent%)';
   }
 
   @override
-  String get offersSendViaWhatsApp => 'ابعت عبر واتساب';
+  String get offersSendViaWhatsApp => 'Kirim via WhatsApp';
 
   @override
-  String get offersSkipCustomer => 'تخطي العميل';
+  String get offersSkipCustomer => 'Lewati pelanggan';
 
   @override
-  String get offersPauseQueue => 'إيقاف مؤقت والرجوع';
+  String get offersPauseQueue => 'Jeda dan kembali';
 
   @override
-  String get offersCampaignCompleteTitle => 'تم الانتهاء بنجاح! 🎉';
+  String get offersCampaignCompleteTitle => 'Selesai! 🎉';
 
   @override
   String get offersCampaignCompleteSubtitle =>
-      'تم إرسال كافة الرسائل المحددة لعملائك بنجاح.';
+      'Semua pesan berhasil dikirim ke pelanggan Anda.';
 
   @override
   String get offersNoRecipients =>
-      'لا يوجد عملاء يطابقون الفلتر المختار ولديهم رقم هاتف';
+      'Tidak ada pelanggan yang cocok dan punya nomor telepon';
 
   @override
   String offersSelectManualCustomers(Object count) {
-    return 'تحديد العملاء ($count محدد)';
+    return 'Pilih pelanggan ($count dipilih)';
   }
 
   @override
-  String get offersSampleCustomerName => 'محمد أحمد';
+  String get offersSampleCustomerName => 'Muhammad Ahmad';
 
   @override
-  String get offersInsertPlaceholderHint => 'اضغط لإدراج متغير في الرسالة:';
+  String get offersInsertPlaceholderHint =>
+      'Ketuk untuk sisipkan variabel ke pesan:';
 
   @override
   String get offersDefaultRamadanText =>
-      'كل عام وحضرتك بخير يا {customer_name} بمناسبة شهر رمضان المبارك، نتمنى لك ولأسرتك شهراً مباركاً من {shop_name} 🌙✨';
+      'Semoga selalu sehat ya {customer_name}, dalam bulan Ramadan yang berkah. Semoga Anda dan keluarga diberi berkah dari {shop_name} 🌙✨';
 
   @override
   String get offersDefaultEidText =>
-      'عيد مبارك عليك وعلى أسرتك يا {customer_name}، كل سنة وحضرتك طيب وبصحة وسعادة من {shop_name} 🎉🐑';
+      'Selamat Hari Raya untuk Anda dan keluarga {customer_name}, semoga selalu sehat dan bahagia dari {shop_name} 🎉🐑';
 
   @override
   String get offersDefaultBackToSchoolText =>
-      'عام دراسي جديد سعيد وموفق لأولادنا يا {customer_name}، متوفر لدينا كل ما يلزمكم في {shop_name} 📚✏️';
+      'Tahun ajaran baru yang menyenangkan dan sukses untuk anak-anak kita {customer_name}. Semua kebutuhan tersedia di {shop_name} 📚✏️';
 
   @override
   String get offersDefaultNewOfferText =>
-      'أهلاً يا {customer_name}! عندنا عروض وتخفيضات جديدة ومميزة لك في {shop_name}، تشرفنا بزيارتك في أي وقت 🎁🔥';
+      'Halo {customer_name}! Ada promo dan diskon baru spesial untuk Anda di {shop_name}, mari mampir kapan saja 🎁🔥';
 
   @override
   String get offersDefaultCustomText =>
-      'أهلاً يا {customer_name}، تحياتنا لك من {shop_name} 👋';
+      'Halo {customer_name}, salam dari {shop_name} 👋';
 
   @override
   String offersSentSuccessPrompt(Object name) {
-    return 'هل تم إرسال الرسالة إلى $name بنجاح؟';
+    return 'Apakah pesan ke $name berhasil dikirim?';
   }
 
   @override
-  String get offersYesSent => 'نعم، تم الإرسال';
+  String get offersYesSent => 'Ya, sudah dikirim';
 
   @override
-  String get offersNotSent => 'لم يتم الإرسال';
+  String get offersNotSent => 'Belum dikirim';
 
   @override
-  String get offersPreviewCardTitle => 'معاينة الرسالة للعميل';
+  String get offersPreviewCardTitle => 'Pratinjau pesan pelanggan';
 
   @override
-  String get offersIncludeGrowthFooter => 'إضافة تذييل كشكول في نهاية الرسالة';
+  String get offersIncludeGrowthFooter =>
+      'Tambahkan tanda tangan Kashkool di akhir pesan';
 
   @override
   String offersCampaignActiveBanner(Object sent, Object total) {
-    return 'لديك حملة سابقة غير مكتملة ($sent من $total مرسل)';
+    return 'Ada kampanye lama yang belum selesai ($sent dari $total terkirim)';
   }
 
   @override
-  String get notificationServiceInstallmentsChannelName => 'تذكير الأقساط';
+  String get notificationServiceInstallmentsChannelName => 'Pengingat kredit';
 
   @override
   String get notificationServiceInstallmentsChannelDesc =>
-      'تنبيهات بمواعيد سداد الأقساط المستحقة والمتأخرة';
+      'Pengingat tanggal kredit yang jatuh tempo dan terlambat';
 
   @override
   String get notificationServiceInstallmentsTitle =>
-      'تنبيه الأقساط المستحقة 🔔';
+      'Pengingat kredit jatuh tempo 🔔';
 
   @override
   String notificationServiceInstallmentsBody(Object count, Object amountStr) {
-    return 'عندك $count أقساط مستحقة بإجمالي $amountStr — اضغط للمتابعة';
+    return 'Ada $count kredit jatuh tempo total $amountStr — ketuk untuk lanjut';
   }
 
   @override
-  String get notificationServiceBackupChannelName => 'تذكير النسخ الاحتياطي';
+  String get notificationServiceBackupChannelName => 'Pengingat cadangan';
 
   @override
   String get notificationServiceBackupChannelDesc =>
-      'تنبيه دوري لحفظ بيانات دفترك لحمايتها من الضياع';
+      'Pengingat berkala untuk menyimpan data buku Anda agar tidak hilang';
 
   @override
   String get notificationServiceBackupTitle =>
-      'تنبيه: محتاج تعمل نسخة احتياطية ⚠️';
+      'Perhatian: perlu buat cadangan ⚠️';
 
   @override
   String notificationServiceBackupBody(Object days) {
-    return 'فات $days أيام بدون حفظ نسخة احتياطية. اضغط لحفظ بياناتك الآن.';
+    return 'Sudah $days hari tanpa cadangan. Ketuk untuk menyimpan data Anda sekarang.';
   }
 
   @override
-  String get notificationServiceTestTitle => 'إشعار تجريبي من كشكول 🚀';
+  String get notificationServiceTestTitle => 'Notifikasi uji dari Kashkool 🚀';
 
   @override
   String get notificationServiceTestBody =>
-      'الإشعارات شغالة تمام وبتوصلك في وقتها بنجاح 👍';
+      'Notifikasi berfungsi dan sampai tepat waktu 👍';
 
   @override
-  String get notificationServiceSettingsReminderTime => 'وقت التذكير اليومي';
+  String get notificationServiceSettingsReminderTime =>
+      'Waktu pengingat harian';
 
   @override
   String get notificationServiceSettingsReminderTimeSubtitle =>
-      'الميعاد اليومي لتنبيهك بالتحصيلات والأقساط المستحقة';
+      'Jam harian untuk mengingatkan penagihan dan kredit jatuh tempo';
 
   @override
-  String get notificationServiceSettingsStatus => 'إشعارات التطبيق';
+  String get notificationServiceSettingsStatus => 'Notifikasi aplikasi';
 
   @override
-  String get notificationServiceSettingsStatusActive => 'مفعلة وتعمل بنجاح ✓';
+  String get notificationServiceSettingsStatusActive => 'Aktif dan berjalan ✓';
 
   @override
   String get notificationServiceSettingsStatusDisabled =>
-      'متوقفة — اضغط لمنح الإذن';
+      'Nonaktif — ketuk untuk izinkan';
 
   @override
-  String get notificationServiceSettingsSendTest => 'إرسال إشعار تجريبي الآن';
+  String get notificationServiceSettingsSendTest =>
+      'Kirim notifikasi uji sekarang';
 
   @override
   String get notificationServiceSettingsSendTestSubtitle =>
-      'تأكد من ظهور الإشعارات وصوت التنبيه على هاتفك فوراً';
+      'Cek notifikasi dan suara langsung di ponsel Anda';
 
   @override
   String get notificationServiceSettingsSendTestSuccess =>
-      'تم إرسال الإشعار التجريبي! تفقّد شريط الإشعارات 👍';
+      'Notifikasi uji terkirim! Cek panel notifikasi 👍';
 
   @override
   String get notificationServiceDailyScheduledTitle => 'Waktunya menagih 💰';
@@ -4157,4 +4171,596 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get moreSettingsSubtitle => 'Info toko, keamanan, dan cadangan';
+
+  @override
+  String get moreProfitLossSubtitle => 'Laba bersih dan beban operasional toko';
+
+  @override
+  String get moreShopReportSubtitle => 'Total stok, kas, dan piutang';
+
+  @override
+  String get notificationServiceGeneralChannelDesc =>
+      'Saluran pemberitahuan umum dan pengujian Kashkool';
+
+  @override
+  String get notificationServiceGeneralChannelName =>
+      'Pemberitahuan Umum dan Uji Coba';
+
+  @override
+  String notificationServiceLowStockBody(Object remainingStock) {
+    return 'Tersisa di stok: $remainingStock';
+  }
+
+  @override
+  String get notificationServiceLowStockChannelDesc =>
+      'Peringatan instan saat barang mencapai batas minimum';
+
+  @override
+  String get notificationServiceLowStockChannelName =>
+      'Peringatan Stok Menipis';
+
+  @override
+  String get notificationServiceLowStockNoSupplierSuffix =>
+      ' Ketuk untuk memeriksa stok dan memperbarui';
+
+  @override
+  String notificationServiceLowStockSupplierSuffix(Object supplierName) {
+    return ' Pemasok: $supplierName — ketuk untuk memesan via WhatsApp';
+  }
+
+  @override
+  String notificationServiceLowStockTitle(Object productName) {
+    return '⚠️ Peringatan stok menipis: $productName';
+  }
+
+  @override
+  String get notificationServiceMultipleLowStockBody =>
+      'Periksa daftar barang yang menipis untuk segera dipesan ke pemasok.';
+
+  @override
+  String notificationServiceMultipleLowStockTitle(Object count) {
+    return '⚠️ $count barang stoknya menipis';
+  }
+
+  @override
+  String get pdfInvoiceCash => 'Tunai';
+
+  @override
+  String get pdfInvoiceCredit => 'Faktur Penjualan Kredit (Bon)';
+
+  @override
+  String pdfInvoiceNumber(Object shortSaleId) {
+    return 'Nomor Faktur: #$shortSaleId';
+  }
+
+  @override
+  String get pdfInvoicePayCash => 'Dibayar Tunai';
+
+  @override
+  String get pdfInvoicePayOnCredit => 'Dicatat Kredit (Utang Akun)';
+
+  @override
+  String get pdfInvoicePaymentMethod => 'Metode Pembayaran:';
+
+  @override
+  String pdfInvoicePhone(Object phone) {
+    return 'Telepon: $phone';
+  }
+
+  @override
+  String get pdfInvoicePrice => 'Harga';
+
+  @override
+  String get pdfInvoiceThankYou => 'Terima kasih atas kunjungan Anda!';
+
+  @override
+  String get pdfInvoiceTotal => 'Total';
+
+  @override
+  String get pdfPreviewErrorLabel => 'Gagal membuat berkas';
+
+  @override
+  String get pdfPreviewPreparing => 'Menyiapkan dokumen PDF...';
+
+  @override
+  String get pdfPreviewPrint => 'Cetak Langsung';
+
+  @override
+  String get pdfPreviewRetry => 'Coba Lagi';
+
+  @override
+  String get pdfPreviewShare => 'Bagikan PDF';
+
+  @override
+  String get pdfReportAvailableAmount => 'Jumlah Tersedia';
+
+  @override
+  String get pdfReportCashInDrawer => 'Kas di Laci';
+
+  @override
+  String get pdfReportCashProfitNote =>
+      'Catatan Kashkool: Laba bersih kas adalah uang nyata yang masuk ke laci setelah biaya dan beban. Laba kredit berubah menjadi kas setelah pelunasan.';
+
+  @override
+  String get pdfReportCashVsCreditTitle =>
+      'Perbandingan Penjualan Tunai vs Kredit';
+
+  @override
+  String get pdfReportCount => 'Jumlah';
+
+  @override
+  String get pdfReportCustomerUnit => 'pelanggan';
+
+  @override
+  String get pdfReportDateLabel => 'Tanggal';
+
+  @override
+  String get pdfReportDebtSection => '2. Utang dan Piutang';
+
+  @override
+  String get pdfReportDigitalBalance => 'Saldo Bank / Dompet Digital';
+
+  @override
+  String get pdfReportGrandTotal => 'Total Keseluruhan';
+
+  @override
+  String get pdfReportGrowthFooter =>
+      'Dibuat dengan aplikasi Kashkool — Buku Kas & Utang Gratis';
+
+  @override
+  String get pdfReportInventoryAtCost => 'Nilai Stok pada Harga Beli (Modal)';
+
+  @override
+  String get pdfReportInventoryAtRetail => 'Nilai Stok pada Harga Jual';
+
+  @override
+  String get pdfReportInventorySection => '1. Stok dan Gudang';
+
+  @override
+  String get pdfReportInventorySubtitle =>
+      'Laporan penilaian persediaan dan status ketersediaan barang';
+
+  @override
+  String get pdfReportInventoryTitle => 'Laporan Penilaian Persediaan Umum';
+
+  @override
+  String get pdfReportInvoiceUnit => 'faktur';
+
+  @override
+  String get pdfReportItemUnit => 'barang';
+
+  @override
+  String get pdfReportLiquiditySection => '3. Kas dan Likuiditas yang Tersedia';
+
+  @override
+  String get pdfReportLowStockLabel => 'Menipis';
+
+  @override
+  String get pdfReportLowStockNeedOrder => 'perlu dipesan';
+
+  @override
+  String get pdfReportLowStockSubtitle =>
+      'Daftar lengkap barang yang menipis, modal, dan harga jual';
+
+  @override
+  String get pdfReportLowStockTitle => 'Laporan Stok Menipis & Pesanan Pemasok';
+
+  @override
+  String get pdfReportMinimum => 'Batas Min';
+
+  @override
+  String get pdfReportMovementUnit => 'transaksi';
+
+  @override
+  String get pdfReportNetWorthFormula =>
+      '= (Stok Modal + Kas Laci & Bank + Piutang) - Utang Pemasok';
+
+  @override
+  String get pdfReportOperatingExpenses =>
+      'Biaya Operasional (dipotong dari kas laci)';
+
+  @override
+  String get pdfReportOutOfStock => 'Stok Habis';
+
+  @override
+  String get pdfReportParty => 'Pihak / Kategori';
+
+  @override
+  String get pdfReportProductCountLabel => 'Total Jumlah Produk';
+
+  @override
+  String get pdfReportProfitLossTitle => 'Laporan Laba dan Rugi';
+
+  @override
+  String get pdfReportRowNumber => 'No';
+
+  @override
+  String get pdfReportSalesCount => 'Jumlah Penjualan';
+
+  @override
+  String get pdfReportSalesRevenue => 'Pendapatan Penjualan';
+
+  @override
+  String get pdfReportShopOverviewSubtitle =>
+      'Pemeriksaan menyeluruh atas stok, piutang, dan kas';
+
+  @override
+  String get pdfReportShopOverviewTitle => 'Laporan Posisi Keuangan Toko';
+
+  @override
+  String get pdfReportSource => 'Sumber / Pos';
+
+  @override
+  String get pdfReportStatus => 'Status';
+
+  @override
+  String get pdfReportSupplier => 'Pemasok';
+
+  @override
+  String get pdfReportSupplierPhone => 'Telepon Pemasok';
+
+  @override
+  String get pdfReportSupplierUnit => 'pemasok';
+
+  @override
+  String get pdfReportTotalCashAvailable => 'Total Kas Tersedia';
+
+  @override
+  String get pdfReportTotalCost => 'Total Modal';
+
+  @override
+  String get pdfReportTotalCostLabel => 'Total Nilai Modal';
+
+  @override
+  String get pdfReportTotalNetProfit => 'Total Laba Bersih Toko';
+
+  @override
+  String get pdfReportTotalProducts => 'Total Produk';
+
+  @override
+  String get pdfReportValueCountHeader => 'Jumlah / Nilai';
+
+  @override
+  String get quickPosDoneNewSale => 'Selesai · Penjualan Baru';
+
+  @override
+  String quickPosFetchLastInvoiceFailed(Object e) {
+    return 'Gagal memuat faktur sebelumnya: $e';
+  }
+
+  @override
+  String get quickPosInvoiceOptions => 'Opsi Faktur';
+
+  @override
+  String quickPosInvoiceTotal(Object total) {
+    return 'Total Faktur: $total';
+  }
+
+  @override
+  String quickPosItemsCount(Object count) {
+    return '$count barang di keranjang';
+  }
+
+  @override
+  String get quickPosLastInvoiceNoItems =>
+      'Faktur sebelumnya kosong tanpa barang';
+
+  @override
+  String get quickPosNoItemsToPreview => 'Tidak ada barang untuk pratinjau';
+
+  @override
+  String get quickPosNoItemsToPrint => 'Tidak ada barang untuk dicetak';
+
+  @override
+  String get quickPosNoPreviousInvoices =>
+      'Belum ada faktur penjualan sebelumnya';
+
+  @override
+  String quickPosOpenInvoiceFailed(Object e) {
+    return 'Gagal membuka faktur: $e';
+  }
+
+  @override
+  String get quickPosOutOfStock => 'Stok habis';
+
+  @override
+  String get quickPosPaymentMethod => 'Metode Pembayaran';
+
+  @override
+  String get quickPosPreviewBeforeSave => 'Pratinjau faktur sebelum menyimpan';
+
+  @override
+  String get quickPosPreviewCurrentInvoice => 'Pratinjau faktur saat ini';
+
+  @override
+  String quickPosPreviewFailed(Object e) {
+    return 'Gagal membuka pratinjau: $e';
+  }
+
+  @override
+  String get quickPosPreviewFileName => 'pratinjau_faktur.pdf';
+
+  @override
+  String get quickPosPreviewLabel => 'Pratinjau';
+
+  @override
+  String get quickPosPreviewPrintCurrent => 'Cetak dan Pratinjau Faktur';
+
+  @override
+  String get quickPosPreviewSharePdf => 'Pratinjau dan Bagikan PDF';
+
+  @override
+  String quickPosPrintFailed(Object e) {
+    return 'Gagal mencetak faktur: $e';
+  }
+
+  @override
+  String get quickPosPrintLastInvoice => 'Cetak ulang faktur terakhir';
+
+  @override
+  String get quickPosPrintThermalReceipt => 'Cetak Struk Termal (80mm)';
+
+  @override
+  String get quickPosReceiveCash => 'Terima Tunai';
+
+  @override
+  String get quickPosRecordOnAccount => 'Catat ke Akun';
+
+  @override
+  String quickPosSaleInvoiceFileName(Object shortId) {
+    return 'faktur_penjualan_$shortId.pdf';
+  }
+
+  @override
+  String quickPosSaleInvoiceTitle(Object shortId) {
+    return 'Faktur Penjualan #$shortId';
+  }
+
+  @override
+  String get quickPosSaleSavedSuccessfully => 'Penjualan berhasil disimpan!';
+
+  @override
+  String get quickPosSaveAndPrint => 'Simpan & Cetak';
+
+  @override
+  String get quickPosSaveAndPrintTooltip =>
+      'Simpan penjualan dan langsung cetak struk';
+
+  @override
+  String get quickPosSavingAndPrinting =>
+      'Penjualan disimpan, sedang mencetak...';
+
+  @override
+  String get quickPosTapToAdd => 'Ketuk untuk tambah';
+
+  @override
+  String get quickPosTapToAddToCart => 'Ketuk barang untuk tambah ke keranjang';
+
+  @override
+  String genericError(Object err) {
+    return 'Terjadi kesalahan: $err';
+  }
+
+  @override
+  String get inventoryPdfExportTooltip =>
+      'Cetak dan ekspor laporan inventaris ke PDF';
+
+  @override
+  String inventoryPdfFileNameFull(Object dateStr) {
+    return 'inventaris_lengkap_$dateStr.pdf';
+  }
+
+  @override
+  String inventoryPdfFileNameLowStock(Object dateStr) {
+    return 'stok_menipis_$dateStr.pdf';
+  }
+
+  @override
+  String get inventoryPdfMenuFull => 'Cetak Laporan Inventaris Lengkap';
+
+  @override
+  String get inventoryPdfMenuLowStock => 'Cetak Hanya Barang Menipis';
+
+  @override
+  String get inventoryPdfTitleFull => 'Laporan Penilaian Persediaan Umum';
+
+  @override
+  String get inventoryPdfTitleLowStock => 'Laporan Barang Stok Menipis';
+
+  @override
+  String get notificationServiceSettingsSendTestFailure =>
+      'Gagal mengirim pemberitahuan uji coba — periksa izin pemberitahuan ponsel';
+
+  @override
+  String get printExportPdf => 'Cetak dan Ekspor PDF';
+
+  @override
+  String get profitLossAccountingTipBody =>
+      'Laba bersih kas adalah uang nyata di laci setelah membayar biaya dan beban. Laba kredit menjadi kas saat pelunasan.';
+
+  @override
+  String get profitLossAccountingTipTitle => 'Tips Akuntansi dari Kashkool';
+
+  @override
+  String get profitLossCashBadge => 'Tunai';
+
+  @override
+  String get profitLossCreditBadge => 'Kredit';
+
+  @override
+  String profitLossNetCalculation(Object netCash, Object netCredit) {
+    return '= $netCash Tunai + $netCredit Kredit';
+  }
+
+  @override
+  String profitLossRecordedSales(Object salesCount) {
+    return '$salesCount faktur penjualan tercatat';
+  }
+
+  @override
+  String profitLossReportFileName(Object dateStr) {
+    return 'laporan_laba_rugi_$dateStr.pdf';
+  }
+
+  @override
+  String get profitLossReportTitle => 'Laporan Laba dan Rugi';
+
+  @override
+  String restockAvailable(Object stock, Object unit) {
+    return 'Tersedia: $stock $unit';
+  }
+
+  @override
+  String get restockCopiedToClipboard =>
+      'Pesan pesanan barang disalin ke papan klip!';
+
+  @override
+  String restockError(Object err) {
+    return 'Gagal memuat produk: $err';
+  }
+
+  @override
+  String get restockLinkProductsHint =>
+      'Hubungkan produk ke pemasok ini di layar inventaris untuk memesan dengan 1 sentuhan.';
+
+  @override
+  String get restockMessageFooter =>
+      'Mohon konfirmasi penerimaan pesanan dan jadwal pengiriman.';
+
+  @override
+  String restockMessageGreeting(Object supplierName) {
+    return 'Halo $supplierName';
+  }
+
+  @override
+  String get restockMessageHeader =>
+      'Kami membutuhkan pasokan barang berikut untuk toko:';
+
+  @override
+  String restockMessageItem(Object name, Object qty, Object unit) {
+    return '• $name — dibutuhkan: $qty $unit';
+  }
+
+  @override
+  String restockMessageShop(Object shopName) {
+    return 'Dari toko $shopName';
+  }
+
+  @override
+  String get restockMessageThanks => 'Terima kasih banyak!';
+
+  @override
+  String get restockSelectProductsHint =>
+      'Pilih barang dan jumlah yang dibutuhkan untuk dipesan via WhatsApp:';
+
+  @override
+  String get restockSendWhatsApp => 'Kirim Pesanan via WhatsApp';
+
+  @override
+  String get shopReportCashInDrawerLabel => 'Kas di Laci:';
+
+  @override
+  String get shopReportCopiedToClipboard =>
+      'Laporan posisi keuangan disalin ke papan klip!';
+
+  @override
+  String get shopReportCustomersWithDues =>
+      'Pelanggan dengan piutang tertunggak:';
+
+  @override
+  String get shopReportDigitalBalanceLabel => 'Saldo Bank / Dompet Digital:';
+
+  @override
+  String shopReportFileName(Object dateStr) {
+    return 'posisi_keuangan_toko_$dateStr.pdf';
+  }
+
+  @override
+  String shopReportLowStockOf(Object count, Object total) {
+    return '$count barang dari total $total';
+  }
+
+  @override
+  String get shopReportNetWorthFormula =>
+      '= (Stok Modal + Kas Laci & Bank + Piutang) - Utang Pemasok';
+
+  @override
+  String shopReportSupplierCount(Object count) {
+    return '$count pemasok';
+  }
+
+  @override
+  String get shopReportSuppliersOwed => 'Pemasok dengan utang belum lunas:';
+
+  @override
+  String get shopReportTextCashAvailable =>
+      '--- Kas dan Likuiditas yang Tersedia ---';
+
+  @override
+  String shopReportTextCashInDrawer(Object amount) {
+    return '• Kas di Laci: $amount';
+  }
+
+  @override
+  String shopReportTextDate(Object dateStr) {
+    return 'Tanggal: $dateStr';
+  }
+
+  @override
+  String shopReportTextDigitalBalance(Object amount) {
+    return '• Saldo Bank / Dompet: $amount';
+  }
+
+  @override
+  String shopReportTextExpectedProfit(Object profit) {
+    return '• Estimasi Laba dari Stok: $profit';
+  }
+
+  @override
+  String get shopReportTextFooter => 'Laporan dibuat dengan aplikasi Kashkool';
+
+  @override
+  String get shopReportTextInventory => '--- Stok dan Gudang ---';
+
+  @override
+  String shopReportTextNetWorth(Object netWorth) {
+    return 'Nilai Bersih Toko: $netWorth';
+  }
+
+  @override
+  String shopReportTextPayables(Object amount, Object count) {
+    return '• Utang ke Pemasok: $amount ($count pemasok)';
+  }
+
+  @override
+  String shopReportTextProductCounts(Object total, Object low) {
+    return '• Total Produk: $total ($low barang menipis)';
+  }
+
+  @override
+  String shopReportTextReceivables(Object amount, Object count) {
+    return '• Piutang Pelanggan: $amount ($count pelanggan)';
+  }
+
+  @override
+  String shopReportTextShop(Object shopName) {
+    return 'Toko: $shopName';
+  }
+
+  @override
+  String get shopReportTextTitle => '=== Laporan Posisi Keuangan Toko ===';
+
+  @override
+  String shopReportTextTotalCash(Object amount) {
+    return '• Total Kas Tersedia: $amount';
+  }
+
+  @override
+  String get shopReportTotalCashLabel => 'Total Kas Tersedia:';
+
+  @override
+  String get shopReportTotalCustomerDues => 'Total Piutang Pelanggan:';
+
+  @override
+  String get shopReportTotalSupplierDues => 'Total Utang ke Pemasok:';
 }

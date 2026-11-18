@@ -14,8 +14,14 @@ import 'package:kashkool/features/cash_drawer/presentation/widgets/edit_opening_
 import 'package:kashkool/features/collection/domain/due_customer.dart';
 import 'package:kashkool/features/collection/presentation/widgets/collection_list_item.dart';
 import 'package:kashkool/features/customers/data/customer_repository.dart';
+import 'package:kashkool/features/customers/presentation/customers_screen.dart';
 import 'package:kashkool/features/installments/data/installment_repository.dart';
 import 'package:kashkool/features/installments/presentation/installment_plan_details_screen.dart';
+import 'package:kashkool/features/installments/presentation/installments_screen.dart';
+import 'package:kashkool/features/more/presentation/more_screen.dart';
+import 'package:kashkool/features/quick_pos/presentation/quick_pos_screen.dart';
+import 'package:kashkool/features/suppliers/domain/supplier_with_balance.dart';
+import 'package:kashkool/features/suppliers/presentation/widgets/supplier_list_item.dart';
 import 'package:kashkool/features/transactions/presentation/add_transaction_bottom_sheet.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
 
@@ -257,5 +263,139 @@ void main() {
 
     await tester.pumpAndSettle();
     expect(find.byType(AddTransactionBottomSheet), findsOneWidget);
+  });
+
+  testWidgets('QuickPosScreen renders without overflow on 320dp small phone', (tester) async {
+    tester.view.physicalSize = const Size(320 * 2, 568 * 2);
+    tester.view.devicePixelRatio = 2.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final db = AppDatabase(NativeDatabase.memory());
+    await tester.pumpWidget(
+      _buildTestWrapper(
+        textScale: 1.2,
+        overrides: [databaseProvider.overrideWithValue(db)],
+        child: const QuickPosScreen(),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    expect(find.byType(QuickPosScreen), findsOneWidget);
+    await db.close();
+  });
+
+  testWidgets('CustomersScreen renders without overflow on 320dp small phone with large text', (tester) async {
+    tester.view.physicalSize = const Size(320 * 2, 568 * 2);
+    tester.view.devicePixelRatio = 2.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final db = AppDatabase(NativeDatabase.memory());
+    final repo = CustomerRepository(db);
+    await repo.addCustomer(name: 'المهندس عبد الرحمن محمد الشبراوي', phone: '01012345678');
+
+    await tester.pumpWidget(
+      _buildTestWrapper(
+        textScale: 1.25,
+        overrides: [
+          databaseProvider.overrideWithValue(db),
+          customerRepositoryProvider.overrideWithValue(repo),
+        ],
+        child: const CustomersScreen(),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    expect(find.byType(CustomersScreen), findsOneWidget);
+    await db.close();
+  });
+
+  testWidgets('MoreScreen renders cleanly on 320dp small phone', (tester) async {
+    tester.view.physicalSize = const Size(320 * 2, 568 * 2);
+    tester.view.devicePixelRatio = 2.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final db = AppDatabase(NativeDatabase.memory());
+    await tester.pumpWidget(
+      _buildTestWrapper(
+        textScale: 1.2,
+        overrides: [databaseProvider.overrideWithValue(db)],
+        child: const MoreScreen(),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    expect(find.byType(MoreScreen), findsOneWidget);
+    await db.close();
+  });
+
+  testWidgets('InstallmentsScreen renders cleanly on 320dp small phone', (tester) async {
+    tester.view.physicalSize = const Size(320 * 2, 568 * 2);
+    tester.view.devicePixelRatio = 2.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final db = AppDatabase(NativeDatabase.memory());
+    await tester.pumpWidget(
+      _buildTestWrapper(
+        textScale: 1.2,
+        overrides: [databaseProvider.overrideWithValue(db)],
+        child: const InstallmentsScreen(),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    expect(find.byType(InstallmentsScreen), findsOneWidget);
+    await db.close();
+  });
+
+  testWidgets('SupplierListItem does not overflow on narrow width with English locale', (tester) async {
+    tester.view.physicalSize = const Size(320 * 1.8, 568 * 1.8);
+    tester.view.devicePixelRatio = 1.8;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final mockSupplier = Supplier(
+      id: 'sup-1',
+      shopId: 'shop-1',
+      deviceId: 'dev-1',
+      createdBy: 'dev-1',
+      name: 'شركة الأمل للتوزيع والتوريدات',
+      company: 'الشركة العربية الحديثة',
+      phone: '01012345678',
+      visitDay: 1, // Monday
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+
+    final item = SupplierWithBalance(
+      supplier: mockSupplier,
+      balancePiasters: 2500000,
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          theme: AppTheme.lightTheme,
+          locale: const Locale('en'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: SupplierListItem(
+                item: item,
+                onTap: () {},
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    expect(find.byType(SupplierListItem), findsOneWidget);
   });
 }

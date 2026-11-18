@@ -81,16 +81,16 @@ class PdfReportsService {
     String periodTitle;
     switch (report.period) {
       case ReportPeriod.today:
-        periodTitle = 'اليوم ($periodEndStr)';
+        periodTitle = '${L10n.t.profitLossPeriodToday} ($periodEndStr)';
         break;
       case ReportPeriod.last7Days:
-        periodTitle = 'آخر 7 أيام ($periodStartStr إلى $periodEndStr)';
+        periodTitle = '${L10n.t.profitLossPeriodWeek} ($periodStartStr – $periodEndStr)';
         break;
       case ReportPeriod.thisMonth:
-        periodTitle = 'هذا الشهر ($periodStartStr إلى $periodEndStr)';
+        periodTitle = '${L10n.t.profitLossPeriodMonth} ($periodStartStr – $periodEndStr)';
         break;
       case ReportPeriod.allTime:
-        periodTitle = 'كل الفترات (حتى $periodEndStr)';
+        periodTitle = '${L10n.t.profitLossPeriodAll} (${L10n.t.statementCalculator16(periodEndStr)})';
         break;
     }
 
@@ -104,8 +104,8 @@ class PdfReportsService {
           return [
             // Header
             _buildReportHeader(
-              title: 'تقرير الأرباح والخسائر والتقفيل',
-              subtitle: 'الفترة: $periodTitle',
+              title: L10n.t.pdfReportProfitLossTitle,
+              subtitle: L10n.t.periodLabel(periodTitle),
               shopName: shopName,
               shopPhone: shopPhone,
               generatedAt: genDateStr,
@@ -128,13 +128,13 @@ class PdfReportsService {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       _metricBadge(
-                        label: 'صافي الربح النقدي (بالدرج)',
+                        label: L10n.t.profitLossCashNet,
                         value: MoneyUtils.formatMoney(report.cashNetProfitPiasters),
                         color: report.cashNetProfitPiasters >= 0 ? PdfColors.green800 : PdfColors.red800,
                         isA4: isA4,
                       ),
                       _metricBadge(
-                        label: 'أرباح آجلة (عند العملاء)',
+                        label: L10n.t.profitLossCreditSectionTitle,
                         value: MoneyUtils.formatMoney(report.creditGrossProfitPiasters),
                         color: PdfColors.orange800,
                         isA4: isA4,
@@ -148,14 +148,14 @@ class PdfReportsService {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       _metricBadge(
-                        label: 'إجمالي صافي أرباح المحل',
+                        label: L10n.t.pdfReportTotalNetProfit,
                         value: MoneyUtils.formatMoney(report.netProfitPiasters),
                         color: report.netProfitPiasters >= 0 ? PdfColors.green900 : PdfColors.red900,
                         isA4: isA4,
                         isLarge: true,
                       ),
                       _metricBadge(
-                        label: 'إجمالي المبيعات (كاش + آجل)',
+                        label: L10n.t.profitLossRevenue,
                         value: MoneyUtils.formatMoney(report.totalRevenuePiasters),
                         color: PdfColors.blue800,
                         isA4: isA4,
@@ -169,7 +169,7 @@ class PdfReportsService {
 
             // Section Title
             pw.Text(
-              'مقارنة المبيعات النقدية والآجلة',
+              L10n.t.pdfReportCashVsCreditTitle,
               style: pw.TextStyle(fontSize: isA4 ? 12 : 10, fontWeight: pw.FontWeight.bold),
             ),
             pw.SizedBox(height: 6),
@@ -181,15 +181,15 @@ class PdfReportsService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.blue50),
                   children: [
-                    _cell('البيان', isHeader: true, isA4: isA4),
-                    _cell('مبيعات كاش (نقدي)', isHeader: true, isA4: isA4, color: PdfColors.green900),
-                    _cell('مبيعات شكك (آجل)', isHeader: true, isA4: isA4, color: PdfColors.orange900),
-                    _cell('الإجمالي الكلي', isHeader: true, isA4: isA4, color: PdfColors.blue900),
+                    _cell(L10n.t.descriptionCol, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.cashSales, isHeader: true, isA4: isA4, color: PdfColors.green900),
+                    _cell(L10n.t.profitLossCreditRevenue, isHeader: true, isA4: isA4, color: PdfColors.orange900),
+                    _cell(L10n.t.pdfReportGrandTotal, isHeader: true, isA4: isA4, color: PdfColors.blue900),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('إيرادات المبيعات', isA4: isA4),
+                    _cell(L10n.t.pdfReportSalesRevenue, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.cashRevenuePiasters), isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.creditRevenuePiasters), isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.totalRevenuePiasters), fontWeight: pw.FontWeight.bold, isA4: isA4),
@@ -197,7 +197,7 @@ class PdfReportsService {
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('تكلفة البضاعة المباعة (شراء)', isA4: isA4),
+                    _cell(L10n.t.profitLossCogs, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.cashCogsPiasters), isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.creditCogsPiasters), isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.costOfGoodsSoldPiasters), isA4: isA4),
@@ -206,7 +206,7 @@ class PdfReportsService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
                   children: [
-                    _cell('مجمل الربح', fontWeight: pw.FontWeight.bold, isA4: isA4),
+                    _cell(L10n.t.profitLossGross, fontWeight: pw.FontWeight.bold, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.cashGrossProfitPiasters), color: PdfColors.green800, fontWeight: pw.FontWeight.bold, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.creditGrossProfitPiasters), color: PdfColors.orange800, fontWeight: pw.FontWeight.bold, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(report.grossProfitPiasters), fontWeight: pw.FontWeight.bold, isA4: isA4),
@@ -214,10 +214,10 @@ class PdfReportsService {
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('عدد عمليات البيع', isA4: isA4),
-                    _cell('${report.cashSalesCount} فاتورة', isA4: isA4),
-                    _cell('${report.creditSalesCount} فاتورة', isA4: isA4),
-                    _cell('${report.totalSalesCount} فاتورة', fontWeight: pw.FontWeight.bold, isA4: isA4),
+                    _cell(L10n.t.pdfReportSalesCount, isA4: isA4),
+                    _cell('${report.cashSalesCount} ${L10n.t.pdfReportInvoiceUnit}', isA4: isA4),
+                    _cell('${report.creditSalesCount} ${L10n.t.pdfReportInvoiceUnit}', isA4: isA4),
+                    _cell('${report.totalSalesCount} ${L10n.t.pdfReportInvoiceUnit}', fontWeight: pw.FontWeight.bold, isA4: isA4),
                   ],
                 ),
               ],
@@ -238,11 +238,11 @@ class PdfReportsService {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       pw.Text(
-                        'مصروفات تشغيلية (مخصومة من درج الكاش):',
+                        '${L10n.t.pdfReportOperatingExpenses}:',
                         style: pw.TextStyle(fontSize: isA4 ? 10 : 8),
                       ),
                       pw.Text(
-                        '- ${MoneyUtils.formatMoney(report.operatingExpensesPiasters)} (${report.totalExpensesCount} حركة)',
+                        '- ${MoneyUtils.formatMoney(report.operatingExpensesPiasters)} (${report.totalExpensesCount} ${L10n.t.pdfReportMovementUnit})',
                         style: pw.TextStyle(fontSize: isA4 ? 10 : 8, color: PdfColors.red800, fontWeight: pw.FontWeight.bold),
                       ),
                     ],
@@ -252,7 +252,7 @@ class PdfReportsService {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       pw.Text(
-                        'نسبة هامش الربح الكلي:',
+                        '${L10n.t.profitLossMargin}:',
                         style: pw.TextStyle(fontSize: isA4 ? 10 : 8),
                       ),
                       pw.Text(
@@ -275,7 +275,7 @@ class PdfReportsService {
                 border: pw.Border.all(color: PdfColors.amber200),
               ),
               child: pw.Text(
-                'تنبيه كشكول: صافي الربح النقدي يمثل الأموال الحقيقية التي دخلت درجك ومحفظتك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.',
+                L10n.t.pdfReportCashProfitNote,
                 style: pw.TextStyle(fontSize: isA4 ? 8.5 : 7, color: PdfColors.grey800),
               ),
             ),
@@ -320,8 +320,8 @@ class PdfReportsService {
         build: (context) {
           return [
             _buildReportHeader(
-              title: 'تقرير المحل المالي الشامل ورأس المال',
-              subtitle: 'جرد شامل للمخزون والديون والسيولة النقدية',
+              title: L10n.t.pdfReportShopOverviewTitle,
+              subtitle: L10n.t.pdfReportShopOverviewSubtitle,
               shopName: shopName,
               shopPhone: shopPhone,
               generatedAt: genDateStr,
@@ -341,7 +341,7 @@ class PdfReportsService {
                 crossAxisAlignment: pw.CrossAxisAlignment.stretch,
                 children: [
                   pw.Text(
-                    'صافي رأس مال المحل (Shop Net Worth)',
+                    L10n.t.shopReportNetWorth,
                     style: pw.TextStyle(fontSize: isA4 ? 12 : 9, color: PdfColors.teal900, fontWeight: pw.FontWeight.bold),
                   ),
                   pw.SizedBox(height: 4),
@@ -351,7 +351,7 @@ class PdfReportsService {
                   ),
                   pw.SizedBox(height: 4),
                   pw.Text(
-                    '= (بضاعة المخزن بالتكلفة + النقدية بالدرج والبنك + لينا عند الزباين) - ديون الموردين',
+                    L10n.t.pdfReportNetWorthFormula,
                     style: pw.TextStyle(fontSize: isA4 ? 8.5 : 7, color: PdfColors.grey700),
                   ),
                 ],
@@ -360,7 +360,7 @@ class PdfReportsService {
             pw.SizedBox(height: isA4 ? 16 : 10),
 
             // Section 1: Inventory Valuation
-            _sectionHeader('1. بضاعة المخزن والمستودع', isA4),
+            _sectionHeader(L10n.t.pdfReportInventorySection, isA4),
             pw.SizedBox(height: 6),
             pw.Table(
               border: pw.TableBorder.all(color: PdfColors.grey300),
@@ -368,32 +368,32 @@ class PdfReportsService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
                   children: [
-                    _cell('البيان', isHeader: true, isA4: isA4),
-                    _cell('القيمة / العدد', isHeader: true, isA4: isA4),
+                    _cell(L10n.t.descriptionCol, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.pdfReportValueCountHeader, isHeader: true, isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('قيمة البضاعة بسعر الشراء (التكلفة)', isA4: isA4),
+                    _cell(L10n.t.pdfReportInventoryAtCost, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.inventoryCostPiasters), fontWeight: pw.FontWeight.bold, isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('قيمة البضاعة بسعر البيع (المتوقع)', isA4: isA4),
+                    _cell(L10n.t.pdfReportInventoryAtRetail, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.inventoryRetailPiasters), isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('الربح المتوقع عند بيع كامل المخزون', isA4: isA4),
+                    _cell(L10n.t.shopReportExpectedProfit, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.inventoryExpectedProfitPiasters), color: PdfColors.green800, fontWeight: pw.FontWeight.bold, isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('إجمالي الأصناف بالمحل', isA4: isA4),
-                    _cell('${overview.totalProductCount} صنف (نواقص بحاجة لطلب: ${overview.lowStockCount})', isA4: isA4),
+                    _cell(L10n.t.pdfReportTotalProducts, isA4: isA4),
+                    _cell('${overview.totalProductCount} ${L10n.t.pdfReportItemUnit} (${L10n.t.pdfReportLowStockNeedOrder}: ${overview.lowStockCount})', isA4: isA4),
                   ],
                 ),
               ],
@@ -401,7 +401,7 @@ class PdfReportsService {
             pw.SizedBox(height: isA4 ? 14 : 10),
 
             // Section 2: Receivables & Payables
-            _sectionHeader('2. الديون والمستحقات (العملاء والموردين)', isA4),
+            _sectionHeader(L10n.t.pdfReportDebtSection, isA4),
             pw.SizedBox(height: 6),
             pw.Table(
               border: pw.TableBorder.all(color: PdfColors.grey300),
@@ -409,23 +409,23 @@ class PdfReportsService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
                   children: [
-                    _cell('الطرف', isHeader: true, isA4: isA4),
-                    _cell('المبلغ', isHeader: true, isA4: isA4),
-                    _cell('العدد', isHeader: true, isA4: isA4),
+                    _cell(L10n.t.pdfReportParty, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.amountLabel, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.pdfReportCount, isHeader: true, isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('لينا عند العملاء (ديون شكك)', isA4: isA4),
+                    _cell(L10n.t.shopReportReceivables, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.customerReceivablesPiasters), color: PdfColors.green800, fontWeight: pw.FontWeight.bold, isA4: isA4),
-                    _cell('${overview.customerDebtCount} عميل', isA4: isA4),
+                    _cell('${overview.customerDebtCount} ${L10n.t.pdfReportCustomerUnit}', isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('علينا للموردين (مستحقات بضاعة)', isA4: isA4),
+                    _cell(L10n.t.shopReportPayables, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.supplierPayablesPiasters), color: PdfColors.red800, fontWeight: pw.FontWeight.bold, isA4: isA4),
-                    _cell('${overview.supplierDebtCount} مورد', isA4: isA4),
+                    _cell('${overview.supplierDebtCount} ${L10n.t.pdfReportSupplierUnit}', isA4: isA4),
                   ],
                 ),
               ],
@@ -433,7 +433,7 @@ class PdfReportsService {
             pw.SizedBox(height: isA4 ? 14 : 10),
 
             // Section 3: Cash & Digital Balance
-            _sectionHeader('3. السيولة والنقدية المتاحة', isA4),
+            _sectionHeader(L10n.t.pdfReportLiquiditySection, isA4),
             pw.SizedBox(height: 6),
             pw.Table(
               border: pw.TableBorder.all(color: PdfColors.grey300),
@@ -441,26 +441,26 @@ class PdfReportsService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
                   children: [
-                    _cell('الخزينة / المصدر', isHeader: true, isA4: isA4),
-                    _cell('المبلغ المتاح', isHeader: true, isA4: isA4),
+                    _cell(L10n.t.pdfReportSource, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.pdfReportAvailableAmount, isHeader: true, isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('كاش بالدرج (الخزينة النقدية)', isA4: isA4),
+                    _cell(L10n.t.pdfReportCashInDrawer, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.cashInDrawerPiasters), isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   children: [
-                    _cell('رصيد إلكتروني (إنستاباي / فودافون كاش / بنك)', isA4: isA4),
+                    _cell(L10n.t.pdfReportDigitalBalance, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.digitalBalancePiasters), isA4: isA4),
                   ],
                 ),
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
                   children: [
-                    _cell('إجمالي النقدية المتاحة', fontWeight: pw.FontWeight.bold, isA4: isA4),
+                    _cell(L10n.t.pdfReportTotalCashAvailable, fontWeight: pw.FontWeight.bold, isA4: isA4),
                     _cell(MoneyUtils.formatMoney(overview.totalCashAndBankPiasters), fontWeight: pw.FontWeight.bold, isA4: isA4),
                   ],
                 ),
@@ -498,10 +498,10 @@ class PdfReportsService {
     final pageFormat = _pageFormatFor(format, itemCount: products.length);
 
     final genDateStr = DateFormat('yyyy/MM/dd · hh:mm a').format(DateTime.now());
-    final title = isLowStockOnly ? 'كشف النواقص وطلبيات الموردين' : 'تقرير جرد المخزون العام وقيمة البضاعة';
+    final title = isLowStockOnly ? L10n.t.pdfReportLowStockTitle : L10n.t.pdfReportInventoryTitle;
     final subtitle = isLowStockOnly
-        ? 'الأصناف التي وصلت للحد الأدنى وبحاجة لإعادة طلب'
-        : 'بيان كامل بجميع الأصناف والكميات وأسعار التكلفة والبيع';
+        ? L10n.t.pdfReportLowStockSubtitle
+        : L10n.t.pdfReportInventorySubtitle;
 
     // Summary calculations
     final totalCostPiasters = products.fold<int>(
@@ -539,10 +539,10 @@ class PdfReportsService {
               child: pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
-                  pw.Text('عدد الأصناف: ${products.length}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold)),
-                  pw.Text('النواقص: $lowStockCount', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, color: PdfColors.red800, fontWeight: pw.FontWeight.bold)),
+                  pw.Text('${L10n.t.pdfReportProductCountLabel}: ${products.length}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold)),
+                  pw.Text('${L10n.t.pdfReportLowStockLabel}: $lowStockCount', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, color: PdfColors.red800, fontWeight: pw.FontWeight.bold)),
                   if (!isLowStockOnly)
-                    pw.Text('إجمالي القيمة بالتكلفة: ${MoneyUtils.formatMoney(totalCostPiasters)}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold)),
+                    pw.Text('${L10n.t.pdfReportTotalCostLabel}: ${MoneyUtils.formatMoney(totalCostPiasters)}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold)),
                 ],
               ),
             ),
@@ -556,13 +556,13 @@ class PdfReportsService {
                   pw.TableRow(
                     decoration: const pw.BoxDecoration(color: PdfColors.red50),
                     children: [
-                      _cell('م', isHeader: true, isA4: isA4),
-                      _cell('الصنف', isHeader: true, isA4: isA4),
-                      _cell('الرصيد', isHeader: true, isA4: isA4),
-                      _cell('الحد الأدنى', isHeader: true, isA4: isA4),
-                      _cell('المورد', isHeader: true, isA4: isA4),
-                      _cell('تليفون المورد', isHeader: true, isA4: isA4),
-                      _cell('سعر الشراء', isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportRowNumber, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.inventoryProductName, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.balanceCol, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportMinimum, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportSupplier, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportSupplierPhone, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.inventoryPurchasePrice, isHeader: true, isA4: isA4),
                     ],
                   ),
                   for (int i = 0; i < products.length; i++) ...[
@@ -592,13 +592,13 @@ class PdfReportsService {
                   pw.TableRow(
                     decoration: const pw.BoxDecoration(color: PdfColors.blue50),
                     children: [
-                      _cell('م', isHeader: true, isA4: isA4),
-                      _cell('الصنف', isHeader: true, isA4: isA4),
-                      _cell('الرصيد', isHeader: true, isA4: isA4),
-                      _cell('سعر الشراء', isHeader: true, isA4: isA4),
-                      _cell('سعر البيع', isHeader: true, isA4: isA4),
-                      _cell('إجمالي التكلفة', isHeader: true, isA4: isA4),
-                      _cell('الحالة', isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportRowNumber, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.inventoryProductName, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.balanceCol, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.inventoryPurchasePrice, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.inventorySalePrice, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportTotalCost, isHeader: true, isA4: isA4),
+                      _cell(L10n.t.pdfReportStatus, isHeader: true, isA4: isA4),
                     ],
                   ),
                   for (int i = 0; i < products.length; i++) ...[
@@ -617,7 +617,7 @@ class PdfReportsService {
                           isA4: isA4,
                         ),
                         _cell(
-                          products[i].isLowStock ? 'نواقص (عجز)' : 'متوفر',
+                          products[i].isLowStock ? L10n.t.pdfReportOutOfStock : L10n.t.inventoryInStock,
                           color: products[i].isLowStock ? PdfColors.red800 : PdfColors.green800,
                           isA4: isA4,
                         ),
@@ -684,7 +684,7 @@ class PdfReportsService {
                   if (shopPhone != null && shopPhone.isNotEmpty) ...[
                     pw.SizedBox(height: 2),
                     pw.Text(
-                      'هاتف: $shopPhone',
+                      '${L10n.t.pdfInvoicePhone}: $shopPhone',
                       style: pw.TextStyle(fontSize: isA4 ? 10 : 8, color: PdfColors.grey700),
                     ),
                   ],
@@ -703,7 +703,7 @@ class PdfReportsService {
                       borderRadius: pw.BorderRadius.circular(4),
                     ),
                     child: pw.Text(
-                      isCredit ? 'فاتورة بيع آجل (شكك)' : 'فاتورة بيع نقدي (كاش)',
+                      isCredit ? L10n.t.pdfInvoiceCredit : L10n.t.pdfInvoiceCash,
                       style: pw.TextStyle(
                         fontSize: isA4 ? 11 : 9,
                         color: isCredit ? PdfColors.orange900 : PdfColors.green900,
@@ -721,7 +721,7 @@ class PdfReportsService {
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                pw.Text('رقم الفاتورة: #$shortSaleId', style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
+                pw.Text('${L10n.t.pdfInvoiceNumber}: #$shortSaleId', style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
                 pw.Text(saleDateStr, style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
               ],
             ),
@@ -730,9 +730,9 @@ class PdfReportsService {
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
-                  pw.Text('العميل: ${customer.name}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold)),
+                  pw.Text(L10n.t.pdfStatementService3(customer.name), style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold)),
                   if (customer.phone != null && customer.phone!.isNotEmpty)
-                    pw.Text('هاتف: ${customer.phone}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
+                    pw.Text('${L10n.t.pdfInvoicePhone}: ${customer.phone}', style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
                 ],
               ),
             ],
@@ -758,10 +758,10 @@ class PdfReportsService {
                 pw.TableRow(
                   decoration: const pw.BoxDecoration(color: PdfColors.grey100),
                   children: [
-                    _cell('الصنف', isHeader: true, isA4: isA4),
-                    _cell('الكمية', isHeader: true, isA4: isA4),
-                    _cell('السعر', isHeader: true, isA4: isA4),
-                    _cell('الإجمالي', isHeader: true, isA4: isA4),
+                    _cell(L10n.t.inventoryProductName, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.inventoryQuantity, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.pdfInvoicePrice, isHeader: true, isA4: isA4),
+                    _cell(L10n.t.quickPosTotal, isHeader: true, isA4: isA4),
                   ],
                 ),
                 for (final item in items)
@@ -790,7 +790,7 @@ class PdfReportsService {
                   pw.Row(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
-                      pw.Text('إجمالي الفاتورة:', style: pw.TextStyle(fontSize: isA4 ? 12 : 10, fontWeight: pw.FontWeight.bold)),
+                      pw.Text('${L10n.t.pdfInvoiceTotal}:', style: pw.TextStyle(fontSize: isA4 ? 12 : 10, fontWeight: pw.FontWeight.bold)),
                       pw.Text(
                         MoneyUtils.formatMoney(sale.totalPiasters),
                         style: pw.TextStyle(fontSize: isA4 ? 13 : 11, fontWeight: pw.FontWeight.bold, color: PdfColors.blue900),
@@ -801,9 +801,9 @@ class PdfReportsService {
                   pw.Row(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
-                      pw.Text('طريقة السداد:', style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
+                      pw.Text('${L10n.t.pdfInvoicePaymentMethod}:', style: pw.TextStyle(fontSize: isA4 ? 10 : 8)),
                       pw.Text(
-                        isCredit ? 'آجل على حساب العميل' : 'كاش نقداً بالدرج',
+                        isCredit ? L10n.t.pdfInvoicePayOnCredit : L10n.t.pdfInvoicePayCash,
                         style: pw.TextStyle(fontSize: isA4 ? 10 : 8, fontWeight: pw.FontWeight.bold),
                       ),
                     ],
@@ -816,7 +816,7 @@ class PdfReportsService {
             // Thank you message
             pw.Center(
               child: pw.Text(
-                'شكراً لزيارتكم ونسعد بخدمتكم دائماً',
+                L10n.t.pdfInvoiceThankYou,
                 style: pw.TextStyle(fontSize: isA4 ? 9 : 7.5, color: PdfColors.grey700),
               ),
             ),
@@ -870,7 +870,7 @@ class PdfReportsService {
               ),
               pw.SizedBox(height: 2),
               pw.Text(
-                'تاريخ التقرير: $generatedAt',
+                '${L10n.t.pdfReportDateLabel}: $generatedAt',
                 style: pw.TextStyle(fontSize: isA4 ? 8.5 : 7, color: PdfColors.grey600),
               ),
             ],
@@ -967,7 +967,7 @@ class PdfReportsService {
         child: pw.Column(
           children: [
             pw.Text(
-              'اتعمل بكشكول — التطبيق الأسهل لحسابات المحلات في مصر',
+              L10n.t.pdfReportGrowthFooter,
               style: pw.TextStyle(fontSize: isA4 ? 8 : 6.5, color: PdfColors.grey600),
             ),
             pw.SizedBox(height: 2),

@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/money.dart';
 import '../../../../core/utils/phone.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/adaptive_text.dart';
 import '../../domain/customer_with_balance.dart';
 import 'credit_limit_progress_bar.dart';
 import 'rating_badge.dart';
@@ -150,27 +151,34 @@ class CustomerListItem extends StatelessWidget {
               const SizedBox(width: 8),
 
               // Financial Balance Display
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  if (statusLabel.isNotEmpty)
-                    Text(
-                      statusLabel,
-                      style: TextStyle(
-                        color: balanceColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    if (statusLabel.isNotEmpty)
+                      AdaptiveText(
+                        statusLabel,
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: balanceColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: AdaptiveAmountText(
+                        balanceText,
+                        alignment: AlignmentDirectional.centerEnd,
+                        style: TextStyle(
+                          color: balanceColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  Text(
-                    balanceText,
-                    style: TextStyle(
-                      color: balanceColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

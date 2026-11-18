@@ -29,21 +29,22 @@ abstract final class AppTheme {
 
   /// Dark theme definition
   static ThemeData get darkTheme {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColors.primaryBlueDark,
-      brightness: Brightness.dark,
-      primary: AppColors.primaryBlueDark,
-      surface: AppColors.darkSurface,
-      error: AppColors.debtRedDark,
-    ).copyWith(
-      surface: AppColors.darkSurface,
-      onSurface: AppColors.textLight,
-      surfaceContainer: const Color(0xFF1F2937),
-      surfaceContainerLow: const Color(0xFF111827),
-      surfaceContainerHigh: const Color(0xFF374151),
-      outline: const Color(0xFF4B5563),
-      outlineVariant: const Color(0xFF374151),
-    );
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: AppColors.primaryBlueDark,
+          brightness: Brightness.dark,
+          primary: AppColors.primaryBlueDark,
+          surface: AppColors.darkSurface,
+          error: AppColors.debtRedDark,
+        ).copyWith(
+          surface: AppColors.darkSurface,
+          onSurface: AppColors.textLight,
+          surfaceContainer: const Color(0xFF1F2937),
+          surfaceContainerLow: const Color(0xFF111827),
+          surfaceContainerHigh: const Color(0xFF374151),
+          outline: const Color(0xFF4B5563),
+          outlineVariant: const Color(0xFF374151),
+        );
 
     return _buildTheme(
       colorScheme: colorScheme,
@@ -85,22 +86,20 @@ abstract final class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        backgroundColor: isDark ? const Color(0xFF1E293B) : const Color(0xFF0F172A),
+        backgroundColor: isDark
+            ? const Color(0xFF1E293B)
+            : const Color(0xFF0F172A),
         contentTextStyle: const TextStyle(
           fontFamily: fontFamily,
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: cardColor,
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         titleTextStyle: TextStyle(
           fontFamily: fontFamily,
           fontSize: 18,
@@ -120,7 +119,9 @@ abstract final class AppTheme {
       ),
       tabBarTheme: TabBarThemeData(
         labelColor: colorScheme.primary,
-        unselectedLabelColor: isDark ? const Color(0xFF9CA3AF) : AppColors.neutralGrey,
+        unselectedLabelColor: isDark
+            ? const Color(0xFF9CA3AF)
+            : AppColors.neutralGrey,
         indicatorColor: colorScheme.primary,
         indicatorSize: TabBarIndicatorSize.tab,
         labelStyle: const TextStyle(
@@ -194,7 +195,10 @@ abstract final class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: isDark ? const Color(0xFF1F2937) : const Color(0xFFFFFFFF),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide(
@@ -213,7 +217,6 @@ abstract final class AppTheme {
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        height: 68,
         backgroundColor: cardColor,
         indicatorColor: isDark
             ? colorScheme.primary.withValues(alpha: 0.2)

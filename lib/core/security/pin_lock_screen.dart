@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/app_colors.dart';
+import '../../shared/widgets/adaptive_text.dart';
 import '../../shared/widgets/glass_toast.dart';
 import 'security_service.dart';
 import '../../l10n/l10n.dart';
 
-enum PinLockMode {
-  unlock,
-  setup,
-}
+enum PinLockMode { unlock, setup }
 
 /// Screen presenting the 4-digit PIN keypad with biometric option and friendly feedback.
 class PinLockScreen extends ConsumerStatefulWidget {
@@ -145,10 +143,7 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
     final isAvailable = await securityService.isBiometricsAvailable();
     if (!isAvailable) {
       if (mounted) {
-        AppGlassToast.showInfo(
-          context,
-          L10n.t.pinLockScreen3,
-        );
+        AppGlassToast.showInfo(context, L10n.t.pinLockScreen3);
       }
       return;
     }
@@ -195,123 +190,135 @@ class _PinLockScreenState extends ConsumerState<PinLockScreen> {
     return Directionality(
       textDirection: Directionality.maybeOf(context) ?? TextDirection.rtl,
       child: Scaffold(
-      appBar: widget.onCancel != null
-          ? AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: IconButton(
-                icon: const Icon(Icons.close_rounded),
-                onPressed: widget.onCancel,
-              ),
-            )
-          : null,
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(flex: 1),
-                      // App Icon / Lock Icon
-                      Container(
-                        width: 72,
-                        height: 72,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary.withValues(alpha: 0.15),
-                          shape: BoxShape.circle,
+        appBar: widget.onCancel != null
+            ? AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.close_rounded),
+                  onPressed: widget.onCancel,
+                ),
+              )
+            : null,
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(flex: 1),
+                        // App Icon / Lock Icon
+                        Container(
+                          width: 72,
+                          height: 72,
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.primary.withValues(
+                              alpha: 0.15,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.lock_rounded,
+                            size: 38,
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
-                        child: Icon(
-                          Icons.lock_rounded,
-                          size: 38,
-                          color: theme.colorScheme.primary,
+                        const SizedBox(height: 20),
+                        // Header text
+                        Text(
+                          _titleText,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.onSurface,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      // Header text
-                      Text(
-                        _titleText,
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.onSurface,
+                        const SizedBox(height: 8),
+                        Text(
+                          _subtitleText,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColors.neutralGrey,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        _subtitleText,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppColors.neutralGrey,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 32),
+                        const SizedBox(height: 32),
 
-                      // PIN Dots (4 indicators)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(4, (index) {
-                          final isFilled = index < _currentInput.length;
-                          return AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            width: 18,
-                            height: 18,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isFilled
-                                  ? theme.colorScheme.primary
-                                  : (isDark ? const Color(0xFF374151) : Colors.grey.shade300),
-                              border: Border.all(
+                        // PIN Dots (4 indicators)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(4, (index) {
+                            final isFilled = index < _currentInput.length;
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 150),
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              width: 18,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                                 color: isFilled
                                     ? theme.colorScheme.primary
-                                    : (isDark ? const Color(0xFF4B5563) : Colors.grey.shade400),
-                                width: 1.5,
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Error message
-                      SizedBox(
-                        height: 24,
-                        child: _errorMessage != null
-                            ? Text(
-                                _errorMessage!,
-                                style: const TextStyle(
-                                  color: AppColors.debtRed,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                    : (isDark
+                                          ? const Color(0xFF374151)
+                                          : Colors.grey.shade300),
+                                border: Border.all(
+                                  color: isFilled
+                                      ? theme.colorScheme.primary
+                                      : (isDark
+                                            ? const Color(0xFF4B5563)
+                                            : Colors.grey.shade400),
+                                  width: 1.5,
                                 ),
-                                textAlign: TextAlign.center,
-                              )
-                            : null,
-                      ),
+                              ),
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 16),
 
-                      const Spacer(flex: 1),
+                        // Error message
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minHeight: 24,
+                            maxHeight: 48,
+                          ),
+                          child: _errorMessage != null
+                              ? AdaptiveText(
+                                  _errorMessage!,
+                                  style: const TextStyle(
+                                    color: AppColors.debtRed,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                )
+                              : null,
+                        ),
 
-                      // Keypad (Grid of 1-9, Biometric/Empty, 0, Backspace)
-                      _buildKeypad(),
+                        const Spacer(flex: 1),
 
-                      const Spacer(flex: 1),
-                    ],
+                        // Keypad (Grid of 1-9, Biometric/Empty, 0, Backspace)
+                        _buildKeypad(),
+
+                        const Spacer(flex: 1),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
-      ),
-    ),   // Scaffold
-    );   // Directionality
+      ), // Scaffold
+    ); // Directionality
   }
 
   Widget _buildKeypad() {

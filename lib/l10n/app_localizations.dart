@@ -2222,7 +2222,7 @@ abstract class AppLocalizations {
   /// No description provided for @statementFormatReceipt.
   ///
   /// In ar_EG, this message translates to:
-  /// **'إيصال حراري (80mm)'**
+  /// **'بون حراري 80مم'**
   String get statementFormatReceipt;
 
   /// No description provided for @dateCol.
@@ -4957,7 +4957,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsScreen73.
   ///
   /// In ar_EG, this message translates to:
-  /// **'https://wa.me/201000000000?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول'**
+  /// **'https://wa.me/201005083126?text=السلام%20عليكم%20عندي%20استفسار%20عن%20تطبيق%20كشكول'**
   String get settingsScreen73;
 
   /// No description provided for @settingsScreen74.
@@ -7509,6 +7509,978 @@ abstract class AppLocalizations {
   /// In ar_EG, this message translates to:
   /// **'بيانات المحل، الحماية، والنسخ الاحتياطي'**
   String get moreSettingsSubtitle;
+
+  /// No description provided for @moreProfitLossSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي أرباح ومصروفات المحل'**
+  String get moreProfitLossSubtitle;
+
+  /// No description provided for @moreShopReportSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي البضاعة والفلوس والديون'**
+  String get moreShopReportSubtitle;
+
+  /// No description provided for @notificationServiceGeneralChannelDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'قناة إشعارات عامة وتجريبية من تطبيق كشكول'**
+  String get notificationServiceGeneralChannelDesc;
+
+  /// No description provided for @notificationServiceGeneralChannelName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إشعارات عامة وتجريبية'**
+  String get notificationServiceGeneralChannelName;
+
+  /// No description provided for @notificationServiceLowStockBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المتبقي بالمخزن: {remainingStock}'**
+  String notificationServiceLowStockBody(Object remainingStock);
+
+  /// No description provided for @notificationServiceLowStockChannelDesc.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيه فوري عند وصول أي صنف للحد الأدنى من المخزون'**
+  String get notificationServiceLowStockChannelDesc;
+
+  /// No description provided for @notificationServiceLowStockChannelName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيهات نواقص المخزون'**
+  String get notificationServiceLowStockChannelName;
+
+  /// No description provided for @notificationServiceLowStockNoSupplierSuffix.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **' اضغط لتفقد المخزون وتحديث النواقص'**
+  String get notificationServiceLowStockNoSupplierSuffix;
+
+  /// No description provided for @notificationServiceLowStockSupplierSuffix.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **' المورد: {supplierName} — اضغط لطلب البضاعة عبر واتساب'**
+  String notificationServiceLowStockSupplierSuffix(Object supplierName);
+
+  /// No description provided for @notificationServiceLowStockTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'⚠️ بضاعة وصلت للنواقص: {productName}'**
+  String notificationServiceLowStockTitle(Object productName);
+
+  /// No description provided for @notificationServiceMultipleLowStockBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'افحص قائمة النواقص في المخزون لطلبها من الموردين فوراً.'**
+  String get notificationServiceMultipleLowStockBody;
+
+  /// No description provided for @notificationServiceMultipleLowStockTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'⚠️ {count} أصناف وصلت للنواقص في المخزن'**
+  String notificationServiceMultipleLowStockTitle(Object count);
+
+  /// No description provided for @pdfInvoiceCash.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كاش'**
+  String get pdfInvoiceCash;
+
+  /// No description provided for @pdfInvoiceCredit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'فاتورة بيع آجل (شكك)'**
+  String get pdfInvoiceCredit;
+
+  /// No description provided for @pdfInvoiceNumber.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رقم الفاتورة: #{shortSaleId}'**
+  String pdfInvoiceNumber(Object shortSaleId);
+
+  /// No description provided for @pdfInvoicePayCash.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مدفوعة نقداً'**
+  String get pdfInvoicePayCash;
+
+  /// No description provided for @pdfInvoicePayOnCredit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مسجلة آجل (شكك)'**
+  String get pdfInvoicePayOnCredit;
+
+  /// No description provided for @pdfInvoicePaymentMethod.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طريقة السداد:'**
+  String get pdfInvoicePaymentMethod;
+
+  /// No description provided for @pdfInvoicePhone.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'هاتف: {phone}'**
+  String pdfInvoicePhone(Object phone);
+
+  /// No description provided for @pdfInvoicePrice.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'السعر'**
+  String get pdfInvoicePrice;
+
+  /// No description provided for @pdfInvoiceThankYou.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'شكراً لتعاملكم معنا!'**
+  String get pdfInvoiceThankYou;
+
+  /// No description provided for @pdfInvoiceTotal.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الإجمالي'**
+  String get pdfInvoiceTotal;
+
+  /// No description provided for @pdfPreviewErrorLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر إنشاء الملف'**
+  String get pdfPreviewErrorLabel;
+
+  /// No description provided for @pdfPreviewPreparing.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جاري تجهيز ملف الـ PDF...'**
+  String get pdfPreviewPreparing;
+
+  /// No description provided for @pdfPreviewPrint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة فورية'**
+  String get pdfPreviewPrint;
+
+  /// No description provided for @pdfPreviewRetry.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إعادة المحاولة'**
+  String get pdfPreviewRetry;
+
+  /// No description provided for @pdfPreviewShare.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مشاركة PDF'**
+  String get pdfPreviewShare;
+
+  /// No description provided for @pdfReportAvailableAmount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المبلغ المتاح'**
+  String get pdfReportAvailableAmount;
+
+  /// No description provided for @pdfReportCashInDrawer.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كاش بالدرج (الخزينة النقدية)'**
+  String get pdfReportCashInDrawer;
+
+  /// No description provided for @pdfReportCashProfitNote.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تنبيه كشكول: صافي الربح النقدي يمثل الأموال الحقيقية التي دخلت درجك ومحفظتك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.'**
+  String get pdfReportCashProfitNote;
+
+  /// No description provided for @pdfReportCashVsCreditTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مقارنة المبيعات النقدية والآجلة'**
+  String get pdfReportCashVsCreditTitle;
+
+  /// No description provided for @pdfReportCount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'العدد'**
+  String get pdfReportCount;
+
+  /// No description provided for @pdfReportCustomerUnit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عميل'**
+  String get pdfReportCustomerUnit;
+
+  /// No description provided for @pdfReportDateLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'التاريخ'**
+  String get pdfReportDateLabel;
+
+  /// No description provided for @pdfReportDebtSection.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'2. الديون والمستحقات (العملاء والموردين)'**
+  String get pdfReportDebtSection;
+
+  /// No description provided for @pdfReportDigitalBalance.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رصيد إلكتروني (إنستاباي / فودافون كاش / بنك)'**
+  String get pdfReportDigitalBalance;
+
+  /// No description provided for @pdfReportGrandTotal.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الإجمالي الكلي'**
+  String get pdfReportGrandTotal;
+
+  /// No description provided for @pdfReportGrowthFooter.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم إنشاؤه عبر تطبيق كشكول — دفتر ديون ومبيعات مجاني'**
+  String get pdfReportGrowthFooter;
+
+  /// No description provided for @pdfReportInventoryAtCost.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'قيمة البضاعة بسعر الشراء (التكلفة)'**
+  String get pdfReportInventoryAtCost;
+
+  /// No description provided for @pdfReportInventoryAtRetail.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'قيمة البضاعة بسعر البيع (المتوقع)'**
+  String get pdfReportInventoryAtRetail;
+
+  /// No description provided for @pdfReportInventorySection.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'1. بضاعة المخزن والمستودع'**
+  String get pdfReportInventorySection;
+
+  /// No description provided for @pdfReportInventorySubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير تفصيلي بحالة المخزون والأصناف المتاحة'**
+  String get pdfReportInventorySubtitle;
+
+  /// No description provided for @pdfReportInventoryTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير جرد المخزون العام'**
+  String get pdfReportInventoryTitle;
+
+  /// No description provided for @pdfReportInvoiceUnit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'فاتورة'**
+  String get pdfReportInvoiceUnit;
+
+  /// No description provided for @pdfReportItemUnit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صنف'**
+  String get pdfReportItemUnit;
+
+  /// No description provided for @pdfReportLiquiditySection.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'3. السيولة والنقدية المتاحة'**
+  String get pdfReportLiquiditySection;
+
+  /// No description provided for @pdfReportLowStockLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'النواقص'**
+  String get pdfReportLowStockLabel;
+
+  /// No description provided for @pdfReportLowStockNeedOrder.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نواقص بحاجة لطلب'**
+  String get pdfReportLowStockNeedOrder;
+
+  /// No description provided for @pdfReportLowStockSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'بيان كامل بجميع الأصناف والكميات وأسعار التكلفة والبيع'**
+  String get pdfReportLowStockSubtitle;
+
+  /// No description provided for @pdfReportLowStockTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كشف النواقص وطلبيات الموردين'**
+  String get pdfReportLowStockTitle;
+
+  /// No description provided for @pdfReportMinimum.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الحد الأدنى'**
+  String get pdfReportMinimum;
+
+  /// No description provided for @pdfReportMovementUnit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حركة'**
+  String get pdfReportMovementUnit;
+
+  /// No description provided for @pdfReportNetWorthFormula.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'= (بضاعة المخزن بالتكلفة + النقدية بالدرج والبنك + لينا عند الزباين) - ديون الموردين'**
+  String get pdfReportNetWorthFormula;
+
+  /// No description provided for @pdfReportOperatingExpenses.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مصروفات تشغيلية (مخصومة من درج الكاش)'**
+  String get pdfReportOperatingExpenses;
+
+  /// No description provided for @pdfReportOutOfStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نواقص (عجز)'**
+  String get pdfReportOutOfStock;
+
+  /// No description provided for @pdfReportParty.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الطرف'**
+  String get pdfReportParty;
+
+  /// No description provided for @pdfReportProductCountLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عدد الأصناف'**
+  String get pdfReportProductCountLabel;
+
+  /// No description provided for @pdfReportProfitLossTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير الأرباح والمصروفات'**
+  String get pdfReportProfitLossTitle;
+
+  /// No description provided for @pdfReportRowNumber.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'م'**
+  String get pdfReportRowNumber;
+
+  /// No description provided for @pdfReportSalesCount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عدد الفواتير'**
+  String get pdfReportSalesCount;
+
+  /// No description provided for @pdfReportSalesRevenue.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إيرادات المبيعات'**
+  String get pdfReportSalesRevenue;
+
+  /// No description provided for @pdfReportShopOverviewSubtitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جرد شامل للمخزون والديون والسيولة النقدية'**
+  String get pdfReportShopOverviewSubtitle;
+
+  /// No description provided for @pdfReportShopOverviewTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير المركز المالي للمحل'**
+  String get pdfReportShopOverviewTitle;
+
+  /// No description provided for @pdfReportSource.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المصدر / البند'**
+  String get pdfReportSource;
+
+  /// No description provided for @pdfReportStatus.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الحالة'**
+  String get pdfReportStatus;
+
+  /// No description provided for @pdfReportSupplier.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المورد'**
+  String get pdfReportSupplier;
+
+  /// No description provided for @pdfReportSupplierPhone.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'هاتف المورد'**
+  String get pdfReportSupplierPhone;
+
+  /// No description provided for @pdfReportSupplierUnit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مورد'**
+  String get pdfReportSupplierUnit;
+
+  /// No description provided for @pdfReportTotalCashAvailable.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي النقدية المتاحة'**
+  String get pdfReportTotalCashAvailable;
+
+  /// No description provided for @pdfReportTotalCost.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي التكلفة'**
+  String get pdfReportTotalCost;
+
+  /// No description provided for @pdfReportTotalCostLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي القيمة بالتكلفة'**
+  String get pdfReportTotalCostLabel;
+
+  /// No description provided for @pdfReportTotalNetProfit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي صافي أرباح المحل'**
+  String get pdfReportTotalNetProfit;
+
+  /// No description provided for @pdfReportTotalProducts.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي الأصناف'**
+  String get pdfReportTotalProducts;
+
+  /// No description provided for @pdfReportValueCountHeader.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'القيمة / العدد'**
+  String get pdfReportValueCountHeader;
+
+  /// No description provided for @quickPosDoneNewSale.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم · بيع جديد'**
+  String get quickPosDoneNewSale;
+
+  /// No description provided for @quickPosFetchLastInvoiceFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر جلب الفاتورة السابقة: {e}'**
+  String quickPosFetchLastInvoiceFailed(Object e);
+
+  /// No description provided for @quickPosInvoiceOptions.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'خيارات الفاتورة'**
+  String get quickPosInvoiceOptions;
+
+  /// No description provided for @quickPosInvoiceTotal.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي الفاتورة: {total}'**
+  String quickPosInvoiceTotal(Object total);
+
+  /// No description provided for @quickPosItemsCount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'{count} صنف بالسلّة'**
+  String quickPosItemsCount(Object count);
+
+  /// No description provided for @quickPosLastInvoiceNoItems.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الفاتورة السابقة فارغة ولا تحتوي على أصناف'**
+  String get quickPosLastInvoiceNoItems;
+
+  /// No description provided for @quickPosNoItemsToPreview.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لا توجد أصناف في هذه الفاتورة للمعاينة'**
+  String get quickPosNoItemsToPreview;
+
+  /// No description provided for @quickPosNoItemsToPrint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لا توجد أصناف في هذه الفاتورة للطباعة'**
+  String get quickPosNoItemsToPrint;
+
+  /// No description provided for @quickPosNoPreviousInvoices.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'لا توجد فواتير بيع سابقة بعد'**
+  String get quickPosNoPreviousInvoices;
+
+  /// No description provided for @quickPosOpenInvoiceFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر فتح الفاتورة: {e}'**
+  String quickPosOpenInvoiceFailed(Object e);
+
+  /// No description provided for @quickPosOutOfStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نفدت الكمية بالكامل'**
+  String get quickPosOutOfStock;
+
+  /// No description provided for @quickPosPaymentMethod.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طريقة الدفع'**
+  String get quickPosPaymentMethod;
+
+  /// No description provided for @quickPosPreviewBeforeSave.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاينة الفاتورة قبل الحفظ'**
+  String get quickPosPreviewBeforeSave;
+
+  /// No description provided for @quickPosPreviewCurrentInvoice.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاينة الفاتورة الحالية'**
+  String get quickPosPreviewCurrentInvoice;
+
+  /// No description provided for @quickPosPreviewFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر فتح المعاينة: {e}'**
+  String quickPosPreviewFailed(Object e);
+
+  /// No description provided for @quickPosPreviewFileName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاينة_فاتورة.pdf'**
+  String get quickPosPreviewFileName;
+
+  /// No description provided for @quickPosPreviewLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاينة'**
+  String get quickPosPreviewLabel;
+
+  /// No description provided for @quickPosPreviewPrintCurrent.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة ومعاينة الفاتورة'**
+  String get quickPosPreviewPrintCurrent;
+
+  /// No description provided for @quickPosPreviewSharePdf.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاينة ومشاركة الفاتورة PDF'**
+  String get quickPosPreviewSharePdf;
+
+  /// No description provided for @quickPosPrintFailed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر طباعة الفاتورة: {e}'**
+  String quickPosPrintFailed(Object e);
+
+  /// No description provided for @quickPosPrintLastInvoice.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إعادة طباعة آخر فاتورة'**
+  String get quickPosPrintLastInvoice;
+
+  /// No description provided for @quickPosPrintThermalReceipt.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة بون كاشير حراري (80مم)'**
+  String get quickPosPrintThermalReceipt;
+
+  /// No description provided for @quickPosReceiveCash.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'استلام كاش'**
+  String get quickPosReceiveCash;
+
+  /// No description provided for @quickPosRecordOnAccount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تسجيل على الحساب'**
+  String get quickPosRecordOnAccount;
+
+  /// No description provided for @quickPosSaleInvoiceFileName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'فاتورة_بيع_{shortId}.pdf'**
+  String quickPosSaleInvoiceFileName(Object shortId);
+
+  /// No description provided for @quickPosSaleInvoiceTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'فاتورة بيع #{shortId}'**
+  String quickPosSaleInvoiceTitle(Object shortId);
+
+  /// No description provided for @quickPosSaleSavedSuccessfully.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم حفظ البيع بنجاح!'**
+  String get quickPosSaleSavedSuccessfully;
+
+  /// No description provided for @quickPosSaveAndPrint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حفظ وطباعة'**
+  String get quickPosSaveAndPrint;
+
+  /// No description provided for @quickPosSaveAndPrintTooltip.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حفظ البيع وطباعة بون فوري مباشرة'**
+  String get quickPosSaveAndPrintTooltip;
+
+  /// No description provided for @quickPosSavingAndPrinting.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم حفظ البيع وجاري الطباعة...'**
+  String get quickPosSavingAndPrinting;
+
+  /// No description provided for @quickPosTapToAdd.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اضغط للإضافة'**
+  String get quickPosTapToAdd;
+
+  /// No description provided for @quickPosTapToAddToCart.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'اضغط للإضافة للسلّة'**
+  String get quickPosTapToAddToCart;
+
+  /// No description provided for @genericError.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حدث خطأ: {err}'**
+  String genericError(Object err);
+
+  /// No description provided for @inventoryPdfExportTooltip.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة وتصدير تقرير المخزون PDF'**
+  String get inventoryPdfExportTooltip;
+
+  /// No description provided for @inventoryPdfFileNameFull.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'جرد_المخزون_{dateStr}.pdf'**
+  String inventoryPdfFileNameFull(Object dateStr);
+
+  /// No description provided for @inventoryPdfFileNameLowStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نواقص_المخزون_{dateStr}.pdf'**
+  String inventoryPdfFileNameLowStock(Object dateStr);
+
+  /// No description provided for @inventoryPdfMenuFull.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة جرد المخزون العام (كامل)'**
+  String get inventoryPdfMenuFull;
+
+  /// No description provided for @inventoryPdfMenuLowStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة كشف النواقص فقط'**
+  String get inventoryPdfMenuLowStock;
+
+  /// No description provided for @inventoryPdfTitleFull.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير جرد المخزون العام'**
+  String get inventoryPdfTitleFull;
+
+  /// No description provided for @inventoryPdfTitleLowStock.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كشف نواقص المخزون'**
+  String get inventoryPdfTitleLowStock;
+
+  /// No description provided for @notificationServiceSettingsSendTestFailure.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر إرسال الإشعار التجريبي — تأكد من تفعيل إذن الإشعارات للهاتف'**
+  String get notificationServiceSettingsSendTestFailure;
+
+  /// No description provided for @printExportPdf.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'طباعة وتصدير PDF'**
+  String get printExportPdf;
+
+  /// No description provided for @profitLossAccountingTipBody.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'الأرباح النقدية هي الفلوس الفعلية اللي دخلت درجك بعد سداد التكلفة والمصروفات. الأرباح الآجلة هي أرباح بضاعة خرجت لعملاء الشكك وتتحول لكاش فعلي عند التحصيل.'**
+  String get profitLossAccountingTipBody;
+
+  /// No description provided for @profitLossAccountingTipTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'نصيحة محاسبية من كشكول'**
+  String get profitLossAccountingTipTitle;
+
+  /// No description provided for @profitLossCashBadge.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كاش'**
+  String get profitLossCashBadge;
+
+  /// No description provided for @profitLossCreditBadge.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'آجل'**
+  String get profitLossCreditBadge;
+
+  /// No description provided for @profitLossNetCalculation.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'= {netCash} كاش + {netCredit} شكك'**
+  String profitLossNetCalculation(Object netCash, Object netCredit);
+
+  /// No description provided for @profitLossRecordedSales.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'مسجل {salesCount} فاتورة بيع'**
+  String profitLossRecordedSales(Object salesCount);
+
+  /// No description provided for @profitLossReportFileName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير_الأرباح_والمصروفات_{dateStr}.pdf'**
+  String profitLossReportFileName(Object dateStr);
+
+  /// No description provided for @profitLossReportTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تقرير الأرباح والمصروفات'**
+  String get profitLossReportTitle;
+
+  /// No description provided for @restockAvailable.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المتاح: {stock} {unit}'**
+  String restockAvailable(Object stock, Object unit);
+
+  /// No description provided for @restockCopiedToClipboard.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم نسخ رسالة الطلبية إلى الحافظة بنجاح!'**
+  String get restockCopiedToClipboard;
+
+  /// No description provided for @restockError.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تعذر تحميل المنتجات: {err}'**
+  String restockError(Object err);
+
+  /// No description provided for @restockLinkProductsHint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'قم بربط المنتجات بهذا المورد من صفحة المخزون لطلبها تلقائياً بضغطة واحدة.'**
+  String get restockLinkProductsHint;
+
+  /// No description provided for @restockMessageFooter.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'برجاء تأكيد استلام الطلب وتحديد موعد التوصيل.'**
+  String get restockMessageFooter;
+
+  /// No description provided for @restockMessageGreeting.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'السلام عليكم يا {supplierName}'**
+  String restockMessageGreeting(Object supplierName);
+
+  /// No description provided for @restockMessageHeader.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'محتاجين طلبية بضاعة نواقص للمحل:'**
+  String get restockMessageHeader;
+
+  /// No description provided for @restockMessageItem.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• {name} — مطلوب: {qty} {unit}'**
+  String restockMessageItem(Object name, Object qty, Object unit);
+
+  /// No description provided for @restockMessageShop.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'معاك {shopName}'**
+  String restockMessageShop(Object shopName);
+
+  /// No description provided for @restockMessageThanks.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'شكراً جزيلاً!'**
+  String get restockMessageThanks;
+
+  /// No description provided for @restockSelectProductsHint.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'حدد الأصناف والكميات المطلوبة من النواقص لطلبها عبر واتساب:'**
+  String get restockSelectProductsHint;
+
+  /// No description provided for @restockSendWhatsApp.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إرسال الطلبية عبر واتساب'**
+  String get restockSendWhatsApp;
+
+  /// No description provided for @shopReportCashInDrawerLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'كاش بالدرج:'**
+  String get shopReportCashInDrawerLabel;
+
+  /// No description provided for @shopReportCopiedToClipboard.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم نسخ تقرير المركز المالي بنجاح!'**
+  String get shopReportCopiedToClipboard;
+
+  /// No description provided for @shopReportCustomersWithDues.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'عملاء عليهم مستحقات:'**
+  String get shopReportCustomersWithDues;
+
+  /// No description provided for @shopReportDigitalBalanceLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'رصيد إلكتروني (فودافون كاش / إنستاباي):'**
+  String get shopReportDigitalBalanceLabel;
+
+  /// No description provided for @shopReportFileName.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المركز_المالي_للمحل_{dateStr}.pdf'**
+  String shopReportFileName(Object dateStr);
+
+  /// No description provided for @shopReportLowStockOf.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'{count} صنف من أصل {total}'**
+  String shopReportLowStockOf(Object count, Object total);
+
+  /// No description provided for @shopReportNetWorthFormula.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'= (بضاعة المخزن بالتكلفة + كاش الدرج والإلكتروني + لينا عند العملاء) - ديون الموردين'**
+  String get shopReportNetWorthFormula;
+
+  /// No description provided for @shopReportSupplierCount.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'{count} مورد'**
+  String shopReportSupplierCount(Object count);
+
+  /// No description provided for @shopReportSuppliersOwed.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'موردين لهم حسابات:'**
+  String get shopReportSuppliersOwed;
+
+  /// No description provided for @shopReportTextCashAvailable.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'--- السيولة النقدية المتاحة ---'**
+  String get shopReportTextCashAvailable;
+
+  /// No description provided for @shopReportTextCashInDrawer.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• كاش بالدرج: {amount}'**
+  String shopReportTextCashInDrawer(Object amount);
+
+  /// No description provided for @shopReportTextDate.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'التاريخ: {dateStr}'**
+  String shopReportTextDate(Object dateStr);
+
+  /// No description provided for @shopReportTextDigitalBalance.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• رصيد إلكتروني (فودافون كاش / إنستاباي): {amount}'**
+  String shopReportTextDigitalBalance(Object amount);
+
+  /// No description provided for @shopReportTextExpectedProfit.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• الربح المتوقع عند بيع المخزون: {profit}'**
+  String shopReportTextExpectedProfit(Object profit);
+
+  /// No description provided for @shopReportTextFooter.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'تم إنشاء التقرير عبر تطبيق كشكول'**
+  String get shopReportTextFooter;
+
+  /// No description provided for @shopReportTextInventory.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'--- بضاعة المخزن والمستودع ---'**
+  String get shopReportTextInventory;
+
+  /// No description provided for @shopReportTextNetWorth.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'صافي رأس مال المحل: {netWorth}'**
+  String shopReportTextNetWorth(Object netWorth);
+
+  /// No description provided for @shopReportTextPayables.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• علينا للموردين: {amount} ({count} مورد)'**
+  String shopReportTextPayables(Object amount, Object count);
+
+  /// No description provided for @shopReportTextProductCounts.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• إجمالي الأصناف: {total} صنف ({low} نواقص بحاجة لطلب)'**
+  String shopReportTextProductCounts(Object total, Object low);
+
+  /// No description provided for @shopReportTextReceivables.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• لينا عند العملاء (شكك): {amount} ({count} عميل)'**
+  String shopReportTextReceivables(Object amount, Object count);
+
+  /// No description provided for @shopReportTextShop.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'المحل: {shopName}'**
+  String shopReportTextShop(Object shopName);
+
+  /// No description provided for @shopReportTextTitle.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'=== تقرير المركز المالي للمحل ==='**
+  String get shopReportTextTitle;
+
+  /// No description provided for @shopReportTextTotalCash.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'• إجمالي النقدية المتاحة: {amount}'**
+  String shopReportTextTotalCash(Object amount);
+
+  /// No description provided for @shopReportTotalCashLabel.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي النقدية المتاحة:'**
+  String get shopReportTotalCashLabel;
+
+  /// No description provided for @shopReportTotalCustomerDues.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي ديون العملاء (شكك):'**
+  String get shopReportTotalCustomerDues;
+
+  /// No description provided for @shopReportTotalSupplierDues.
+  ///
+  /// In ar_EG, this message translates to:
+  /// **'إجمالي ديون الموردين:'**
+  String get shopReportTotalSupplierDues;
 }
 
 class _AppLocalizationsDelegate

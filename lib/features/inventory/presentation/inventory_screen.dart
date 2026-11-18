@@ -53,11 +53,16 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     if (mounted) ref.invalidate(inventoryProductsStreamProvider);
   }
 
-  Future<void> _openInventoryPdf(bool isLowStockOnly, List<ProductWithStock> products) async {
+  Future<void> _openInventoryPdf(
+    bool isLowStockOnly,
+    List<ProductWithStock> products,
+  ) async {
     final activeShop = ref.read(activeShopStreamProvider).value;
     final shopName = activeShop?.name ?? L10n.pdf.main1;
     final shopPhone = activeShop?.phone;
-    final shopCode = await ref.read(settingsRepositoryProvider).getOrCreateShopCode();
+    final shopCode = await ref
+        .read(settingsRepositoryProvider)
+        .getOrCreateShopCode();
     final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     final targetProducts = isLowStockOnly
@@ -68,9 +73,15 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => PdfPreviewScreen(
-          title: isLowStockOnly ? 'كشف النواقص والطلبيات' : 'تقرير جرد المخزون العام',
-          fileName: isLowStockOnly ? 'كشف_النواقص_$dateStr.pdf' : 'تقرير_جرد_المخزون_$dateStr.pdf',
-          generator: (format) => ref.read(pdfReportsServiceProvider).generateInventoryReportPdf(
+          title: isLowStockOnly
+              ? L10n.t.inventoryPdfTitleLowStock
+              : L10n.t.inventoryPdfTitleFull,
+          fileName: isLowStockOnly
+              ? L10n.t.inventoryPdfFileNameLowStock(dateStr)
+              : L10n.t.inventoryPdfFileNameFull(dateStr),
+          generator: (format) => ref
+              .read(pdfReportsServiceProvider)
+              .generateInventoryReportPdf(
                 products: targetProducts,
                 shopName: shopName,
                 shopPhone: shopPhone,
@@ -96,7 +107,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           productsAsync.maybeWhen(
             data: (products) => PopupMenuButton<String>(
               icon: const Icon(Icons.picture_as_pdf_rounded),
-              tooltip: 'طباعة وتصدير PDF',
+              tooltip: L10n.t.inventoryPdfExportTooltip,
               onSelected: (val) {
                 if (val == 'low_stock') {
                   _openInventoryPdf(true, products);
@@ -105,23 +116,29 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                 }
               },
               itemBuilder: (context) => [
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'low_stock',
                   child: Row(
                     children: [
-                      Icon(Icons.warning_amber_rounded, color: AppColors.debtRed),
-                      SizedBox(width: 8),
-                      Text('كشف النواقص وطلبيات الموردين'),
+                      const Icon(
+                        Icons.warning_amber_rounded,
+                        color: AppColors.debtRed,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(L10n.t.inventoryPdfMenuLowStock),
                     ],
                   ),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'full_inventory',
                   child: Row(
                     children: [
-                      Icon(Icons.inventory_2_outlined, color: Color(0xFF2563EB)),
-                      SizedBox(width: 8),
-                      Text('تقرير جرد المخزون بالكامل'),
+                      const Icon(
+                        Icons.inventory_2_outlined,
+                        color: Color(0xFF2563EB),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(L10n.t.inventoryPdfMenuFull),
                     ],
                   ),
                 ),
@@ -158,11 +175,14 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
               ),
             ),
           ),
-          ref.watch(suppliersListStreamProvider).maybeWhen(
+          ref
+              .watch(suppliersListStreamProvider)
+              .maybeWhen(
                 data: (suppliers) {
                   if (suppliers.isEmpty) return const SizedBox.shrink();
-                  final selectedSupplierId =
-                      ref.watch(inventorySupplierFilterProvider);
+                  final selectedSupplierId = ref.watch(
+                    inventorySupplierFilterProvider,
+                  );
                   return SizedBox(
                     height: 40,
                     child: ListView(
@@ -172,27 +192,34 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                         FilterChip(
                           selected: selectedSupplierId == null,
                           label: Text(L10n.t.inventoryFilterAllSuppliers),
-                          onSelected: (_) => ref
-                              .read(inventorySupplierFilterProvider.notifier)
-                              .state = null,
+                          onSelected: (_) =>
+                              ref
+                                      .read(
+                                        inventorySupplierFilterProvider
+                                            .notifier,
+                                      )
+                                      .state =
+                                  null,
                         ),
                         const SizedBox(width: 8),
-                        ...suppliers.map((s) => Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 8),
-                              child: FilterChip(
-                                selected: selectedSupplierId == s.supplier.id,
-                                label: Text(s.supplier.name),
-                                onSelected: (_) {
-                                  ref
-                                      .read(inventorySupplierFilterProvider
-                                          .notifier)
-                                      .state = selectedSupplierId == s.supplier.id
-                                      ? null
-                                      : s.supplier.id;
-                                },
-                              ),
-                            )),
+                        ...suppliers.map(
+                          (s) => Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 8),
+                            child: FilterChip(
+                              selected: selectedSupplierId == s.supplier.id,
+                              label: Text(s.supplier.name),
+                              onSelected: (_) {
+                                ref
+                                    .read(
+                                      inventorySupplierFilterProvider.notifier,
+                                    )
+                                    .state = selectedSupplierId == s.supplier.id
+                                    ? null
+                                    : s.supplier.id;
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   );

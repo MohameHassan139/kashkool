@@ -24,8 +24,7 @@ class SupplierRestockDialog extends ConsumerStatefulWidget {
       _SupplierRestockDialogState();
 }
 
-class _SupplierRestockDialogState
-    extends ConsumerState<SupplierRestockDialog> {
+class _SupplierRestockDialogState extends ConsumerState<SupplierRestockDialog> {
   final Map<String, int> _selectedQuantities = {};
   final Set<String> _selectedProductIds = {};
   bool _initialized = false;
@@ -36,11 +35,13 @@ class _SupplierRestockDialogState
       // Default auto-select items that are low stock
       if (p.isLowStock) {
         _selectedProductIds.add(p.product.id);
-        final neededMilliUnits = p.product.minimumStockMilliUnits > p.quantityMilliUnits
+        final neededMilliUnits =
+            p.product.minimumStockMilliUnits > p.quantityMilliUnits
             ? (p.product.minimumStockMilliUnits - p.quantityMilliUnits)
             : 1000;
-        _selectedQuantities[p.product.id] =
-            neededMilliUnits > 0 ? neededMilliUnits : 1000;
+        _selectedQuantities[p.product.id] = neededMilliUnits > 0
+            ? neededMilliUnits
+            : 1000;
       } else {
         _selectedQuantities[p.product.id] = 1000;
       }
@@ -50,24 +51,30 @@ class _SupplierRestockDialogState
 
   String _buildMessage(String shopName, List<ProductWithStock> products) {
     final buffer = StringBuffer();
-    buffer.writeln('السلام عليكم أ/ ${widget.supplier.name} 🌹');
+    buffer.writeln(L10n.t.restockMessageGreeting(widget.supplier.name));
     if (shopName.isNotEmpty) {
-      buffer.writeln('معاك محل $shopName.');
+      buffer.writeln(L10n.t.restockMessageShop(shopName));
     }
-    buffer.writeln('محتاجين طلبية بضاعة / نواقص:');
+    buffer.writeln(L10n.t.restockMessageHeader);
     buffer.writeln();
 
     for (final p in products) {
       if (_selectedProductIds.contains(p.product.id)) {
         final qtyMilli = _selectedQuantities[p.product.id] ?? 1000;
         final qtyStr = QuantityUtils.formatMilliUnits(qtyMilli);
-        buffer.writeln('• ${p.product.name}: $qtyStr ${p.product.unitLabel}');
+        buffer.writeln(
+          L10n.t.restockMessageItem(
+            p.product.name,
+            qtyStr,
+            p.product.unitLabel,
+          ),
+        );
       }
     }
 
     buffer.writeln();
-    buffer.writeln('برجاء تأكيد استلام الطلبية وميعاد التوريد.');
-    buffer.writeln('شكراً لحضرتك 🙏');
+    buffer.writeln(L10n.t.restockMessageFooter);
+    buffer.writeln(L10n.t.restockMessageThanks);
     return buffer.toString();
   }
 
@@ -79,8 +86,10 @@ class _SupplierRestockDialogState
     if (whatsappPhone != null && whatsappPhone.isNotEmpty) {
       final uri = Uri.parse('https://wa.me/$whatsappPhone?text=$encoded');
       try {
-        final launched =
-            await launchUrl(uri, mode: LaunchMode.externalApplication);
+        final launched = await launchUrl(
+          uri,
+          mode: LaunchMode.externalApplication,
+        );
         if (launched) {
           if (mounted) Navigator.of(context).pop();
           return;
@@ -91,18 +100,16 @@ class _SupplierRestockDialogState
     // Fallback: copy to clipboard
     await Clipboard.setData(ClipboardData(text: message));
     if (mounted) {
-      AppGlassToast.showSuccess(
-        context,
-        'تم نسخ نص الطلبية بنجاح للحافظة لمشاركتها',
-      );
+      AppGlassToast.showSuccess(context, L10n.t.restockCopiedToClipboard);
       Navigator.of(context).pop();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsAsync =
-        ref.watch(supplierProductsStreamProvider(widget.supplier.id));
+    final productsAsync = ref.watch(
+      supplierProductsStreamProvider(widget.supplier.id),
+    );
     final activeShopAsync = ref.watch(activeShopStreamProvider);
     final shopName = activeShopAsync.value?.name ?? '';
     final theme = Theme.of(context);
@@ -114,7 +121,7 @@ class _SupplierRestockDialogState
         padding: const EdgeInsets.all(20),
         child: productsAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => Center(child: Text('خطأ: $err')),
+          error: (err, _) => Center(child: Text(L10n.t.restockError(err))),
           data: (products) {
             _initSelections(products);
 
@@ -135,7 +142,7 @@ class _SupplierRestockDialogState
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'اربط أصناف المحل بهذا المورد من شاشة تعديل الصنف',
+                    L10n.t.restockLinkProductsHint,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: AppColors.neutralGrey,
                     ),
@@ -156,8 +163,7 @@ class _SupplierRestockDialogState
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor:
-                          theme.colorScheme.primaryContainer,
+                      backgroundColor: theme.colorScheme.primaryContainer,
                       child: Icon(
                         Icons.add_shopping_cart_rounded,
                         color: theme.colorScheme.onPrimaryContainer,
@@ -191,7 +197,7 @@ class _SupplierRestockDialogState
                 ),
                 const Divider(height: 24),
                 Text(
-                  'اختر الأصناف وحدد الكميات المطلوبة:',
+                  L10n.t.restockSelectProductsHint,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -200,11 +206,13 @@ class _SupplierRestockDialogState
                 Expanded(
                   child: ListView.separated(
                     itemCount: products.length,
-                    separatorBuilder: (context, index) => const Divider(height: 1),
+                    separatorBuilder: (context, index) =>
+                        const Divider(height: 1),
                     itemBuilder: (context, index) {
                       final p = products[index];
-                      final isSelected =
-                          _selectedProductIds.contains(p.product.id);
+                      final isSelected = _selectedProductIds.contains(
+                        p.product.id,
+                      );
                       final currentQtyMilli =
                           _selectedQuantities[p.product.id] ?? 1000;
 
@@ -215,8 +223,7 @@ class _SupplierRestockDialogState
                           children: [
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     p.product.name,
@@ -227,7 +234,12 @@ class _SupplierRestockDialogState
                                     ),
                                   ),
                                   Text(
-                                    'المتوفر: ${QuantityUtils.formatMilliUnits(p.quantityMilliUnits)} ${p.product.unitLabel}',
+                                    L10n.t.restockAvailable(
+                                      QuantityUtils.formatMilliUnits(
+                                        p.quantityMilliUnits,
+                                      ),
+                                      p.product.unitLabel,
+                                    ),
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: p.isLowStock
@@ -249,10 +261,9 @@ class _SupplierRestockDialogState
                                 ),
                                 onPressed: currentQtyMilli > 1000
                                     ? () => setState(() {
-                                          _selectedQuantities[
-                                              p.product.id] =
-                                              currentQtyMilli - 1000;
-                                        })
+                                        _selectedQuantities[p.product.id] =
+                                            currentQtyMilli - 1000;
+                                      })
                                     : null,
                               ),
                               Text(
@@ -304,9 +315,9 @@ class _SupplierRestockDialogState
                           _sendWhatsApp(message);
                         },
                   icon: const Icon(Icons.send_rounded),
-                  label: const Text(
-                    'إرسال الطلبية عبر واتساب',
-                    style: TextStyle(
+                  label: Text(
+                    L10n.t.restockSendWhatsApp,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),

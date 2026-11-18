@@ -269,11 +269,12 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
           .toList(growable: false);
 
       setState(() {
+        _saving = false;
         _cart.clear();
         _customerId = null;
       });
       if (andPrint) {
-        AppGlassToast.showSuccess(context, 'تم حفظ البيع وجاري الطباعة...');
+        AppGlassToast.showSuccess(context, L10n.t.quickPosSavingAndPrinting);
         await _printInvoiceDirectly(saleId, savedCustomer, isThermal: true, preloadedItems: resolvedItems);
       } else {
         AppGlassToast.showSuccess(context, L10n.t.quickPosSaleSaved);
@@ -380,12 +381,12 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'تم حفظ البيع بنجاح!',
+                  L10n.t.quickPosSaleSavedSuccessfully,
                   style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'إجمالي الفاتورة: ${MoneyUtils.formatMoney(totalAmountPiasters)}',
+                  L10n.t.quickPosInvoiceTotal(MoneyUtils.formatMoney(totalAmountPiasters)),
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: AppColors.paymentGreen,
                     fontWeight: FontWeight.bold,
@@ -402,7 +403,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                     await _printInvoiceDirectly(saleId, customer, isThermal: true, preloadedItems: items);
                   },
                   icon: const Icon(Icons.receipt_long_rounded),
-                  label: const Text('طباعة بون كاشير حراري (80مم)'),
+                  label: Text(L10n.t.quickPosPrintThermalReceipt),
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton.icon(
@@ -415,12 +416,12 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                     await _openInvoicePreview(saleId, customer, preloadedItems: items);
                   },
                   icon: const Icon(Icons.picture_as_pdf_rounded),
-                  label: const Text('معاينة ومشاركة الفاتورة PDF'),
+                  label: Text(L10n.t.quickPosPreviewSharePdf),
                 ),
                 const SizedBox(height: 10),
                 TextButton(
                   onPressed: () => Navigator.of(bottomSheetContext).pop(),
-                  child: const Text('تم · بيع جديد'),
+                  child: Text(L10n.t.quickPosDoneNewSale),
                 ),
               ],
             ),
@@ -443,7 +444,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
           ? preloadedItems
           : await saleRepo.getSaleItems(saleId);
       if (sale == null || items.isEmpty) {
-        if (mounted) _showMessage('لا توجد أصناف في هذه الفاتورة للطباعة', isError: true);
+        if (mounted) _showMessage(L10n.t.quickPosNoItemsToPrint, isError: true);
         return;
       }
 
@@ -466,11 +467,11 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
 
       await ref.read(pdfReportsServiceProvider).printPdf(
             bytes: bytes,
-            name: 'فاتورة_بيع_${sale.id.substring(0, 8)}.pdf',
+            name: L10n.t.quickPosSaleInvoiceFileName(sale.id.substring(0, 8)),
           );
     } catch (e) {
       if (mounted) {
-        AppGlassToast.showError(context, 'تعذر طباعة الفاتورة: $e');
+        AppGlassToast.showError(context, L10n.t.quickPosPrintFailed(e));
       }
     }
   }
@@ -487,7 +488,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
           ? preloadedItems
           : await saleRepo.getSaleItems(saleId);
       if (sale == null || items.isEmpty) {
-        if (mounted) _showMessage('لا توجد أصناف في هذه الفاتورة للمعاينة', isError: true);
+        if (mounted) _showMessage(L10n.t.quickPosNoItemsToPreview, isError: true);
         return;
       }
 
@@ -502,8 +503,8 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => PdfPreviewScreen(
-            title: 'فاتورة بيع #$shortId',
-            fileName: 'فاتورة_بيع_$shortId.pdf',
+            title: L10n.t.quickPosSaleInvoiceTitle(shortId),
+            fileName: L10n.t.quickPosSaleInvoiceFileName(shortId),
             initialFormat: PdfDocumentFormat.thermal80mm,
             generator: (format) => ref.read(pdfReportsServiceProvider).generateSaleInvoicePdf(
                   sale: sale,
@@ -520,7 +521,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
       );
     } catch (e) {
       if (mounted) {
-        AppGlassToast.showError(context, 'تعذر فتح الفاتورة: $e');
+        AppGlassToast.showError(context, L10n.t.quickPosOpenInvoiceFailed(e));
       }
     }
   }
@@ -530,12 +531,12 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
       final saleRepo = ref.read(saleRepositoryProvider);
       final lastSale = await saleRepo.getLastSale();
       if (lastSale == null) {
-        _showMessage('لا توجد فواتير بيع سابقة بعد');
+        _showMessage(L10n.t.quickPosNoPreviousInvoices);
         return;
       }
       final items = await saleRepo.getSaleItems(lastSale.id);
       if (items.isEmpty) {
-        _showMessage('الفاتورة الأخيرة لا تحتوي على أصناف مسجلة');
+        _showMessage(L10n.t.quickPosLastInvoiceNoItems);
         return;
       }
       Customer? customer;
@@ -546,7 +547,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
       await _openInvoicePreview(lastSale.id, customer, preloadedItems: items);
     } catch (e) {
       if (mounted) {
-        AppGlassToast.showError(context, 'تعذر جلب الفاتورة الأخيرة: $e');
+        AppGlassToast.showError(context, L10n.t.quickPosFetchLastInvoiceFailed(e));
       }
     }
   }
@@ -555,7 +556,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
     if (_cart.isEmpty) return;
     try {
       final now = DateTime.now();
-      const tempSaleId = 'معاينة';
+      final tempSaleId = L10n.t.quickPosPreviewLabel;
       final sale = Sale(
         id: tempSaleId,
         shopId: 'shop',
@@ -600,8 +601,8 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => PdfPreviewScreen(
-            title: 'معاينة الفاتورة قبل الحفظ',
-            fileName: 'معاينة_فاتورة.pdf',
+            title: L10n.t.quickPosPreviewBeforeSave,
+            fileName: L10n.t.quickPosPreviewFileName,
             initialFormat: PdfDocumentFormat.thermal80mm,
             generator: (format) => ref.read(pdfReportsServiceProvider).generateSaleInvoicePdf(
                   sale: sale,
@@ -617,7 +618,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         ),
       );
     } catch (e) {
-      if (mounted) _showMessage('تعذر معاينة الفاتورة: $e', isError: true);
+      if (mounted) _showMessage(L10n.t.quickPosPreviewFailed(e), isError: true);
     }
   }
 
@@ -661,7 +662,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
         actions: [
           if (_cart.isNotEmpty) ...[
             IconButton(
-              tooltip: 'معاينة وطباعة الفاتورة الحالية',
+              tooltip: L10n.t.quickPosPreviewPrintCurrent,
               icon: const Icon(Icons.receipt_long_rounded),
               onPressed: () {
                 final customers = customersAsync.valueOrNull ?? [];
@@ -686,13 +687,13 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
             ),
           ] else ...[
             IconButton(
-              tooltip: 'طباعة آخر فاتورة مسجلة',
+              tooltip: L10n.t.quickPosPrintLastInvoice,
               icon: const Icon(Icons.receipt_long_rounded),
               onPressed: _reprintLastInvoice,
             ),
           ],
           PopupMenuButton<String>(
-            tooltip: 'خيارات الفواتير',
+            tooltip: L10n.t.quickPosInvoiceOptions,
             icon: const Icon(Icons.more_vert_rounded),
             onSelected: (val) {
               if (val == 'reprint_last') {
@@ -713,23 +714,23 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
             },
             itemBuilder: (context) => [
               if (_cart.isNotEmpty)
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'preview_current',
                   child: Row(
                     children: [
                       Icon(Icons.remove_red_eye_outlined, size: 20),
                       SizedBox(width: 8),
-                      Text('معاينة الفاتورة الحالية'),
+                      Text(L10n.t.quickPosPreviewCurrentInvoice),
                     ],
                   ),
                 ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'reprint_last',
                 child: Row(
                   children: [
                     Icon(Icons.history_rounded, size: 20),
                     SizedBox(width: 8),
-                    Text('طباعة آخر فاتورة مسجلة'),
+                    Text(L10n.t.quickPosPrintLastInvoice),
                   ],
                 ),
               ),
@@ -782,14 +783,18 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                 children: [
                   // Products Catalog Title
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        strings.quickPosProducts,
-                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: Text(
+                          strings.quickPosProducts,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ),
+                      const SizedBox(width: 8),
                       Text(
-                        'اضغط للإضافة',
+                        strings.quickPosTapToAdd,
                         style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                       ),
                     ],
@@ -894,7 +899,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                         const SizedBox(height: 2),
                                         Text(
                                           isOutOfStock
-                                              ? 'نفد المخزون'
+                                              ? strings.quickPosOutOfStock
                                               : '${strings.quickPosAvailable}: ${QuantityUtils.formatMilliUnits(available)} ${product.product.unitLabel}',
                                           style: TextStyle(
                                             fontSize: 10,
@@ -950,7 +955,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                       ),
                       if (_cart.isNotEmpty)
                         Text(
-                          '${QuantityUtils.formatMilliUnits(_totalItemsCount * 1000)} صنف',
+                          strings.quickPosItemsCount(QuantityUtils.formatMilliUnits(_totalItemsCount * 1000)),
                           style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                         ),
                     ],
@@ -1087,7 +1092,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
 
                   // Payment Type Selection
                   Text(
-                    'طريقة السداد',
+                    strings.quickPosPaymentMethod,
                     style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -1244,7 +1249,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                   ),
                                   const SizedBox(width: 8),
                                   IconButton.filledTonal(
-                                    tooltip: 'عميل جديد',
+                                    tooltip: strings.addNewCustomer,
                                     icon: const Icon(Icons.person_add_alt_1_rounded),
                                     onPressed: () async {
                                       await Navigator.of(context).push(
@@ -1263,7 +1268,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'الرصيد الحالي: ${MoneyUtils.formatMoney(selectedCustomer.balancePiasters)}',
+                                      '${strings.currentBalance}: ${MoneyUtils.formatMoney(selectedCustomer.balancePiasters)}',
                                       style: TextStyle(
                                         color: selectedCustomer.hasDebt ? AppColors.debtRed : AppColors.paymentGreen,
                                         fontWeight: FontWeight.bold,
@@ -1331,7 +1336,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                     height: 54,
                     width: 54,
                     child: IconButton.filledTonal(
-                      tooltip: 'حفظ وطباعة الفاتورة (حراري 80مم)',
+                      tooltip: strings.quickPosSaveAndPrintTooltip,
                       style: IconButton.styleFrom(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                         backgroundColor: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
@@ -1348,15 +1353,14 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                   ),
                   const SizedBox(width: 8),
 
-                  SizedBox(
-                    height: 54,
+                  Flexible(
                     child: FilledButton.icon(
                       style: FilledButton.styleFrom(
                         backgroundColor: _paymentType == SalePaymentType.cash
                             ? AppColors.paymentGreen
                             : theme.colorScheme.primary,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                       ),
                       onPressed: _cart.isEmpty || _saving
                           ? null
@@ -1376,8 +1380,12 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                   : Icons.save_rounded,
                             ),
                       label: Text(
-                        _paymentType == SalePaymentType.cash ? 'استلام كاش' : 'تسجيل على الحساب',
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        _paymentType == SalePaymentType.cash
+                              ? strings.quickPosReceiveCash
+                              : strings.quickPosRecordOnAccount,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ),
                   ),
@@ -1447,7 +1455,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                       style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'اضغط للإضافة للسلة',
+                      strings.quickPosTapToAddToCart,
                       style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                     ),
                   ],
@@ -1553,7 +1561,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                     const SizedBox(height: 2),
                                     Text(
                                       isOutOfStock
-                                          ? 'نفد المخزون'
+                                          ? strings.quickPosOutOfStock
                                           : '${strings.quickPosAvailable}: ${QuantityUtils.formatMilliUnits(available)} ${product.product.unitLabel}',
                                       style: TextStyle(
                                         fontSize: 10,
@@ -1621,7 +1629,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                         ),
                         if (_cart.isNotEmpty)
                           Text(
-                            '${QuantityUtils.formatMilliUnits(_totalItemsCount * 1000)} صنف',
+                            strings.quickPosItemsCount(QuantityUtils.formatMilliUnits(_totalItemsCount * 1000)),
                             style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                           ),
                       ],
@@ -1756,7 +1764,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
 
                     // Payment Type Selection
                     Text(
-                      'طريقة السداد',
+                      strings.quickPosPaymentMethod,
                       style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
@@ -1783,27 +1791,33 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                   width: _paymentType == SalePaymentType.cash ? 2 : 1,
                                 ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.payments_rounded,
-                                    color: _paymentType == SalePaymentType.cash
-                                        ? AppColors.paymentGreen
-                                        : theme.colorScheme.onSurfaceVariant,
-                                    size: 20,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.payments_rounded,
+                                        color: _paymentType == SalePaymentType.cash
+                                            ? AppColors.paymentGreen
+                                            : theme.colorScheme.onSurfaceVariant,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        strings.quickPosCash,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: _paymentType == SalePaymentType.cash
+                                              ? AppColors.paymentGreen
+                                              : theme.colorScheme.onSurfaceVariant,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    strings.quickPosCash,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _paymentType == SalePaymentType.cash
-                                          ? AppColors.paymentGreen
-                                          : theme.colorScheme.onSurfaceVariant,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
@@ -1827,27 +1841,33 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                   width: _paymentType == SalePaymentType.credit ? 2 : 1,
                                 ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.account_circle_rounded,
-                                    color: _paymentType == SalePaymentType.credit
-                                        ? AppColors.debtRed
-                                        : theme.colorScheme.onSurfaceVariant,
-                                    size: 20,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.account_circle_rounded,
+                                        color: _paymentType == SalePaymentType.credit
+                                            ? AppColors.debtRed
+                                            : theme.colorScheme.onSurfaceVariant,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        strings.quickPosCredit,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: _paymentType == SalePaymentType.credit
+                                              ? AppColors.debtRed
+                                              : theme.colorScheme.onSurfaceVariant,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    strings.quickPosCredit,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _paymentType == SalePaymentType.credit
-                                          ? AppColors.debtRed
-                                          : theme.colorScheme.onSurfaceVariant,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
@@ -1914,7 +1934,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                     ),
                                     const SizedBox(width: 8),
                                     IconButton.filledTonal(
-                                      tooltip: 'عميل جديد',
+                                      tooltip: strings.addNewCustomer,
                                       icon: const Icon(Icons.person_add_alt_1_rounded),
                                       onPressed: () async {
                                         await Navigator.of(context).push(
@@ -1933,7 +1953,7 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'الرصيد الحالي: ${MoneyUtils.formatMoney(selectedCustomer.balancePiasters)}',
+                                        '${strings.currentBalance}: ${MoneyUtils.formatMoney(selectedCustomer.balancePiasters)}',
                                         style: TextStyle(
                                           color: selectedCustomer.hasDebt ? AppColors.debtRed : AppColors.paymentGreen,
                                           fontWeight: FontWeight.bold,
@@ -1994,64 +2014,77 @@ class _QuickPosScreenState extends ConsumerState<QuickPosScreen> {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            height: 54,
-                            child: OutlinedButton.icon(
-                              style: OutlinedButton.styleFrom(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                              ),
-                              onPressed: _cart.isEmpty || _saving
-                                  ? null
-                                  : _paymentType == SalePaymentType.cash
-                                      ? () => _checkout(const [], andPrint: true)
-                                      : customersAsync.whenOrNull(
-                                          data: (customers) => () => _checkout(customers, andPrint: true),
-                                        ),
-                              icon: const Icon(Icons.print_rounded),
-                              label: const Text('حفظ وطباعة', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: SizedBox(
-                            height: 54,
-                            child: FilledButton.icon(
-                              style: FilledButton.styleFrom(
-                                backgroundColor: _paymentType == SalePaymentType.cash
-                                    ? AppColors.paymentGreen
-                                    : theme.colorScheme.primary,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                              ),
-                              onPressed: _cart.isEmpty || _saving
-                                  ? null
-                                  : _paymentType == SalePaymentType.cash
-                                      ? () => _checkout(const [])
-                                      : customersAsync.whenOrNull(
-                                          data: (customers) => () => _checkout(customers),
-                                        ),
-                              icon: _saving
-                                  ? const SizedBox.square(
-                                      dimension: 18,
-                                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                                    )
-                                  : Icon(
-                                      _paymentType == SalePaymentType.cash
-                                          ? Icons.check_circle_outline_rounded
-                                          : Icons.save_rounded,
-                                    ),
-                              label: Text(
-                                _paymentType == SalePaymentType.cash ? 'استلام كاش' : 'تسجيل على الحساب',
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    Expanded(
+                      flex: 2,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 54,
+                              child: OutlinedButton.icon(
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                ),
+                                onPressed: _cart.isEmpty || _saving
+                                    ? null
+                                    : _paymentType == SalePaymentType.cash
+                                        ? () => _checkout(const [], andPrint: true)
+                                        : customersAsync.whenOrNull(
+                                            data: (customers) => () => _checkout(customers, andPrint: true),
+                                          ),
+                                icon: const Icon(Icons.print_rounded),
+                                label: Text(
+                                  strings.quickPosSaveAndPrint,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: SizedBox(
+                              height: 54,
+                              child: FilledButton.icon(
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: _paymentType == SalePaymentType.cash
+                                      ? AppColors.paymentGreen
+                                      : theme.colorScheme.primary,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                ),
+                                onPressed: _cart.isEmpty || _saving
+                                    ? null
+                                    : _paymentType == SalePaymentType.cash
+                                        ? () => _checkout(const [])
+                                        : customersAsync.whenOrNull(
+                                            data: (customers) => () => _checkout(customers),
+                                          ),
+                                icon: _saving
+                                    ? const SizedBox.square(
+                                        dimension: 18,
+                                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                      )
+                                    : Icon(
+                                        _paymentType == SalePaymentType.cash
+                                            ? Icons.check_circle_outline_rounded
+                                            : Icons.save_rounded,
+                                      ),
+                                label: Text(
+                                  _paymentType == SalePaymentType.cash
+                                      ? strings.quickPosReceiveCash
+                                      : strings.quickPosRecordOnAccount,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

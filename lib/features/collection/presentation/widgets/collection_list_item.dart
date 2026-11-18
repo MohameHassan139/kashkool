@@ -3,6 +3,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/money.dart';
 import '../../../../core/utils/phone.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/adaptive_text.dart';
 import '../../../customers/presentation/widgets/rating_badge.dart';
 import '../../domain/due_customer.dart';
 
@@ -114,15 +115,24 @@ class CollectionListItem extends StatelessWidget {
                   ),
                   // Debt Age
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                      color: isDark
+                          ? const Color(0xFF1E293B)
+                          : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.schedule_rounded, size: 14, color: AppColors.neutralGrey),
+                        const Icon(
+                          Icons.schedule_rounded,
+                          size: 14,
+                          color: AppColors.neutralGrey,
+                        ),
                         const SizedBox(width: 4),
                         Flexible(
                           child: Text(
@@ -130,7 +140,9 @@ class CollectionListItem extends StatelessWidget {
                                 ? l10n.oldestDebtToday
                                 : l10n.oldestDebtDays(item.oldestUnpaidAgeDays),
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
+                              color: isDark
+                                  ? const Color(0xFF94A3B8)
+                                  : const Color(0xFF475569),
                               fontWeight: FontWeight.w600,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -142,9 +154,14 @@ class CollectionListItem extends StatelessWidget {
 
                   // Last Reminder
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                      color: isDark
+                          ? const Color(0xFF1E293B)
+                          : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -161,12 +178,16 @@ class CollectionListItem extends StatelessWidget {
                         Flexible(
                           child: Text(
                             daysSinceReminder == null
-                              ? l10n.neverReminded
-                              : (daysSinceReminder == 0
-                                  ? l10n.lastReminderToday
-                                  : l10n.lastReminderDays(daysSinceReminder)),
+                                ? l10n.neverReminded
+                                : (daysSinceReminder == 0
+                                      ? l10n.lastReminderToday
+                                      : l10n.lastReminderDays(
+                                          daysSinceReminder,
+                                        )),
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
+                              color: isDark
+                                  ? const Color(0xFF94A3B8)
+                                  : const Color(0xFF475569),
                               fontWeight: FontWeight.w600,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -187,7 +208,9 @@ class CollectionListItem extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF25D366), // WhatsApp Brand Green
+                        backgroundColor: const Color(
+                          0xFF25D366,
+                        ), // WhatsApp Brand Green
                         foregroundColor: Colors.white,
                         minimumSize: const Size.fromHeight(48),
                         elevation: 0,
@@ -197,11 +220,13 @@ class CollectionListItem extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                       ),
                       icon: const Icon(Icons.chat_bubble_rounded, size: 20),
-                      label: Text(
+                      label: AdaptiveText(
                         l10n.sendWhatsApp,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
                       onPressed: onWhatsApp,
                     ),
@@ -213,7 +238,9 @@ class CollectionListItem extends StatelessWidget {
                     width: 42,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                      color: isDark
+                          ? const Color(0xFF1E293B)
+                          : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: IconButton(
@@ -231,7 +258,9 @@ class CollectionListItem extends StatelessWidget {
                     width: 42,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                      color: isDark
+                          ? const Color(0xFF1E293B)
+                          : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: IconButton(
@@ -249,7 +278,9 @@ class CollectionListItem extends StatelessWidget {
                     width: 42,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                      color: isDark
+                          ? const Color(0xFF1E293B)
+                          : const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: PopupMenuButton<String>(
@@ -262,9 +293,12 @@ class CollectionListItem extends StatelessWidget {
                           value: 'snooze_3',
                           child: Row(
                             children: [
-                              const Icon(Icons.snooze_rounded, color: AppColors.warningAmber),
+                              const Icon(
+                                Icons.snooze_rounded,
+                                color: AppColors.warningAmber,
+                              ),
                               const SizedBox(width: 8),
-                              Text(l10n.snooze3Days),
+                              Flexible(child: AdaptiveText(l10n.snooze3Days)),
                             ],
                           ),
                         ),
@@ -272,9 +306,12 @@ class CollectionListItem extends StatelessWidget {
                           value: 'snooze_7',
                           child: Row(
                             children: [
-                              const Icon(Icons.alarm_off_rounded, color: AppColors.warningAmber),
+                              const Icon(
+                                Icons.alarm_off_rounded,
+                                color: AppColors.warningAmber,
+                              ),
                               const SizedBox(width: 8),
-                              Text(l10n.snooze7Days),
+                              Flexible(child: AdaptiveText(l10n.snooze7Days)),
                             ],
                           ),
                         ),
@@ -283,14 +320,18 @@ class CollectionListItem extends StatelessWidget {
                           value: 'record_payment',
                           child: Row(
                             children: [
-                              const Icon(Icons.add_circle_outline_rounded,
-                                  color: AppColors.paymentGreen),
+                              const Icon(
+                                Icons.add_circle_outline_rounded,
+                                color: AppColors.paymentGreen,
+                              ),
                               const SizedBox(width: 8),
-                              Text(
-                                l10n.recordCollectionPayment,
-                                style: const TextStyle(
-                                  color: AppColors.paymentGreen,
-                                  fontWeight: FontWeight.bold,
+                              Flexible(
+                                child: AdaptiveText(
+                                  l10n.recordCollectionPayment,
+                                  style: const TextStyle(
+                                    color: AppColors.paymentGreen,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],

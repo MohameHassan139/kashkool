@@ -20,9 +20,14 @@ class ScaffoldWithNavBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final dueCustomersCount = ref.watch(dueCustomersStreamProvider).valueOrNull?.length ?? 0;
-    final isQuickPosEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.quickPos));
-    final isSuppliersEnabled = ref.watch(isFeatureEnabledProvider(AppFeature.suppliers));
+    final dueCustomersCount =
+        ref.watch(dueCustomersStreamProvider).valueOrNull?.length ?? 0;
+    final isQuickPosEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.quickPos),
+    );
+    final isSuppliersEnabled = ref.watch(
+      isFeatureEnabledProvider(AppFeature.suppliers),
+    );
 
     // Dynamic branches mapping
     final items = <_NavBranchItem>[
@@ -78,7 +83,9 @@ class ScaffoldWithNavBar extends ConsumerWidget {
       ),
     ];
 
-    int visibleIndex = items.indexWhere((item) => item.branchIndex == navigationShell.currentIndex);
+    int visibleIndex = items.indexWhere(
+      (item) => item.branchIndex == navigationShell.currentIndex,
+    );
     if (visibleIndex == -1) {
       final fallbackIndex = items.indexWhere((item) => item.branchIndex == 1);
       visibleIndex = fallbackIndex != -1 ? fallbackIndex : 0;
@@ -86,17 +93,34 @@ class ScaffoldWithNavBar extends ConsumerWidget {
 
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: visibleIndex,
-        onDestinationSelected: (idx) {
-          HapticFeedback.selectionClick();
-          final targetBranch = items[idx].branchIndex;
-          navigationShell.goBranch(
-            targetBranch,
-            initialLocation: targetBranch == navigationShell.currentIndex,
+      bottomNavigationBar: LayoutBuilder(
+        builder: (context, constraints) {
+          final navTheme = NavigationBarTheme.of(context);
+          final labelStyle = navTheme.labelTextStyle;
+          // Narrow phones need smaller nav labels so 4-5 localized
+          // destinations are not heavily truncated or overflowing.
+          final fontSize = constraints.maxWidth < 360 ? 11.0 : 13.0;
+          return NavigationBarTheme(
+            data: navTheme.copyWith(
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                return (labelStyle?.resolve(states) ?? const TextStyle())
+                    .copyWith(fontSize: fontSize);
+              }),
+            ),
+            child: NavigationBar(
+              selectedIndex: visibleIndex,
+              onDestinationSelected: (idx) {
+                HapticFeedback.selectionClick();
+                final targetBranch = items[idx].branchIndex;
+                navigationShell.goBranch(
+                  targetBranch,
+                  initialLocation: targetBranch == navigationShell.currentIndex,
+                );
+              },
+              destinations: items.map((e) => e.destination).toList(),
+            ),
           );
         },
-        destinations: items.map((e) => e.destination).toList(),
       ),
     );
   }
@@ -106,8 +130,5 @@ class _NavBranchItem {
   final int branchIndex;
   final NavigationDestination destination;
 
-  const _NavBranchItem({
-    required this.branchIndex,
-    required this.destination,
-  });
+  const _NavBranchItem({required this.branchIndex, required this.destination});
 }

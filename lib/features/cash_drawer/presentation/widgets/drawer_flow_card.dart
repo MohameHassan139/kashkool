@@ -3,6 +3,7 @@ import 'package:kashkool/core/constants/app_colors.dart';
 import 'package:kashkool/core/utils/money.dart';
 import 'package:kashkool/features/cash_drawer/domain/drawer_day_summary.dart';
 import 'package:kashkool/l10n/app_localizations.dart';
+import 'package:kashkool/shared/widgets/adaptive_text.dart';
 import 'add_cash_sales_bottom_sheet.dart';
 import 'add_expense_bottom_sheet.dart';
 import '../../../../l10n/l10n.dart';
@@ -36,7 +37,7 @@ class DrawerFlowCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: FilledButton.tonalIcon(
+                  child: FilledButton.tonal(
                     onPressed: isClosed
                         ? null
                         : () => AddCashSalesBottomSheet.show(
@@ -44,60 +45,80 @@ class DrawerFlowCard extends StatelessWidget {
                               date: summary.date,
                               currentSalesPiasters: summary.cashSalesPiasters,
                             ),
-                    icon: Icon(
-                      Icons.add_shopping_cart_rounded,
-                      size: 20,
-                      color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
-                    ),
-                    label: Text(
-                      l10n.addCashSales,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                     style: FilledButton.styleFrom(
                       minimumSize: const Size.fromHeight(52),
                       backgroundColor: isDark
                           ? const Color(0xFF064E3B).withValues(alpha: 0.5)
                           : AppColors.paymentGreenLight,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.add_shopping_cart_rounded,
+                          size: 20,
+                          color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
+                        ),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            l10n.addCashSales,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: isDark ? AppColors.paymentGreenDark : AppColors.paymentGreen,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: FilledButton.tonalIcon(
+                  child: FilledButton.tonal(
                     onPressed: isClosed
                         ? null
                         : () => AddExpenseBottomSheet.show(
                               context,
                               date: summary.date,
                             ),
-                    icon: Icon(
-                      Icons.receipt_long_rounded,
-                      size: 20,
-                      color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
-                    ),
-                    label: Text(
-                      l10n.addExpense,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                     style: FilledButton.styleFrom(
                       minimumSize: const Size.fromHeight(52),
                       backgroundColor: isDark
                           ? const Color(0xFF7F1D1D).withValues(alpha: 0.5)
                           : AppColors.debtRedLight,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.receipt_long_rounded,
+                          size: 20,
+                          color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                        ),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            l10n.addExpense,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: isDark ? AppColors.debtRedDark : AppColors.debtRed,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -300,9 +321,11 @@ class DrawerFlowCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Text(
-            MoneyUtils.formatMoney(amountPiasters),
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          Flexible(
+            child: AdaptiveAmountText(
+              MoneyUtils.formatMoney(amountPiasters),
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),

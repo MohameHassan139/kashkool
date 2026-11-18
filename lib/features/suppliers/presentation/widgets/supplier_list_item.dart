@@ -110,9 +110,12 @@ class SupplierListItem extends StatelessWidget {
                     ],
 
                     // Visit Day badge or phone
-                    Row(
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        if (visitDay != null) ...[
+                        if (visitDay != null)
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
@@ -125,18 +128,19 @@ class SupplierListItem extends StatelessWidget {
                                 color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569),
                                 fontWeight: FontWeight.w600,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const SizedBox(width: 8),
-                        ],
-                        if (item.supplier.phone != null) ...[
+                        if (item.supplier.phone != null)
                           Text(
                             PhoneUtils.formatDisplay(item.supplier.phone),
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.disabledColor,
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
                       ],
                     ),
                   ],
